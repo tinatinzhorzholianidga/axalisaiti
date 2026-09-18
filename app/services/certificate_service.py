@@ -48,9 +48,7 @@ def get_for_user_course(user: User, course: Course) -> Certificate | None:
 def eligible(course: Course, progress: CourseProgress | None) -> bool:
     if not course.certificate_enabled or progress is None or not progress.is_complete:
         return False
-    return not (
-        course.final_quiz and (progress.final_score or 0) < course.certificate_pass_percent
-    )
+    return not (course.final_quiz and (progress.final_score or 0) < course.certificate_pass_percent)
 
 
 def issue_for_completion(

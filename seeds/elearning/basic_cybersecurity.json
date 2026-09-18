@@ -1,0 +1,35 @@
+{
+  "slug": "basic-cybersecurity",
+  "categories": ["cybersecurity"],
+  "difficulty": "beginner",
+  "icon": "shield",
+  "color": "blue",
+  "estimated_minutes": 240,
+  "tags": ["basics", "passwords", "phishing", "social-media", "mobile"],
+  "is_featured": true,
+  "sort_order": 1,
+  "certificate_enabled": true,
+  "certificate_pass_percent": 70,
+  "title": {"ka": "კიბერუსაფრთხოების საბაზისო კურსი", "en": "Basic Cybersecurity Course"},
+  "short_description": {
+    "ka": "პერსონალური კომპიუტერის, პაროლების, ელფოსტის, სოციალური ქსელების, მობილური მოწყობილობებისა და მონაცემების უსაფრთხოება - ყველასთვის.",
+    "en": "Personal computer, password, email, social media, mobile and data security - for everyone."
+  },
+  "description": {
+    "ka": "<p>კურსი განკუთვნილია ყველასთვის, ვინც ყოველდღიურად იყენებს ინტერნეტს. ის მოიცავს კიბერჰიგიენის ძირითად წესებს: მოწყობილობების დაცვას, ძლიერ პაროლებსა და ავთენტიფიკაციას, ფიშინგისა და თაღლითობის ამოცნობას, სოციალური ქსელებისა და მობილური მოწყობილობების უსაფრთხო გამოყენებას, მონაცემების დაცვას, დეზინფორმაციისა და ხელოვნური ინტელექტით შექმნილი საფრთხეების ამოცნობას.</p>",
+    "en": "<p>This course is for everyone who uses the internet daily. It covers the fundamentals of cyber hygiene: protecting devices, strong passwords and authentication, recognising phishing and fraud, safe use of social media and mobile devices, data protection, and spotting disinformation and AI-driven threats. The lesson text is the official Georgian course material of elearning.gov.ge.</p>"
+  },
+  "objectives": {
+    "ka": ["ამოიცნო ყველაზე გავრცელებული კიბერსაფრთხეები", "დაიცვა კომპიუტერი, ტელეფონი და ანგარიშები", "შექმნა ძლიერი პაროლები და ჩართო ორფაქტორიანი ავთენტიფიკაცია", "უსაფრთხოდ იმუშაო ელფოსტასა და სოციალურ ქსელებში", "ამოიცნო დეზინფორმაცია და ხელოვნური ინტელექტით შექმნილი ყალბი კონტენტი"],
+    "en": ["Recognise the most common cyber threats", "Protect your computer, phone and accounts", "Create strong passwords and enable two-factor authentication", "Work safely with email and social media", "Spot disinformation and AI-generated fake content"]
+  },
+  "prerequisites": {"ka": ["კომპიუტერისა და ინტერნეტის საბაზისო გამოყენება"], "en": ["Basic computer and internet use"]},
+  "audience": {
+    "ka": "საჯარო მოხელეები, სტუდენტები და ყველა მომხმარებელი, ვისაც ციფრული უსაფრთხოების საფუძვლები სჭირდება.",
+    "en": "Public servants, students and every user who needs the fundamentals of digital safety."
+  },
+  "certificate_requirements": {
+    "ka": "ყველა გაკვეთილის გავლა და საბოლოო ტესტის ჩაბარება მინიმუმ 70%-ით.",
+    "en": "Complete every lesson and pass the final assessment with at least 70%."
+  }
+}

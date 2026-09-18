@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="{{ current_locale }}" data-theme="dark">
+<html lang="{{ current_locale }}" data-theme="dark"{% block html_attrs %}{% endblock %}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
   <title>{% block title %}{{ site_name }}{% endblock %}</title>
-  <script src="{{ url_for('static', filename='js/theme-init.js') }}"></script>
+  <meta name="description" content="{% block meta_description %}{{ _('Cybersecurity learning platform: structured courses, practical exercises and certificates.') }}{% endblock %}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
+  {% block head_theme %}<script src="{{ url_for('static', filename='js/theme-init.js') }}"></script>{% endblock %}
+  {% block styles %}
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/elearning.css') }}">
+  {% endblock %}
   {% block head %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -22,8 +27,10 @@
   {% block content %}{% endblock %}
 </main>
 {% block footer %}{% include "components/footer.html" %}{% endblock %}
+{% block base_scripts %}
 <script src="{{ url_for('static', filename='vendor/bootstrap/bootstrap.bundle.min.js') }}" defer></script>
 <script src="{{ url_for('static', filename='js/app.js') }}" type="module"></script>
+{% endblock %}
 {% block scripts %}{% endblock %}
 </body>
 </html>

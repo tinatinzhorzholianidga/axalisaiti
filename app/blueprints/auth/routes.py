@@ -145,7 +145,9 @@ def change_password():  # type: ignore[no-untyped-def]
     if form.validate_on_submit():
         try:
             auth_service.change_password(
-                current_user, form.current_password.data, form.password.data
+                current_user._get_current_object(),
+                form.current_password.data,
+                form.password.data,
             )
         except AuthError as exc:
             flash(str(exc), "error")

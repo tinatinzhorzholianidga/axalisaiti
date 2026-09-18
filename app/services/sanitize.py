@@ -59,7 +59,7 @@ ALLOWED_TAGS: set[str] = {
 
 ALLOWED_ATTRIBUTES: dict[str, set[str]] = {
     "*": {"class", "id", "lang", "dir", "title"},
-    "a": {"href", "rel", "target"},
+    "a": {"href", "target"},
     "img": {"src", "alt", "width", "height", "loading"},
     "td": {"colspan", "rowspan"},
     "th": {"colspan", "rowspan", "scope"},

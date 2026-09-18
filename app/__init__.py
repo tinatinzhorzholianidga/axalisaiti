@@ -134,6 +134,13 @@ def _register_context(app: Flask) -> None:
     template_helpers.register(app)
 
     @app.before_request
+    def _reset_request_caches() -> None:
+        # ``g`` is per app-context; the test client reuses a pushed context, so
+        # clear per-request caches explicitly (harmless in production).
+        for key in ("csrf_token", "site_settings", "feature_flags"):
+            g.pop(key, None)
+
+    @app.before_request
     def _persist_locale_choice() -> None:
         lang = request.args.get("lang")
         if lang in app.config["LANGUAGES"]:

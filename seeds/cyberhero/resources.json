@@ -1,0 +1,306 @@
+[
+  {
+    "kind": "emergency_contact",
+    "slug": "emergency-112",
+    "sort_order": 1,
+    "emoji": "🚨",
+    "color": "pink",
+    "contact_value": "112",
+    "is_verified": true,
+    "title": {"en": "112 - Georgia emergency service", "ka": "112 - საქართველოს გადაუდებელი დახმარების სამსახური"},
+    "summary": {
+      "en": "Call 112 when there is a threat to someone's safety, a crime is happening (blackmail, threats, fraud), or you do not know who else to call. It is free, 24/7, and the operator will route you to the police.",
+      "ka": "დარეკეთ 112-ზე, როცა ვინმეს უსაფრთხოებას საფრთხე ემუქრება, დანაშაული ხდება (შანტაჟი, მუქარა, თაღლითობა) ან არ იცით, ვის მიმართოთ. ზარი უფასოა, 24/7, ოპერატორი პოლიციასთან დაგაკავშირებთ."
+    },
+    "body": {"en": "", "ka": ""},
+    "steps": {"en": [], "ka": []}
+  },
+  {
+    "kind": "emergency_contact",
+    "slug": "cert-gov-ge",
+    "sort_order": 2,
+    "emoji": "🛠️",
+    "color": "cyan",
+    "contact_value": "https://cert.gov.ge",
+    "is_verified": true,
+    "title": {"en": "CERT.GOV.GE - technical cyber incidents", "ka": "CERT.GOV.GE - ტექნიკური კიბერინციდენტები"},
+    "summary": {
+      "en": "For hacked accounts or devices, malware and other technical incidents you can report to the national computer emergency response team.",
+      "ka": "გატეხილი ანგარიშების ან მოწყობილობების, მავნე პროგრამებისა და სხვა ტექნიკური ინციდენტების შესატყობინებლად მიმართეთ ეროვნულ კომპიუტერულ ინციდენტებზე რეაგირების ჯგუფს."
+    },
+    "body": {"en": "", "ka": ""},
+    "steps": {"en": [], "ka": []}
+  },
+  {
+    "kind": "playbook",
+    "slug": "child-receives-threat",
+    "sort_order": 1,
+    "emoji": "⚠️",
+    "color": "amber",
+    "contact_value": "",
+    "is_verified": true,
+    "title": {"en": "Your child receives a threat", "ka": "თქვენს შვილს ემუქრებიან"},
+    "summary": {
+      "en": "A message says something bad will happen unless the child does what the sender wants. Threats work through panic - your job is to take the panic away.",
+      "ka": "შეტყობინება ამბობს, რომ რაღაც ცუდი მოხდება, თუ ბავშვი გამომგზავნის სურვილს არ შეასრულებს. მუქარა პანიკით მუშაობს - თქვენი საქმე პანიკის მოხსნაა."
+    },
+    "body": {
+      "en": "<p>Stay calm in front of the child. The most important sentence you can say is: <strong>\"You did the right thing by telling me. This is not your fault.\"</strong> A child who is blamed will stop talking, and silence is exactly what the person threatening them needs.</p><p>Most threats are bluffs from people who send the same message to hundreds of accounts. Do not reply, do not pay, do not delete anything.</p>",
+      "ka": "<p>ბავშვის თანდასწრებით სიმშვიდე შეინარჩუნეთ. ყველაზე მნიშვნელოვანი წინადადება, რომელიც შეგიძლიათ თქვათ: <strong>„სწორად მოიქეცი, რომ მითხარი. ეს შენი ბრალი არ არის.“</strong> ბავშვი, რომელსაც საყვედურობენ, საუბარს წყვეტს, დუმილი კი სწორედ ის არის, რაც მომუქრებელს სჭირდება.</p><p>მუქარების უმეტესობა ბლეფია იმ ადამიანებისგან, რომლებიც ერთსა და იმავე შეტყობინებას ასობით ანგარიშს უგზავნიან. არ უპასუხოთ, არ გადაიხადოთ, არაფერი წაშალოთ.</p>"
+    },
+    "steps": {
+      "en": [
+        "Thank the child for telling you and say clearly that they are not in trouble.",
+        "Take screenshots of the messages, the profile and the profile URL. Do not delete the conversation.",
+        "Do not reply and do not pay - block the account after the evidence is saved.",
+        "Report the account inside the app (Instagram, TikTok, Facebook, Snapchat all have a report button).",
+        "If the threat involves violence, money or intimate images, call 112 - this is a crime, not a family problem.",
+        "Tell the school if classmates are involved so the child is protected there too.",
+        "Check in with the child over the next days - the fear fades much faster when they are not alone."
+      ],
+      "ka": [
+        "მადლობა უთხარით ბავშვს, რომ გითხრათ, და ნათლად თქვით, რომ ის არ დაისჯება.",
+        "გადაუღეთ სქრინშოტები შეტყობინებებს, პროფილს და პროფილის ბმულს. მიმოწერა არ წაშალოთ.",
+        "არ უპასუხოთ და არ გადაიხადოთ - ანგარიში მტკიცებულების შენახვის შემდეგ დაბლოკეთ.",
+        "დაარეპორტეთ ანგარიში აპშივე (Instagram-ს, TikTok-ს, Facebook-ს, Snapchat-ს ყველას აქვს რეპორტის ღილაკი).",
+        "თუ მუქარა ძალადობას, ფულს ან ინტიმურ ფოტოებს ეხება, დარეკეთ 112-ზე - ეს დანაშაულია და არა ოჯახური პრობლემა.",
+        "თუ თანაკლასელები არიან ჩართული, შეატყობინეთ სკოლას, რომ ბავშვი იქაც დაცული იყოს.",
+        "მომდევნო დღეებში ბავშვს ყურადღება მიაქციეთ - შიში ბევრად სწრაფად ქრება, როცა ის მარტო არ არის."
+      ]
+    }
+  },
+  {
+    "kind": "playbook",
+    "slug": "account-compromised",
+    "sort_order": 2,
+    "emoji": "🔐",
+    "color": "blue",
+    "contact_value": "",
+    "is_verified": true,
+    "title": {"en": "An account has been hacked", "ka": "ანგარიში გატეხილია"},
+    "summary": {
+      "en": "Someone else is posting, messaging or has changed the password. Speed matters in the first hours - but it is fixable.",
+      "ka": "ვიღაც სხვა პოსტავს, წერს ან პაროლი შეცვალა. პირველ საათებში სისწრაფე მნიშვნელოვანია - მაგრამ ეს გამოსწორებადია."
+    },
+    "body": {
+      "en": "<p>Start with the email account, because every other password can be reset through it. Then move to the account that was taken over. Warn friends that messages from the account may be fake - hijacked accounts are often used to scam the contact list.</p>",
+      "ka": "<p>დაიწყეთ ელფოსტის ანგარიშით, რადგან ყველა სხვა პაროლი მისი მეშვეობით აღდგება. შემდეგ გადადით იმ ანგარიშზე, რომელიც წაართვეს. გააფრთხილეთ მეგობრები, რომ ანგარიშიდან მოსული შეტყობინებები შეიძლება ყალბი იყოს - მიტაცებულ ანგარიშებს ხშირად კონტაქტების მოსატყუებლად იყენებენ.</p>"
+    },
+    "steps": {
+      "en": [
+        "Change the password of the linked email account first, from a device you trust.",
+        "Use the platform's \"forgot password\" or \"my account was hacked\" flow to regain the account.",
+        "Turn on two-factor authentication on the email and on the recovered account.",
+        "Sign out of all devices in the account's security settings and review recent logins.",
+        "Post or message friends: \"my account was hacked - ignore links or money requests from it\".",
+        "Check other accounts that used the same password and change them too.",
+        "If money was stolen or the account is used for fraud, report it to 112 and, for technical help, to CERT.GOV.GE."
+      ],
+      "ka": [
+        "ჯერ დაკავშირებული ელფოსტის პაროლი შეცვალეთ სანდო მოწყობილობიდან.",
+        "გამოიყენეთ პლატფორმის „პაროლი დამავიწყდა“ ან „ჩემი ანგარიში გატეხეს“ პროცედურა ანგარიშის დასაბრუნებლად.",
+        "ჩართეთ ორფაქტორიანი ავთენტიფიკაცია ელფოსტაზეც და დაბრუნებულ ანგარიშზეც.",
+        "უსაფრთხოების პარამეტრებში გამოდით ყველა მოწყობილობიდან და გადახედეთ ბოლო შესვლებს.",
+        "დაწერეთ მეგობრებს: „ჩემი ანგარიში გატეხეს - ბმულებსა და ფულის თხოვნას ყურადღება არ მიაქციოთ“.",
+        "შეამოწმეთ სხვა ანგარიშები, სადაც იგივე პაროლი გქონდათ, და ისინიც შეცვალეთ.",
+        "თუ ფული მოიპარეს ან ანგარიშს თაღლითობისთვის იყენებენ, შეატყობინეთ 112-ს, ტექნიკური დახმარებისთვის კი - CERT.GOV.GE-ს."
+      ]
+    }
+  },
+  {
+    "kind": "playbook",
+    "slug": "sextortion",
+    "sort_order": 3,
+    "emoji": "🛑",
+    "color": "pink",
+    "contact_value": "",
+    "is_verified": true,
+    "title": {"en": "Sextortion: someone threatens to share intimate images", "ka": "სექსტორცია: ვინმე ინტიმური ფოტოების გავრცელებით ემუქრება"},
+    "summary": {
+      "en": "A child shared an image, or is told one exists, and is now being pressured for money or more images. This is a crime committed against the child - never by the child.",
+      "ka": "ბავშვმა ფოტო გააზიარა ან ეუბნებიან, რომ ასეთი ფოტო არსებობს, და ახლა ფულს ან მეტ ფოტოს სთხოვენ. ეს ბავშვის წინააღმდეგ ჩადენილი დანაშაულია - არასდროს ბავშვის მიერ."
+    },
+    "body": {
+      "en": "<p>Children stay silent because they expect punishment. The single most protective thing a parent can do is to react with calm and support: <strong>\"I'm glad you told me. We will handle this together.\"</strong></p><p>Paying never ends it - it proves the threat works. In almost every case the person is a scammer operating from far away who moves on when the panic stops.</p>",
+      "ka": "<p>ბავშვები დუმან, რადგან დასჯას ელიან. ყველაზე დამცავი, რაც მშობელს შეუძლია, სიმშვიდე და მხარდაჭერაა: <strong>„მიხარია, რომ მითხარი. ამას ერთად მოვაგვარებთ.“</strong></p><p>გადახდა ამას არასდროს ამთავრებს - ის ამტკიცებს, რომ მუქარა მუშაობს. თითქმის ყველა შემთხვევაში ეს შორიდან მოქმედი თაღლითია, რომელიც პანიკის შეწყვეტისთანავე სხვაზე გადადის.</p>"
+    },
+    "steps": {
+      "en": [
+        "Say out loud that the child is not at fault and will not be punished.",
+        "Do not pay and do not send anything more, whatever the deadline says.",
+        "Save evidence: screenshots of the profile, the messages and any payment details demanded.",
+        "Stop responding and block the account - but do not delete the chat.",
+        "Report the account to the platform and call 112: this is extortion, a crime the police handle.",
+        "If an image may be online, use the platform's removal tools for minors (for example the Take It Down service run by NCMEC) and keep the case number.",
+        "Support comes first for weeks afterwards - consider a school counsellor or psychologist if the child struggles to sleep or eat."
+      ],
+      "ka": [
+        "ხმამაღლა თქვით, რომ ბავშვი დამნაშავე არ არის და არ დაისჯება.",
+        "არ გადაიხადოთ და მეტი არაფერი გაუგზავნოთ, რაც უნდა წერდეს ვადაზე.",
+        "შეინახეთ მტკიცებულება: პროფილის, შეტყობინებებისა და მოთხოვნილი გადახდის დეტალების სქრინშოტები.",
+        "შეწყვიტეთ პასუხი და დაბლოკეთ ანგარიში - მაგრამ მიმოწერა არ წაშალოთ.",
+        "დაარეპორტეთ ანგარიში პლატფორმაზე და დარეკეთ 112-ზე: ეს გამოძალვაა, დანაშაული, რომელსაც პოლიცია იძიებს.",
+        "თუ ფოტო შესაძლოა ონლაინ იყოს, გამოიყენეთ პლატფორმების წაშლის ინსტრუმენტები არასრულწლოვნებისთვის (მაგალითად, NCMEC-ის სერვისი Take It Down) და შეინახეთ საქმის ნომერი.",
+        "მხარდაჭერა კვირების განმავლობაში პირველ ადგილზეა - თუ ბავშვს ძილი ან ჭამა უჭირს, მიმართეთ სკოლის ფსიქოლოგს."
+      ]
+    }
+  },
+  {
+    "kind": "playbook",
+    "slug": "cyberbullying",
+    "sort_order": 4,
+    "emoji": "🗣️",
+    "color": "violet",
+    "contact_value": "",
+    "is_verified": true,
+    "title": {"en": "Cyberbullying", "ka": "კიბერბულინგი"},
+    "summary": {
+      "en": "Repeated insults, exclusion, edited photos or a group chat turning on one child. It follows them home, so it needs adults on both sides - family and school.",
+      "ka": "განმეორებითი შეურაცხყოფა, გარიყვა, დამონტაჟებული ფოტოები ან ჯგუფური ჩატი, რომელიც ერთ ბავშვს დაერევა. ეს სახლამდე მიჰყვება, ამიტომ ორივე მხარეს უფროსები სჭირდება - ოჯახსაც და სკოლასაც."
+    },
+    "body": {
+      "en": "<p>Do not take the phone away as a first reaction - the child will read it as punishment for telling you and will lose contact with the friends who support them. Document, report, involve the school, and keep the child's daily life as normal as possible.</p>",
+      "ka": "<p>პირველ რეაგირებად ტელეფონი არ წაართვათ - ბავშვი ამას იმის დასჯად აღიქვამს, რომ გითხრათ, და დაკარგავს კავშირს იმ მეგობრებთან, ვინც მხარს უჭერს. დააფიქსირეთ, დაარეპორტეთ, ჩართეთ სკოლა და ბავშვის ყოველდღიური ცხოვრება მაქსიმალურად ჩვეულებრივი შეინარჩუნეთ.</p>"
+    },
+    "steps": {
+      "en": [
+        "Listen first; ask what the child wants to happen before deciding anything.",
+        "Save screenshots with dates, usernames and group names.",
+        "Report the posts and accounts inside each app; ask the group admin to remove content.",
+        "Mute or block the accounts together with the child - it is their choice how much to see.",
+        "Contact the class teacher or school safeguarding lead in writing with the evidence.",
+        "If there are threats of violence or intimate images, call 112.",
+        "Plan something with real friends this week - connection is the fastest recovery."
+      ],
+      "ka": [
+        "ჯერ მოუსმინეთ; სანამ რამეს გადაწყვეტთ, ჰკითხეთ, რა უნდა ბავშვს, რომ მოხდეს.",
+        "შეინახეთ სქრინშოტები თარიღებით, მომხმარებლის სახელებითა და ჯგუფების სახელებით.",
+        "დაარეპორტეთ პოსტები და ანგარიშები თითოეულ აპში; სთხოვეთ ჯგუფის ადმინს კონტენტის წაშლა.",
+        "ბავშვთან ერთად დაადუმეთ ან დაბლოკეთ ანგარიშები - მისი არჩევანია, რამდენს ნახავს.",
+        "წერილობით მიმართეთ კლასის მასწავლებელს ან სკოლის დაცვის პასუხისმგებელ პირს მტკიცებულებებით.",
+        "თუ ძალადობის მუქარა ან ინტიმური ფოტოებია, დარეკეთ 112-ზე.",
+        "ამ კვირაში ნამდვილ მეგობრებთან რაიმე დაგეგმეთ - კავშირი ყველაზე სწრაფი გამოჯანმრთელებაა."
+      ]
+    }
+  },
+  {
+    "kind": "playbook",
+    "slug": "grooming-contact",
+    "sort_order": 5,
+    "emoji": "🚩",
+    "color": "orange",
+    "contact_value": "",
+    "is_verified": true,
+    "title": {"en": "An adult is contacting your child", "ka": "თქვენს შვილს უფროსი უკავშირდება"},
+    "summary": {
+      "en": "A stranger who flatters, gives gifts, asks for secrecy or wants to move to a private app. Trust the child's instinct - and yours.",
+      "ka": "უცნობი, რომელიც აქებს, საჩუქრებს სთავაზობს, საიდუმლოებას ითხოვს ან პრივატულ აპზე გადასვლა უნდა. ენდეთ ბავშვის ინსტინქტს - და თქვენსას."
+    },
+    "body": {
+      "en": "<p>Grooming builds trust slowly, so the child may defend the \"friend\". Do not argue about the person - focus on the pattern: secrecy, gifts, moving apps, asking for photos. Save everything before blocking, because the police can only act on what exists.</p>",
+      "ka": "<p>გრუმინგი ნდობას ნელა აშენებს, ამიტომ ბავშვმა შეიძლება „მეგობარი“ დაიცვას. ადამიანზე ნუ იკამათებთ - ყურადღება სქემას მიაქციეთ: საიდუმლოება, საჩუქრები, აპების შეცვლა, ფოტოების თხოვნა. დაბლოკვამდე ყველაფერი შეინახეთ, რადგან პოლიციას მხოლოდ იმაზე შეუძლია მოქმედება, რაც არსებობს.</p>"
+    },
+    "steps": {
+      "en": [
+        "Stay calm and curious: \"tell me about this person\" works better than accusations.",
+        "Screenshot the profile, the messages and any requests for photos, meetings or secrecy.",
+        "Do not let the child meet the person, and do not contact the person yourself.",
+        "Report the account to the platform as grooming / child safety.",
+        "Call 112 - contact from an adult seeking images or meetings with a minor is a police matter.",
+        "Check the child's other accounts for the same person under different names.",
+        "Reassure the child repeatedly: the adult broke the rules, not them."
+      ],
+      "ka": [
+        "დარჩით მშვიდი და ცნობისმოყვარე: „მომიყევი ამ ადამიანზე“ ბრალდებაზე უკეთ მუშაობს.",
+        "გადაუღეთ სქრინშოტი პროფილს, შეტყობინებებს და ფოტოების, შეხვედრის ან საიდუმლოების ნებისმიერ თხოვნას.",
+        "არ დაუშვათ, რომ ბავშვი ამ ადამიანს შეხვდეს, და თავად ნუ დაუკავშირდებით მას.",
+        "დაარეპორტეთ ანგარიში პლატფორმაზე როგორც გრუმინგი / ბავშვთა უსაფრთხოება.",
+        "დარეკეთ 112-ზე - უფროსის კონტაქტი, რომელიც არასრულწლოვნისგან ფოტოებს ან შეხვედრას ითხოვს, პოლიციის საქმეა.",
+        "შეამოწმეთ ბავშვის სხვა ანგარიშები - იგივე ადამიანი სხვა სახელით ხომ არ არის.",
+        "განმეორებით დაამშვიდეთ ბავშვი: წესები უფროსმა დაარღვია და არა მან."
+      ]
+    }
+  },
+  {
+    "kind": "playbook",
+    "slug": "scam-or-fraud",
+    "sort_order": 6,
+    "emoji": "📡",
+    "color": "cyan",
+    "contact_value": "",
+    "is_verified": true,
+    "title": {"en": "Money was lost to a scam", "ka": "ფული თაღლითობით დაიკარგა"},
+    "summary": {
+      "en": "A fake shop, a gift-card trick, an in-game \"deal\" or a bank SMS that was not from the bank. Act fast with the bank, then report.",
+      "ka": "ყალბი მაღაზია, სასაჩუქრე ბარათის ხრიკი, თამაშში „შემოთავაზება“ ან საბანკო SMS, რომელიც ბანკისგან არ იყო. სწრაფად იმოქმედეთ ბანკთან, შემდეგ დაარეპორტეთ."
+    },
+    "body": {
+      "en": "<p>Banks can often stop or reverse a card payment if you call quickly. Do not be embarrassed - these scams are designed by professionals and catch adults every day. The child's willingness to tell you is worth more than the money.</p>",
+      "ka": "<p>ბანკებს ხშირად შეუძლიათ ბარათით გადახდის შეჩერება ან უკან დაბრუნება, თუ სწრაფად დარეკავთ. ნუ დაირცხვენთ - ეს სქემები პროფესიონალებმა შექმნეს და ყოველდღე უფროსებსაც აბამენ. ბავშვის მზადყოფნა, რომ გითხრათ, ფულზე მეტი ღირს.</p>"
+    },
+    "steps": {
+      "en": [
+        "Call the bank on the number printed on the card and ask to block the card and dispute the payment.",
+        "Change the passwords of any account whose details were typed into the fake site.",
+        "Save the messages, the website address and the receipt or transfer details.",
+        "Report the shop, seller or account inside the app or marketplace.",
+        "Report the fraud to 112 or through police.ge; larger amounts always deserve a report.",
+        "Warn friends and family if the scam came through a hacked contact.",
+        "Turn the loss into a lesson without blame: replay the Scam Radar mission together."
+      ],
+      "ka": [
+        "დარეკეთ ბანკში ბარათზე დაბეჭდილ ნომერზე და მოითხოვეთ ბარათის დაბლოკვა და გადახდის გასაჩივრება.",
+        "შეცვალეთ ყველა იმ ანგარიშის პაროლი, რომლის მონაცემებიც ყალბ საიტზე ჩაიწერა.",
+        "შეინახეთ შეტყობინებები, ვებგვერდის მისამართი და ქვითარი ან გადარიცხვის დეტალები.",
+        "დაარეპორტეთ მაღაზია, გამყიდველი ან ანგარიში აპში ან პლატფორმაზე.",
+        "შეატყობინეთ თაღლითობა 112-ს ან police.ge-ს მეშვეობით; დიდი თანხები ყოველთვის იმსახურებს განცხადებას.",
+        "გააფრთხილეთ მეგობრები და ოჯახი, თუ თაღლითობა გატეხილი კონტაქტიდან მოვიდა.",
+        "დანაკარგი საყვედურის გარეშე გაკვეთილად აქციეთ: ერთად გაიარეთ მისია „თაღლითობის რადარი“."
+      ]
+    }
+  },
+  {
+    "kind": "guide",
+    "slug": "parent-quick-start",
+    "sort_order": 1,
+    "emoji": "🧭",
+    "color": "amber",
+    "contact_value": "",
+    "is_verified": true,
+    "title": {"en": "Quick start for parents", "ka": "სწრაფი დასაწყისი მშობლებისთვის"},
+    "summary": {
+      "en": "How to use CyberHero with your child in one evening.",
+      "ka": "როგორ გამოიყენოთ CyberHero შვილთან ერთად ერთ საღამოში."
+    },
+    "body": {
+      "en": "<p>You do not need to be technical. Read one article from \"Understand the risks\", then sit next to your teen while they play one mission - the mission ends with takeaways you can discuss at dinner. Finish with the Family Media Agreement.</p>",
+      "ka": "<p>ტექნიკური ცოდნა არ გჭირდებათ. წაიკითხეთ ერთი სტატია „გაიგეთ რისკები“ განყოფილებიდან, შემდეგ დაუჯექით მოზარდს გვერდით, სანამ ის ერთ მისიას თამაშობს - მისია მთავარი დასკვნებით მთავრდება, რომლებზეც ვახშამზე ისაუბრებთ. დაასრულეთ ოჯახური მედია-შეთანხმებით.</p>"
+    },
+    "steps": {
+      "en": ["Read article A1 (6 minutes).", "Play mission 1, Phishing Hunter, together.", "Print and fill in the Family Media Agreement.", "Save 112 and the emergency playbook page."],
+      "ka": ["წაიკითხეთ სტატია A1 (6 წუთი).", "ერთად ითამაშეთ 1-ლი მისია „ფიშინგზე მონადირე“.", "დაბეჭდეთ და შეავსეთ ოჯახური მედია-შეთანხმება.", "შეინახეთ 112 და საგანგებო სამოქმედო გვერდი."]
+    }
+  },
+  {
+    "kind": "guide",
+    "slug": "teacher-quick-start",
+    "sort_order": 2,
+    "emoji": "🏫",
+    "color": "green",
+    "contact_value": "",
+    "is_verified": true,
+    "title": {"en": "Quick start for teachers", "ka": "სწრაფი დასაწყისი მასწავლებლებისთვის"},
+    "summary": {
+      "en": "A 45-minute lesson built on one Guardian mission.",
+      "ka": "45-წუთიანი გაკვეთილი ერთ დამცველის მისიაზე."
+    },
+    "body": {
+      "en": "<p>Missions work on a projector with the whole class voting, or individually on phones. Article C2 has ready-made classroom activities for each mission; article C3 explains what to do when a student discloses a problem during the lesson.</p>",
+      "ka": "<p>მისიები მუშაობს პროექტორზე, როცა მთელი კლასი კენჭს ყრის, ან ინდივიდუალურად ტელეფონებზე. სტატია C2 თითოეული მისიისთვის მზა საკლასო აქტივობებს შეიცავს; სტატია C3 განმარტავს, რა გააკეთოთ, როცა მოსწავლე გაკვეთილზე პრობლემას გაანდობს.</p>"
+    },
+    "steps": {
+      "en": ["Read C2 and pick one mission.", "Play the briefing and theory on the projector (10 min).", "Students play the rounds, class discusses each answer (25 min).", "Debrief with the takeaways and hand out the parents' article link (10 min)."],
+      "ka": ["წაიკითხეთ C2 და აირჩიეთ ერთი მისია.", "პროექტორზე გაიარეთ ბრიფინგი და თეორია (10 წთ).", "მოსწავლეები რაუნდებს თამაშობენ, კლასი თითოეულ პასუხს განიხილავს (25 წთ).", "შეაჯამეთ მთავარი დასკვნებით და მშობლებისთვის სტატიის ბმული დაურიგეთ (10 წთ)."]
+    }
+  }
+]

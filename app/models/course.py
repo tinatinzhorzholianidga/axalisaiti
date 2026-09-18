@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import (
     Boolean,
@@ -28,6 +29,11 @@ from app.models.base import (
     TimestampMixin,
     str_enum,
 )
+
+if TYPE_CHECKING:
+    from app.models.assessment import Quiz
+    from app.models.assignment import Assignment
+    from app.models.cyberhero import CyberMission
 
 course_categories = Table(
     "course_categories",
@@ -167,13 +173,13 @@ class Course(TranslatedMixin, TimestampMixin, db.Model):
     created_by = relationship("User", foreign_keys=[created_by_id])
     cover = relationship("MediaFile", foreign_keys=[cover_media_id])
     cyber_track = relationship("CyberTrack", back_populates="courses")
-    quizzes: Mapped[list] = relationship(
+    quizzes: Mapped[list[Quiz]] = relationship(
         "Quiz", back_populates="course", cascade="all, delete-orphan"
     )
-    assignments: Mapped[list] = relationship(
+    assignments: Mapped[list[Assignment]] = relationship(
         "Assignment", back_populates="course", cascade="all, delete-orphan"
     )
-    missions: Mapped[list] = relationship(
+    missions: Mapped[list[CyberMission]] = relationship(
         "CyberMission", back_populates="course", order_by="CyberMission.sort_order"
     )
 

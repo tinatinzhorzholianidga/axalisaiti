@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+{% block title %}CyberHero · კიბერგმირი · {{ site_name }}{% endblock %}
+{% block html_attrs %} data-product="cyberhero"{% endblock %}
+{% block head_theme %}{% endblock %}
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+  {% for href in assets.css %}<link rel="stylesheet" href="{{ href }}">{% endfor %}
+  {% for href in assets.preload %}<link rel="modulepreload" href="{{ href }}">{% endfor %}
+{% endblock %}
+{% block body_class %}cyberhero-body{% endblock %}
+{% block navbar %}{% endblock %}
+{% block main_class %}cyberhero-main{% endblock %}
+{% block content %}
+{% if bundle_missing %}
+<div class="cyberhero-unbuilt" role="alert">
+  <h1>CyberHero</h1>
+  <p>{{ _('The CyberHero interface has not been built yet. Run "npm run build" in the cyberhero/ directory.') }}</p>
+  <p><a href="{{ url_for('main.home') }}">{{ _('Back to eLearning') }}</a></p>
+</div>
+{% else %}
+<div id="cyberhero-root" class="cyberhero-root"
+     data-basename="/cyberhero"
+     data-locale="{{ locale }}"
+     data-api-base="/api/v1/cyberhero"
+     data-static-base="{{ url_for('static', filename='cyberhero') }}"
+     data-site-base="{{ url_for('main.home') }}"
+     data-login-url="{{ login_url }}"
+     data-user-name="{{ user_name }}"
+     data-user-id="{{ user_id }}"
+     data-flags='{{ flags_json }}'
+     data-emergency-phone="{{ emergency_phone }}"
+     data-cybercrime-contact="{{ cybercrime_contact }}"
+     data-help-line="{{ help_line }}"
+     data-tutor-model-url="{{ tutor_model_url }}"
+     data-lang-switch-ka="{{ lang_switch_ka }}"
+     data-lang-switch-en="{{ lang_switch_en }}">
+  <noscript><p class="cyberhero-noscript">{{ _('CyberHero needs JavaScript to run.') }}</p></noscript>
+</div>
+{% endif %}
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block base_scripts %}{% endblock %}
+{% block scripts %}
+  {% for src in assets.js %}<script type="module" src="{{ src }}"></script>{% endfor %}
+{% endblock %}

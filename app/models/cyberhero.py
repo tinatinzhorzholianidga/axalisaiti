@@ -1,162 +1,173 @@
-"""CyberHero-specific content: tracks, missions, rounds, questions, branching
-conversations, articles, mascot tips, safety resources, progress and
-certificates. Courses with ``platform = cyberhero`` reuse the shared Course /
-Module / Lesson models and link to a track."""
+"""CyberHero-specific content.
+
+The structures mirror the CyberHero content contract (tiers, missions built
+from four round engines, parent/teacher articles made of blocks, the family
+media agreement, mascot tips and the IO knowledge base). Every text field is
+bilingual (``*_ka`` / ``*_en``). Courses with ``platform = cyberhero`` reuse
+the shared Course / Module / Lesson models and link to a track.
+"""
 
 from __future__ import annotations
 
 from datetime import datetime
+from typing import TYPE_CHECKING
 
-from sqlalchemy import (
-    Boolean,
-    Column,
-    DateTime,
-    Float,
-    ForeignKey,
-    Integer,
-    String,
-    Table,
-    Text,
-    UniqueConstraint,
-)
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.extensions import db
-from app.models.base import TimestampMixin, utcnow
-from app.models.course import TranslatedMixin
+from app.models.base import JSONType, TimestampMixin, utcnow
 
-cyber_article_missions = Table(
-    "cyber_article_missions",
-    db.metadata,
-    Column("article_id", ForeignKey("cyber_articles.id", ondelete="CASCADE"), primary_key=True),
-    Column("mission_id", ForeignKey("cyber_missions.id", ondelete="CASCADE"), primary_key=True),
-)
+if TYPE_CHECKING:
+    from app.models.course import Course
+
+TONES = ("blue", "cyan", "green", "pink", "amber", "violet", "orange", "accent")
 
 
-class CyberTrack(TranslatedMixin, TimestampMixin, db.Model):
-    """An age/audience track such as *Cyber Guardians* (10–14) or *Teachers & Parents*."""
+class BilingualMixin:
+    """``obj.text("field", locale)`` with Georgian fallback and ``obj.pair("field")``."""
+
+    def text(self, field: str, locale: str = "ka") -> str:
+        value = getattr(self, f"{field}_{locale}", None) or getattr(self, f"{field}_ka", None)
+        return value or ""
+
+    def pair(self, field: str) -> dict[str, str]:
+        return {
+            "en": getattr(self, f"{field}_en", "") or "",
+            "ka": getattr(self, f"{field}_ka", "") or "",
+        }
+
+
+class CyberTrack(BilingualMixin, TimestampMixin, db.Model):
+    """An age track ("tier") such as Cyber Guardians or Teachers & Parents."""
 
     __tablename__ = "cyber_tracks"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     slug: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    age_min: Mapped[int | None] = mapped_column(Integer)
-    age_max: Mapped[int | None] = mapped_column(Integer)
-    audience: Mapped[str] = mapped_column(
-        String(20), default="kids", nullable=False
-    )  # kids|teens|adults
-    color: Mapped[str] = mapped_column(String(16), default="violet", nullable=False)
-    icon: Mapped[str] = mapped_column(String(40), default="shield", nullable=False)
-    character: Mapped[str] = mapped_column(String(20), default="io", nullable=False)  # io|hero|none
+    emoji: Mapped[str] = mapped_column(String(16), default="🛡️", nullable=False)
+    color: Mapped[str] = mapped_column(String(16), default="blue", nullable=False)  # tone name
+    audience: Mapped[str] = mapped_column(String(20), default="kids", nullable=False)
+    route: Mapped[str | None] = mapped_column(String(80))  # e.g. /guardians when active
+    is_active: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    is_featured: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    certificate_enabled: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     illustration_media_id: Mapped[int | None] = mapped_column(
         ForeignKey("media_files.id", ondelete="SET NULL")
     )
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
-    is_coming_soon: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    is_featured: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    certificate_enabled: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 
-    translations: Mapped[list[CyberTrackTranslation]] = relationship(
-        back_populates="track", cascade="all, delete-orphan", lazy="selectin"
-    )
-    courses: Mapped[list] = relationship("Course", back_populates="cyber_track")
+    tag_ka: Mapped[str] = mapped_column(String(120), default="", nullable=False)
+    tag_en: Mapped[str] = mapped_column(String(120), default="", nullable=False)
+    name_ka: Mapped[str] = mapped_column(String(120), nullable=False)
+    name_en: Mapped[str] = mapped_column(String(120), nullable=False)
+    desc_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    desc_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    intro_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    intro_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    topics_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)  # one per line
+    topics_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+
+    courses: Mapped[list[Course]] = relationship("Course", back_populates="cyber_track")
     missions: Mapped[list[CyberMission]] = relationship(
         back_populates="track", order_by="CyberMission.sort_order"
     )
     illustration = relationship("MediaFile", foreign_keys=[illustration_media_id])
 
     def name(self, locale: str = "ka") -> str:
-        return self.text("name", locale, self.slug)
+        return self.text("name", locale)
+
+    def topic_list(self, locale: str) -> list[str]:
+        raw = getattr(self, f"topics_{locale}", "") or ""
+        return [line.strip() for line in raw.splitlines() if line.strip()]
 
 
-class CyberTrackTranslation(db.Model):
-    __tablename__ = "cyber_track_translations"
-    __table_args__ = (UniqueConstraint("track_id", "locale", name="uq_cyber_track_locale"),)
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    track_id: Mapped[int] = mapped_column(
-        ForeignKey("cyber_tracks.id", ondelete="CASCADE"), nullable=False
-    )
-    locale: Mapped[str] = mapped_column(String(5), nullable=False)
-    name: Mapped[str] = mapped_column(String(120), nullable=False)
-    tagline: Mapped[str] = mapped_column(String(200), default="", nullable=False)
-    description: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    audience_label: Mapped[str] = mapped_column(String(80), default="", nullable=False)
-
-    track: Mapped[CyberTrack] = relationship(back_populates="translations")
-
-
-class CyberMission(TranslatedMixin, TimestampMixin, db.Model):
+class CyberMission(BilingualMixin, TimestampMixin, db.Model):
     __tablename__ = "cyber_missions"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    slug: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
+    slug: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)  # g1 … g10
     track_id: Mapped[int] = mapped_column(
         ForeignKey("cyber_tracks.id", ondelete="CASCADE"), nullable=False
     )
     course_id: Mapped[int | None] = mapped_column(ForeignKey("courses.id", ondelete="SET NULL"))
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    mission_type: Mapped[str] = mapped_column(
-        String(20), default="quiz", nullable=False
-    )  # quiz|branching|mixed
-    icon: Mapped[str] = mapped_column(String(40), default="star", nullable=False)
-    color: Mapped[str] = mapped_column(String(16), default="violet", nullable=False)
-    difficulty: Mapped[int] = mapped_column(Integer, default=1, nullable=False)  # 1..3
-    estimated_minutes: Mapped[int] = mapped_column(Integer, default=10, nullable=False)
-    xp_reward: Mapped[int] = mapped_column(Integer, default=100, nullable=False)
-    pass_percent: Mapped[int] = mapped_column(Integer, default=60, nullable=False)
-    is_published: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    emoji: Mapped[str] = mapped_column(String(16), default="⭐", nullable=False)
+    color: Mapped[str] = mapped_column(String(16), default="blue", nullable=False)
+    article_code: Mapped[str | None] = mapped_column(String(8))  # related parent article (a2 …)
+    topics: Mapped[str] = mapped_column(String(200), default="", nullable=False)  # comma list
+    is_priority: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     is_sensitive: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    help_resource_id: Mapped[int | None] = mapped_column(
-        ForeignKey("cyber_safety_resources.id", ondelete="SET NULL")
-    )
+    is_final: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    is_published: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    timer_seconds: Mapped[int | None] = mapped_column(Integer)
+    pass_ratio: Mapped[float | None] = mapped_column(Float)
+
+    name_ka: Mapped[str] = mapped_column(String(160), nullable=False)
+    name_en: Mapped[str] = mapped_column(String(160), nullable=False)
+    desc_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    desc_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    brief_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    brief_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    help_strip_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    help_strip_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
 
     track: Mapped[CyberTrack] = relationship(back_populates="missions")
     course = relationship("Course", back_populates="missions")
-    translations: Mapped[list[CyberMissionTranslation]] = relationship(
-        back_populates="mission", cascade="all, delete-orphan", lazy="selectin"
+    notes: Mapped[list[CyberMissionNote]] = relationship(
+        back_populates="mission",
+        cascade="all, delete-orphan",
+        order_by="CyberMissionNote.sort_order",
     )
     rounds: Mapped[list[CyberMissionRound]] = relationship(
         back_populates="mission",
         cascade="all, delete-orphan",
         order_by="CyberMissionRound.sort_order",
     )
-    branches: Mapped[list[CyberBranch]] = relationship(
-        back_populates="mission", cascade="all, delete-orphan", order_by="CyberBranch.sort_order"
-    )
-    help_resource = relationship("CyberSafetyResource", foreign_keys=[help_resource_id])
-    articles: Mapped[list[CyberArticle]] = relationship(
-        secondary=cyber_article_missions, back_populates="missions"
-    )
 
-    def title(self, locale: str = "ka") -> str:
-        return self.text("title", locale, self.slug)
+    def name(self, locale: str = "ka") -> str:
+        return self.text("name", locale)
+
+    @property
+    def topic_list(self) -> list[str]:
+        return [t.strip() for t in self.topics.split(",") if t.strip()]
+
+    @property
+    def theory(self) -> list[CyberMissionNote]:
+        return [n for n in self.notes if n.kind == "theory"]
+
+    @property
+    def takeaways(self) -> list[CyberMissionNote]:
+        return [n for n in self.notes if n.kind == "takeaway"]
 
     @property
     def max_points(self) -> int:
-        return sum(q.points for r in self.rounds for q in r.questions)
+        return sum(r.max_points for r in self.rounds)
 
 
-class CyberMissionTranslation(db.Model):
-    __tablename__ = "cyber_mission_translations"
-    __table_args__ = (UniqueConstraint("mission_id", "locale", name="uq_cyber_mission_locale"),)
+class CyberMissionNote(BilingualMixin, db.Model):
+    """Theory bullets (shown before the mission) and takeaways (shown after)."""
+
+    __tablename__ = "cyber_mission_notes"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     mission_id: Mapped[int] = mapped_column(
         ForeignKey("cyber_missions.id", ondelete="CASCADE"), nullable=False
     )
-    locale: Mapped[str] = mapped_column(String(5), nullable=False)
-    title: Mapped[str] = mapped_column(String(160), nullable=False)
-    tagline: Mapped[str] = mapped_column(String(240), default="", nullable=False)
-    intro: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    completion_message: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    help_note: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    kind: Mapped[str] = mapped_column(String(16), nullable=False)  # theory | takeaway
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    text_ka: Mapped[str] = mapped_column(Text, nullable=False)
+    text_en: Mapped[str] = mapped_column(Text, nullable=False)
 
-    mission: Mapped[CyberMission] = relationship(back_populates="translations")
+    mission: Mapped[CyberMission] = relationship(back_populates="notes")
 
 
-class CyberMissionRound(db.Model):
+class CyberMissionRound(BilingualMixin, db.Model):
+    """One round of a mission. ``round_type`` selects the engine:
+    choice (one question, options, optional message card), flags (tap every
+    red flag), builder (toggle options until a meter reaches ``target``) or
+    branch (a conversation tree of :class:`CyberBranch` nodes)."""
+
     __tablename__ = "cyber_mission_rounds"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -164,97 +175,113 @@ class CyberMissionRound(db.Model):
         ForeignKey("cyber_missions.id", ondelete="CASCADE"), nullable=False
     )
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    round_type: Mapped[str] = mapped_column(
-        String(20), default="questions", nullable=False
-    )  # questions|branch|info
-    time_limit_seconds: Mapped[int | None] = mapped_column(Integer)
-    title_ka: Mapped[str] = mapped_column(String(160), default="", nullable=False)
-    title_en: Mapped[str] = mapped_column(String(160), default="", nullable=False)
-    intro_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    intro_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    branch_start_key: Mapped[str | None] = mapped_column(String(60))
+    round_type: Mapped[str] = mapped_column(String(16), nullable=False)
+
+    prompt_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)  # q / prompt
+    prompt_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    explain_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    explain_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    explain_negative_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    explain_negative_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    # choice: message card
+    card_from_ka: Mapped[str] = mapped_column(String(200), default="", nullable=False)
+    card_from_en: Mapped[str] = mapped_column(String(200), default="", nullable=False)
+    card_meta_ka: Mapped[str] = mapped_column(String(200), default="", nullable=False)
+    card_meta_en: Mapped[str] = mapped_column(String(200), default="", nullable=False)
+    card_body_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    card_body_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    # builder
+    target: Mapped[int | None] = mapped_column(Integer)
+    meter_low_ka: Mapped[str] = mapped_column(String(120), default="", nullable=False)
+    meter_low_en: Mapped[str] = mapped_column(String(120), default="", nullable=False)
+    meter_high_ka: Mapped[str] = mapped_column(String(120), default="", nullable=False)
+    meter_high_en: Mapped[str] = mapped_column(String(120), default="", nullable=False)
+    # branch
+    branch_start_key: Mapped[str | None] = mapped_column(String(40))
+    branch_max: Mapped[int | None] = mapped_column(Integer)
 
     mission: Mapped[CyberMission] = relationship(back_populates="rounds")
-    questions: Mapped[list[CyberMissionQuestion]] = relationship(
+    items: Mapped[list[CyberRoundItem]] = relationship(
         back_populates="round",
         cascade="all, delete-orphan",
-        order_by="CyberMissionQuestion.sort_order",
+        order_by="CyberRoundItem.sort_order",
+        lazy="selectin",
+    )
+    branches: Mapped[list[CyberBranch]] = relationship(
+        back_populates="round",
+        cascade="all, delete-orphan",
+        order_by="CyberBranch.sort_order",
         lazy="selectin",
     )
 
+    @property
+    def max_points(self) -> int:
+        if self.round_type == "choice":
+            return 10
+        if self.round_type == "flags":
+            return sum(5 for item in self.items if item.is_correct)
+        if self.round_type == "builder":
+            return 15
+        if self.round_type == "branch":
+            return int(self.branch_max or 0)
+        return 0
 
-class CyberMissionQuestion(db.Model):
-    __tablename__ = "cyber_mission_questions"
+    @property
+    def has_card(self) -> bool:
+        return bool(self.card_body_ka or self.card_body_en)
+
+
+class CyberRoundItem(BilingualMixin, db.Model):
+    """An option (choice), a flaggable item (flags) or a toggle (builder)."""
+
+    __tablename__ = "cyber_round_items"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     round_id: Mapped[int] = mapped_column(
         ForeignKey("cyber_mission_rounds.id", ondelete="CASCADE"), nullable=False
     )
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    question_type: Mapped[str] = mapped_column(
-        String(20), default="single", nullable=False
-    )  # single|multiple|true_false|spot
-    prompt_ka: Mapped[str] = mapped_column(Text, nullable=False)
-    prompt_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    scenario_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    scenario_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    explanation_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    explanation_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    points: Mapped[int] = mapped_column(Integer, default=10, nullable=False)
-    image_media_id: Mapped[int | None] = mapped_column(
-        ForeignKey("media_files.id", ondelete="SET NULL")
-    )
+    label_ka: Mapped[str] = mapped_column(Text, nullable=False)
+    label_en: Mapped[str] = mapped_column(Text, nullable=False)
+    from_ka: Mapped[str] = mapped_column(String(200), default="", nullable=False)  # flags: sender
+    from_en: Mapped[str] = mapped_column(String(200), default="", nullable=False)
+    note_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)  # builder: note
+    note_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    explain_ka: Mapped[str] = mapped_column(
+        Text, default="", nullable=False
+    )  # flags: per-item reveal
+    explain_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    is_correct: Mapped[bool] = mapped_column(
+        Boolean, default=False, nullable=False
+    )  # correct / flag
+    value: Mapped[int | None] = mapped_column(Integer)  # builder: meter contribution
 
-    round: Mapped[CyberMissionRound] = relationship(back_populates="questions")
-    options: Mapped[list[CyberQuestionOption]] = relationship(
-        back_populates="question",
-        cascade="all, delete-orphan",
-        order_by="CyberQuestionOption.sort_order",
-        lazy="selectin",
-    )
-    image = relationship("MediaFile", foreign_keys=[image_media_id])
+    round: Mapped[CyberMissionRound] = relationship(back_populates="items")
 
 
-class CyberQuestionOption(db.Model):
-    __tablename__ = "cyber_question_options"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    question_id: Mapped[int] = mapped_column(
-        ForeignKey("cyber_mission_questions.id", ondelete="CASCADE"), nullable=False
-    )
-    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    text_ka: Mapped[str] = mapped_column(Text, nullable=False)
-    text_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    is_correct: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    feedback_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    feedback_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-
-    question: Mapped[CyberMissionQuestion] = relationship(back_populates="options")
-
-
-class CyberBranch(db.Model):
-    """A node in a branching conversation (e.g. a stranger messaging the child)."""
+class CyberBranch(BilingualMixin, db.Model):
+    """A node of a branching conversation."""
 
     __tablename__ = "cyber_branches"
-    __table_args__ = (UniqueConstraint("mission_id", "key", name="uq_cyber_branch_key"),)
+    __table_args__ = (UniqueConstraint("round_id", "key", name="uq_cyber_branch_round_key"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    mission_id: Mapped[int] = mapped_column(
-        ForeignKey("cyber_missions.id", ondelete="CASCADE"), nullable=False
+    round_id: Mapped[int] = mapped_column(
+        ForeignKey("cyber_mission_rounds.id", ondelete="CASCADE"), nullable=False
     )
-    key: Mapped[str] = mapped_column(String(60), nullable=False)
+    key: Mapped[str] = mapped_column(String(40), nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    speaker: Mapped[str] = mapped_column(
-        String(20), default="stranger", nullable=False
-    )  # io|hero|stranger|friend|narrator
-    mascot_mood: Mapped[str] = mapped_column(String(20), default="neutral", nullable=False)
-    text_ka: Mapped[str] = mapped_column(Text, nullable=False)
-    text_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    is_start: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    is_ending: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    ending_kind: Mapped[str | None] = mapped_column(String(20))  # safe|risky|neutral
+    is_end: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    scene_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    scene_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
 
-    mission: Mapped[CyberMission] = relationship(back_populates="branches")
+    round: Mapped[CyberMissionRound] = relationship(back_populates="branches")
+    messages: Mapped[list[CyberBranchMessage]] = relationship(
+        back_populates="branch",
+        cascade="all, delete-orphan",
+        order_by="CyberBranchMessage.sort_order",
+        lazy="selectin",
+    )
     choices: Mapped[list[CyberBranchChoice]] = relationship(
         back_populates="branch",
         cascade="all, delete-orphan",
@@ -263,7 +290,23 @@ class CyberBranch(db.Model):
     )
 
 
-class CyberBranchChoice(db.Model):
+class CyberBranchMessage(BilingualMixin, db.Model):
+    __tablename__ = "cyber_branch_messages"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    branch_id: Mapped[int] = mapped_column(
+        ForeignKey("cyber_branches.id", ondelete="CASCADE"), nullable=False
+    )
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    name_ka: Mapped[str] = mapped_column(String(200), default="", nullable=False)
+    name_en: Mapped[str] = mapped_column(String(200), default="", nullable=False)
+    text_ka: Mapped[str] = mapped_column(Text, nullable=False)
+    text_en: Mapped[str] = mapped_column(Text, nullable=False)
+
+    branch: Mapped[CyberBranch] = relationship(back_populates="messages")
+
+
+class CyberBranchChoice(BilingualMixin, db.Model):
     __tablename__ = "cyber_branch_choices"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -271,41 +314,43 @@ class CyberBranchChoice(db.Model):
         ForeignKey("cyber_branches.id", ondelete="CASCADE"), nullable=False
     )
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    text_ka: Mapped[str] = mapped_column(Text, nullable=False)
-    text_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    next_key: Mapped[str | None] = mapped_column(String(60))
-    is_safe: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    label_ka: Mapped[str] = mapped_column(Text, nullable=False)
+    label_en: Mapped[str] = mapped_column(Text, nullable=False)
+    next_key: Mapped[str | None] = mapped_column(String(40))
+    points: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     feedback_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
     feedback_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    points: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
 
     branch: Mapped[CyberBranch] = relationship(back_populates="choices")
 
 
-class CyberArticle(TranslatedMixin, TimestampMixin, db.Model):
-    """Parent / teacher knowledge articles (A1–A7 understand, B1–B5 act, C1–C4 school)."""
+class CyberArticle(BilingualMixin, TimestampMixin, db.Model):
+    """Parent / teacher article (shelves A understand · B act · C school)."""
 
     __tablename__ = "cyber_articles"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    slug: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
-    code: Mapped[str] = mapped_column(String(8), nullable=False)  # A1..C4
-    section: Mapped[str] = mapped_column(String(20), nullable=False)  # understand|act|school
-    audience: Mapped[str] = mapped_column(
-        String(20), default="both", nullable=False
-    )  # parents|teachers|both
+    slug: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)  # a1 … c4
+    shelf: Mapped[str] = mapped_column(String(1), nullable=False)  # A | B | C
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    reading_minutes: Mapped[int] = mapped_column(Integer, default=5, nullable=False)
-    icon: Mapped[str] = mapped_column(String(40), default="book", nullable=False)
-    color: Mapped[str] = mapped_column(String(16), default="violet", nullable=False)
+    emoji: Mapped[str] = mapped_column(String(16), default="📖", nullable=False)
+    color: Mapped[str] = mapped_column(String(16), default="blue", nullable=False)
+    minutes: Mapped[int] = mapped_column(Integer, default=5, nullable=False)
+    mission_slug: Mapped[str | None] = mapped_column(String(80))  # related teen mission
+    is_priority: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     is_published: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
-    is_sensitive: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    cover_media_id: Mapped[int | None] = mapped_column(
-        ForeignKey("media_files.id", ondelete="SET NULL")
-    )
 
-    translations: Mapped[list[CyberArticleTranslation]] = relationship(
-        back_populates="article", cascade="all, delete-orphan", lazy="selectin"
+    title_ka: Mapped[str] = mapped_column(String(300), nullable=False)
+    title_en: Mapped[str] = mapped_column(String(300), nullable=False)
+    teaser_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    teaser_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    lead_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    lead_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+
+    blocks: Mapped[list[CyberArticleBlock]] = relationship(
+        back_populates="article",
+        cascade="all, delete-orphan",
+        order_by="CyberArticleBlock.sort_order",
     )
     sources: Mapped[list[CyberArticleSource]] = relationship(
         back_populates="article",
@@ -313,34 +358,37 @@ class CyberArticle(TranslatedMixin, TimestampMixin, db.Model):
         order_by="CyberArticleSource.sort_order",
         lazy="selectin",
     )
-    missions: Mapped[list[CyberMission]] = relationship(
-        secondary=cyber_article_missions, back_populates="articles"
-    )
-    cover = relationship("MediaFile", foreign_keys=[cover_media_id])
+
+    @property
+    def code(self) -> str:
+        return self.slug.upper()
 
     def title(self, locale: str = "ka") -> str:
-        return self.text("title", locale, self.slug)
+        return self.text("title", locale)
 
 
-class CyberArticleTranslation(db.Model):
-    __tablename__ = "cyber_article_translations"
-    __table_args__ = (UniqueConstraint("article_id", "locale", name="uq_cyber_article_locale"),)
+class CyberArticleBlock(BilingualMixin, db.Model):
+    """Article body block: h2 | p | list | callout (variant script/do/dont/note/emergency)."""
+
+    __tablename__ = "cyber_article_blocks"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     article_id: Mapped[int] = mapped_column(
         ForeignKey("cyber_articles.id", ondelete="CASCADE"), nullable=False
     )
-    locale: Mapped[str] = mapped_column(String(5), nullable=False)
-    title: Mapped[str] = mapped_column(String(200), nullable=False)
-    summary: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    body: Mapped[str] = mapped_column(Text, default="", nullable=False)  # sanitised HTML
-    key_takeaways: Mapped[str] = mapped_column(Text, default="", nullable=False)  # one per line
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    block_type: Mapped[str] = mapped_column(String(16), nullable=False)
+    variant: Mapped[str | None] = mapped_column(String(16))
+    ordered: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    title_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    title_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    text_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    text_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    # ordered bilingual list entries: [{"en": …, "ka": …}, …]
+    items: Mapped[list] = mapped_column(JSONType, default=list, nullable=False)
+    paragraphs: Mapped[list] = mapped_column(JSONType, default=list, nullable=False)
 
-    article: Mapped[CyberArticle] = relationship(back_populates="translations")
-
-    @property
-    def takeaway_list(self) -> list[str]:
-        return [line.strip() for line in self.key_takeaways.splitlines() if line.strip()]
+    article: Mapped[CyberArticle] = relationship(back_populates="blocks")
 
 
 class CyberArticleSource(db.Model):
@@ -351,75 +399,142 @@ class CyberArticleSource(db.Model):
         ForeignKey("cyber_articles.id", ondelete="CASCADE"), nullable=False
     )
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    title: Mapped[str] = mapped_column(String(300), nullable=False)
-    publisher: Mapped[str] = mapped_column(String(160), default="", nullable=False)
-    url: Mapped[str] = mapped_column(String(500), default="", nullable=False)
-    year: Mapped[int | None] = mapped_column(Integer)
+    citation: Mapped[str] = mapped_column(String(500), nullable=False)
 
     article: Mapped[CyberArticle] = relationship(back_populates="sources")
 
 
-class CyberMascotTip(db.Model):
-    __tablename__ = "cyber_mascot_tips"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    context_key: Mapped[str] = mapped_column(String(60), nullable=False, index=True)
-    mood: Mapped[str] = mapped_column(String(20), default="happy", nullable=False)
-    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    text_ka: Mapped[str] = mapped_column(Text, nullable=False)
-    text_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
-
-    def text(self, locale: str = "ka") -> str:
-        return (self.text_en if locale == "en" and self.text_en else self.text_ka) or ""
-
-
-class CyberSafetyResource(TranslatedMixin, TimestampMixin, db.Model):
-    """Emergency contacts, playbook entries, the family media agreement and guides."""
+class CyberSafetyResource(BilingualMixin, TimestampMixin, db.Model):
+    """Emergency contacts, playbook entries, guides and the family media agreement."""
 
     __tablename__ = "cyber_safety_resources"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    kind: Mapped[str] = mapped_column(
-        String(30), nullable=False, index=True
-    )  # emergency_contact|playbook|family_agreement|guide
+    kind: Mapped[str] = mapped_column(String(30), nullable=False, index=True)
     slug: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    icon: Mapped[str] = mapped_column(String(40), default="lifebuoy", nullable=False)
-    color: Mapped[str] = mapped_column(String(16), default="orange", nullable=False)
-    contact_value: Mapped[str] = mapped_column(
-        String(200), default="", nullable=False
-    )  # phone/url/email
+    emoji: Mapped[str] = mapped_column(String(16), default="🆘", nullable=False)
+    color: Mapped[str] = mapped_column(String(16), default="amber", nullable=False)
+    contact_value: Mapped[str] = mapped_column(String(200), default="", nullable=False)
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 
-    translations: Mapped[list[CyberSafetyResourceTranslation]] = relationship(
-        back_populates="resource", cascade="all, delete-orphan", lazy="selectin"
+    title_ka: Mapped[str] = mapped_column(String(300), nullable=False)
+    title_en: Mapped[str] = mapped_column(String(300), nullable=False)
+    summary_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    summary_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    body_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)  # sanitised HTML
+    body_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    steps_ka: Mapped[str] = mapped_column(Text, default="", nullable=False)  # one per line
+    steps_en: Mapped[str] = mapped_column(Text, default="", nullable=False)
+
+    sections: Mapped[list[CyberAgreementSection]] = relationship(
+        back_populates="resource",
+        cascade="all, delete-orphan",
+        order_by="CyberAgreementSection.sort_order",
     )
 
     def title(self, locale: str = "ka") -> str:
-        return self.text("title", locale, self.slug)
+        return self.text("title", locale)
+
+    def step_list(self, locale: str) -> list[str]:
+        raw = getattr(self, f"steps_{locale}", "") or ""
+        return [line.strip() for line in raw.splitlines() if line.strip()]
 
 
-class CyberSafetyResourceTranslation(db.Model):
-    __tablename__ = "cyber_safety_resource_translations"
-    __table_args__ = (UniqueConstraint("resource_id", "locale", name="uq_cyber_resource_locale"),)
+class CyberAgreementSection(BilingualMixin, db.Model):
+    __tablename__ = "cyber_agreement_sections"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     resource_id: Mapped[int] = mapped_column(
         ForeignKey("cyber_safety_resources.id", ondelete="CASCADE"), nullable=False
     )
-    locale: Mapped[str] = mapped_column(String(5), nullable=False)
-    title: Mapped[str] = mapped_column(String(200), nullable=False)
-    summary: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    body: Mapped[str] = mapped_column(Text, default="", nullable=False)  # sanitised HTML
-    steps: Mapped[str] = mapped_column(Text, default="", nullable=False)  # one step per line
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    title_ka: Mapped[str] = mapped_column(String(200), nullable=False)
+    title_en: Mapped[str] = mapped_column(String(200), nullable=False)
+    write_lines: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
 
-    resource: Mapped[CyberSafetyResource] = relationship(back_populates="translations")
+    resource: Mapped[CyberSafetyResource] = relationship(back_populates="sections")
+    clauses: Mapped[list[CyberAgreementClause]] = relationship(
+        back_populates="section",
+        cascade="all, delete-orphan",
+        order_by="CyberAgreementClause.sort_order",
+        lazy="selectin",
+    )
+
+
+class CyberAgreementClause(BilingualMixin, db.Model):
+    __tablename__ = "cyber_agreement_clauses"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    section_id: Mapped[int] = mapped_column(
+        ForeignKey("cyber_agreement_sections.id", ondelete="CASCADE"), nullable=False
+    )
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    text_ka: Mapped[str] = mapped_column(Text, nullable=False)
+    text_en: Mapped[str] = mapped_column(Text, nullable=False)
+
+    section: Mapped[CyberAgreementSection] = relationship(back_populates="clauses")
+
+
+class CyberMascotTip(BilingualMixin, db.Model):
+    """IO's contextual tips; ``topics`` decides where they are shown."""
+
+    __tablename__ = "cyber_mascot_tips"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    topics: Mapped[str] = mapped_column(String(200), default="", nullable=False)
+    text_ka: Mapped[str] = mapped_column(Text, nullable=False)
+    text_en: Mapped[str] = mapped_column(Text, nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 
     @property
-    def step_list(self) -> list[str]:
-        return [line.strip() for line in self.steps.splitlines() if line.strip()]
+    def topic_list(self) -> list[str]:
+        return [t.strip() for t in self.topics.split(",") if t.strip()]
+
+
+class CyberMascotReaction(BilingualMixin, db.Model):
+    """What IO says on achievements / contexts (mission, exam, cert, guardians, building)."""
+
+    __tablename__ = "cyber_mascot_reactions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    key: Mapped[str] = mapped_column(String(40), nullable=False, index=True)
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    text_ka: Mapped[str] = mapped_column(Text, nullable=False)
+    text_en: Mapped[str] = mapped_column(Text, nullable=False)
+
+
+class CyberKnowledgeSection(BilingualMixin, db.Model):
+    """IO tutor knowledge base: sections of the approved course material."""
+
+    __tablename__ = "cyber_knowledge_sections"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    title_ka: Mapped[str] = mapped_column(String(200), nullable=False)
+    title_en: Mapped[str] = mapped_column(String(200), nullable=False)
+
+    chunks: Mapped[list[CyberKnowledgeChunk]] = relationship(
+        back_populates="section",
+        cascade="all, delete-orphan",
+        order_by="CyberKnowledgeChunk.sort_order",
+        lazy="selectin",
+    )
+
+
+class CyberKnowledgeChunk(db.Model):
+    __tablename__ = "cyber_knowledge_chunks"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    section_id: Mapped[int] = mapped_column(
+        ForeignKey("cyber_knowledge_sections.id", ondelete="CASCADE"), nullable=False
+    )
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    text: Mapped[str] = mapped_column(Text, nullable=False)
+
+    section: Mapped[CyberKnowledgeSection] = relationship(back_populates="chunks")
 
 
 class CyberProgress(TimestampMixin, db.Model):
@@ -435,14 +550,14 @@ class CyberProgress(TimestampMixin, db.Model):
     mission_id: Mapped[int] = mapped_column(
         ForeignKey("cyber_missions.id", ondelete="CASCADE"), nullable=False
     )
-    status: Mapped[str] = mapped_column(String(20), default="in_progress", nullable=False)
-    best_score: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    max_score: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    done: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    best: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    total: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     attempts: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime)
 
     user = relationship("User")
-    mission = relationship("CyberMission")
+    mission: Mapped[CyberMission] = relationship()
 
 
 class CyberCertificate(db.Model):
@@ -457,9 +572,14 @@ class CyberCertificate(db.Model):
     display_name: Mapped[str] = mapped_column(String(120), nullable=False)
     track_name_ka: Mapped[str] = mapped_column(String(120), nullable=False)
     track_name_en: Mapped[str] = mapped_column(String(120), default="", nullable=False)
-    score_percent: Mapped[float | None] = mapped_column(Float)
+    points: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    max_points: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     issued_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, nullable=False)
     revoked_at: Mapped[datetime | None] = mapped_column(DateTime)
 
     user = relationship("User")
     track: Mapped[CyberTrack] = relationship()
+
+    @property
+    def is_valid(self) -> bool:
+        return self.revoked_at is None
