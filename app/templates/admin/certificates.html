@@ -1,0 +1,19 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field %}
+{% from "components/macros.html" import paginate, csrf %}
+{% block title %}{{ _('Certificates') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Certificates') }}{% endblock %}
+{% block panel_content %}
+<div class="toolbar"><form method="get" role="search"><input class="form-control" type="search" name="q" value="{{ q }}" placeholder="{{ _('ID or recipient') }}" aria-label="{{ _('Search') }}"><button class="btn btn-outline" type="submit">{{ _('Search') }}</button></form>
+<form method="post" class="d-flex gap-2 align-items-end" novalidate>{{ form.hidden_tag() }}<div class="form-field mb-0"><label class="form-label" for="user_id">{{ _('User ID') }}</label>{{ form.user_id(class_="form-control", id="user_id") }}</div><div class="form-field mb-0"><label class="form-label" for="course_id">{{ _('Course ID') }}</label>{{ form.course_id(class_="form-control", id="course_id") }}</div><button class="btn btn-primary" type="submit">{{ _('Issue manually') }}</button></form></div>
+<div class="table-wrap"><table class="table table-hover"><thead><tr><th>{{ _('ID') }}</th><th>{{ _('Recipient') }}</th><th>{{ _('Course') }}</th><th>{{ _('Issued') }}</th><th>{{ _('Status') }}</th><th></th></tr></thead><tbody>
+{% for c in pagination.items %}<tr><td><a href="{{ url_for('certificates.verify', public_id=c.public_id) }}"><code>{{ c.public_id }}</code></a></td><td>{{ c.recipient_name }}</td><td>{{ c.course_title(locale) }}</td><td>{{ c.issued_at|date_only }}</td><td>{% if c.is_valid %}<span class="chip chip-success">{{ _('valid') }}</span>{% else %}<span class="chip chip-danger">{{ _('revoked') }}</span>{% endif %}</td><td class="actions">{% if c.is_valid %}<form method="post" action="{{ url_for('admin.certificate_revoke', certificate_id=c.id) }}" data-confirm="{{ _('Revoke this certificate?') }}">{{ revoke_form.hidden_tag() }}<input class="form-control form-control-sm d-inline-block w-auto" name="reason" placeholder="{{ _('Reason') }}" aria-label="{{ _('Reason') }}" required minlength="3"><button class="btn btn-ghost btn-sm" type="submit">{{ _('Revoke') }}</button></form>{% endif %}</td></tr>{% else %}<tr><td colspan="6" class="text-muted">{{ _('No certificates yet.') }}</td></tr>{% endfor %}
+</tbody></table></div>
+{{ paginate(pagination) }}
+<h2 class="h5 mt-5 mb-3">CyberHero</h2>
+<div class="table-wrap"><table class="table"><thead><tr><th>{{ _('ID') }}</th><th>{{ _('Name') }}</th><th>{{ _('Track') }}</th><th>{{ _('Points') }}</th><th>{{ _('Issued') }}</th><th></th></tr></thead><tbody>
+{% for c in cyber %}<tr><td><code>{{ c.public_id }}</code></td><td>{{ c.display_name }}</td><td>{{ c.track_name_en or c.track_name_ka }}</td><td>{{ c.points }}/{{ c.max_points }}</td><td>{{ c.issued_at|date_only }}{% if not c.is_valid %} <span class="chip chip-danger">{{ _('revoked') }}</span>{% endif %}</td><td class="actions">{% if c.is_valid %}<form method="post" action="{{ url_for('admin.cyber_certificate_revoke', certificate_id=c.id) }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit">{{ _('Revoke') }}</button></form>{% endif %}</td></tr>{% else %}<tr><td colspan="6" class="text-muted">{{ _('None yet.') }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

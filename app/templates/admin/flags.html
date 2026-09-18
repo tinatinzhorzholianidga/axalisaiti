@@ -1,0 +1,15 @@
+{% extends "layouts/panel.html" %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Feature flags') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Feature flags') }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ csrf() }}
+  {% for f in flags %}
+  <div class="form-field"><div class="form-check"><input class="form-check-input" type="checkbox" id="flag-{{ f.key }}" name="flag-{{ f.key }}" {% if f.enabled %}checked{% endif %}><label class="form-check-label" for="flag-{{ f.key }}"><code>{{ f.key }}</code> — {{ f.description }}</label></div>{% if f.updated_by %}<div class="form-text">{{ _('Last changed by') }} {{ f.updated_by.name }} · {{ f.updated_at|humanize_dt }}</div>{% endif %}</div>
+  {% endfor %}
+  <p class="text-muted small">{{ _('CYBERHERO_IO_CHAT_ENABLED keeps the experimental in-browser tutor hidden until switched on; it never sends conversations to an external service.') }}</p>
+  <button class="btn btn-primary" type="submit">{{ _('Save') }}</button>
+</form>
+{% endblock %}

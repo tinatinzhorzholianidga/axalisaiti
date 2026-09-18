@@ -1,0 +1,12 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% block title %}{{ _('Discussions') }} · {{ course.title(locale) }}{% endblock %}
+{% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Discussions') }} · {{ course.title(locale) }}{% endblock %}
+{% block panel_actions %}<a class="btn btn-outline" href="{{ url_for('discussions.list_threads', slug=course.slug) }}">{{ icon('message') }} {{ _('Open forum') }}</a>{% endblock %}
+{% block panel_content %}
+{% if reports %}<div class="alert alert-warning"><strong>{{ reports|length }}</strong> {{ _('open reports') }}: {% for r in reports %}<a href="{{ url_for('discussions.thread', slug=course.slug, thread_id=r.post.discussion_id) }}#post-{{ r.post_id }}">{{ r.post.discussion.title|truncate(30) }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</div>{% endif %}
+<div class="table-wrap"><table class="table table-hover"><thead><tr><th>{{ _('Thread') }}</th><th>{{ _('Author') }}</th><th>{{ _('Posts') }}</th><th>{{ _('State') }}</th><th>{{ _('Last post') }}</th></tr></thead><tbody>
+{% for t in threads %}<tr><td><a href="{{ url_for('discussions.thread', slug=course.slug, thread_id=t.id) }}">{{ t.title }}</a></td><td>{{ t.author.name if t.author else '—' }}</td><td>{{ t.post_count }}</td><td>{% if t.is_pinned %}<span class="chip chip-purple">{{ _('pinned') }}</span>{% endif %}{% if t.is_locked %}<span class="chip">{{ _('locked') }}</span>{% endif %}{% if t.is_hidden %}<span class="chip chip-danger">{{ _('hidden') }}</span>{% endif %}</td><td>{{ t.last_post_at|humanize_dt }}</td></tr>{% else %}<tr><td colspan="5" class="text-muted">{{ _('No threads yet.') }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

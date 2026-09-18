@@ -1,0 +1,8 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Tip') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Edit tip') }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>{{ form.hidden_tag() }}{{ error_summary(form) }}{{ field(form.topics) }}{{ field(form.sort_order) }}{{ field(form.text_ka, rows=2) }}{{ field(form.text_en, rows=2) }}{{ field(form.is_active) }}<div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save tip') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.cyber_mascot') }}">{{ _('Cancel') }}</a></div></form>
+{% endblock %}

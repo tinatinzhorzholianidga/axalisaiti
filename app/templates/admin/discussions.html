@@ -1,0 +1,16 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import paginate, csrf %}
+{% block title %}{{ _('Discussions') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Discussions') }}{% endblock %}
+{% block panel_content %}
+<div class="panel mb-4">
+  <h2 class="h6 mb-3">{{ _('Open reports') }} ({{ reports|length }})</h2>
+  {% for r in reports %}<div class="d-flex align-items-center gap-3 py-2 border-top small"><span>{{ r.reporter.name if r.reporter else '—' }}: <em>{{ r.reason }}</em></span><a href="{{ url_for('discussions.thread', slug=r.post.discussion.course.slug, thread_id=r.post.discussion_id) }}#post-{{ r.post_id }}">{{ r.post.discussion.title|truncate(40) }}</a><span class="ms-auto d-flex gap-1"><form method="post" action="{{ url_for('admin.report_action', report_id=r.id, action='hide') }}">{{ csrf() }}<button class="btn btn-warning btn-sm" type="submit">{{ _('Hide post') }}</button></form><form method="post" action="{{ url_for('admin.report_action', report_id=r.id, action='dismiss') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit">{{ _('Dismiss') }}</button></form></span></div>{% else %}<p class="text-muted small mb-0">{{ _('No open reports.') }}</p>{% endfor %}
+</div>
+<div class="table-wrap"><table class="table table-hover"><thead><tr><th>{{ _('Thread') }}</th><th>{{ _('Course') }}</th><th>{{ _('Posts') }}</th><th>{{ _('State') }}</th><th>{{ _('Last post') }}</th></tr></thead><tbody>
+{% for t in pagination.items %}<tr><td><a href="{{ url_for('discussions.thread', slug=t.course.slug, thread_id=t.id) }}">{{ t.title }}</a></td><td>{{ t.course.title(locale) }}</td><td>{{ t.post_count }}</td><td>{% if t.is_pinned %}<span class="chip chip-purple">pinned</span>{% endif %}{% if t.is_locked %}<span class="chip">locked</span>{% endif %}{% if t.is_hidden %}<span class="chip chip-danger">hidden</span>{% endif %}</td><td>{{ t.last_post_at|humanize_dt }}</td></tr>{% else %}<tr><td colspan="5" class="text-muted">{{ _('No threads yet.') }}</td></tr>{% endfor %}
+</tbody></table></div>
+{{ paginate(pagination) }}
+{% endblock %}

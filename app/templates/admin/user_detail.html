@@ -1,0 +1,34 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ user.name }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.users') }}">{{ _('Users') }}</a></div>{% endblock %}
+{% block panel_title %}{{ user.name }} <span class="chip {{ 'chip-success' if user.status == UserStatus.ACTIVE else 'chip-danger' }}">{{ user.status.value }}</span>{% endblock %}
+{% block panel_content %}
+<div class="two-col">
+  <div>
+    <form class="panel" method="post" novalidate>
+      {{ form.hidden_tag() }}{{ error_summary(form) }}
+      <dl class="kv mb-4"><dt>{{ _('Email') }}</dt><dd>{{ user.email }}</dd><dt>{{ _('Registered') }}</dt><dd>{{ user.created_at|humanize_dt }}</dd><dt>{{ _('Last sign-in') }}</dt><dd>{{ user.last_login_at|humanize_dt if user.last_login_at else '—' }} {% if user.last_login_ip %}<span class="text-muted">({{ user.last_login_ip }})</span>{% endif %}</dd><dt>{{ _('Failed logins') }}</dt><dd>{{ user.failed_login_count }}{% if user.is_locked %} · <span class="chip chip-warning">{{ _('locked until') }} {{ user.locked_until|humanize_dt }}</span>{% endif %}</dd><dt>{{ _('Security version') }}</dt><dd>{{ user.security_version }}</dd></dl>
+      <div class="form-grid-3">{{ field(form.first_name) }}{{ field(form.last_name) }}{{ field(form.organization) }}</div>
+      {{ field(form.roles, help=_('Changing roles signs the user out of every session.')) }}{{ field(form.is_email_verified) }}
+      <button class="btn btn-primary" type="submit">{{ _('Save user') }}</button>
+    </form>
+    <div class="panel"><h2 class="h6 mb-3">{{ _('Enrolments') }}</h2><ul class="list-plain small">{% for e in enrollments %}<li><a href="{{ url_for('admin.course_detail', course_id=e.course_id) }}">{{ e.course.title(locale) }}</a><span class="chip">{{ e.status.value }}</span><span class="when">{{ e.enrolled_at|date_only }}</span></li>{% else %}<li class="text-muted">{{ _('None') }}</li>{% endfor %}</ul></div>
+    <div class="panel"><h2 class="h6 mb-3">{{ _('Certificates') }}</h2><ul class="list-plain small">{% for c in certificates %}<li><code>{{ c.public_id }}</code><span>{{ c.course_title(locale) }}</span><span class="when">{{ c.issued_at|date_only }}</span></li>{% else %}<li class="text-muted">{{ _('None') }}</li>{% endfor %}</ul></div>
+  </div>
+  <aside>
+    <div class="panel">
+      <h2 class="h6 mb-3">{{ _('Account actions') }}</h2>
+      <div class="d-grid gap-2">
+        {% if user.status == UserStatus.ACTIVE %}<form method="post" action="{{ url_for('admin.user_action', user_id=user.id, action='suspend') }}" data-confirm="{{ _('Suspend this user?') }}">{{ csrf() }}<input class="form-control mb-2" name="reason" placeholder="{{ _('Reason (recorded in the audit log)') }}" aria-label="{{ _('Reason') }}"><button class="btn btn-warning btn-block" type="submit">{{ _('Suspend') }}</button></form>{% else %}<form method="post" action="{{ url_for('admin.user_action', user_id=user.id, action='reinstate') }}">{{ csrf() }}<button class="btn btn-success btn-block" type="submit">{{ _('Reinstate') }}</button></form>{% endif %}
+        {% if user.is_locked %}<form method="post" action="{{ url_for('admin.user_action', user_id=user.id, action='unlock') }}">{{ csrf() }}<button class="btn btn-outline btn-block" type="submit">{{ _('Unlock account') }}</button></form>{% endif %}
+        {% if user.status != UserStatus.DEACTIVATED %}<form method="post" action="{{ url_for('admin.user_action', user_id=user.id, action='deactivate') }}" data-confirm="{{ _('Deactivate this account?') }}">{{ csrf() }}<button class="btn btn-danger btn-block" type="submit">{{ _('Deactivate') }}</button></form>{% endif %}
+      </div>
+    </div>
+    <div class="panel"><h2 class="h6 mb-3">{{ _('Recent actions by this user') }}</h2><ul class="list-plain small">{% for a in audit %}<li><code class="small">{{ a.action }}</code><span class="when">{{ a.created_at|humanize_dt }}</span></li>{% else %}<li class="text-muted">{{ _('None') }}</li>{% endfor %}</ul></div>
+  </aside>
+</div>
+{% endblock %}

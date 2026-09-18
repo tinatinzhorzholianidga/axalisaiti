@@ -110,6 +110,7 @@ def _register_blueprints(app: Flask) -> None:
     from app.blueprints.instructor import bp as instructor_bp
     from app.blueprints.learning import bp as learning_bp
     from app.blueprints.main import bp as main_bp
+    from app.blueprints.media import bp as media_bp
     from app.blueprints.notifications import bp as notifications_bp
 
     app.register_blueprint(main_bp)
@@ -123,6 +124,7 @@ def _register_blueprints(app: Flask) -> None:
     app.register_blueprint(instructor_bp, url_prefix="/instructor")
     app.register_blueprint(admin_bp, url_prefix="/admin")
     app.register_blueprint(api_bp, url_prefix="/api/v1")
+    app.register_blueprint(media_bp, url_prefix="/media")
     if app.config.get("CYBERHERO_ENABLED"):
         app.register_blueprint(cyberhero_bp, url_prefix="/cyberhero")
 

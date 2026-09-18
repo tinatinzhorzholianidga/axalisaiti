@@ -315,7 +315,7 @@ def delete_module(module: Module, *, actor: User) -> None:
     audit_service.record("module.deleted", target=module, actor=actor, meta={"course": course.slug})
     db.session.delete(module)
     db.session.flush()
-    renumber(course.modules)
+    renumber([m for m in course.modules if m is not module])
     db.session.commit()
 
 
@@ -376,7 +376,7 @@ def delete_lesson(lesson: Lesson, *, actor: User) -> None:
     audit_service.record("lesson.deleted", target=lesson, actor=actor)
     db.session.delete(lesson)
     db.session.flush()
-    renumber(module.lessons)
+    renumber([lsn for lsn in module.lessons if lsn is not lesson])
     db.session.commit()
 
 

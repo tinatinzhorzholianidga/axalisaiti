@@ -1,0 +1,29 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import paginate, csrf %}
+{% block title %}{{ _('Media library') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Media library') }} <span class="text-muted">({{ pagination.total }})</span>{% endblock %}
+{% block panel_content %}
+<div class="two-col">
+  <div>
+    <div class="toolbar"><form method="get" role="search"><input class="form-control" type="search" name="q" value="{{ q }}" placeholder="{{ _('File name') }}" aria-label="{{ _('Search') }}"><select class="form-select" name="kind" aria-label="{{ _('Kind') }}"><option value="">{{ _('Any kind') }}</option>{% for k in kinds %}<option value="{{ k }}" {% if kind == k %}selected{% endif %}>{{ k }}</option>{% endfor %}</select><button class="btn btn-outline" type="submit">{{ _('Filter') }}</button></form></div>
+    <div class="media-grid">
+      {% for m in pagination.items %}
+      <div class="media-tile">
+        <div class="thumb">{% if m.is_image and m.is_public %}<img src="{{ url_for('media.public_file', media_id=m.id) }}" alt="{{ m.alt_text }}">{% elif m.is_image %}<img src="{{ url_for('media.protected_file', media_id=m.id) }}" alt="{{ m.alt_text }}">{% else %}{{ icon('file-text') }}{% endif %}</div>
+        <div class="info"><span class="name" title="{{ m.original_name }}">{{ m.original_name }}</span><span class="text-muted">{{ m.kind.value }} · {{ (m.size_bytes / 1024)|round|int }} KB · #{{ m.id }}</span><div class="d-flex gap-1 mt-1"><form method="post" action="{{ url_for('admin.media_toggle_public', media_id=m.id) }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit">{{ _('Public') if m.is_public else _('Private') }}</button></form><form method="post" action="{{ url_for('admin.media_delete', media_id=m.id) }}" data-confirm="{{ _('Delete this file?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit" aria-label="{{ _('Delete') }}">{{ icon('trash') }}</button></form></div></div>
+      </div>
+      {% else %}<p class="text-muted">{{ _('No files yet.') }}</p>{% endfor %}
+    </div>
+    {{ paginate(pagination) }}
+  </div>
+  <form class="panel" method="post" enctype="multipart/form-data" novalidate>
+    {{ form.hidden_tag() }}{{ error_summary(form) }}
+    <h2 class="h6 mb-3">{{ _('Upload') }}</h2>
+    {{ field(form.file) }}{{ field(form.kind) }}{{ field(form.alt_text) }}{{ field(form.is_public, help=_('Public files can be embedded in lessons and course covers.')) }}
+    <button class="btn btn-primary" type="submit">{{ icon('upload') }} {{ _('Upload') }}</button>
+  </form>
+</div>
+{% endblock %}

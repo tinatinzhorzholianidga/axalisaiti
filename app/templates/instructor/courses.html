@@ -1,0 +1,14 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import status_chip, empty_state %}
+{% block title %}{{ _('My courses') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('My courses') }}{% endblock %}
+{% block panel_actions %}<a class="btn btn-primary" href="{{ url_for('instructor.course_new') }}">{{ icon('plus') }} {{ _('Create course') }}</a>{% endblock %}
+{% block panel_content %}
+{% if courses %}
+<div class="table-wrap"><table class="table table-hover"><thead><tr><th>{{ _('Course') }}</th><th>{{ _('Status') }}</th><th>{{ _('Lessons') }}</th><th>{{ _('Enrolled') }}</th><th>{{ _('Updated') }}</th><th></th></tr></thead><tbody>
+{% for c in courses %}<tr><td><a href="{{ url_for('instructor.builder', course_id=c.id) }}">{{ c.title(locale) }}</a><br><small class="text-muted">{{ c.slug }} · {{ c.platform.value }}</small></td><td>{{ status_chip(c.status) }}</td><td>{{ c.lesson_count }}</td><td>{{ c.enrollment_count }}</td><td>{{ c.updated_at|humanize_dt }}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('instructor.course_edit', course_id=c.id) }}">{{ _('Settings') }}</a><a class="btn btn-outline btn-sm" href="{{ url_for('instructor.builder', course_id=c.id) }}">{{ _('Curriculum') }}</a></td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}{{ empty_state(_('No courses yet'), _('Create your first course and build its curriculum.'), 'book', _('Create course'), url_for('instructor.course_new')) }}{% endif %}
+{% endblock %}

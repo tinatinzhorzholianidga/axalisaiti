@@ -1,0 +1,50 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Round') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.cyberhero') }}">CyberHero</a> / <a href="{{ url_for('admin.cyber_mission', mission_id=mission.id) }}">{{ mission.name(locale) }}</a></div>{% endblock %}
+{% block panel_title %}{{ _('Round') }} {{ rnd.sort_order if rnd else mission.rounds|length + 1 }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate data-round-editor>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  {{ field(form.round_type) }}
+  <div data-rtype-only="choice flags builder">{% with pairs=[('prompt_ka','prompt_en'), ('explain_ka','explain_en')], rows=3 %}{% include "admin/cyberhero/_bilingual.html" %}{% endwith %}</div>
+  <div data-rtype-only="choice"><h3 class="h6 mt-3">{{ _('Message card (optional)') }}</h3>{% with pairs=[('card_from_ka','card_from_en'), ('card_meta_ka','card_meta_en'), ('card_body_ka','card_body_en')], rows=3 %}{% include "admin/cyberhero/_bilingual.html" %}{% endwith %}</div>
+  <div data-rtype-only="builder"><div class="form-grid-3">{{ field(form.target) }}</div>{% with pairs=[('meter_low_ka','meter_low_en'), ('meter_high_ka','meter_high_en'), ('explain_negative_ka','explain_negative_en')], rows=2 %}{% include "admin/cyberhero/_bilingual.html" %}{% endwith %}</div>
+  <div data-rtype-only="branch"><div class="form-grid-2">{{ field(form.branch_start_key) }}{{ field(form.branch_max) }}</div></div>
+  <div data-rtype-only="choice flags builder">
+    <h3 class="h6 mt-3">{{ _('Items') }}</h3>
+    <p class="form-text"><span data-rtype-only="choice">{{ _('Options: tick the correct one.') }}</span><span data-rtype-only="flags">{{ _('Items: tick the red flags; explanation shows after checking.') }}</span><span data-rtype-only="builder">{{ _('Toggles: positive values build the meter, negative values are traps.') }}</span></p>
+    <div class="table-wrap"><table class="table"><thead><tr><th>#</th><th>{{ _('Label (ka)') }}</th><th>{{ _('Label (en)') }}</th><th data-rtype-only="choice flags">{{ _('Correct / flag') }}</th><th data-rtype-only="flags">{{ _('From (ka)') }}</th><th data-rtype-only="flags">{{ _('From (en)') }}</th><th data-rtype-only="flags">{{ _('Explain (ka)') }}</th><th data-rtype-only="flags">{{ _('Explain (en)') }}</th><th data-rtype-only="builder">{{ _('Value') }}</th><th data-rtype-only="builder">{{ _('Note (ka)') }}</th><th data-rtype-only="builder">{{ _('Note (en)') }}</th></tr></thead><tbody>
+      {% set items = rnd.items if rnd else [] %}
+      {% for i in range(8) %}{% set it = items[i] if i < items|length else None %}
+      <tr {% if not it and i >= 4 %}hidden data-item-row{% else %}data-item-row{% endif %}>
+        <td>{{ i + 1 }}</td>
+        <td><textarea class="form-control" name="item_label_ka" rows="2" aria-label="ka {{ i + 1 }}">{{ it.label_ka if it else '' }}</textarea></td>
+        <td><textarea class="form-control" name="item_label_en" rows="2" aria-label="en {{ i + 1 }}">{{ it.label_en if it else '' }}</textarea></td>
+        <td data-rtype-only="choice flags"><input class="form-check-input" type="checkbox" name="item_correct" value="{{ i }}" {% if it and it.is_correct %}checked{% endif %} aria-label="{{ _('Correct') }} {{ i + 1 }}"></td>
+        <td data-rtype-only="flags"><input class="form-control" name="item_from_ka" value="{{ it.from_ka if it else '' }}" aria-label="from ka"></td>
+        <td data-rtype-only="flags"><input class="form-control" name="item_from_en" value="{{ it.from_en if it else '' }}" aria-label="from en"></td>
+        <td data-rtype-only="flags"><textarea class="form-control" name="item_explain_ka" rows="2" aria-label="explain ka">{{ it.explain_ka if it else '' }}</textarea></td>
+        <td data-rtype-only="flags"><textarea class="form-control" name="item_explain_en" rows="2" aria-label="explain en">{{ it.explain_en if it else '' }}</textarea></td>
+        <td data-rtype-only="builder"><input class="form-control" type="number" name="item_value" value="{{ it.value if it and it.value is not none else '' }}" aria-label="value"></td>
+        <td data-rtype-only="builder"><input class="form-control" name="item_note_ka" value="{{ it.note_ka if it else '' }}" aria-label="note ka"></td>
+        <td data-rtype-only="builder"><input class="form-control" name="item_note_en" value="{{ it.note_en if it else '' }}" aria-label="note en"></td>
+      </tr>
+      {% endfor %}
+    </tbody></table></div>
+    <button type="button" class="btn btn-outline btn-sm" data-add-item>{{ icon('plus') }} {{ _('More items') }}</button>
+  </div>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save round') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.cyber_mission', mission_id=mission.id) }}">{{ _('Back to mission') }}</a></div>
+</form>
+{% if rnd and rnd.round_type == 'branch' %}
+<div class="panel mt-4">
+  <div class="panel-title"><h2>{{ _('Conversation nodes') }} ({{ rnd.branches|length }})</h2><a class="btn btn-primary btn-sm" href="{{ url_for('admin.cyber_branch', round_id=rnd.id) }}">{{ icon('plus') }} {{ _('Node') }}</a></div>
+  <div class="table-wrap"><table class="table"><thead><tr><th>{{ _('Key') }}</th><th>{{ _('Scene') }}</th><th>{{ _('Messages') }}</th><th>{{ _('Choices → next') }}</th><th></th></tr></thead><tbody>
+    {% for n in rnd.branches %}<tr><td><code>{{ n.key }}</code>{% if n.key == rnd.branch_start_key %} <span class="chip chip-success">start</span>{% endif %}{% if n.is_end %} <span class="chip">end</span>{% endif %}</td><td>{{ n.scene_ka|truncate(60) }}</td><td>{{ n.messages|length }}</td><td>{% for c in n.choices %}<span class="chip">{{ c.points }}p → {{ c.next_key }}</span> {% endfor %}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.cyber_branch', round_id=rnd.id, node_id=n.id) }}">{{ _('Edit') }}</a><form method="post" action="{{ url_for('admin.cyber_branch_delete', round_id=rnd.id, node_id=n.id) }}" data-confirm="{{ _('Delete node?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm">{{ icon('trash') }}</button></form></td></tr>{% endfor %}
+  </tbody></table></div>
+</div>
+{% endif %}
+{% endblock %}

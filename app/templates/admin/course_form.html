@@ -1,0 +1,34 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field %}
+{% from "components/macros.html" import status_chip, csrf %}
+{% block title %}{{ course.title(locale) if course else _('New course') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.courses') }}">{{ _('Courses') }}</a>{% if course %} / {{ status_chip(course.status) }} {{ course.platform.value }}{% endif %}</div>{% endblock %}
+{% block panel_title %}{{ course.title(locale) if course else _('New course') }}{% endblock %}
+{% block panel_actions %}{% if course %}<a class="btn btn-outline" href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ icon('layers') }} {{ _('Curriculum builder') }}</a><a class="btn btn-outline" href="{{ url_for('courses.detail', slug=course.slug) }}">{{ icon('eye') }} {{ _('Preview') }}</a>{% endif %}{% endblock %}
+{% block panel_content %}
+<div class="two-col">
+  <form method="post" enctype="multipart/form-data" class="panel" novalidate>
+    {% with show_platform=True, show_instructor=True %}{% include "instructor/_course_fields.html" %}{% endwith %}
+    <div class="form-actions"><button class="btn btn-primary" type="submit" name="submit" value="1">{{ _('Save course') }}</button></div>
+  </form>
+  {% if course %}
+  <aside>
+    <form class="panel" method="post" action="{{ url_for('admin.course_status', course_id=course.id) }}" novalidate>
+      {{ decision.hidden_tag() }}
+      <h2 class="h6 mb-2">{{ _('Publication') }}</h2>
+      <p class="small text-muted">{{ _('Current status') }}: {{ status_chip(course.status) }}{% if course.review_note %}<br>{{ _('Last note') }}: {{ course.review_note }}{% endif %}</p>
+      {{ field(decision.note, rows=3) }}
+      <div class="d-grid gap-2">
+        {% if course.status.value != 'published' %}<button class="btn btn-success" type="submit" name="review-approve" value="1">{{ icon('check') }} {{ _('Approve & publish') }}</button>{% endif %}
+        {% if course.status.value != 'draft' %}<button class="btn btn-outline" type="submit" name="review-reject" value="1">{{ _('Send back to draft') }}</button>{% endif %}
+        {% if course.status.value != 'archived' %}<button class="btn btn-ghost" type="submit" name="status" value="archived">{{ _('Archive') }}</button>{% endif %}
+      </div>
+    </form>
+    <div class="panel"><h2 class="h6 mb-2">{{ _('Facts') }}</h2><dl class="kv"><dt>{{ _('Modules') }}</dt><dd>{{ course.modules|length }}</dd><dt>{{ _('Lessons') }}</dt><dd>{{ course.lesson_count }}</dd><dt>{{ _('Quizzes') }}</dt><dd>{{ course.quizzes|length }}</dd><dt>{{ _('Enrolled') }}</dt><dd>{{ course.enrollment_count }}</dd><dt>{{ _('Completed') }}</dt><dd>{{ course.completion_count }}</dd><dt>{{ _('Created') }}</dt><dd>{{ course.created_at|date_only }}</dd></dl></div>
+    <form class="panel" method="post" action="{{ url_for('admin.course_delete', course_id=course.id) }}" data-confirm="{{ _('Delete this course, its lessons, quizzes and all progress?') }}">{{ csrf() }}<button class="btn btn-danger btn-sm" type="submit">{{ icon('trash') }} {{ _('Delete course') }}</button></form>
+  </aside>
+  {% endif %}
+</div>
+{% endblock %}

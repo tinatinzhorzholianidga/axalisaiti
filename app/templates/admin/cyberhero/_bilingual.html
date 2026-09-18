@@ -1,0 +1,5 @@
+{# Renders paired ka/en fields side by side: usage {% with pairs=[('name_ka','name_en'), ...] %} #}
+{% from "components/forms.html" import field %}
+{% for ka, en in pairs %}
+<div class="form-grid-2">{{ field(form[ka], rows=rows or 3) }}{{ field(form[en], rows=rows or 3) }}</div>
+{% endfor %}

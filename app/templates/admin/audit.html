@@ -1,0 +1,12 @@
+{% extends "layouts/panel.html" %}
+{% from "components/macros.html" import paginate %}
+{% block title %}{{ _('Audit log') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Audit log') }}{% endblock %}
+{% block panel_content %}
+<div class="toolbar"><form method="get" role="search"><input class="form-control" name="action" value="{{ action }}" placeholder="{{ _('Action prefix, e.g. auth.') }}" aria-label="{{ _('Action') }}"><input class="form-control" name="actor" value="{{ actor }}" placeholder="{{ _('Actor email') }}" aria-label="{{ _('Actor') }}"><button class="btn btn-outline" type="submit">{{ _('Filter') }}</button></form></div>
+<div class="table-wrap"><table class="table"><thead><tr><th>{{ _('When') }}</th><th>{{ _('Actor') }}</th><th>{{ _('Action') }}</th><th>{{ _('Target') }}</th><th>{{ _('IP') }}</th><th>{{ _('Request') }}</th><th>{{ _('Details') }}</th></tr></thead><tbody>
+{% for a in pagination.items %}<tr><td class="text-nowrap">{{ a.created_at|humanize_dt }}</td><td>{{ a.actor_email or '—' }}</td><td><code>{{ a.action }}</code></td><td>{{ a.target_type or '' }}{% if a.target_id %} #{{ a.target_id }}{% endif %}{% if a.target_label %} · {{ a.target_label }}{% endif %}</td><td>{{ a.ip_address or '' }}</td><td><code class="small">{{ (a.request_id or '')[:8] }}</code></td><td class="audit-meta">{{ a.meta|tojson if a.meta else '' }}</td></tr>{% else %}<tr><td colspan="7" class="text-muted">{{ _('No entries.') }}</td></tr>{% endfor %}
+</tbody></table></div>
+{{ paginate(pagination) }}
+{% endblock %}

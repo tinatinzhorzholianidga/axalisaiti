@@ -1,0 +1,13 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Edit module') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Edit module') }}: {{ module.title(locale) }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  <div class="form-grid-2">{{ field(form.title_ka) }}{{ field(form.title_en) }}{{ field(form.description_ka, rows=3) }}{{ field(form.description_en, rows=3) }}</div>
+  {{ field(form.is_published) }}
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save module') }}</button><a class="btn btn-ghost" href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ _('Cancel') }}</a></div>
+</form>
+{% endblock %}

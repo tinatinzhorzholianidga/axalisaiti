@@ -1,0 +1,156 @@
+[
+  {
+    "slug": "phishing-awareness",
+    "categories": ["cybersecurity"],
+    "difficulty": "beginner",
+    "icon": "shield",
+    "color": "purple",
+    "estimated_minutes": 90,
+    "tags": ["phishing", "email", "public-sector"],
+    "is_featured": true,
+    "sort_order": 2,
+    "certificate_enabled": true,
+    "certificate_pass_percent": 70,
+    "title": {"ka": "ფიშინგის ამოცნობა საჯარო მოხელეებისთვის", "en": "Phishing awareness for public servants"},
+    "short_description": {"ka": "როგორ ამოვიცნოთ ყალბი წერილები, ბმულები და ზარები, სანამ ისინი ორგანიზაციას დააზიანებს.", "en": "How to recognise fake emails, links and calls before they harm your organisation."},
+    "description": {"ka": "<p>საჯარო სექტორის თანამშრომლები ფიშინგ-თავდასხმების მთავარი სამიზნეა. ეს მოკლე კურსი რეალურ მაგალითებზე გასწავლით, როგორ შეამოწმოთ გამომგზავნი, ბმული და დანართი, როგორ იმოქმედოთ საეჭვო წერილის მიღებისას და როგორ შეატყობინოთ ინციდენტი.</p>", "en": "<p>Public-sector employees are a primary target of phishing. This short course uses real samples to teach you how to check the sender, the link and the attachment, what to do when a suspicious message arrives, and how to report an incident.</p>"},
+    "objectives": {"ka": ["ამოიცნოთ ფიშინგის ხუთი ძირითადი ნიშანი", "შეამოწმოთ დომენი და ბმულის ნამდვილი მისამართი", "სწორად იმოქმედოთ საეჭვო წერილის მიღებისას", "შეატყობინოთ ინციდენტი შიდა პროცედურით"], "en": ["Recognise the five main signs of phishing", "Check a domain and a link's real destination", "Act correctly when a suspicious message arrives", "Report an incident through the internal procedure"]},
+    "prerequisites": {"ka": ["ელფოსტის ყოველდღიური გამოყენება"], "en": ["Daily use of email"]},
+    "audience": {"ka": "საჯარო მოხელეები და ორგანიზაციების თანამშრომლები.", "en": "Public servants and organisation staff."},
+    "certificate_requirements": {"ka": "ყველა გაკვეთილი, ქვიზი 70%-ით და დავალების ჩაბარება.", "en": "All lessons, the quiz at 70% and the assignment submitted."},
+    "modules": [
+      {
+        "title": {"ka": "როგორ მუშაობს ფიშინგი", "en": "How phishing works"},
+        "description": {"ka": "თავდამსხმელის ლოგიკა და ხუთი ნიშანი.", "en": "The attacker's logic and the five signs."},
+        "lessons": [
+          {"slug": "why-phishing-works", "type": "reading", "minutes": 10, "free_preview": true,
+           "title": {"ka": "რატომ მუშაობს ფიშინგი", "en": "Why phishing works"},
+           "summary": {"ka": "ფიშინგი ტექნოლოგიას კი არა, ადამიანს ესხმის თავს.", "en": "Phishing attacks the person, not the technology."},
+           "content": {"ka": "<p>ფიშინგი ყალბი შეტყობინებაა, რომელიც სანდო წყაროდ ინიღბება - ბანკად, კოლეგად, სამინისტროდ ან საკურიერო სერვისად - და გთხოვთ დააჭიროთ ბმულს, გახსნათ დანართი ან შეიყვანოთ პაროლი. თავდამსხმელი არ ტეხავს სისტემას; ის გარწმუნებთ, რომ თავად გაუღოთ კარი.</p><h3>ემოციები, რომლებზეც თამაშობენ</h3><ul><li><strong>აჩქარება</strong> - „2 საათში“, „დღეს“, „დაუყოვნებლივ“.</li><li><strong>შიში</strong> - „ანგარიში დაიბლოკება“, „ჯარიმა“.</li><li><strong>ავტორიტეტი</strong> - წერილი „ხელმძღვანელისგან“ ან „IT-სგან“.</li><li><strong>ცნობისმოყვარეობა</strong> - „თქვენი ხელფასის ცხრილი“, „ფოტოები შეხვედრიდან“.</li></ul><blockquote>როცა შეტყობინება გაჩქარებთ, სწორედ ეს აჩქარებაა თავდასხმა.</blockquote><p>საჯარო სექტორში ფიშინგი ხშირად პირველი ნაბიჯია უფრო დიდ ინციდენტამდე: მოპარული პაროლით თავდამსხმელი შიდა სისტემებს აღწევს და კოლეგებს იმავე ანგარიშიდან წერს.</p>", "en": "<p>Phishing is a fake message disguised as a trusted source - a bank, a colleague, a ministry or a courier - asking you to click a link, open an attachment or type a password. The attacker does not break the system; they persuade you to open the door yourself.</p><h3>The emotions they play on</h3><ul><li><strong>Urgency</strong> - \"within 2 hours\", \"today\", \"immediately\".</li><li><strong>Fear</strong> - \"your account will be blocked\", \"a fine\".</li><li><strong>Authority</strong> - a message \"from the director\" or \"from IT\".</li><li><strong>Curiosity</strong> - \"your salary table\", \"photos from the meeting\".</li></ul><blockquote>When a message rushes you, the rush itself is the attack.</blockquote><p>In the public sector phishing is often the first step of a larger incident: with a stolen password the attacker reaches internal systems and writes to colleagues from the same account.</p>"}},
+          {"slug": "five-signs", "type": "reading", "minutes": 12,
+           "title": {"ka": "ხუთი ნიშანი", "en": "The five signs"},
+           "summary": {"ka": "გამომგზავნი, ბმული, დანართი, ტონი, მოთხოვნა.", "en": "Sender, link, attachment, tone, request."},
+           "content": {"ka": "<h3>1. გამომგზავნის ზუსტი დომენი</h3><p>ნახეთ არა გამოსახული სახელი, არამედ მისამართი: <code>hr@gov-ge-portal.com</code> არ არის <code>@gov.ge</code>. ერთი ასო ან დამატებითი სიტყვა საკმარისია.</p><h3>2. ბმულის ნამდვილი მისამართი</h3><p>კურსორი ბმულზე დააჭერის გარეშე დააყენეთ და ნახეთ, სად მიდის. მოკლე ბმულები და IP-მისამართები საეჭვოა.</p><h3>3. მოულოდნელი დანართი</h3><p>განსაკუთრებით <code>.zip</code>, <code>.exe</code>, <code>.js</code> და მაკროიანი ოფისის ფაილები. „ინვოისი“, რომელსაც არ ელოდით, ინვოისი არ არის.</p><h3>4. ტონი და ვადა</h3><p>მუქარა, ვადა, საიდუმლოების თხოვნა. ნამდვილი ორგანიზაცია ტაიმერს არ გირთავთ.</p><h3>5. მოთხოვნა</h3><p>პაროლი, კოდი, ბარათის ნომერი, გადარიცხვა, სასაჩუქრე ბარათი. ეს მოთხოვნები თავად თავდასხმაა.</p><table><tr><th>ნიშანი</th><th>რა უნდა გააკეთოთ</th></tr><tr><td>საეჭვო დომენი</td><td>შეადარეთ ცნობილ მისამართს</td></tr><tr><td>საეჭვო ბმული</td><td>თავად აკრიფეთ საიტის მისამართი</td></tr><tr><td>დანართი</td><td>არ გახსნათ, გადაუგზავნეთ IT-ს</td></tr></table>", "en": "<h3>1. The sender's exact domain</h3><p>Look at the address, not the display name: <code>hr@gov-ge-portal.com</code> is not <code>@gov.ge</code>. One letter or one extra word is enough.</p><h3>2. The link's real destination</h3><p>Hover over the link without clicking and read where it goes. Short links and IP addresses are suspicious.</p><h3>3. An unexpected attachment</h3><p>Especially <code>.zip</code>, <code>.exe</code>, <code>.js</code> and macro-enabled office files. An \"invoice\" you did not expect is not an invoice.</p><h3>4. Tone and deadline</h3><p>Threats, deadlines, requests for secrecy. A real organisation does not start a countdown.</p><h3>5. The request</h3><p>Password, code, card number, transfer, gift card. These requests are the attack itself.</p><table><tr><th>Sign</th><th>What to do</th></tr><tr><td>Suspicious domain</td><td>Compare with the known address</td></tr><tr><td>Suspicious link</td><td>Type the site address yourself</td></tr><tr><td>Attachment</td><td>Do not open; forward to IT</td></tr></table>"},
+           "quiz": {
+             "title": {"ka": "ქვიზი: ხუთი ნიშანი", "en": "Quiz: the five signs"},
+             "description": {"ka": "ოთხი სწრაფი კითხვა.", "en": "Four quick questions."},
+             "pass_percent": 75, "max_attempts": 3,
+             "questions": [
+               {"type": "single", "points": 1, "prompt": {"ka": "წერილი მოვიდა „director@ministry-ge.info“-დან და გთხოვთ პაროლის დადასტურებას. რას აკეთებთ?", "en": "An email from \"director@ministry-ge.info\" asks you to confirm your password. What do you do?"},
+                "explanation": {"ka": "დომენი ყალბია და პაროლის მოთხოვნა თავად თავდასხმაა.", "en": "The domain is fake and the password request is the attack."},
+                "options": [{"text": {"ka": "ვადასტურებ - ხელმძღვანელია", "en": "Confirm - it is the director"}, "correct": false}, {"text": {"ka": "არ ვპასუხობ და ვატყობინებ IT-ს", "en": "Do not reply and report to IT"}, "correct": true}, {"text": {"ka": "ვპასუხობ და ვეკითხები, რატომ", "en": "Reply and ask why"}, "correct": false}]},
+               {"type": "true_false", "points": 1, "prompt": {"ka": "გამოსახული სახელი „HR Department“ საკმარისია, რომ წერილი ნამდვილად ჩაითვალოს.", "en": "The display name \"HR Department\" is enough to consider an email genuine."},
+                "explanation": {"ka": "გამოსახული სახელი ნებისმიერი შეიძლება იყოს; მნიშვნელოვანია ზუსტი დომენი.", "en": "The display name can be anything; the exact domain matters."},
+                "options": [{"text": {"ka": "სიმართლე", "en": "True"}, "correct": false}, {"text": {"ka": "ტყუილი", "en": "False"}, "correct": true}]},
+               {"type": "multiple", "points": 2, "prompt": {"ka": "რომელი დანართებია ყველაზე სახიფათო?", "en": "Which attachments are the most dangerous?"},
+                "explanation": {"ka": "შესრულებადი და მაკროიანი ფაილები.", "en": "Executables and macro-enabled files."},
+                "options": [{"text": {"ka": "invoice.zip", "en": "invoice.zip"}, "correct": true}, {"text": {"ka": "report.exe", "en": "report.exe"}, "correct": true}, {"text": {"ka": "agenda.txt", "en": "agenda.txt"}, "correct": false}, {"text": {"ka": "form.docm (მაკროებით)", "en": "form.docm (with macros)"}, "correct": true}]},
+               {"type": "short_answer", "points": 1, "prompt": {"ka": "რა უნდა გააკეთოთ ბმულზე დაჭერამდე, რომ მისი ნამდვილი მისამართი ნახოთ? (ერთი სიტყვა: „კურსორი“ ან „hover“)", "en": "What do you do before clicking to see a link's real destination? (one word)"},
+                "explanation": {"ka": "კურსორის დაყენება ბმულზე.", "en": "Hover over the link."},
+                "accepted_answers": ["hover", "კურსორი", "დავაყენებ კურსორს", "hover over it"], "options": []}
+             ]
+           }}
+        ]
+      },
+      {
+        "title": {"ka": "რეაგირება და შეტყობინება", "en": "Response and reporting"},
+        "description": {"ka": "პირველი 10 წუთი და შიდა პროცედურა.", "en": "The first 10 minutes and the internal procedure."},
+        "lessons": [
+          {"slug": "first-ten-minutes", "type": "reading", "minutes": 10,
+           "title": {"ka": "პირველი ათი წუთი", "en": "The first ten minutes"},
+           "summary": {"ka": "რა გააკეთოთ, თუ უკვე დააჭირეთ.", "en": "What to do if you already clicked."},
+           "content": {"ka": "<p>დააჭირეთ ბმულს ან შეიყვანეთ პაროლი? ეს ხდება გამოცდილ თანამშრომლებთანაც. მთავარია სისწრაფე და გულწრფელობა.</p><ol><li>გათიშეთ კომპიუტერი ქსელიდან (Wi-Fi ან კაბელი).</li><li>შეცვალეთ პაროლი სხვა მოწყობილობიდან - ჯერ ელფოსტის.</li><li>დაუყოვნებლივ შეატყობინეთ IT/უსაფრთხოების ჯგუფს: რა მიიღეთ, რას დააჭირეთ, რა შეიყვანეთ.</li><li>არ წაშალოთ წერილი - ის მტკიცებულებაა.</li><li>გააფრთხილეთ კოლეგები, თუ იმავე წერილმა შეიძლება მათაც მიაღწიოს.</li></ol><div class=\"callout callout-warning\">შეტყობინების დაგვიანება ინციდენტს აძვირებს. არავინ დაისჯება იმისთვის, რომ დროულად შეატყობინა.</div>", "en": "<p>Clicked a link or entered a password? It happens to experienced staff too. What matters is speed and honesty.</p><ol><li>Disconnect the computer from the network (Wi-Fi or cable).</li><li>Change the password from another device - email first.</li><li>Report to the IT/security team immediately: what you received, what you clicked, what you typed.</li><li>Do not delete the message - it is evidence.</li><li>Warn colleagues if the same message may reach them.</li></ol><div class=\"callout callout-warning\">Delayed reporting makes an incident more expensive. Nobody is punished for reporting in time.</div>"}},
+          {"slug": "report-practice", "type": "assignment", "minutes": 20,
+           "title": {"ka": "პრაქტიკა: ინციდენტის შეტყობინება", "en": "Practice: reporting an incident"},
+           "summary": {"ka": "დაწერეთ შეტყობინება IT-ჯგუფისთვის.", "en": "Write a report for the IT team."},
+           "content": {"ka": "<p>ამ გაკვეთილში თქვენ დაწერთ ინციდენტის შეტყობინებას რეალური სცენარის მიხედვით. გახსენით დავალება ქვემოთ.</p>", "en": "<p>In this lesson you will write an incident report based on a realistic scenario. Open the assignment below.</p>"},
+           "assignment": {
+             "title": {"ka": "ინციდენტის შეტყობინება", "en": "Incident report"},
+             "instructions": {"ka": "<p>სცენარი: თქვენმა კოლეგამ დილით მიიღო წერილი „საბუღალტრო სამსახურისგან“ დანართით <code>salary_march.zip</code>, გახსნა და კომპიუტერი შენელდა. დაწერეთ შეტყობინება IT-ჯგუფისთვის (150-250 სიტყვა): რა მოხდა, როდის, რა ნიშნები იყო წერილში ყალბი, რა ნაბიჯები გადაიდგა და რა უნდა გაკეთდეს ახლა.</p>", "en": "<p>Scenario: this morning your colleague received an email \"from Accounting\" with the attachment <code>salary_march.zip</code>, opened it, and the computer slowed down. Write a report for the IT team (150-250 words): what happened, when, which signs in the email were fake, which steps were taken and what should happen now.</p>"},
+             "submission_type": "text", "max_points": 20, "max_resubmissions": 2, "allow_late": true, "late_penalty_percent": 10
+           }}
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "soc-fundamentals",
+    "categories": ["soc", "cybersecurity"],
+    "difficulty": "intermediate",
+    "icon": "activity",
+    "color": "cyan",
+    "estimated_minutes": 180,
+    "tags": ["soc", "monitoring", "incident-response", "logs"],
+    "is_featured": true,
+    "sort_order": 3,
+    "certificate_enabled": true,
+    "certificate_pass_percent": 70,
+    "title": {"ka": "SOC-ის საფუძვლები", "en": "SOC fundamentals"},
+    "short_description": {"ka": "უსაფრთხოების ოპერაციების ცენტრის როლები, ლოგების ანალიზი, ალერტების ტრიაჟი და ინციდენტზე რეაგირების საფუძვლები.", "en": "Security operations centre roles, log analysis, alert triage and incident response basics."},
+    "description": {"ka": "<p>კურსი განკუთვნილია მათთვის, ვისაც სურს SOC-ის ანალიტიკოსად მუშაობა ან უკეთ გაიგოს, როგორ იცავს ორგანიზაცია თავს ყოველდღიურად. განიხილავთ SOC-ის სამ დონეს, ლოგების წყაროებს, ტიპურ ალერტებს, ტრიაჟის პროცესს და ინციდენტის სასიცოცხლო ციკლს რეალური ჟურნალის ჩანაწერებით.</p>", "en": "<p>For anyone who wants to work as a SOC analyst or understand how an organisation defends itself every day. You will cover the three SOC tiers, log sources, typical alerts, the triage process and the incident lifecycle using real log excerpts.</p>"},
+    "objectives": {"ka": ["აღწეროთ SOC-ის სტრუქტურა და როლები", "წაიკითხოთ ავთენტიფიკაციისა და ქსელის ლოგები", "ჩაატაროთ ალერტის ტრიაჟი და პრიორიტეტიზაცია", "გამოიყენოთ ინციდენტზე რეაგირების ეტაპები"], "en": ["Describe the SOC structure and roles", "Read authentication and network logs", "Triage and prioritise an alert", "Apply the incident response phases"]},
+    "prerequisites": {"ka": ["კიბერუსაფრთხოების საბაზისო კურსი", "ქსელების საბაზისო ცოდნა (IP, პორტები)"], "en": ["Basic Cybersecurity Course", "Basic networking knowledge (IP, ports)"]},
+    "audience": {"ka": "IT სპეციალისტები, დამწყები ანალიტიკოსები, სტუდენტები.", "en": "IT specialists, junior analysts, students."},
+    "certificate_requirements": {"ka": "ყველა გაკვეთილი და საბოლოო ტესტი 70%-ით.", "en": "All lessons and the final assessment at 70%."},
+    "modules": [
+      {
+        "title": {"ka": "რა არის SOC", "en": "What a SOC is"},
+        "description": {"ka": "სტრუქტურა, დონეები, ინსტრუმენტები.", "en": "Structure, tiers, tools."},
+        "lessons": [
+          {"slug": "soc-roles", "type": "reading", "minutes": 12, "free_preview": true,
+           "title": {"ka": "SOC-ის როლები და დონეები", "en": "SOC roles and tiers"},
+           "summary": {"ka": "L1, L2, L3 და ვინ რას აკეთებს.", "en": "L1, L2, L3 and who does what."},
+           "content": {"ka": "<p>უსაფრთხოების ოპერაციების ცენტრი (SOC) ის გუნდია, რომელიც 24/7 აკვირდება ორგანიზაციის სისტემებს, ამოიცნობს საფრთხეებს და რეაგირებს ინციდენტებზე.</p><h3>დონეები</h3><ul><li><strong>L1 - მონიტორინგი და ტრიაჟი.</strong> ალერტების პირველი შემოწმება, ცრუ დადებითების გაფილტვრა, ესკალაცია.</li><li><strong>L2 - გამოძიება.</strong> სიღრმისეული ანალიზი, კავშირების ძიება, შემაკავებელი ღონისძიებები.</li><li><strong>L3 - ნადირობა და ინჟინერია.</strong> საფრთხეებზე ნადირობა, დეტექციის წესების წერა, ფორენზიკა.</li></ul><h3>ინსტრუმენტები</h3><p>SIEM (ლოგების ცენტრალიზაცია და კორელაცია), EDR (მოწყობილობების დაცვა), ტიკეტების სისტემა, საფრთხეების დაზვერვის წყაროები.</p><blockquote>SOC-ის ყველაზე ძვირფასი რესურსი ანალიტიკოსის ყურადღებაა. ცრუ ალერტები მას ხარჯავს - ამიტომ ტრიაჟი ხელოვნებაა.</blockquote>", "en": "<p>A Security Operations Centre (SOC) is the team that watches an organisation's systems around the clock, detects threats and responds to incidents.</p><h3>Tiers</h3><ul><li><strong>L1 - monitoring and triage.</strong> First look at alerts, filtering false positives, escalation.</li><li><strong>L2 - investigation.</strong> Deep analysis, finding connections, containment.</li><li><strong>L3 - hunting and engineering.</strong> Threat hunting, writing detection rules, forensics.</li></ul><h3>Tools</h3><p>SIEM (log centralisation and correlation), EDR (endpoint protection), a ticketing system, threat-intelligence feeds.</p><blockquote>The most valuable resource in a SOC is analyst attention. False alerts burn it - which is why triage is a craft.</blockquote>"}},
+          {"slug": "reading-logs", "type": "reading", "minutes": 15,
+           "title": {"ka": "ლოგების კითხვა", "en": "Reading logs"},
+           "summary": {"ka": "ავთენტიფიკაციის და ქსელის ჩანაწერები.", "en": "Authentication and network records."},
+           "content": {"ka": "<p>ლოგი მოვლენის ჩანაწერია: ვინ, რა, როდის, საიდან. ქვემოთ ავთენტიფიკაციის ლოგის ფრაგმენტია:</p><pre><code>2026-03-04 02:13:41 sshd[2211]: Failed password for admin from 185.220.101.4 port 51322\n2026-03-04 02:13:43 sshd[2211]: Failed password for admin from 185.220.101.4 port 51322\n2026-03-04 02:13:44 sshd[2211]: Failed password for root from 185.220.101.4 port 51330\n2026-03-04 02:14:02 sshd[2215]: Accepted password for admin from 185.220.101.4 port 51402</code></pre><p>რას ვხედავთ? ერთი IP-დან სამი წარუმატებელი მცდელობა ღამის 2 საათზე, შემდეგ წარმატებული შესვლა - ბრუტფორსის კლასიკური სურათი. ეს ალერტი მაღალი პრიორიტეტისაა.</p><h3>რას ეძებთ</h3><ul><li>დროის ანომალიები (ღამე, უქმე დღეები).</li><li>ერთი წყაროდან ბევრი მცდელობა.</li><li>წარმატება წარუმატებლობების შემდეგ.</li><li>უჩვეულო გეოგრაფია ან ცნობილი მავნე IP.</li></ul>", "en": "<p>A log is a record of an event: who, what, when, from where. Below is an authentication log excerpt:</p><pre><code>2026-03-04 02:13:41 sshd[2211]: Failed password for admin from 185.220.101.4 port 51322\n2026-03-04 02:13:43 sshd[2211]: Failed password for admin from 185.220.101.4 port 51322\n2026-03-04 02:13:44 sshd[2211]: Failed password for root from 185.220.101.4 port 51330\n2026-03-04 02:14:02 sshd[2215]: Accepted password for admin from 185.220.101.4 port 51402</code></pre><p>What do we see? Three failures from one IP at 2 a.m., then a successful login - the classic brute-force picture. This alert is high priority.</p><h3>What you look for</h3><ul><li>Time anomalies (night, weekends).</li><li>Many attempts from one source.</li><li>Success after failures.</li><li>Unusual geography or a known malicious IP.</li></ul>"},
+           "quiz": {
+             "title": {"ka": "ქვიზი: ლოგების კითხვა", "en": "Quiz: reading logs"},
+             "pass_percent": 70, "max_attempts": 2, "time_limit_minutes": 10,
+             "questions": [
+               {"type": "single", "points": 1, "prompt": {"ka": "ლოგში სამი წარუმატებელი და ერთი წარმატებული შესვლა ერთი IP-დან 30 წამში. რა არის ეს?", "en": "Three failed and one successful login from one IP within 30 seconds. What is it?"},
+                "explanation": {"ka": "ბრუტფორსი წარმატებული შესვლით - მაღალი პრიორიტეტი.", "en": "A brute force with a successful login - high priority."},
+                "options": [{"text": {"ka": "ნორმალური აქტივობა", "en": "Normal activity"}, "correct": false}, {"text": {"ka": "ბრუტფორსი წარმატებული შესვლით", "en": "Brute force with a successful login"}, "correct": true}, {"text": {"ka": "პროგრამული შეცდომა", "en": "A software bug"}, "correct": false}]},
+               {"type": "ordering", "points": 2, "prompt": {"ka": "დაალაგეთ ინციდენტზე რეაგირების ეტაპები.", "en": "Order the incident response phases."},
+                "explanation": {"ka": "მომზადება, აღმოჩენა, შეკავება, აღმოფხვრა, აღდგენა, გაკვეთილები.", "en": "Preparation, detection, containment, eradication, recovery, lessons learned."},
+                "options": [{"text": {"ka": "აღმოჩენა და ანალიზი", "en": "Detection and analysis"}, "position": 1}, {"text": {"ka": "შეკავება", "en": "Containment"}, "position": 2}, {"text": {"ka": "აღმოფხვრა", "en": "Eradication"}, "position": 3}, {"text": {"ka": "აღდგენა", "en": "Recovery"}, "position": 4}]},
+               {"type": "matching", "points": 2, "prompt": {"ka": "დააკავშირეთ ინსტრუმენტი ფუნქციასთან.", "en": "Match the tool with its function."},
+                "explanation": {"ka": "SIEM - ლოგები, EDR - მოწყობილობები, ტიკეტები - პროცესი.", "en": "SIEM - logs, EDR - endpoints, tickets - process."},
+                "options": [{"text": {"ka": "SIEM", "en": "SIEM"}, "match": {"ka": "ლოგების კორელაცია", "en": "Log correlation"}}, {"text": {"ka": "EDR", "en": "EDR"}, "match": {"ka": "მოწყობილობების დაცვა", "en": "Endpoint protection"}}, {"text": {"ka": "ტიკეტების სისტემა", "en": "Ticketing system"}, "match": {"ka": "ინციდენტების აღრიცხვა", "en": "Incident tracking"}}]}
+             ]
+           }}
+        ]
+      },
+      {
+        "title": {"ka": "ტრიაჟი და რეაგირება", "en": "Triage and response"},
+        "description": {"ka": "პრიორიტეტები და ინციდენტის ციკლი.", "en": "Priorities and the incident lifecycle."},
+        "lessons": [
+          {"slug": "alert-triage", "type": "reading", "minutes": 15,
+           "title": {"ka": "ალერტის ტრიაჟი", "en": "Alert triage"},
+           "summary": {"ka": "ნამდვილი თუ ცრუ, სასწრაფო თუ არა.", "en": "True or false, urgent or not."},
+           "content": {"ka": "<p>ტრიაჟი სამ კითხვას პასუხობს: ნამდვილია? რამდენად სახიფათოა? ვინ უნდა იმოქმედოს? გამოიყენეთ მატრიცა: <strong>ზეგავლენა × ალბათობა</strong>.</p><table><tr><th>ალერტი</th><th>ზეგავლენა</th><th>ალბათობა</th><th>პრიორიტეტი</th></tr><tr><td>ბრუტფორსი წარმატებული შესვლით</td><td>მაღალი</td><td>მაღალი</td><td>P1</td></tr><tr><td>ერთი წარუმატებელი შესვლა</td><td>დაბალი</td><td>დაბალი</td><td>P4</td></tr><tr><td>მავნე დომენზე DNS-მოთხოვნა</td><td>საშუალო</td><td>მაღალი</td><td>P2</td></tr></table><p>ყოველი გადაწყვეტილება ჩაწერეთ ტიკეტში: რა ნახეთ, რა დაასკვენით, რა გააკეთეთ. ეს ჩანაწერი მომდევნო ანალიტიკოსისთვის და გამოძიებისთვის აუცილებელია.</p>", "en": "<p>Triage answers three questions: is it real? how dangerous? who must act? Use the matrix <strong>impact × likelihood</strong>.</p><table><tr><th>Alert</th><th>Impact</th><th>Likelihood</th><th>Priority</th></tr><tr><td>Brute force with successful login</td><td>High</td><td>High</td><td>P1</td></tr><tr><td>A single failed login</td><td>Low</td><td>Low</td><td>P4</td></tr><tr><td>DNS request to a malicious domain</td><td>Medium</td><td>High</td><td>P2</td></tr></table><p>Write every decision into the ticket: what you saw, what you concluded, what you did. That record is essential for the next analyst and for the investigation.</p>"}},
+          {"slug": "triage-exercise", "type": "assignment", "minutes": 30,
+           "title": {"ka": "სავარჯიშო: ლოგის ანალიზი", "en": "Exercise: log analysis"},
+           "summary": {"ka": "გააანალიზეთ ლოგი და დაწერეთ ტიკეტი.", "en": "Analyse a log and write a ticket."},
+           "content": {"ka": "<p>გახსენით დავალება და გააანალიზეთ მოცემული ლოგის ფრაგმენტი.</p>", "en": "<p>Open the assignment and analyse the given log excerpt.</p>"},
+           "assignment": {
+             "title": {"ka": "ლოგის ანალიზი და ტიკეტი", "en": "Log analysis and ticket"},
+             "instructions": {"ka": "<p>გააანალიზეთ ლოგი:</p><pre><code>10:02:11 DNS query update-service-cdn.top from 10.0.4.17\n10:02:12 HTTP GET http://update-service-cdn.top/x.ps1 from 10.0.4.17\n10:02:15 EDR: powershell.exe -enc ... parent=WINWORD.EXE host=WS-017</code></pre><p>დაწერეთ ტიკეტი: (1) რა მოხდა, (2) პრიორიტეტი და დასაბუთება, (3) შეკავების ნაბიჯები, (4) რას სთხოვდით L2-ს. შეგიძლიათ დაურთოთ PDF ან ტექსტური ფაილი.</p>", "en": "<p>Analyse the log:</p><pre><code>10:02:11 DNS query update-service-cdn.top from 10.0.4.17\n10:02:12 HTTP GET http://update-service-cdn.top/x.ps1 from 10.0.4.17\n10:02:15 EDR: powershell.exe -enc ... parent=WINWORD.EXE host=WS-017</code></pre><p>Write a ticket: (1) what happened, (2) priority with justification, (3) containment steps, (4) what you would ask L2 to do. You may attach a PDF or text file.</p>"},
+             "submission_type": "both", "max_points": 30, "max_resubmissions": 1, "allow_late": true, "late_penalty_percent": 20, "allowed_extensions": "pdf,txt,docx"
+           }}
+        ]
+      }
+    ],
+    "final_quiz": {
+      "title": {"ka": "საბოლოო ტესტი: SOC-ის საფუძვლები", "en": "Final assessment: SOC fundamentals"},
+      "pass_percent": 70, "max_attempts": 2, "time_limit_minutes": 15,
+      "questions": [
+        {"type": "single", "points": 1, "prompt": {"ka": "რომელი დონე წერს დეტექციის წესებს და ნადირობს საფრთხეებზე?", "en": "Which tier writes detection rules and hunts threats?"}, "explanation": {"ka": "L3.", "en": "L3."}, "options": [{"text": {"ka": "L1", "en": "L1"}, "correct": false}, {"text": {"ka": "L2", "en": "L2"}, "correct": false}, {"text": {"ka": "L3", "en": "L3"}, "correct": true}]},
+        {"type": "true_false", "points": 1, "prompt": {"ka": "ცრუ დადებითი ალერტების იგნორირება უსაფრთხოა, თუ ისინი ხშირია.", "en": "Ignoring false positive alerts is safe when they are frequent."}, "explanation": {"ka": "ხშირი ცრუ ალერტები დეტექციის წესის გაუმჯობესებას მოითხოვს, არა იგნორირებას.", "en": "Frequent false positives call for tuning the rule, not ignoring alerts."}, "options": [{"text": {"ka": "სიმართლე", "en": "True"}, "correct": false}, {"text": {"ka": "ტყუილი", "en": "False"}, "correct": true}]},
+        {"type": "multiple", "points": 2, "prompt": {"ka": "რომელი ნიშნები ზრდის ალერტის პრიორიტეტს?", "en": "Which signs raise an alert's priority?"}, "explanation": {"ka": "წარმატებული შესვლა, ადმინისტრატორის ანგარიში, ცნობილი მავნე IP.", "en": "Successful login, admin account, known malicious IP."}, "options": [{"text": {"ka": "წარმატებული შესვლა წარუმატებლობების შემდეგ", "en": "Successful login after failures"}, "correct": true}, {"text": {"ka": "ადმინისტრატორის ანგარიში", "en": "Administrator account"}, "correct": true}, {"text": {"ka": "სამუშაო საათები", "en": "Business hours"}, "correct": false}, {"text": {"ka": "ცნობილი მავნე IP", "en": "Known malicious IP"}, "correct": true}]},
+        {"type": "short_answer", "points": 1, "prompt": {"ka": "რა ჰქვია სისტემას, რომელიც ლოგებს აცენტრალებს და აკორელირებს? (აბრევიატურა)", "en": "What is the system that centralises and correlates logs called? (acronym)"}, "explanation": {"ka": "SIEM.", "en": "SIEM."}, "accepted_answers": ["siem"], "options": []}
+      ]
+    }
+  }
+]

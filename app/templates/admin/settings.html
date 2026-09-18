@@ -1,0 +1,28 @@
+{% extends "layouts/panel.html" %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Site settings') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Site settings') }}{% endblock %}
+{% block panel_content %}
+<form method="post" novalidate>
+  {{ csrf() }}
+  {% for group, items in groups.items() %}
+  <div class="panel mb-4">
+    <h2 class="h6 mb-3 text-uppercase">{{ group }}</h2>
+    {% for s in items %}
+    <div class="form-field">
+      {% if s.value_type == 'bool' %}
+      <div class="form-check"><input class="form-check-input" type="checkbox" id="setting-{{ s.key }}" name="setting-{{ s.key }}" {% if s.typed_value() %}checked{% endif %}><label class="form-check-label" for="setting-{{ s.key }}">{{ s.label }}</label></div>
+      {% elif s.value_type == 'text' %}
+      <label class="form-label" for="setting-{{ s.key }}">{{ s.label }}</label><textarea class="form-control" id="setting-{{ s.key }}" name="setting-{{ s.key }}" rows="2">{{ s.value }}</textarea>
+      {% else %}
+      <label class="form-label" for="setting-{{ s.key }}">{{ s.label }}</label><input class="form-control" id="setting-{{ s.key }}" name="setting-{{ s.key }}" value="{{ s.value }}">
+      {% endif %}
+      {% if s.description %}<div class="form-text">{{ s.description }} <code>{{ s.key }}</code></div>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <button class="btn btn-primary" type="submit">{{ _('Save settings') }}</button>
+</form>
+{% endblock %}

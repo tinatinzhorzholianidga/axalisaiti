@@ -1,0 +1,49 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Question') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ course.title(locale) }}</a> / <a href="{{ url_for('instructor.quiz_edit', course_id=course.id, quiz_id=quiz.id) }}">{{ quiz.title(locale) }}</a></div>{% endblock %}
+{% block panel_title %}{{ _('Edit question') if question else _('New question') }}{% endblock %}
+{% block panel_content %}
+<form method="post" class="panel" novalidate data-question-editor>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  <div class="form-grid-3">{{ field(form.question_type) }}{{ field(form.points) }}</div>
+  <div class="form-grid-2">{{ field(form.prompt_ka, rows=3) }}{{ field(form.prompt_en, rows=3) }}{{ field(form.explanation_ka, rows=2) }}{{ field(form.explanation_en, rows=2) }}</div>
+  <div data-qtype-only="short_answer" hidden>{{ field(form.accepted_answers, rows=3, help=_('Comparison ignores case and extra spaces.')) }}</div>
+  <div data-qtype-only="true_false" hidden>
+    <fieldset class="form-field"><legend class="form-label">{{ _('Correct answer') }}</legend>
+      <label class="option"><input type="radio" name="tf_correct" value="true" {% if not question or (question.options and question.options[0].is_correct) %}checked{% endif %}> {{ _('True') }}</label>
+      <label class="option"><input type="radio" name="tf_correct" value="false" {% if question and question.options and not question.options[0].is_correct %}checked{% endif %}> {{ _('False') }}</label>
+    </fieldset>
+  </div>
+  <div data-qtype-only="single multiple ordering matching" hidden>
+    <fieldset class="form-field">
+      <legend class="form-label">{{ _('Options') }}</legend>
+      <p class="form-text" data-qtype-only="single multiple">{{ _('Tick the correct option(s).') }}</p>
+      <p class="form-text" data-qtype-only="ordering">{{ _('Enter the correct position (1 = first) for each option.') }}</p>
+      <p class="form-text" data-qtype-only="matching">{{ _('Each option is a left-hand item; enter the right-hand match it pairs with.') }}</p>
+      <div class="table-wrap"><table class="table" data-options-table>
+        <thead><tr><th>#</th><th>{{ _('Text (Georgian)') }}</th><th>{{ _('Text (English)') }}</th><th data-qtype-only="single multiple">{{ _('Correct') }}</th><th data-qtype-only="ordering">{{ _('Position') }}</th><th data-qtype-only="matching">{{ _('Match (Georgian)') }}</th><th data-qtype-only="matching">{{ _('Match (English)') }}</th><th></th></tr></thead>
+        <tbody>
+          {% set opts = question.options if question else [] %}
+          {% for i in range(6) %}{% set o = opts[i] if i < opts|length else None %}
+          <tr data-option-row {% if not o and i >= 4 %}hidden{% endif %}>
+            <td class="text-muted">{{ i + 1 }}</td>
+            <td><input class="form-control" name="opt_text_ka" value="{{ o.text_ka if o else '' }}" aria-label="{{ _('Option text (Georgian)') }} {{ i + 1 }}"></td>
+            <td><input class="form-control" name="opt_text_en" value="{{ o.text_en if o else '' }}" aria-label="{{ _('Option text (English)') }} {{ i + 1 }}"></td>
+            <td data-qtype-only="single multiple"><input class="form-check-input" type="checkbox" name="opt_correct" value="{{ i }}" {% if o and o.is_correct %}checked{% endif %} aria-label="{{ _('Correct') }} {{ i + 1 }}"></td>
+            <td data-qtype-only="ordering"><input class="form-control" type="number" min="1" max="20" name="opt_position" value="{{ o.correct_position if o and o.correct_position else i + 1 }}" aria-label="{{ _('Position') }} {{ i + 1 }}"></td>
+            <td data-qtype-only="matching"><input class="form-control" name="opt_match_ka" value="{{ o.match_ka if o else '' }}" aria-label="{{ _('Match (Georgian)') }} {{ i + 1 }}"></td>
+            <td data-qtype-only="matching"><input class="form-control" name="opt_match_en" value="{{ o.match_en if o else '' }}" aria-label="{{ _('Match (English)') }} {{ i + 1 }}"></td>
+            <td></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table></div>
+      <button type="button" class="btn btn-outline btn-sm mt-2" data-add-option>{{ icon('plus') }} {{ _('More options') }}</button>
+    </fieldset>
+  </div>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save question') }}</button><a class="btn btn-ghost" href="{{ url_for('instructor.quiz_edit', course_id=course.id, quiz_id=quiz.id) }}">{{ _('Cancel') }}</a></div>
+</form>
+{% endblock %}

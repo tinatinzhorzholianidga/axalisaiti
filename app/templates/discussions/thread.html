@@ -1,0 +1,55 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ thread.title }} · {{ course.title(locale) }}{% endblock %}
+{% block content %}
+<div class="container narrow">
+  <nav aria-label="breadcrumb"><ol class="breadcrumb mt-4"><li class="breadcrumb-item"><a href="{{ url_for('courses.detail', slug=course.slug) }}">{{ course.title(locale) }}</a></li><li class="breadcrumb-item"><a href="{{ url_for('discussions.list_threads', slug=course.slug) }}">{{ _('Discussions') }}</a></li><li class="breadcrumb-item active" aria-current="page">{{ thread.title|truncate(40) }}</li></ol></nav>
+  <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+    <h1 class="page-title">{{ thread.title }} {% if thread.is_pinned %}<span class="chip chip-purple">{{ _('Pinned') }}</span>{% endif %}{% if thread.is_locked %}<span class="chip">{{ icon('lock') }} {{ _('Locked') }}</span>{% endif %}</h1>
+    {% if can_moderate %}
+    <form method="post" action="{{ url_for('discussions.moderate', slug=course.slug, thread_id=thread.id) }}" class="d-flex gap-1 flex-wrap">
+      {{ csrf() }}
+      <button class="btn btn-ghost btn-sm" name="action" value="{{ 'unpin' if thread.is_pinned else 'pin' }}">{{ icon('pin') }} {{ _('Unpin') if thread.is_pinned else _('Pin') }}</button>
+      <button class="btn btn-ghost btn-sm" name="action" value="{{ 'unlock' if thread.is_locked else 'lock' }}">{{ icon('lock') }} {{ _('Unlock') if thread.is_locked else _('Lock') }}</button>
+      <button class="btn btn-ghost btn-sm" name="action" value="{{ 'unhide' if thread.is_hidden else 'hide' }}">{{ icon('eye') }} {{ _('Unhide') if thread.is_hidden else _('Hide') }}</button>
+    </form>
+    {% endif %}
+  </div>
+  <div class="panel">
+    {% for p in posts %}
+    <article class="post {{ 'reply' if p.parent_id else '' }} {{ 'hidden' if p.is_hidden else '' }}" id="post-{{ p.id }}">
+      <span class="avatar">{{ p.author.initials if p.author else '?' }}</span>
+      <div class="body">
+        <div class="who">{{ p.author.name if p.author else _('Deleted user') }}{% if p.author and course.instructor_id == p.author_id %}<span class="chip chip-primary">{{ _('Instructor') }}</span>{% endif %}<span class="when">{{ p.created_at|humanize_dt }}</span>{% if p.is_hidden %}<span class="chip chip-danger">{{ _('Hidden') }}</span>{% endif %}</div>
+        {% if p.is_deleted %}<p class="text-muted fst-italic">{{ _('This post was deleted.') }}</p>{% else %}<div class="prose">{{ p.body|safe_html }}</div>{% endif %}
+        {% if current_user.is_authenticated and not p.is_deleted %}
+        <div class="tools">
+          {% if can_post and not thread.is_locked %}<a class="btn btn-ghost btn-sm" href="#reply-form" data-reply-to="{{ p.id }}">{{ _('Reply') }}</a>{% endif %}
+          {% if p.author_id != current_user.id %}
+          <form method="post" action="{{ url_for('discussions.post_action', slug=course.slug, post_id=p.id, action='report') }}" class="d-inline">{{ csrf() }}<input type="hidden" name="reason" value="{{ _('Inappropriate content') }}"><button class="btn btn-ghost btn-sm" type="submit">{{ icon('flag') }} {{ _('Report') }}</button></form>
+          {% endif %}
+          {% if p.author_id == current_user.id or can_moderate %}
+          <form method="post" action="{{ url_for('discussions.post_action', slug=course.slug, post_id=p.id, action='delete') }}" data-confirm="{{ _('Delete this post?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit">{{ icon('trash') }} {{ _('Delete') }}</button></form>
+          {% endif %}
+          {% if can_moderate %}
+          <form method="post" action="{{ url_for('discussions.post_action', slug=course.slug, post_id=p.id, action=('unhide' if p.is_hidden else 'hide')) }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit">{{ icon('eye') }} {{ _('Unhide') if p.is_hidden else _('Hide') }}</button></form>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+    <span id="latest"></span>
+  </div>
+  {% if can_post and not thread.is_locked %}
+  <form id="reply-form" class="panel" method="post" novalidate>
+    {{ form.hidden_tag() }}{{ error_summary(form) }}
+    <input type="hidden" name="parent_id" value="" data-reply-parent>
+    {{ field(form.body, rows=5) }}
+    <button class="btn btn-primary" type="submit">{{ _('Reply') }}</button>
+  </form>
+  {% elif thread.is_locked %}<div class="alert alert-info">{{ _('This thread is locked.') }}</div>{% endif %}
+</div>
+{% endblock %}

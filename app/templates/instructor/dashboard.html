@@ -1,0 +1,29 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import status_chip, empty_state %}
+{% block title %}{{ _('Instructor panel') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Instructor overview') }}{% endblock %}
+{% block panel_actions %}<a class="btn btn-primary" href="{{ url_for('instructor.course_new') }}">{{ icon('plus') }} {{ _('Create course') }}</a>{% endblock %}
+{% block panel_content %}
+<div class="metric-grid">
+  <div class="stats-card"><div class="value">{{ stats.courses }}</div><div class="label">{{ _('My courses') }}</div></div>
+  <div class="stats-card"><div class="value">{{ stats.published }}</div><div class="label">{{ _('Published') }}</div></div>
+  <div class="stats-card"><div class="value">{{ stats.students }}</div><div class="label">{{ _('Enrolments') }}</div></div>
+  <div class="stats-card"><div class="value">{{ stats.to_grade }}</div><div class="label">{{ _('To grade') }}</div></div>
+</div>
+<div class="two-col">
+  <div class="panel">
+    <div class="panel-title"><h2>{{ _('Courses') }}</h2><a class="small" href="{{ url_for('instructor.courses') }}">{{ _('All') }}</a></div>
+    {% for c in courses[:6] %}
+    <div class="d-flex align-items-center gap-3 py-2 border-top small"><a class="fw-semibold" href="{{ url_for('instructor.builder', course_id=c.id) }}">{{ c.title(locale) }}</a>{{ status_chip(c.status) }}<span class="text-muted ms-auto">{{ c.enrollment_count }} {{ _('enrolled') }}</span></div>
+    {% else %}{{ empty_state(_('No courses yet'), _('Create your first course and build its curriculum.'), 'book', _('Create course'), url_for('instructor.course_new')) }}{% endfor %}
+  </div>
+  <div class="panel">
+    <div class="panel-title"><h2>{{ _('Assignments to grade') }}</h2><a class="small" href="{{ url_for('instructor.grading') }}">{{ _('All') }}</a></div>
+    {% for s in pending %}
+    <div class="d-flex align-items-center gap-3 py-2 border-top small"><a href="{{ url_for('instructor.grade_submission', submission_id=s.id) }}">{{ s.user.name }}</a><span class="text-muted">{{ s.assignment.title(locale) }}</span><span class="text-muted ms-auto">{{ s.submitted_at|humanize_dt }}</span></div>
+    {% else %}<p class="text-muted small mb-0">{{ _('Nothing waiting for grading.') }}</p>{% endfor %}
+  </div>
+</div>
+{% endblock %}

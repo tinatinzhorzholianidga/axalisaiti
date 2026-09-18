@@ -1,0 +1,15 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Track') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.cyberhero') }}">CyberHero</a></div>{% endblock %}
+{% block panel_title %}{{ track.name(locale) if track else _('New track') }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  <div class="form-grid-3">{{ field(form.slug) }}{{ field(form.sort_order) }}{{ field(form.emoji) }}{{ field(form.color) }}{{ field(form.audience) }}{{ field(form.route, help=_('e.g. /guardians')) }}</div>
+  <div class="form-grid-3">{{ field(form.is_active) }}{{ field(form.is_featured) }}{{ field(form.certificate_enabled) }}</div>
+  {% with pairs=[('tag_ka','tag_en'), ('name_ka','name_en'), ('desc_ka','desc_en'), ('intro_ka','intro_en'), ('topics_ka','topics_en')], rows=3 %}{% include "admin/cyberhero/_bilingual.html" %}{% endwith %}
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save track') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.cyberhero') }}">{{ _('Cancel') }}</a></div>
+</form>
+{% endblock %}

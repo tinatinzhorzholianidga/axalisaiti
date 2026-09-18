@@ -1,0 +1,52 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import csrf, status_chip %}
+{% block title %}CyberHero · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}CyberHero {{ _('content') }}{% endblock %}
+{% block panel_actions %}
+<a class="btn btn-outline" href="{{ url_for('admin.cyber_mascot') }}">{{ icon('message') }} {{ _('Mascot') }}</a>
+<a class="btn btn-outline" href="{{ url_for('admin.cyber_knowledge') }}">{{ icon('book') }} {{ _('Knowledge base') }}</a>
+<a class="btn btn-outline" href="{{ url_for('cyberhero.shell', path='') }}">{{ icon('eye') }} {{ _('Open CyberHero') }}</a>
+{% endblock %}
+{% block panel_content %}
+<div class="metric-grid">
+  <div class="stats-card"><div class="value">{{ tracks|length }}</div><div class="label">{{ _('Age tracks') }}</div></div>
+  <div class="stats-card"><div class="value">{{ missions|length }}</div><div class="label">{{ _('Missions') }}</div></div>
+  <div class="stats-card"><div class="value">{{ articles|length }}</div><div class="label">{{ _('Parent/teacher articles') }}</div></div>
+  <div class="stats-card"><div class="value">{{ stats.certificates }}</div><div class="label">{{ _('Certificates issued') }}</div></div>
+</div>
+<div class="two-col">
+  <div>
+    <div class="panel mb-4">
+      <div class="panel-title"><h2>{{ _('Age tracks') }}</h2><a class="btn btn-outline btn-sm" href="{{ url_for('admin.cyber_track') }}">{{ icon('plus') }} {{ _('Track') }}</a></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>#</th><th>{{ _('Track') }}</th><th>{{ _('Audience') }}</th><th>{{ _('State') }}</th><th></th></tr></thead><tbody>
+        {% for t in tracks %}<tr><td>{{ t.sort_order }}</td><td>{{ t.emoji }} {{ t.name('ka') }} <span class="text-muted">/ {{ t.name('en') }}</span><br><code class="small">{{ t.slug }}</code></td><td>{{ t.audience }}</td><td>{% if t.is_active %}<span class="chip chip-success">{{ _('active') }}</span>{% else %}<span class="chip chip-warning">{{ _('coming soon') }}</span>{% endif %}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.cyber_track', track_id=t.id) }}">{{ _('Edit') }}</a></td></tr>{% endfor %}
+      </tbody></table></div>
+    </div>
+    <div class="panel mb-4">
+      <div class="panel-title"><h2>{{ _('Missions') }}</h2><a class="btn btn-outline btn-sm" href="{{ url_for('admin.cyber_mission') }}">{{ icon('plus') }} {{ _('Mission') }}</a></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>#</th><th>{{ _('Mission') }}</th><th>{{ _('Track') }}</th><th>{{ _('Rounds') }}</th><th>{{ _('Flags') }}</th><th></th></tr></thead><tbody>
+        {% for m in missions %}<tr><td>{{ m.sort_order }}</td><td>{{ m.emoji }} {{ m.name('ka') }} <span class="text-muted">/ {{ m.name('en') }}</span><br><code class="small">{{ m.slug }}</code></td><td>{{ m.track.slug }}</td><td>{{ m.rounds|length }} ({{ m.max_points }} {{ _('pts') }})</td><td>{% if m.is_final %}<span class="chip chip-purple">final</span>{% endif %}{% if m.is_sensitive %}<span class="chip chip-warning">sensitive</span>{% endif %}{% if not m.is_published %}<span class="chip chip-danger">hidden</span>{% endif %}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.cyber_mission', mission_id=m.id) }}">{{ _('Edit') }}</a></td></tr>{% endfor %}
+      </tbody></table></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><h2>{{ _('Parent & teacher articles') }}</h2><a class="btn btn-outline btn-sm" href="{{ url_for('admin.cyber_article') }}">{{ icon('plus') }} {{ _('Article') }}</a></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>{{ _('Code') }}</th><th>{{ _('Title') }}</th><th>{{ _('Shelf') }}</th><th>{{ _('Blocks') }}</th><th></th></tr></thead><tbody>
+        {% for a in articles %}<tr><td><code>{{ a.code }}</code></td><td>{{ a.emoji }} {{ a.title('ka') }}<br><span class="text-muted small">{{ a.title('en') }}</span></td><td>{{ a.shelf }}</td><td>{{ a.blocks|length }}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.cyber_article', article_id=a.id) }}">{{ _('Edit') }}</a></td></tr>{% endfor %}
+      </tbody></table></div>
+    </div>
+  </div>
+  <aside>
+    <div class="panel mb-4">
+      <div class="panel-title"><h2>{{ _('Safety resources') }}</h2><a class="btn btn-outline btn-sm" href="{{ url_for('admin.cyber_resource') }}">{{ icon('plus') }}</a></div>
+      <ul class="list-plain small">{% for r in resources %}<li><span class="chip">{{ r.kind }}</span><a href="{{ url_for('admin.cyber_resource', resource_id=r.id) }}">{{ r.title('ka') }}</a>{% if r.contact_value %}<span class="when">{{ r.contact_value }}{% if not r.is_verified %} ⚠{% endif %}</span>{% endif %}</li>{% endfor %}</ul>
+    </div>
+    <div class="panel mb-4">
+      <div class="panel-title"><h2>{{ _('CyberHero courses') }}</h2><a class="btn btn-outline btn-sm" href="{{ url_for('admin.course_new') }}">{{ icon('plus') }}</a></div>
+      <ul class="list-plain small">{% for c in courses %}<li><a href="{{ url_for('admin.course_detail', course_id=c.id) }}">{{ c.title('ka') }}</a>{{ status_chip(c.status) }}<span class="when">{{ c.lesson_count }} {{ _('lessons') }}</span></li>{% else %}<li class="text-muted">{{ _('None') }}</li>{% endfor %}</ul>
+    </div>
+    <form class="panel" method="post" action="{{ url_for('admin.cyberhero_reseed') }}" data-confirm="{{ _('Reload the seed content from seeds/cyberhero? Edits to seeded items will be overwritten.') }}">{{ csrf() }}<h2 class="h6">{{ _('Seed content') }}</h2><p class="small text-muted">{{ _('Reloads tracks, missions, articles, resources, mascot tips and the knowledge base from the JSON seed files.') }}</p><button class="btn btn-outline btn-sm" type="submit">{{ icon('refresh') }} {{ _('Reload seeds') }}</button></form>
+  </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Mascot') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.cyberhero') }}">CyberHero</a></div>{% endblock %}
+{% block panel_title %}{{ _('IO mascot tips and reactions') }}{% endblock %}
+{% block panel_content %}
+<div class="two-col">
+  <div>
+    <div class="panel mb-4"><h2 class="h6 mb-3">{{ _('Tips') }} ({{ tips|length }})</h2>
+      <div class="table-wrap"><table class="table"><thead><tr><th>#</th><th>{{ _('Topics') }}</th><th>{{ _('Georgian') }}</th><th>{{ _('English') }}</th><th></th></tr></thead><tbody>
+        {% for t in tips %}<tr {% if not t.is_active %}class="opacity-50"{% endif %}><td>{{ t.sort_order }}</td><td>{% for topic in t.topic_list %}<span class="chip">{{ topic }}</span> {% endfor %}</td><td>{{ t.text_ka }}</td><td>{{ t.text_en }}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.cyber_tip', tip_id=t.id) }}">{{ _('Edit') }}</a><form method="post" action="{{ url_for('admin.cyber_tip_delete', tip_id=t.id) }}" data-confirm="{{ _('Delete tip?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm">{{ icon('trash') }}</button></form></td></tr>{% endfor %}
+      </tbody></table></div>
+    </div>
+    <div class="panel"><h2 class="h6 mb-3">{{ _('Reactions') }}</h2>
+      <div class="table-wrap"><table class="table"><thead><tr><th>{{ _('Moment') }}</th><th>{{ _('Georgian') }}</th><th>{{ _('English') }}</th><th></th></tr></thead><tbody>
+        {% for r in reactions %}<tr><td><code>{{ r.key }}</code> {{ r.sort_order }}</td><td>{{ r.text_ka }}</td><td>{{ r.text_en }}</td><td class="actions"><form method="post" action="{{ url_for('admin.cyber_reaction_delete', reaction_id=r.id) }}" data-confirm="{{ _('Delete reaction?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm">{{ icon('trash') }}</button></form></td></tr>{% endfor %}
+      </tbody></table></div>
+    </div>
+  </div>
+  <aside>
+    <form class="panel mb-4" method="post" novalidate>{{ tip_form.hidden_tag() }}{{ error_summary(tip_form) }}<h2 class="h6 mb-3">{{ _('Add tip') }}</h2>{{ field(tip_form.topics, help=_('passwords, phishing, scams, privacy, devices, strangers, help, kindness, fake, balance, parents')) }}{{ field(tip_form.sort_order) }}{{ field(tip_form.text_ka, rows=2) }}{{ field(tip_form.text_en, rows=2) }}{{ field(tip_form.is_active) }}<button class="btn btn-primary btn-sm" type="submit" name="tip-submit" value="1">{{ _('Save tip') }}</button></form>
+    <form class="panel" method="post" novalidate>{{ reaction_form.hidden_tag() }}{{ error_summary(reaction_form) }}<h2 class="h6 mb-3">{{ _('Add reaction') }}</h2>{{ field(reaction_form.key) }}{{ field(reaction_form.sort_order) }}{{ field(reaction_form.text_ka, rows=2) }}{{ field(reaction_form.text_en, rows=2) }}<button class="btn btn-primary btn-sm" type="submit" name="re-submit" value="1">{{ _('Save') }}</button></form>
+  </aside>
+</div>
+{% endblock %}

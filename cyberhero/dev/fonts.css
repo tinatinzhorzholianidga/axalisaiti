@@ -1,0 +1,7 @@
+/* Dev-only font declaration; production gets the same face from the Flask shell. */
+@font-face {
+  font-family: "Noto Sans Georgian";
+  src: url("/static/fonts/NotoSansGeorgian-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}

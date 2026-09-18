@@ -13,7 +13,7 @@ from flask.testing import FlaskClient
 from app import create_app
 from app.extensions import db as _db
 from app.models import Role, User
-from app.services import feature_flags, settings_service
+from app.services import achievement_service, feature_flags, settings_service
 from app.services.rbac import seed_roles_and_permissions
 
 CSRF_RE = re.compile(r'name="csrf_token"[^>]*value="([^"]+)"')
@@ -33,6 +33,7 @@ def app(upload_dir: str) -> Iterator[Flask]:
         seed_roles_and_permissions()
         settings_service.seed_defaults()
         feature_flags.seed_defaults()
+        achievement_service.seed_defaults()
         yield application
         _db.session.remove()
         _db.drop_all()
@@ -106,6 +107,11 @@ def login(client: FlaskClient, user: User, password: str = "CorrectHorse!Battery
         follow_redirects=False,
     )
     assert response.status_code in (302, 303), response.data[:500]
+
+
+def logout(client: FlaskClient) -> None:
+    response = post(client, "/auth/logout")
+    assert response.status_code in (302, 303)
 
 
 def post(client: FlaskClient, url: str, data: dict | None = None, **kwargs):  # type: ignore[no-untyped-def]

@@ -1,0 +1,12 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Edit category') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Edit category') }}: {{ category.name(locale) }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  <div class="form-grid-2">{{ field(form.slug) }}{{ field(form.sort_order) }}{{ field(form.name_ka) }}{{ field(form.name_en) }}{{ field(form.description_ka, rows=2) }}{{ field(form.description_en, rows=2) }}{{ field(form.icon) }}{{ field(form.color) }}{{ field(form.platform) }}{{ field(form.is_active) }}</div>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save category') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.categories') }}">{{ _('Cancel') }}</a></div>
+</form>
+{% endblock %}

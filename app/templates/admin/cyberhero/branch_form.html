@@ -1,0 +1,27 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Conversation node') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.cyber_mission', mission_id=rnd.mission_id) }}">{{ rnd.mission.name(locale) }}</a> / <a href="{{ url_for('admin.cyber_round', mission_id=rnd.mission_id, round_id=rnd.id) }}">{{ _('Round') }} {{ rnd.sort_order }}</a></div>{% endblock %}
+{% block panel_title %}{{ node.key if node else _('New node') }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  <div class="form-grid-3">{{ field(form.key) }}{{ field(form.sort_order) }}{{ field(form.is_end) }}</div>
+  {% with pairs=[('scene_ka','scene_en')], rows=3 %}{% include "admin/cyberhero/_bilingual.html" %}{% endwith %}
+  <h3 class="h6 mt-3">{{ _('Chat messages shown before the choice') }}</h3>
+  <div class="table-wrap"><table class="table"><thead><tr><th>{{ _('Name (ka)') }}</th><th>{{ _('Name (en)') }}</th><th>{{ _('Text (ka)') }}</th><th>{{ _('Text (en)') }}</th></tr></thead><tbody>
+    {% set msgs = node.messages if node else [] %}{% for i in range(4) %}{% set m = msgs[i] if i < msgs|length else None %}
+    <tr><td><input class="form-control" name="msg_name_ka" value="{{ m.name_ka if m else '' }}" aria-label="name ka"></td><td><input class="form-control" name="msg_name_en" value="{{ m.name_en if m else '' }}" aria-label="name en"></td><td><textarea class="form-control" name="msg_text_ka" rows="2" aria-label="text ka">{{ m.text_ka if m else '' }}</textarea></td><td><textarea class="form-control" name="msg_text_en" rows="2" aria-label="text en">{{ m.text_en if m else '' }}</textarea></td></tr>
+    {% endfor %}
+  </tbody></table></div>
+  <h3 class="h6 mt-3">{{ _('Choices (leave empty for ending nodes)') }}</h3>
+  <div class="table-wrap"><table class="table"><thead><tr><th>{{ _('Label (ka)') }}</th><th>{{ _('Label (en)') }}</th><th>{{ _('Next key') }}</th><th>{{ _('Points') }}</th><th>{{ _('Feedback (ka)') }}</th><th>{{ _('Feedback (en)') }}</th></tr></thead><tbody>
+    {% set chs = node.choices if node else [] %}{% for i in range(4) %}{% set c = chs[i] if i < chs|length else None %}
+    <tr><td><textarea class="form-control" name="choice_label_ka" rows="2" aria-label="label ka">{{ c.label_ka if c else '' }}</textarea></td><td><textarea class="form-control" name="choice_label_en" rows="2" aria-label="label en">{{ c.label_en if c else '' }}</textarea></td><td><input class="form-control" name="choice_next" value="{{ c.next_key or '' if c else '' }}" aria-label="next"></td><td><input class="form-control" type="number" min="0" name="choice_points" value="{{ c.points if c else 0 }}" aria-label="points"></td><td><textarea class="form-control" name="choice_feedback_ka" rows="2" aria-label="feedback ka">{{ c.feedback_ka if c else '' }}</textarea></td><td><textarea class="form-control" name="choice_feedback_en" rows="2" aria-label="feedback en">{{ c.feedback_en if c else '' }}</textarea></td></tr>
+    {% endfor %}
+  </tbody></table></div>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save node') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.cyber_round', mission_id=rnd.mission_id, round_id=rnd.id) }}">{{ _('Back') }}</a></div>
+</form>
+{% endblock %}

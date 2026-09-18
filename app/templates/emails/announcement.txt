@@ -1,0 +1,8 @@
+{{ title }}
+
+{{ body }}
+{% if link %}
+{{ config.SITE_URL }}{{ link }}
+{% endif %}
+
+— {{ site_name }}

@@ -1,0 +1,18 @@
+{% extends "layouts/panel.html" %}
+{% block title %}{{ _('Analytics') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Analytics') }}{% endblock %}
+{% block panel_content %}
+<div class="metric-grid">
+  <div class="stats-card"><div class="value">{{ totals.enrollments }}</div><div class="label">{{ _('Enrolments') }}</div></div>
+  <div class="stats-card"><div class="value">{{ totals.completion_rate }}%</div><div class="label">{{ _('Completion rate') }}</div></div>
+  <div class="stats-card"><div class="value">{{ totals.active_learners }}</div><div class="label">{{ _('Active learners (30 days)') }}</div></div>
+  <div class="stats-card"><div class="value">{{ totals.new_users }}</div><div class="label">{{ _('New users (30 days)') }}</div></div>
+  <div class="stats-card"><div class="value">{{ totals.quiz_pass_rate }}%</div><div class="label">{{ _('Quiz pass rate') }}</div></div>
+  <div class="stats-card"><div class="value">{{ totals.certificates }}</div><div class="label">{{ _('Certificates') }}</div></div>
+</div>
+<div class="two-col">
+  <div class="panel"><h2 class="h6 mb-3">{{ _('Course popularity') }}</h2><div class="bar-chart">{% for c in popularity %}<div class="row"><span class="label">{{ c.title(locale) }}</span><div class="progress"><div class="fill pf-{{ (100 * c.enrollment_count / max_enroll)|pct_bucket }}"></div></div><span class="val">{{ c.enrollment_count }}</span></div>{% else %}<p class="text-muted small">{{ _('No data yet.') }}</p>{% endfor %}</div></div>
+  <div class="panel"><h2 class="h6 mb-3">{{ _('CyberHero mission completions (signed-in learners)') }}</h2><div class="bar-chart">{% for m, done in mission_rows %}<div class="row"><span class="label">{{ m.emoji }} {{ m.name(locale) }}</span><div class="progress"><div class="fill pf-{{ (100 * done / max_done)|pct_bucket }}"></div></div><span class="val">{{ done }}</span></div>{% else %}<p class="text-muted small">{{ _('No data yet.') }}</p>{% endfor %}</div><p class="text-muted small mt-3 mb-0">{{ _('Anonymous CyberHero progress stays in the browser and is not tracked.') }}</p></div>
+</div>
+{% endblock %}

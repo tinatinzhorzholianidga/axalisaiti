@@ -1,0 +1,49 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Lesson') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ course.title(locale) }}</a> / {{ module.title(locale) }}</div>{% endblock %}
+{% block panel_title %}{{ lesson.title(locale) if lesson else _('New lesson') }}{% endblock %}
+{% block panel_actions %}{% if lesson %}<a class="btn btn-outline" href="{{ url_for('learning.lesson', course_slug=course.slug, lesson_slug=lesson.slug) }}">{{ icon('eye') }} {{ _('Preview') }}</a>{% endif %}{% endblock %}
+{% block panel_content %}
+<div class="two-col">
+  <form method="post" enctype="multipart/form-data" class="panel" novalidate>
+    {{ form.hidden_tag() }}{{ error_summary(form) }}
+    <ul class="nav locale-tabs mb-3" role="tablist" data-tabs>
+      <li class="nav-item"><button class="nav-link active" type="button" role="tab" data-tab="ka" aria-selected="true">ქართული</button></li>
+      <li class="nav-item"><button class="nav-link" type="button" role="tab" data-tab="en" aria-selected="false">English</button></li>
+    </ul>
+    <div data-tab-panel="ka">{{ field(form.title_ka) }}{{ field(form.summary_ka, rows=2) }}{{ field(form.content_ka, rows=16, help=_('Allowed HTML: headings, paragraphs, lists, tables, images, code, callouts (div.callout). Scripts are removed.')) }}</div>
+    <div data-tab-panel="en" hidden>{{ field(form.title_en) }}{{ field(form.summary_en, rows=2) }}{{ field(form.content_en, rows=16) }}</div>
+    <div class="form-section"><div class="form-grid-3">{{ field(form.slug) }}{{ field(form.lesson_type) }}{{ field(form.estimated_minutes) }}</div>
+      <div class="form-grid-2">{{ field(form.video_url) }}{{ field(form.video, help=_('MP4 up to 200 MB')) }}</div>
+      <div class="form-grid-2">{{ field(form.is_published) }}{{ field(form.is_free_preview) }}</div></div>
+    <div class="form-actions"><button class="btn btn-primary" type="submit" name="submit" value="1">{{ _('Save lesson') }}</button><a class="btn btn-ghost" href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ _('Back to curriculum') }}</a></div>
+  </form>
+  <aside>
+    {% if lesson %}
+    <div class="panel mb-4">
+      <h2 class="h6 mb-3">{{ _('Attached assessment') }}</h2>
+      {% if lesson.quiz %}<p class="small">{{ icon('help-circle') }} <a href="{{ url_for('instructor.quiz_edit', course_id=course.id, quiz_id=lesson.quiz.id) }}">{{ lesson.quiz.title(locale) }}</a> ({{ lesson.quiz.questions|length }} {{ _('questions') }})</p>
+      {% else %}<a class="btn btn-outline btn-sm mb-2" href="{{ url_for('instructor.quiz_new', course_id=course.id, lesson=lesson.id) }}">{{ icon('plus') }} {{ _('Add quiz') }}</a>{% endif %}
+      {% if lesson.assignment %}<p class="small">{{ icon('edit') }} <a href="{{ url_for('instructor.assignment_edit', course_id=course.id, assignment_id=lesson.assignment.id) }}">{{ lesson.assignment.title(locale) }}</a></p>
+      {% else %}<a class="btn btn-outline btn-sm" href="{{ url_for('instructor.assignment_new', course_id=course.id, lesson=lesson.id) }}">{{ icon('plus') }} {{ _('Add assignment') }}</a>{% endif %}
+    </div>
+    <div class="panel">
+      <h2 class="h6 mb-3">{{ _('Resources') }}</h2>
+      <ul class="list-plain mb-3">
+        {% for r in lesson.resources %}<li>{{ icon('link' if r.kind == 'link' else 'file-text') }}<span class="small">{{ r.title(locale) }}</span><form class="ms-auto" method="post" action="{{ url_for('instructor.resource_delete', course_id=course.id, resource_id=r.id) }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit" aria-label="{{ _('Remove') }}">{{ icon('x') }}</button></form></li>
+        {% else %}<li class="text-muted small">{{ _('No resources.') }}</li>{% endfor %}
+      </ul>
+      <form method="post" enctype="multipart/form-data" action="{{ url_for('instructor.resource_add', course_id=course.id, lesson_id=lesson.id) }}" novalidate>
+        {{ resource_form.hidden_tag() }}
+        {{ field(resource_form.title_ka) }}{{ field(resource_form.title_en) }}{{ field(resource_form.url) }}{{ field(resource_form.file) }}
+        <button class="btn btn-outline btn-sm" type="submit">{{ icon('plus') }} {{ _('Add resource') }}</button>
+      </form>
+    </div>
+    {% endif %}
+  </aside>
+</div>
+{% endblock %}

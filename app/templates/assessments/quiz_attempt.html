@@ -1,0 +1,53 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ quiz.title(locale) }} · {{ _('Attempt') }} {{ attempt.attempt_number }}{% endblock %}
+{% block content %}
+<div class="container narrow">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mt-4 mb-3">
+    <div><span class="eyebrow mb-0">{{ course.title(locale) }}</span><h1 class="h3 mb-0">{{ quiz.title(locale) }}</h1></div>
+    {% if attempt.expires_at %}<span class="timer-pill" role="timer" aria-live="polite" data-quiz-deadline="{{ attempt.expires_at.isoformat() }}Z">{{ icon('clock') }} <span>--:--</span></span>{% endif %}
+  </div>
+  <form method="post" class="quiz-card" data-quiz-form novalidate>
+    {{ csrf() }}
+    {% for q in questions %}
+    {% set options = options_for(q) %}
+    <fieldset class="question">
+      <legend class="question-num">{{ _('Question') }} {{ loop.index }} / {{ questions|length }} · {{ q.points|int }} {{ _('pts') }}</legend>
+      <h3>{{ q.prompt(locale) }}</h3>
+      {% if q.media and q.media.is_public %}<p><img src="{{ url_for('media.public_file', media_id=q.media.id) }}" alt="{{ q.media.alt_text }}" class="img-fluid rounded"></p>{% endif %}
+      {% if q.question_type.value in ('single', 'true_false') %}
+      <div class="options" role="radiogroup" aria-label="{{ q.prompt(locale) }}">
+        {% for o in options %}<label class="option"><input type="radio" name="q{{ q.id }}" value="{{ o.id }}" required> <span>{{ o.text(locale) }}</span></label>{% endfor %}
+      </div>
+      {% elif q.question_type.value == 'multiple' %}
+      <p class="form-text">{{ _('Select every correct answer.') }}</p>
+      <div class="options">
+        {% for o in options %}<label class="option"><input type="checkbox" name="q{{ q.id }}" value="{{ o.id }}"> <span>{{ o.text(locale) }}</span></label>{% endfor %}
+      </div>
+      {% elif q.question_type.value == 'short_answer' %}
+      <label class="visually-hidden" for="q{{ q.id }}">{{ _('Your answer') }}</label>
+      <input class="form-control" type="text" id="q{{ q.id }}" name="q{{ q.id }}" maxlength="500" autocomplete="off" required>
+      {% elif q.question_type.value == 'ordering' %}
+      <p class="form-text">{{ _('Number the items in the correct order (1 = first).') }}</p>
+      <div class="ordering-list">
+        {% for o in options %}<div class="option"><label class="visually-hidden" for="q{{ q.id }}_{{ o.id }}">{{ _('Position for') }} {{ o.text(locale) }}</label><select class="form-select" id="q{{ q.id }}_{{ o.id }}" name="q{{ q.id }}_{{ o.id }}" required>{% for n in range(1, options|length + 1) %}<option value="{{ n }}">{{ n }}</option>{% endfor %}</select><span>{{ o.text(locale) }}</span></div>{% endfor %}
+      </div>
+      {% elif q.question_type.value == 'matching' %}
+      <p class="form-text">{{ _('Match each item on the left with the right one.') }}</p>
+      <div class="matching-grid">
+        {% for o in options %}
+        <label for="q{{ q.id }}_{{ o.id }}">{{ o.text(locale) }}</label>
+        <select class="form-select" id="q{{ q.id }}_{{ o.id }}" name="q{{ q.id }}_{{ o.id }}" required>
+          <option value="">{{ _('Choose…') }}</option>
+          {% for m in options|sort(attribute='match_ka') %}<option value="{{ m.id }}">{{ m.match(locale) }}</option>{% endfor %}
+        </select>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </fieldset>
+    {% endfor %}
+    <div class="form-actions"><button class="btn btn-primary btn-lg" type="submit">{{ _('Submit answers') }}</button><a class="btn btn-ghost" href="{{ url_for('assessments.quiz_intro', quiz_id=quiz.id) }}">{{ _('Cancel') }}</a></div>
+  </form>
+</div>
+{% endblock %}

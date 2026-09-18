@@ -1,0 +1,47 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% block title %}{{ _('Result') }} · {{ quiz.title(locale) }}{% endblock %}
+{% block content %}
+<div class="container narrow">
+  <div class="quiz-card result-hero mt-4">
+    <span class="eyebrow">{{ quiz.title(locale) }} · {{ _('Attempt') }} {{ attempt.attempt_number }}</span>
+    <div class="result-score {{ 'pass' if attempt.passed else 'fail' }}" aria-live="polite">{{ attempt.percent|round|int }}%</div>
+    <p class="h5">{% if attempt.passed %}{{ icon('check-circle') }} {{ _('Passed') }}{% elif attempt.status.value == 'expired' %}{{ icon('clock') }} {{ _('Time expired') }}{% else %}{{ icon('x-circle') }} {{ _('Not passed') }} ({{ _('pass mark') }} {{ quiz.pass_percent }}%){% endif %}</p>
+    <p class="text-muted">{{ attempt.score_points|round(1) }} / {{ attempt.max_points|round(1) }} {{ _('points') }}</p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      {% if quiz.lesson %}<a class="btn btn-outline" href="{{ url_for('learning.lesson', course_slug=course.slug, lesson_slug=quiz.lesson.slug) }}">{{ _('Back to lesson') }}</a>{% else %}<a class="btn btn-outline" href="{{ url_for('courses.detail', slug=course.slug) }}">{{ _('Back to course') }}</a>{% endif %}
+      {% if not attempt.passed and (attempts_left is none or attempts_left > 0) %}<a class="btn btn-primary" href="{{ url_for('assessments.quiz_intro', quiz_id=quiz.id) }}">{{ icon('refresh') }} {{ _('Try again') }}</a>{% endif %}
+    </div>
+  </div>
+  {% if show_details %}
+  <div class="quiz-card">
+    <h2 class="h4 mb-4">{{ _('Review') }}</h2>
+    {% for q in questions %}
+    {% set a = answers.get(q.id) %}
+    <div class="question">
+      <div class="question-num">{{ _('Question') }} {{ loop.index }} · {% if a and a.is_correct %}<span class="text-success">{{ icon('check') }} {{ _('Correct') }}</span>{% else %}<span class="text-danger">{{ icon('x') }} {{ _('Incorrect') }}</span>{% endif %} · {{ (a.points_awarded if a else 0)|round(1) }}/{{ q.points|int }}</div>
+      <h3>{{ q.prompt(locale) }}</h3>
+      {% if q.question_type.value in ('single', 'true_false', 'multiple') %}
+      <div class="options">
+        {% for o in q.options %}
+        {% set chosen = a and ((a.answer == o.id) or (a.answer is iterable and a.answer is not string and o.id in a.answer)) %}
+        <div class="option {{ 'correct' if o.is_correct else ('incorrect' if chosen else '') }}">{{ icon('check' if o.is_correct else ('x' if chosen else 'chevron-right')) }} <span>{{ o.text(locale) }}{% if chosen %} <em class="text-muted">({{ _('your answer') }})</em>{% endif %}</span></div>
+        {% endfor %}
+      </div>
+      {% elif q.question_type.value == 'short_answer' %}
+      <p>{{ _('Your answer') }}: <strong>{{ a.answer if a else '—' }}</strong></p>
+      <p class="text-muted">{{ _('Accepted') }}: {{ q.accepted_answers|join(' / ') }}</p>
+      {% elif q.question_type.value == 'ordering' %}
+      <ol>{% for o in q.options|sort(attribute='correct_position') %}<li>{{ o.text(locale) }}</li>{% endfor %}</ol>
+      {% elif q.question_type.value == 'matching' %}
+      <ul class="list-plain">{% for o in q.options %}<li>{{ o.text(locale) }} → {{ o.match(locale) }}</li>{% endfor %}</ul>
+      {% endif %}
+      {% if quiz.show_explanations and q.explanation(locale) %}<div class="explanation">{{ icon('info') }} {{ q.explanation(locale) }}</div>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert alert-info">{{ _('Detailed feedback becomes available after you pass or use your last attempt.') }}</div>
+  {% endif %}
+</div>
+{% endblock %}

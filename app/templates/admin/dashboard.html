@@ -1,0 +1,42 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import status_chip %}
+{% block title %}{{ _('Admin') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Dashboard') }}{% endblock %}
+{% block panel_actions %}<a class="btn btn-primary" href="{{ url_for('admin.course_new') }}">{{ icon('plus') }} {{ _('New course') }}</a><a class="btn btn-outline" href="{{ url_for('admin.notifications') }}">{{ icon('send') }} {{ _('Announcement') }}</a>{% endblock %}
+{% block panel_content %}
+<div class="metric-grid">
+  <div class="stats-card"><div class="value">{{ metrics.active_students }}</div><div class="label">{{ _('Active students') }}</div></div>
+  <div class="stats-card"><div class="value">{{ metrics.published_courses }}</div><div class="label">{{ _('Published courses') }}</div></div>
+  <div class="stats-card"><div class="value">{{ metrics.draft_courses }}</div><div class="label">{{ _('Draft / in review') }}</div></div>
+  <div class="stats-card"><div class="value">{{ metrics.active_instructors }}</div><div class="label">{{ _('Active instructors') }}</div></div>
+  <div class="stats-card"><div class="value">{{ metrics.enrollments }}</div><div class="label">{{ _('Enrolments') }}</div></div>
+  <div class="stats-card"><div class="value">{{ metrics.completed }}</div><div class="label">{{ _('Completed courses') }}</div></div>
+  <div class="stats-card"><div class="value">{{ metrics.certificates }}</div><div class="label">{{ _('Certificates issued') }}</div></div>
+  <div class="stats-card"><div class="value">{{ metrics.quiz_attempts }}</div><div class="label">{{ _('Quiz attempts') }}</div></div>
+</div>
+<div class="two-col">
+  <div>
+    <div class="panel mb-4">
+      <div class="panel-title"><h2>{{ _('Needs attention') }}</h2></div>
+      <ul class="list-plain">
+        <li>{{ icon('book') }}<a href="{{ url_for('admin.courses', status='pending_review') }}">{{ _('Courses awaiting review') }}</a><span class="when chip {{ 'chip-warning' if metrics.pending_courses else '' }}">{{ metrics.pending_courses }}</span></li>
+        <li>{{ icon('star') }}<a href="{{ url_for('admin.reviews') }}">{{ _('Reviews to moderate') }}</a><span class="when chip {{ 'chip-warning' if metrics.pending_reviews else '' }}">{{ metrics.pending_reviews }}</span></li>
+        <li>{{ icon('edit') }}<a href="{{ url_for('admin.assignments') }}">{{ _('Submissions waiting for grading') }}</a><span class="when chip">{{ metrics.submissions_to_grade }}</span></li>
+      </ul>
+      {% if pending_courses %}<div class="mt-3">{% for c in pending_courses %}<div class="d-flex align-items-center gap-2 py-2 border-top small"><a href="{{ url_for('admin.course_detail', course_id=c.id) }}">{{ c.title(locale) }}</a><span class="text-muted">{{ c.instructor.name if c.instructor else '' }}</span>{{ status_chip(c.status) }}</div>{% endfor %}</div>{% endif %}
+    </div>
+    <div class="panel">
+      <div class="panel-title"><h2>CyberHero</h2><a class="small" href="{{ url_for('admin.cyberhero') }}">{{ _('Manage') }}</a></div>
+      <dl class="kv"><dt>{{ _('Missions') }}</dt><dd>{{ cyber.missions }}</dd><dt>{{ _('Mission completions (signed-in)') }}</dt><dd>{{ cyber.mission_completions }}</dd><dt>{{ _('Signed-in learners') }}</dt><dd>{{ cyber.signed_in_learners }}</dd><dt>{{ _('Certificates') }}</dt><dd>{{ cyber.certificates }}</dd></dl>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title"><h2>{{ _('Recent activity') }}</h2><a class="small" href="{{ url_for('admin.audit') }}">{{ _('Audit log') }}</a></div>
+    <ul class="list-plain small">
+      {% for a in recent_activity %}<li><code class="small">{{ a.action }}</code><span class="text-muted">{{ a.actor_email or '—' }}{% if a.target_label %} · {{ a.target_label }}{% endif %}</span><span class="when">{{ a.created_at|humanize_dt }}</span></li>{% else %}<li class="text-muted">{{ _('No activity yet.') }}</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{
+  "title": {"ka": "საბოლოო ტესტი: კიბერუსაფრთხოების საფუძვლები", "en": "Final assessment: Cybersecurity fundamentals"},
+  "description": {"ka": "12 კითხვა კურსის ყველა თემიდან. ჩასაბარებლად საჭიროა 70%. დრო: 20 წუთი.", "en": "12 questions across every chapter of the course. 70% to pass. Time limit: 20 minutes."},
+  "time_limit_minutes": 20,
+  "max_attempts": 3,
+  "pass_percent": 70,
+  "shuffle_questions": true,
+  "shuffle_options": true,
+  "questions": [
+    {"type": "single", "points": 1,
+     "prompt": {"ka": "რომელი პაროლია ყველაზე ძლიერი?", "en": "Which password is the strongest?"},
+     "explanation": {"ka": "სიგრძე ყველაზე მნიშვნელოვანი ფაქტორია: ოთხი შემთხვევითი სიტყვა გატეხვას საუკუნეებით უძლებს.", "en": "Length matters most: four random words resist cracking for centuries."},
+     "options": [
+       {"text": {"ka": "giorgi1995", "en": "giorgi1995"}, "correct": false},
+       {"text": {"ka": "G!0rg1", "en": "G!0rg1"}, "correct": false},
+       {"text": {"ka": "მთვარე-ვეფხვი-მდინარე-42", "en": "Tiger-Moon-River-42"}, "correct": true},
+       {"text": {"ka": "qwerty123", "en": "qwerty123"}, "correct": false}
+     ]},
+    {"type": "multiple", "points": 2,
+     "prompt": {"ka": "რომელი ნიშნები მიუთითებს ფიშინგ-წერილზე? (აირჩიეთ ყველა სწორი)", "en": "Which signs indicate a phishing email? (select all that apply)"},
+     "explanation": {"ka": "აჩქარება, მსგავსი დომენი და პაროლის მოთხოვნა ბმულით - ფიშინგის კლასიკური ნიშნებია.", "en": "Urgency, a look-alike domain and a request for your password through a link are classic phishing signs."},
+     "options": [
+       {"text": {"ka": "„2 საათში გაიარეთ ვერიფიკაცია, თორემ ანგარიში დაიბლოკება“", "en": "\"Verify within 2 hours or your account will be blocked\""}, "correct": true},
+       {"text": {"ka": "გამომგზავნის დომენი bank-secure-ge.com", "en": "Sender domain bank-secure-ge.com"}, "correct": true},
+       {"text": {"ka": "წერილი მიმართავს თქვენი სახელით", "en": "The email addresses you by name"}, "correct": false},
+       {"text": {"ka": "ბმულით ითხოვს პაროლის შეყვანას", "en": "Asks you to enter your password through a link"}, "correct": true}
+     ]},
+    {"type": "true_false", "points": 1,
+     "prompt": {"ka": "ორფაქტორიანი ავთენტიფიკაციის კოდი შეიძლება გაუზიაროთ ბანკის თანამშრომელს, თუ ის ტელეფონით დაგირეკავთ.", "en": "You may share a two-factor authentication code with a bank employee who calls you."},
+     "explanation": {"ka": "არცერთი ნამდვილი სერვისი არ ითხოვს ავთენტიფიკაციის კოდს. ერთადერთი, ვინც ითხოვს, თავდამსხმელია.", "en": "No legitimate service asks for an authentication code. The only person who asks is the attacker."},
+     "options": [
+       {"text": {"ka": "სიმართლე", "en": "True"}, "correct": false},
+       {"text": {"ka": "ტყუილი", "en": "False"}, "correct": true}
+     ]},
+    {"type": "short_answer", "points": 1,
+     "prompt": {"ka": "რა ჰქვია თავდასხმას, როცა ყალბი წერილით ან საიტით თქვენს პაროლებსა და ფულს „ითევზავენ“? (ერთი სიტყვა)", "en": "What is the attack called where a fake message or website 'fishes' for your passwords and money? (one word)"},
+     "explanation": {"ka": "ფიშინგი (phishing).", "en": "Phishing."},
+     "accepted_answers": ["ფიშინგი", "phishing", "ფიშინგ"],
+     "options": []},
+    {"type": "ordering", "points": 2,
+     "prompt": {"ka": "დაალაგეთ სწორი თანმიმდევრობით, რა უნდა გააკეთოთ, როცა ანგარიში გატეხილია.", "en": "Put the steps in the correct order when an account has been hacked."},
+     "explanation": {"ka": "ჯერ ელფოსტა (მთავარი გასაღები), მერე ანგარიშის აღდგენა, 2FA, ყველა მოწყობილობიდან გამოსვლა და კონტაქტების გაფრთხილება.", "en": "Email first (the master key), then recover the account, enable 2FA, sign out everywhere and warn your contacts."},
+     "options": [
+       {"text": {"ka": "შეცვალეთ ელფოსტის პაროლი", "en": "Change the email account password"}, "position": 1},
+       {"text": {"ka": "აღადგინეთ გატეხილი ანგარიში", "en": "Recover the hacked account"}, "position": 2},
+       {"text": {"ka": "ჩართეთ ორფაქტორიანი ავთენტიფიკაცია", "en": "Enable two-factor authentication"}, "position": 3},
+       {"text": {"ka": "გამოდით ყველა მოწყობილობიდან", "en": "Sign out of all devices"}, "position": 4},
+       {"text": {"ka": "გააფრთხილეთ კონტაქტები", "en": "Warn your contacts"}, "position": 5}
+     ]},
+    {"type": "matching", "points": 2,
+     "prompt": {"ka": "დააკავშირეთ ტერმინი მის განმარტებასთან.", "en": "Match each term with its definition."},
+     "explanation": {"ka": "ეს ტერმინები კურსის ბოლო თავებშია განხილული.", "en": "These terms are covered in the last chapters of the course."},
+     "options": [
+       {"text": {"ka": "დეზინფორმაცია", "en": "Disinformation"}, "match": {"ka": "განზრახ გავრცელებული ყალბი ინფორმაცია", "en": "False information spread deliberately"}},
+       {"text": {"ka": "მისინფორმაცია", "en": "Misinformation"}, "match": {"ka": "შეცდომით გავრცელებული ყალბი ინფორმაცია", "en": "False information spread by mistake"}},
+       {"text": {"ka": "დიპფეიქი", "en": "Deepfake"}, "match": {"ka": "ხელოვნური ინტელექტით შექმნილი ყალბი ვიდეო ან აუდიო", "en": "AI-generated fake video or audio"}},
+       {"text": {"ka": "VPN", "en": "VPN"}, "match": {"ka": "დაშიფრული კავშირი საჯარო ქსელში", "en": "An encrypted connection over a public network"}}
+     ]},
+    {"type": "single", "points": 1,
+     "prompt": {"ka": "საჯარო Wi-Fi-ზე ყოფნისას რომელი ქმედებაა ყველაზე უსაფრთხო?", "en": "Which action is safest on public Wi-Fi?"},
+     "explanation": {"ka": "საჯარო ქსელში ბანკსა და პაროლებს მოერიდეთ; VPN დაშიფრავს კავშირს.", "en": "Avoid banking and passwords on public networks; a VPN encrypts the connection."},
+     "options": [
+       {"text": {"ka": "ინტერნეტ-ბანკში შესვლა", "en": "Logging in to online banking"}, "correct": false},
+       {"text": {"ka": "VPN-ის გამოყენება და პაროლების არაკრეფა", "en": "Using a VPN and not typing passwords"}, "correct": true},
+       {"text": {"ka": "ფაილების გაზიარების ჩართვა", "en": "Turning on file sharing"}, "correct": false},
+       {"text": {"ka": "ავტომატური დაკავშირების ჩართვა", "en": "Enabling automatic connection"}, "correct": false}
+     ]},
+    {"type": "single", "points": 1,
+     "prompt": {"ka": "რატომ არის სახიფათო ერთი და იმავე პაროლის გამოყენება რამდენიმე ანგარიშზე?", "en": "Why is reusing one password across accounts dangerous?"},
+     "explanation": {"ka": "ერთი გაჟონვა ყველა ანგარიშს ხსნის - ბოტები გაჟონილ წყვილებს ყველა სერვისზე ცდიან.", "en": "One leak opens every account - bots try leaked pairs on every service."},
+     "options": [
+       {"text": {"ka": "ერთი გაჟონილი პაროლი ყველა ანგარიშს ხსნის", "en": "One leaked password opens every account"}, "correct": true},
+       {"text": {"ka": "ძნელი დასამახსოვრებელია", "en": "It is hard to remember"}, "correct": false},
+       {"text": {"ka": "ანელებს კომპიუტერს", "en": "It slows down the computer"}, "correct": false},
+       {"text": {"ka": "არ არის სახიფათო", "en": "It is not dangerous"}, "correct": false}
+     ]},
+    {"type": "true_false", "points": 1,
+     "prompt": {"ka": "პროგრამული უზრუნველყოფის განახლებები უსაფრთხოების ხვრელებს კეტავს და დროულად უნდა დაინსტალირდეს.", "en": "Software updates close security holes and should be installed promptly."},
+     "explanation": {"ka": "განახლებები ცნობილ სისუსტეებს ასწორებს.", "en": "Updates fix known vulnerabilities."},
+     "options": [
+       {"text": {"ka": "სიმართლე", "en": "True"}, "correct": true},
+       {"text": {"ka": "ტყუილი", "en": "False"}, "correct": false}
+     ]},
+    {"type": "multiple", "points": 2,
+     "prompt": {"ka": "რა უნდა გააკეთოთ, თუ სამსახურში საეჭვო ელფოსტა მიიღეთ? (აირჩიეთ ყველა სწორი)", "en": "What should you do when you receive a suspicious email at work? (select all that apply)"},
+     "explanation": {"ka": "არ გახსნათ დანართი, არ დააჭიროთ ბმულს, შეატყობინეთ IT/უსაფრთხოების ჯგუფს.", "en": "Do not open attachments or links; report it to the IT/security team."},
+     "options": [
+       {"text": {"ka": "არ გახსნათ დანართი", "en": "Do not open the attachment"}, "correct": true},
+       {"text": {"ka": "შეატყობინეთ IT/უსაფრთხოების ჯგუფს", "en": "Report it to the IT/security team"}, "correct": true},
+       {"text": {"ka": "გადაუგზავნეთ კოლეგებს გასაფრთხილებლად", "en": "Forward it to colleagues as a warning"}, "correct": false},
+       {"text": {"ka": "უპასუხეთ და ჰკითხეთ, ვინ არის", "en": "Reply and ask who they are"}, "correct": false}
+     ]},
+    {"type": "single", "points": 1,
+     "prompt": {"ka": "რომელი პარამეტრი ამცირებს რისკს სოციალურ ქსელში ყველაზე მეტად?", "en": "Which setting reduces risk on social media the most?"},
+     "explanation": {"ka": "დახურული პროფილი და შეზღუდული მიმოწერა უცნობებთან.", "en": "A private profile and restricted messaging from strangers."},
+     "options": [
+       {"text": {"ka": "დახურული პროფილი და შეზღუდული მიმოწერა", "en": "Private profile and restricted messaging"}, "correct": true},
+       {"text": {"ka": "მდებარეობის გაზიარება", "en": "Location sharing"}, "correct": false},
+       {"text": {"ka": "ყველა მოთხოვნის დადასტურება", "en": "Accepting every friend request"}, "correct": false},
+       {"text": {"ka": "პაროლის ბიოში ჩაწერა", "en": "Writing your password in your bio"}, "correct": false}
+     ]},
+    {"type": "short_answer", "points": 1,
+     "prompt": {"ka": "რომელ ნომერზე უნდა დარეკოთ საქართველოში, თუ ონლაინ დანაშაულის მსხვერპლი გახდით და დახმარება გჭირდებათ?", "en": "Which number do you call in Georgia if you are a victim of an online crime and need help?"},
+     "explanation": {"ka": "112 - საქართველოს გადაუდებელი დახმარების სამსახური.", "en": "112 - Georgia's emergency service."},
+     "accepted_answers": ["112"],
+     "options": []}
+  ]
+}

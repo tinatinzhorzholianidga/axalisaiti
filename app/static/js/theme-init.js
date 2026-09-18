@@ -2,9 +2,9 @@
    flashes. Stored preference: localStorage "elearning.theme" = light|dark|system. */
 (function () {
   var KEY = "elearning.theme";
-  var pref = "system";
-  try { pref = localStorage.getItem(KEY) || "system"; } catch (e) { /* storage blocked */ }
-  if (pref !== "light" && pref !== "dark") { pref = "system"; }
+  var pref = "dark"; /* dark is the primary identity; "system" is an explicit choice */
+  try { pref = localStorage.getItem(KEY) || "dark"; } catch (e) { /* storage blocked */ }
+  if (pref !== "light" && pref !== "system") { pref = "dark"; }
   var dark = true;
   if (pref === "system") {
     try { dark = !window.matchMedia("(prefers-color-scheme: light)").matches; } catch (e) { dark = true; }

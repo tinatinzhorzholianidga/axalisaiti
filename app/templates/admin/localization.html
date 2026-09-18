@@ -1,0 +1,19 @@
+{% extends "layouts/panel.html" %}
+{% block title %}{{ _('Localisation') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Localisation') }}{% endblock %}
+{% block panel_content %}
+<div class="metric-grid">
+  <div class="stats-card"><div class="value">{{ stats.ui.ka.translated }}/{{ stats.ui.ka.total }}</div><div class="label">{{ _('UI strings translated (Georgian)') }}</div></div>
+  <div class="stats-card"><div class="value">{{ stats.courses.en }}/{{ stats.courses.total }}</div><div class="label">{{ _('Courses with English') }}</div></div>
+  <div class="stats-card"><div class="value">{{ stats.lessons.en }}/{{ stats.lessons.total }}</div><div class="label">{{ _('Lessons with English') }}</div></div>
+  <div class="stats-card"><div class="value">{{ stats.missions.en }}/{{ stats.missions.total }}</div><div class="label">{{ _('CyberHero missions bilingual') }}</div></div>
+</div>
+<div class="panel">
+  <h2 class="h6 mb-3">{{ _('Course translation coverage') }}</h2>
+  <div class="table-wrap"><table class="table"><thead><tr><th>{{ _('Course') }}</th><th>{{ _('English title') }}</th><th>{{ _('Lessons with English content') }}</th></tr></thead><tbody>
+    {% for c, has_en, lessons_en in stats.course_rows %}<tr><td><a href="{{ url_for('admin.course_detail', course_id=c.id) }}">{{ c.title('ka') }}</a></td><td>{{ _('Yes') if has_en else _('No') }}</td><td>{{ lessons_en }} / {{ c.lesson_count }}</td></tr>{% endfor %}
+  </tbody></table></div>
+  <p class="text-muted small mt-3 mb-0">{{ _('UI strings are managed in the Babel catalogue (app/translations); content translations are edited on each course, lesson and CyberHero item.') }}</p>
+</div>
+{% endblock %}

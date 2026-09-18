@@ -1,0 +1,49 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Quiz') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ course.title(locale) }}</a>{% if lesson %} / {{ lesson.title(locale) }}{% endif %}</div>{% endblock %}
+{% block panel_title %}{{ quiz.title(locale) if quiz else _('New quiz') }}{% endblock %}
+{% block panel_content %}
+<div class="two-col">
+  <div>
+    <form method="post" class="panel" novalidate>
+      {{ form.hidden_tag() }}{{ error_summary(form) }}
+      <div class="form-grid-2">{{ field(form.title_ka) }}{{ field(form.title_en) }}{{ field(form.description_ka, rows=2) }}{{ field(form.description_en, rows=2) }}</div>
+      <div class="form-grid-3">{{ field(form.time_limit_minutes) }}{{ field(form.max_attempts) }}{{ field(form.pass_percent) }}{{ field(form.feedback_mode) }}</div>
+      <div class="form-grid-3">{{ field(form.shuffle_questions) }}{{ field(form.shuffle_options) }}{{ field(form.show_explanations) }}{{ field(form.is_final) }}{{ field(form.is_published) }}</div>
+      <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save quiz') }}</button></div>
+    </form>
+    {% if quiz %}
+    <div class="panel mt-4">
+      <div class="panel-title"><h2>{{ _('Questions') }} ({{ quiz.questions|length }})</h2><a class="btn btn-primary btn-sm" href="{{ url_for('instructor.question_edit', course_id=course.id, quiz_id=quiz.id) }}">{{ icon('plus') }} {{ _('Add question') }}</a></div>
+      <ul class="sortable">
+        {% for q in quiz.questions %}
+        <li>
+          <span class="text-muted">{{ q.sort_order }}</span>
+          <span class="title"><a href="{{ url_for('instructor.question_edit', course_id=course.id, quiz_id=quiz.id, question_id=q.id) }}">{{ q.prompt(locale)|truncate(90) }}</a><span class="sub">{{ q.question_type.value }} · {{ q.points|int }} {{ _('pts') }} · {{ q.options|length }} {{ _('options') }}</span></span>
+          <span class="order-btns">
+            <form method="post" action="{{ url_for('instructor.question_move', course_id=course.id, quiz_id=quiz.id, question_id=q.id, direction='up') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move up') }}">{{ icon('chevron-up') }}</button></form>
+            <form method="post" action="{{ url_for('instructor.question_move', course_id=course.id, quiz_id=quiz.id, question_id=q.id, direction='down') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move down') }}">{{ icon('chevron-down') }}</button></form>
+            <form method="post" action="{{ url_for('instructor.question_delete', course_id=course.id, quiz_id=quiz.id, question_id=q.id) }}" data-confirm="{{ _('Delete this question?') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Delete') }}">{{ icon('trash') }}</button></form>
+          </span>
+        </li>
+        {% else %}<li class="text-muted">{{ _('No questions yet.') }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+  <aside>
+    {% if quiz %}
+    <div class="panel">
+      <h2 class="h6 mb-3">{{ _('Statistics') }}</h2>
+      <dl class="kv"><dt>{{ _('Attempts') }}</dt><dd>{{ stats.attempts }}</dd><dt>{{ _('Pass rate') }}</dt><dd>{{ stats.pass_rate }}%</dd><dt>{{ _('Average') }}</dt><dd>{{ stats.average }}%</dd></dl>
+      {% if stats.questions %}<div class="bar-chart mt-3">{% for row in stats.questions %}<div class="row"><span class="label" title="{{ row.question.prompt(locale) }}">Q{{ row.question.sort_order }}</span><div class="progress"><div class="fill pf-{{ row.correct_rate|pct_bucket }}"></div></div><span class="val">{{ row.correct_rate }}%</span></div>{% endfor %}</div>{% endif %}
+    </div>
+    <form class="panel mt-4" method="post" action="{{ url_for('instructor.quiz_delete', course_id=course.id, quiz_id=quiz.id) }}" data-confirm="{{ _('Delete this quiz and all attempts?') }}">{{ csrf() }}<button class="btn btn-danger btn-sm" type="submit">{{ icon('trash') }} {{ _('Delete quiz') }}</button></form>
+    {% endif %}
+  </aside>
+</div>
+{% endblock %}

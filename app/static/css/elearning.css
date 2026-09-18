@@ -34,6 +34,8 @@ hr { border-color: var(--border); opacity: 1; }
 .text-muted { color: var(--text-muted) !important; }
 .container { max-width: var(--container); }
 .container.narrow { max-width: var(--container-narrow); }
+.icon { width: 1.1em; height: 1.1em; vertical-align: -0.2em; flex: none; }
+.list-plain li > .icon, .d-flex > .icon { color: var(--text-muted); }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 .skip-link { position: absolute; left: -9999px; top: var(--space-2); z-index: var(--z-toast); background: var(--primary); color: var(--text-on-accent); padding: var(--space-2) var(--space-4); border-radius: var(--radius); font-weight: 600; }
@@ -159,7 +161,7 @@ hr { border-color: var(--border); opacity: 1; }
 .form-control:focus, .form-select:focus { background: var(--bg-secondary); color: var(--text); border-color: var(--primary); box-shadow: var(--focus-ring); }
 .form-control::placeholder { color: var(--text-faint); }
 .form-control.is-invalid, .form-select.is-invalid { border-color: var(--danger); }
-.form-select { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2398A7BE' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); }
+.form-select { background-repeat: no-repeat; background-position: right 12px center; background-size: 14px 14px; padding-right: 34px; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2398A7BE' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); }
 .form-check-input { background-color: var(--bg-secondary); border-color: var(--border-strong); width: 1.1em; height: 1.1em; margin-top: 0.2em; }
 .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
 .form-check-input:focus { box-shadow: var(--focus-ring); border-color: var(--primary); }

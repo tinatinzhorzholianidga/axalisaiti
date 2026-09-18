@@ -1,0 +1,2 @@
+/* Dev-only: emulate the host page so the root's own background is visible. */
+html, body { margin: 0; background: #ffffff; }

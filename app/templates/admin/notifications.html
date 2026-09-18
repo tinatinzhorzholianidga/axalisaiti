@@ -1,0 +1,12 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Announcements') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Send an announcement') }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  {{ field(form.title) }}{{ field(form.body, rows=5) }}<div class="form-grid-2">{{ field(form.link, help=_('Internal path such as /courses/…')) }}{{ field(form.audience) }}</div>{{ field(form.send_email) }}
+  <button class="btn btn-primary" type="submit">{{ _('Send announcement') }}</button>
+</form>
+{% endblock %}

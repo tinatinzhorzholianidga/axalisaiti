@@ -1,0 +1,29 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% block title %}{{ _('Analytics') }} · {{ course.title(locale) }}{% endblock %}
+{% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Analytics') }} · {{ course.title(locale) }}{% endblock %}
+{% block panel_content %}
+<div class="metric-grid">
+  <div class="stats-card"><div class="value">{{ data.enrollments }}</div><div class="label">{{ _('Enrolments') }}</div></div>
+  <div class="stats-card"><div class="value">{{ data.completion_rate }}%</div><div class="label">{{ _('Completion rate') }}</div></div>
+  <div class="stats-card"><div class="value">{{ data.avg_progress }}%</div><div class="label">{{ _('Average progress') }}</div></div>
+  <div class="stats-card"><div class="value">{{ data.rating or '—' }}</div><div class="label">{{ _('Rating') }} ({{ data.reviews }})</div></div>
+</div>
+<div class="two-col">
+  <div class="panel">
+    <h2 class="h6 mb-3">{{ _('Lesson completion (drop-off)') }}</h2>
+    <div class="bar-chart">
+      {% for row in data.lessons %}<div class="row"><span class="label" title="{{ row.lesson.title(locale) }}">{{ row.lesson.module.sort_order }}.{{ row.lesson.sort_order }} {{ row.lesson.title(locale) }}</span><div class="progress"><div class="fill pf-{{ row.pct|pct_bucket }}"></div></div><span class="val">{{ row.completed }}</span></div>{% else %}<p class="text-muted small">{{ _('No lessons yet.') }}</p>{% endfor %}
+    </div>
+  </div>
+  <div class="panel">
+    <h2 class="h6 mb-3">{{ _('Quizzes') }}</h2>
+    {% if data.quizzes %}
+    <div class="table-wrap"><table class="table"><thead><tr><th>{{ _('Quiz') }}</th><th>{{ _('Attempts') }}</th><th>{{ _('Pass rate') }}</th><th>{{ _('Average') }}</th></tr></thead><tbody>
+      {% for q in data.quizzes %}<tr><td><a href="{{ url_for('instructor.quiz_edit', course_id=course.id, quiz_id=q.quiz.id) }}">{{ q.quiz.title(locale) }}</a></td><td>{{ q.attempts }}</td><td>{{ q.pass_rate }}%</td><td>{{ q.average }}%</td></tr>{% endfor %}
+    </tbody></table></div>
+    {% else %}<p class="text-muted small mb-0">{{ _('No quizzes yet.') }}</p>{% endif %}
+  </div>
+</div>
+{% endblock %}

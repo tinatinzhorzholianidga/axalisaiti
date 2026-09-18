@@ -1,0 +1,30 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Safety resource') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.cyberhero') }}">CyberHero</a> / {{ _('Safety resources') }}</div>{% endblock %}
+{% block panel_title %}{{ resource.title(locale) if resource else _('New resource') }}{% endblock %}
+{% block panel_content %}
+<div class="two-col">
+  <form class="panel" method="post" novalidate>
+    {{ form.hidden_tag() }}{{ error_summary(form) }}
+    <div class="form-grid-3">{{ field(form.kind) }}{{ field(form.slug) }}{{ field(form.sort_order) }}{{ field(form.emoji) }}{{ field(form.color) }}{{ field(form.contact_value) }}{{ field(form.is_verified) }}{{ field(form.is_active) }}</div>
+    {% with pairs=[('title_ka','title_en'), ('summary_ka','summary_en'), ('body_ka','body_en'), ('steps_ka','steps_en')], rows=5 %}{% include "admin/cyberhero/_bilingual.html" %}{% endwith %}
+    <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save') }}</button></div>
+  </form>
+  {% if resource and resource.kind == 'family_agreement' %}
+  <aside class="panel">
+    <div class="panel-title"><h2>{{ _('Agreement sections') }}</h2></div>
+    <ul class="sortable mb-3">{% for s in resource.sections %}<li><span class="title"><a href="{{ url_for('admin.cyber_agreement_section', resource_id=resource.id, section_id=s.id) }}">{{ s.title_ka }}</a><span class="sub">{{ s.clauses|length }} {{ _('clauses') }}{% if s.write_lines %} · {{ s.write_lines }} {{ _('write lines') }}{% endif %}</span></span><form method="post" action="{{ url_for('admin.cyber_agreement_section_delete', resource_id=resource.id, section_id=s.id) }}" data-confirm="{{ _('Delete section?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm">{{ icon('trash') }}</button></form></li>{% endfor %}</ul>
+    <form method="post" action="{{ url_for('admin.cyber_agreement_section', resource_id=resource.id) }}" novalidate>
+      {{ section_form.hidden_tag() }}
+      <h3 class="h6">{{ _('Add section') }}</h3>
+      {{ field(section_form.title_ka) }}{{ field(section_form.title_en) }}{{ field(section_form.write_lines) }}{{ field(section_form.clauses_ka, rows=3) }}{{ field(section_form.clauses_en, rows=3) }}
+      <button class="btn btn-outline btn-sm" type="submit">{{ icon('plus') }} {{ _('Add section') }}</button>
+    </form>
+  </aside>
+  {% endif %}
+</div>
+{% endblock %}

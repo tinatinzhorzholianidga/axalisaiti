@@ -159,4 +159,9 @@ def change_password():  # type: ignore[no-untyped-def]
 
 @bp.app_context_processor
 def _auth_context():  # type: ignore[no-untyped-def]
-    return {"registration_open": _registration_open(), "request_args": request.args}
+    from flask import has_request_context
+
+    return {
+        "registration_open": _registration_open(),
+        "request_args": request.args if has_request_context() else {},
+    }

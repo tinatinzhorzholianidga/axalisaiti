@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% block main_class %}site-main panel-main{% endblock %}
+{% block content %}
+<div class="admin-layout">
+  <nav class="admin-sidebar" aria-label="{% block panel_label %}{{ _('Panel navigation') }}{% endblock %}">
+    {% block sidebar %}{% endblock %}
+  </nav>
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        {% block breadcrumbs %}{% endblock %}
+        <h1>{% block panel_title %}{% endblock %}</h1>
+      </div>
+      <div class="btn-group-actions">{% block panel_actions %}{% endblock %}</div>
+    </div>
+    {% block panel_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}

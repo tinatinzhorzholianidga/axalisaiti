@@ -1,0 +1,80 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field %}
+{% from "components/macros.html" import status_chip, lesson_type_icon, csrf %}
+{% block title %}{{ _('Curriculum') }} · {{ course.title(locale) }}{% endblock %}
+{% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('instructor.courses') }}">{{ _('My courses') }}</a> / {{ status_chip(course.status) }}</div>{% endblock %}
+{% block panel_title %}{{ course.title(locale) }}{% endblock %}
+{% block panel_actions %}
+<a class="btn btn-outline" href="{{ url_for('courses.detail', slug=course.slug) }}">{{ icon('eye') }} {{ _('Preview') }}</a>
+{% if course.status.value == 'published' %}
+<form method="post" action="{{ url_for('instructor.course_unpublish', course_id=course.id) }}">{{ csrf() }}<button class="btn btn-secondary" type="submit">{{ _('Unpublish') }}</button></form>
+{% elif course.status.value == 'pending_review' %}<span class="chip chip-warning">{{ _('Awaiting review') }}</span>
+{% else %}
+<form method="post" action="{{ url_for('instructor.course_submit', course_id=course.id) }}">{{ csrf() }}<button class="btn btn-success" type="submit">{{ icon('send') }} {{ _('Publish') if can_publish else _('Submit for review') }}</button></form>
+{% endif %}
+{% endblock %}
+{% block panel_content %}
+{% if course.review_note %}<div class="alert alert-warning"><strong>{{ _('Reviewer note') }}:</strong> {{ course.review_note }}</div>{% endif %}
+<div class="two-col">
+  <div>
+    <ul class="sortable" data-sortable data-reorder-url="{{ url_for('instructor.modules_reorder', course_id=course.id) }}">
+      {% for module in course.modules %}
+      <li draggable="true" data-id="{{ module.id }}" class="flex-column align-items-stretch">
+        <div class="d-flex align-items-center gap-3 w-100">
+          <span class="handle" aria-hidden="true">{{ icon('grip') }}</span>
+          <span class="module-num" data-order-label>{{ module.sort_order }}</span>
+          <span class="title"><a href="{{ url_for('instructor.module_edit', course_id=course.id, module_id=module.id) }}">{{ module.title(locale) }}</a>{% if not module.is_published %} <span class="chip">{{ _('hidden') }}</span>{% endif %}<span class="sub">{{ module.lessons|length }} {{ _('lessons') }}</span></span>
+          <span class="order-btns">
+            <form method="post" action="{{ url_for('instructor.module_move', course_id=course.id, module_id=module.id, direction='up') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move up') }}" {% if loop.first %}disabled{% endif %}>{{ icon('chevron-up') }}</button></form>
+            <form method="post" action="{{ url_for('instructor.module_move', course_id=course.id, module_id=module.id, direction='down') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move down') }}" {% if loop.last %}disabled{% endif %}>{{ icon('chevron-down') }}</button></form>
+            <a class="btn btn-ghost btn-sm" href="{{ url_for('instructor.lesson_new', course_id=course.id, module_id=module.id) }}">{{ icon('plus') }} {{ _('Lesson') }}</a>
+            <form method="post" action="{{ url_for('instructor.module_delete', course_id=course.id, module_id=module.id) }}" data-confirm="{{ _('Delete this module and its lessons?') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Delete module') }}">{{ icon('trash') }}</button></form>
+          </span>
+        </div>
+        {% if module.lessons %}
+        <ul class="sortable mt-3 ms-4" data-sortable data-reorder-url="{{ url_for('instructor.lessons_reorder', course_id=course.id, module_id=module.id) }}">
+          {% for lesson in module.lessons %}
+          <li draggable="true" data-id="{{ lesson.id }}">
+            <span class="handle" aria-hidden="true">{{ icon('grip') }}</span>
+            <span class="text-muted" data-order-label>{{ lesson.sort_order }}</span>
+            <span class="type text-muted">{{ lesson_type_icon(lesson.lesson_type.value) }}</span>
+            <span class="title"><a href="{{ url_for('instructor.lesson_edit', course_id=course.id, lesson_id=lesson.id) }}">{{ lesson.title(locale) }}</a>{% if not lesson.is_published %} <span class="chip">{{ _('hidden') }}</span>{% endif %}{% if lesson.is_free_preview %} <span class="chip chip-cyan">{{ _('preview') }}</span>{% endif %}<span class="sub">{{ lesson.estimated_minutes }} {{ _('min') }}{% if lesson.quiz %} · {{ _('quiz') }}{% endif %}{% if lesson.assignment %} · {{ _('assignment') }}{% endif %}</span></span>
+            <span class="order-btns">
+              <form method="post" action="{{ url_for('instructor.lesson_move', course_id=course.id, lesson_id=lesson.id, direction='up') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move up') }}" {% if loop.first %}disabled{% endif %}>{{ icon('chevron-up') }}</button></form>
+              <form method="post" action="{{ url_for('instructor.lesson_move', course_id=course.id, lesson_id=lesson.id, direction='down') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move down') }}" {% if loop.last %}disabled{% endif %}>{{ icon('chevron-down') }}</button></form>
+              <form method="post" action="{{ url_for('instructor.lesson_delete', course_id=course.id, lesson_id=lesson.id) }}" data-confirm="{{ _('Delete this lesson?') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Delete lesson') }}">{{ icon('trash') }}</button></form>
+            </span>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% else %}
+      <li class="text-muted">{{ _('No modules yet. Add the first module on the right.') }}</li>
+      {% endfor %}
+    </ul>
+    <div class="panel mt-4">
+      <div class="panel-title"><h2>{{ _('Assessments') }}</h2><div class="d-flex gap-2"><a class="btn btn-outline btn-sm" href="{{ url_for('instructor.quiz_new', course_id=course.id) }}">{{ icon('plus') }} {{ _('Quiz') }}</a><a class="btn btn-outline btn-sm" href="{{ url_for('instructor.assignment_new', course_id=course.id) }}">{{ icon('plus') }} {{ _('Assignment') }}</a></div></div>
+      <ul class="list-plain">
+        {% for q in course.quizzes %}<li>{{ icon('help-circle') }}<a href="{{ url_for('instructor.quiz_edit', course_id=course.id, quiz_id=q.id) }}">{{ q.title(locale) }}</a>{% if q.is_final %}<span class="chip chip-purple">{{ _('Final') }}</span>{% endif %}<span class="when">{{ q.questions|length }} {{ _('questions') }}{% if q.lesson %} · {{ q.lesson.title(locale) }}{% endif %}</span></li>{% endfor %}
+        {% for a in course.assignments %}<li>{{ icon('edit') }}<a href="{{ url_for('instructor.assignment_edit', course_id=course.id, assignment_id=a.id) }}">{{ a.title(locale) }}</a><span class="when">{{ a.submissions|length }} {{ _('submissions') }}{% if a.lesson %} · {{ a.lesson.title(locale) }}{% endif %}</span></li>{% endfor %}
+        {% if not course.quizzes and not course.assignments %}<li class="text-muted">{{ _('No quizzes or assignments yet.') }}</li>{% endif %}
+      </ul>
+    </div>
+  </div>
+  <aside>
+    <form class="panel" method="post" action="{{ url_for('instructor.module_new', course_id=course.id) }}" novalidate>
+      {{ module_form.hidden_tag() }}
+      <h2 class="h5 mb-3">{{ _('Add module') }}</h2>
+      {{ field(module_form.title_ka) }}{{ field(module_form.title_en) }}{{ field(module_form.description_ka, rows=2) }}{{ field(module_form.description_en, rows=2) }}{{ field(module_form.is_published) }}
+      <button class="btn btn-primary" type="submit">{{ icon('plus') }} {{ _('Add module') }}</button>
+    </form>
+    <div class="panel mt-4 small text-muted">
+      <h2 class="h6">{{ _('Publishing checklist') }}</h2>
+      <ul class="mb-0"><li>{{ _('At least one module with lessons') }}</li><li>{{ _('Georgian titles everywhere (English optional)') }}</li><li>{{ _('A final quiz if certificates are enabled') }}</li><li>{{ _('Cover image and short description') }}</li></ul>
+    </div>
+  </aside>
+</div>
+{% endblock %}

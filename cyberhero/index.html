@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ka">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CyberHero (dev)</title>
+    <!-- Dev only: mirrors the Flask shell (app/templates/cyberhero/shell.html).
+         The shell loads the Noto Sans Georgian font; in dev we point at the same
+         file through the Vite proxy or the mock plugin. -->
+    <link rel="stylesheet" href="/dev/fonts.css" />
+    <link rel="stylesheet" href="/dev/host.css" />
+  </head>
+  <body>
+    <div id="cyberhero-root" class="cyberhero-root"
+         data-basename="/cyberhero"
+         data-locale="ka"
+         data-api-base="/api/v1/cyberhero"
+         data-static-base="/static/cyberhero"
+         data-site-base="/"
+         data-login-url="/auth/login?next=/cyberhero/"
+         data-user-name=""
+         data-user-id=""
+         data-flags='{"CYBERHERO_IO_CHAT_ENABLED":true}'
+         data-emergency-phone="112"
+         data-cybercrime-contact=""
+         data-help-line=""
+         data-tutor-model-url=""
+         data-lang-switch-ka="/cyberhero/?lang=ka"
+         data-lang-switch-en="/cyberhero/?lang=en"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

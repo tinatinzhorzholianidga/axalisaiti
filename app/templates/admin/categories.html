@@ -1,0 +1,21 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Categories') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Categories') }}{% endblock %}
+{% block panel_content %}
+<div class="two-col">
+  <div class="table-wrap"><table class="table table-hover"><thead><tr><th>#</th><th>{{ _('Name') }}</th><th>{{ _('Slug') }}</th><th>{{ _('Platform') }}</th><th>{{ _('Courses') }}</th><th>{{ _('Active') }}</th><th></th></tr></thead><tbody>
+    {% for c in items %}<tr><td>{{ c.sort_order }}</td><td>{{ icon(c.icon) }} {{ c.name('ka') }} <span class="text-muted">/ {{ c.name('en') }}</span></td><td><code>{{ c.slug }}</code></td><td>{{ c.platform.value }}</td><td>{{ c.courses|length }}</td><td>{{ _('Yes') if c.is_active else _('No') }}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.category_edit', category_id=c.id) }}">{{ _('Edit') }}</a><form method="post" action="{{ url_for('admin.category_delete', category_id=c.id) }}" data-confirm="{{ _('Delete this category?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit">{{ icon('trash') }}</button></form></td></tr>{% endfor %}
+  </tbody></table></div>
+  <form class="panel" method="post" novalidate>
+    {{ form.hidden_tag() }}{{ error_summary(form) }}
+    <h2 class="h6 mb-3">{{ _('New category') }}</h2>
+    {{ field(form.slug) }}{{ field(form.name_ka) }}{{ field(form.name_en) }}{{ field(form.description_ka, rows=2) }}{{ field(form.description_en, rows=2) }}
+    <div class="form-grid-2">{{ field(form.icon) }}{{ field(form.color) }}{{ field(form.platform) }}{{ field(form.sort_order) }}</div>{{ field(form.is_active) }}
+    <button class="btn btn-primary" type="submit">{{ _('Save category') }}</button>
+  </form>
+</div>
+{% endblock %}

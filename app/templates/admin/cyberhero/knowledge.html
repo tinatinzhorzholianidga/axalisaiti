@@ -1,0 +1,13 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% block title %}{{ _('Knowledge base') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.cyberhero') }}">CyberHero</a></div>{% endblock %}
+{% block panel_title %}{{ _('IO tutor knowledge base') }}{% endblock %}
+{% block panel_actions %}<a class="btn btn-primary" href="{{ url_for('admin.cyber_knowledge_section') }}">{{ icon('plus') }} {{ _('Section') }}</a>{% endblock %}
+{% block panel_content %}
+<p class="text-muted">{{ _('The in-browser tutor answers only from this material. It is only reachable when the CYBERHERO_IO_CHAT_ENABLED flag is on.') }}</p>
+<div class="table-wrap"><table class="table table-hover"><thead><tr><th>#</th><th>{{ _('Section') }}</th><th>{{ _('Chunks') }}</th><th></th></tr></thead><tbody>
+{% for s in sections %}<tr><td>{{ s.sort_order }}</td><td>{{ s.title_ka }} <span class="text-muted">/ {{ s.title_en }}</span></td><td>{{ s.chunks|length }}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.cyber_knowledge_section', section_id=s.id) }}">{{ _('Edit') }}</a></td></tr>{% else %}<tr><td colspan="4" class="text-muted">{{ _('Empty.') }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

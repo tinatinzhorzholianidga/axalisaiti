@@ -1,0 +1,22 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field %}
+{% from "components/macros.html" import paginate %}
+{% block title %}{{ _('Users') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Users') }} <span class="text-muted">({{ pagination.total }})</span>{% endblock %}
+{% block panel_content %}
+<div class="toolbar">
+  <form method="get" role="search"><input class="form-control" type="search" name="q" value="{{ q }}" placeholder="{{ _('Search name or email') }}" aria-label="{{ _('Search') }}"><select class="form-select" name="role" aria-label="{{ _('Role') }}"><option value="">{{ _('Any role') }}</option>{% for r in ('student', 'instructor', 'moderator', 'admin') %}<option value="{{ r }}" {% if role == r %}selected{% endif %}>{{ r }}</option>{% endfor %}</select><select class="form-select" name="status" aria-label="{{ _('Status') }}"><option value="">{{ _('Any status') }}</option>{% for s in ('active', 'suspended', 'deactivated', 'pending_deletion') %}<option value="{{ s }}" {% if status == s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select><button class="btn btn-outline" type="submit">{{ icon('search') }} {{ _('Filter') }}</button></form>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#new-user" aria-expanded="false" aria-controls="new-user">{{ icon('plus') }} {{ _('New user') }}</button>
+</div>
+<form id="new-user" class="panel collapse mb-4" method="post" action="{{ url_for('admin.user_create') }}" novalidate>
+  {{ form.hidden_tag() }}
+  <div class="form-grid-3">{{ field(form.email) }}{{ field(form.first_name) }}{{ field(form.last_name) }}{{ field(form.password, help=_('The user should change it after first sign-in.')) }}{{ field(form.roles) }}</div>
+  <button class="btn btn-primary" type="submit">{{ _('Create user') }}</button>
+</form>
+<div class="table-wrap"><table class="table table-hover"><thead><tr><th>{{ _('User') }}</th><th>{{ _('Roles') }}</th><th>{{ _('Status') }}</th><th>{{ _('Last sign-in') }}</th><th>{{ _('Created') }}</th></tr></thead><tbody>
+{% for u in pagination.items %}<tr><td><a href="{{ url_for('admin.user_detail', user_id=u.id) }}">{{ u.name }}</a><br><small class="text-muted">{{ u.email }}</small></td><td>{% for r in u.role_names|sort %}<span class="chip">{{ r }}</span> {% endfor %}</td><td><span class="chip {{ 'chip-success' if u.status.value == 'active' else 'chip-danger' }}">{{ u.status.value }}</span>{% if u.is_locked %} <span class="chip chip-warning">{{ _('locked') }}</span>{% endif %}</td><td>{{ u.last_login_at|humanize_dt if u.last_login_at else '—' }}</td><td>{{ u.created_at|date_only }}</td></tr>{% endfor %}
+</tbody></table></div>
+{{ paginate(pagination) }}
+{% endblock %}

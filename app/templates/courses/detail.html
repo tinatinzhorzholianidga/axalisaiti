@@ -40,6 +40,7 @@
           {% else %}
             <a class="btn btn-primary btn-lg" href="{{ url_for('auth.login', next=request.path) }}">{{ _('Sign in to enrol') }}</a>
           {% endif %}
+          {% if course.discussions_enabled and current_user.is_authenticated %}<a class="btn btn-outline btn-block" href="{{ url_for('discussions.list_threads', slug=course.slug) }}">{{ icon('message') }} {{ _('Discussions') }}</a>{% endif %}
           {% if current_user.is_authenticated %}
           <form method="post" action="{{ url_for('courses.bookmark', slug=course.slug) }}">{{ csrf() }}<button class="btn btn-outline btn-block" type="submit" aria-pressed="{{ 'true' if is_bookmarked else 'false' }}">{{ icon('bookmark') }} {{ _('Bookmarked') if is_bookmarked else _('Bookmark') }}</button></form>
           {% endif %}

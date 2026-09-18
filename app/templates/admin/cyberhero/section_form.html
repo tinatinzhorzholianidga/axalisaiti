@@ -1,0 +1,13 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Agreement section') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ section.title_ka if section else _('New section') }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  <div class="form-grid-3">{{ field(form.title_ka) }}{{ field(form.title_en) }}{{ field(form.write_lines) }}</div>
+  <div class="form-grid-2">{{ field(form.clauses_ka, rows=6) }}{{ field(form.clauses_en, rows=6) }}</div>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save section') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.cyber_resource', resource_id=resource.id) }}">{{ _('Back') }}</a></div>
+</form>
+{% endblock %}

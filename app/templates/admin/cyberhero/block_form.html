@@ -1,0 +1,15 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Block') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.cyber_article', article_id=article.id) }}">{{ article.code }} · {{ article.title(locale) }}</a></div>{% endblock %}
+{% block panel_title %}{{ _('Edit block') if block else _('New block') }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  <div class="form-grid-3">{{ field(form.block_type) }}{{ field(form.variant) }}{{ field(form.ordered) }}</div>
+  {% with pairs=[('title_ka','title_en'), ('text_ka','text_en'), ('items_ka','items_en'), ('paragraphs_ka','paragraphs_en')], rows=4 %}{% include "admin/cyberhero/_bilingual.html" %}{% endwith %}
+  <p class="form-text">{{ _('Headings and paragraphs use Text; lists use Items; callouts use Title, Paragraphs and Items.') }}</p>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save block') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.cyber_article', article_id=article.id) }}">{{ _('Cancel') }}</a></div>
+</form>
+{% endblock %}

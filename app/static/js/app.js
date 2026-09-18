@@ -23,7 +23,7 @@ function applyTheme(pref) {
 }
 
 function initTheme() {
-  const pref = document.documentElement.getAttribute("data-theme-pref") || "system";
+  const pref = document.documentElement.getAttribute("data-theme-pref") || "dark";
   applyTheme(pref);
   document.querySelectorAll("[data-theme-set]").forEach((el) => {
     el.addEventListener("click", (event) => {
@@ -268,6 +268,57 @@ function initNotifications() {
   }, 90000);
 }
 
+/* ---- question editor (option rows per question type) -------------------- */
+function initQuestionEditor() {
+  const editor = document.querySelector("[data-question-editor]");
+  if (!editor) return;
+  const select = editor.querySelector("select[name=question_type]");
+  const apply = () => {
+    const type = select.value;
+    editor.querySelectorAll("[data-qtype-only]").forEach((el) => {
+      const allowed = el.dataset.qtypeOnly.split(" ");
+      if (allowed.includes(type)) el.removeAttribute("hidden"); else el.setAttribute("hidden", "");
+    });
+    editor.querySelectorAll("input[name=opt_correct]").forEach((box) => { box.type = type === "single" ? "radio" : "checkbox"; });
+  };
+  select.addEventListener("change", apply);
+  apply();
+  const add = editor.querySelector("[data-add-option]");
+  if (add) add.addEventListener("click", () => {
+    const hidden = editor.querySelector("[data-option-row][hidden]");
+    if (hidden) hidden.removeAttribute("hidden");
+  });
+}
+
+/* ---- CyberHero round editor -------------------------------------------- */
+function initRoundEditor() {
+  const editor = document.querySelector("[data-round-editor]");
+  if (!editor) return;
+  const select = editor.querySelector("select[name=round_type]");
+  const apply = () => {
+    const type = select.value;
+    editor.querySelectorAll("[data-rtype-only]").forEach((el) => {
+      if (el.dataset.rtypeOnly.split(" ").includes(type)) el.removeAttribute("hidden"); else el.setAttribute("hidden", "");
+    });
+  };
+  select.addEventListener("change", apply);
+  apply();
+  const add = editor.querySelector("[data-add-item]");
+  if (add) add.addEventListener("click", () => {
+    const hidden = editor.querySelector("[data-item-row][hidden]");
+    if (hidden) hidden.removeAttribute("hidden");
+  });
+}
+
+/* ---- discussion reply targeting ----------------------------------------- */
+function initReplies() {
+  const hidden = document.querySelector("[data-reply-parent]");
+  if (!hidden) return;
+  document.querySelectorAll("[data-reply-to]").forEach((el) => {
+    el.addEventListener("click", () => { hidden.value = el.dataset.replyTo; });
+  });
+}
+
 /* ---- flash auto-dismiss ------------------------------------------------- */
 function initFlash() {
   document.querySelectorAll(".flash-stack .alert-success, .flash-stack .alert-info").forEach((el) => {
@@ -284,4 +335,7 @@ initTabs();
 initSortable();
 initQuizTimer();
 initNotifications();
+initQuestionEditor();
+initRoundEditor();
+initReplies();
 initFlash();

@@ -1,0 +1,15 @@
+{% from "components/icons.html" import icon %}
+<div class="group">{{ _('Instructor') }}</div>
+<a href="{{ url_for('instructor.dashboard') }}" {% if request.endpoint == 'instructor.dashboard' %}aria-current="page"{% endif %}>{{ icon('grid') }} {{ _('Overview') }}</a>
+<a href="{{ url_for('instructor.courses') }}" {% if request.endpoint in ('instructor.courses', 'instructor.course_new') %}aria-current="page"{% endif %}>{{ icon('book') }} {{ _('My courses') }}</a>
+<a href="{{ url_for('instructor.grading') }}" {% if request.endpoint in ('instructor.grading', 'instructor.grade_submission') %}aria-current="page"{% endif %}>{{ icon('edit') }} {{ _('Grading') }}</a>
+{% if course %}
+<div class="group">{{ course.title(locale)|truncate(28) }}</div>
+<a href="{{ url_for('instructor.builder', course_id=course.id) }}" {% if request.endpoint == 'instructor.builder' %}aria-current="page"{% endif %}>{{ icon('layers') }} {{ _('Curriculum') }}</a>
+<a href="{{ url_for('instructor.course_edit', course_id=course.id) }}" {% if request.endpoint == 'instructor.course_edit' %}aria-current="page"{% endif %}>{{ icon('settings') }} {{ _('Settings') }}</a>
+<a href="{{ url_for('instructor.students', course_id=course.id) }}" {% if request.endpoint == 'instructor.students' %}aria-current="page"{% endif %}>{{ icon('users') }} {{ _('Students') }}</a>
+<a href="{{ url_for('instructor.analytics', course_id=course.id) }}" {% if request.endpoint == 'instructor.analytics' %}aria-current="page"{% endif %}>{{ icon('bar-chart') }} {{ _('Analytics') }}</a>
+<a href="{{ url_for('instructor.course_discussions', course_id=course.id) }}" {% if request.endpoint == 'instructor.course_discussions' %}aria-current="page"{% endif %}>{{ icon('message') }} {{ _('Discussions') }}</a>
+<a href="{{ url_for('instructor.course_reviews', course_id=course.id) }}" {% if request.endpoint == 'instructor.course_reviews' %}aria-current="page"{% endif %}>{{ icon('star') }} {{ _('Reviews') }}</a>
+<a href="{{ url_for('courses.detail', slug=course.slug) }}">{{ icon('eye') }} {{ _('Preview') }}</a>
+{% endif %}
