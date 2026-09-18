@@ -1,0 +1,7 @@
+{{ _('Hello %(name)s,', name=user.first_name) }}
+
+{{ _('Your account on %(site)s is ready. Sign in to browse courses and start learning.', site=site_name) }}
+
+{{ url_for('auth.login', _external=True) }}
+
+{{ _('If you did not create this account, you can ignore this email.') }}

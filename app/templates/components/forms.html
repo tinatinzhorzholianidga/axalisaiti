@@ -1,0 +1,50 @@
+{# Accessible form field rendering. Every input gets a label, aria-describedby for help/errors. #}
+{% macro field(f, help=None, autocomplete=None, placeholder=None, autofocus=False, rows=6, extra_class="") %}
+  {% set has_error = f.errors|length > 0 %}
+  {% set describedby = [] %}
+  {% if help %}{% set _ = describedby.append(f.id ~ '-help') %}{% endif %}
+  {% if has_error %}{% set _ = describedby.append(f.id ~ '-error') %}{% endif %}
+  <div class="form-field {{ extra_class }}{% if has_error %} has-error{% endif %}">
+    {% if f.type == 'BooleanField' %}
+      <div class="form-check">
+        {{ f(class_="form-check-input" ~ (" is-invalid" if has_error else ""), **{'aria-describedby': describedby|join(' ') or None}) }}
+        <label class="form-check-label" for="{{ f.id }}">{{ f.label.text }}</label>
+      </div>
+    {% else %}
+      <label class="form-label" for="{{ f.id }}">{{ f.label.text }}{% if f.flags.required %} <span class="req" aria-hidden="true">*</span>{% endif %}</label>
+      {% if f.type == 'TextAreaField' %}
+        {{ f(class_="form-control" ~ (" is-invalid" if has_error else ""), rows=rows, placeholder=placeholder, **{'aria-describedby': describedby|join(' ') or None, 'aria-invalid': 'true' if has_error else None}) }}
+      {% elif f.type in ('SelectField', 'SelectMultipleField') %}
+        {{ f(class_="form-select" ~ (" is-invalid" if has_error else ""), **{'aria-describedby': describedby|join(' ') or None, 'aria-invalid': 'true' if has_error else None}) }}
+      {% elif f.type == 'FileField' %}
+        {{ f(class_="form-control" ~ (" is-invalid" if has_error else ""), **{'aria-describedby': describedby|join(' ') or None}) }}
+      {% else %}
+        {{ f(class_="form-control" ~ (" is-invalid" if has_error else ""), autocomplete=autocomplete, placeholder=placeholder, autofocus=autofocus or None, **{'aria-describedby': describedby|join(' ') or None, 'aria-invalid': 'true' if has_error else None}) }}
+      {% endif %}
+    {% endif %}
+    {% if help %}<div id="{{ f.id }}-help" class="form-text">{{ help }}</div>{% endif %}
+    {% if has_error %}
+      <div id="{{ f.id }}-error" class="invalid-feedback d-block">
+        {% for e in f.errors %}<span>{{ e }}</span>{% if not loop.last %}<br>{% endif %}{% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro error_summary(form) %}
+  {% set errors = [] %}
+  {% for f in form if f.errors and f.type != 'CSRFTokenField' %}{% set _ = errors.append((f.label.text, f.errors)) %}{% endfor %}
+  {% if form.csrf_token.errors %}{% set _ = errors.append((_('Security token'), form.csrf_token.errors)) %}{% endif %}
+  {% if errors %}
+  <div class="alert alert-danger form-error-summary" role="alert" tabindex="-1" id="form-errors">
+    <strong>{{ _('Please fix the following:') }}</strong>
+    <ul class="mb-0">
+      {% for label, errs in errors %}<li>{{ label }}: {{ errs|join(', ') }}</li>{% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro submit(label, class_="btn btn-primary", name="submit") %}
+  <button type="submit" class="{{ class_ }}" name="{{ name }}">{{ label }}</button>
+{% endmacro %}

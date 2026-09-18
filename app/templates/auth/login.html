@@ -1,0 +1,21 @@
+{% extends "layouts/auth.html" %}
+{% from "components/forms.html" import field, error_summary, submit %}
+{% block title %}{{ _('Sign in') }} · {{ site_name }}{% endblock %}
+{% block auth_title %}{{ _('Sign in') }}{% endblock %}
+{% block auth_intro %}<p class="text-muted">{{ _('Continue your learning where you left off.') }}</p>{% endblock %}
+{% block auth_form %}
+<form method="post" action="{{ url_for('auth.login', next=request_args.get('next')) }}" novalidate>
+  {{ form.hidden_tag() }}
+  {{ error_summary(form) }}
+  {{ field(form.email, autocomplete="email", autofocus=True) }}
+  {{ field(form.password, autocomplete="current-password") }}
+  <div class="auth-row">
+    {{ field(form.remember) }}
+    <a href="{{ url_for('auth.forgot_password') }}">{{ _('Forgot password?') }}</a>
+  </div>
+  {{ submit(_('Sign in'), class_="btn btn-primary btn-block") }}
+</form>
+{% if registration_open %}
+<p class="auth-alt">{{ _('New here?') }} <a href="{{ url_for('auth.register') }}">{{ _('Create an account') }}</a></p>
+{% endif %}
+{% endblock %}

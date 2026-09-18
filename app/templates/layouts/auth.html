@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+{% block body_class %}auth-body{% endblock %}
+{% block main_class %}site-main auth-main{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <section class="auth-card" aria-labelledby="auth-title">
+    <h1 id="auth-title" class="auth-title">{% block auth_title %}{% endblock %}</h1>
+    {% block auth_intro %}{% endblock %}
+    {% block auth_form %}{% endblock %}
+  </section>
+  {% block auth_aside %}
+  <aside class="auth-aside" aria-hidden="true">
+    <div class="auth-aside-art"><span class="net-node n1"></span><span class="net-node n2"></span><span class="net-node n3"></span><span class="net-node n4"></span><span class="net-line l1"></span><span class="net-line l2"></span><span class="net-line l3"></span></div>
+    <p class="auth-aside-label">LEARN / PRACTICE / STAY SECURE</p>
+  </aside>
+  {% endblock %}
+</div>
+{% endblock %}

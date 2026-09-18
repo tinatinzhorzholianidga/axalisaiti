@@ -1,0 +1,7 @@
+{{ _('Hello %(name)s,', name=user.first_name) }}
+
+{{ _('Please confirm your email address for %(site)s by opening the link below (valid for 24 hours):', site=site_name) }}
+
+{{ link }}
+
+{{ _('If you did not create this account, you can ignore this email.') }}
