@@ -19,7 +19,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model, db
 from app.models.base import (
     CourseStatus,
     Difficulty,
@@ -65,7 +65,7 @@ class TranslatedMixin:
         return value or default
 
 
-class Category(TranslatedMixin, TimestampMixin, db.Model):
+class Category(TranslatedMixin, TimestampMixin, Model):
     __tablename__ = "categories"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -89,7 +89,7 @@ class Category(TranslatedMixin, TimestampMixin, db.Model):
         return self.text("name", locale, self.slug)
 
 
-class CategoryTranslation(db.Model):
+class CategoryTranslation(Model):
     __tablename__ = "category_translations"
     __table_args__ = (UniqueConstraint("category_id", "locale", name="uq_category_locale"),)
 
@@ -104,7 +104,7 @@ class CategoryTranslation(db.Model):
     category: Mapped[Category] = relationship(back_populates="translations")
 
 
-class Course(TranslatedMixin, TimestampMixin, db.Model):
+class Course(TranslatedMixin, TimestampMixin, Model):
     __tablename__ = "courses"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -212,7 +212,7 @@ class Course(TranslatedMixin, TimestampMixin, db.Model):
         return next((q for q in self.quizzes if q.is_final), None)
 
 
-class CourseTranslation(db.Model):
+class CourseTranslation(Model):
     __tablename__ = "course_translations"
     __table_args__ = (UniqueConstraint("course_id", "locale", name="uq_course_locale"),)
 
@@ -240,7 +240,7 @@ class CourseTranslation(db.Model):
         return [line.strip() for line in self.prerequisites.splitlines() if line.strip()]
 
 
-class Module(TranslatedMixin, TimestampMixin, db.Model):
+class Module(TranslatedMixin, TimestampMixin, Model):
     __tablename__ = "modules"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -269,7 +269,7 @@ class Module(TranslatedMixin, TimestampMixin, db.Model):
         return sum(lesson.estimated_minutes for lesson in self.lessons)
 
 
-class ModuleTranslation(db.Model):
+class ModuleTranslation(Model):
     __tablename__ = "module_translations"
     __table_args__ = (UniqueConstraint("module_id", "locale", name="uq_module_locale"),)
 
@@ -284,7 +284,7 @@ class ModuleTranslation(db.Model):
     module: Mapped[Module] = relationship(back_populates="translations")
 
 
-class Lesson(TranslatedMixin, TimestampMixin, db.Model):
+class Lesson(TranslatedMixin, TimestampMixin, Model):
     __tablename__ = "lessons"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -328,7 +328,7 @@ class Lesson(TranslatedMixin, TimestampMixin, db.Model):
         return self.module.course
 
 
-class LessonTranslation(db.Model):
+class LessonTranslation(Model):
     __tablename__ = "lesson_translations"
     __table_args__ = (UniqueConstraint("lesson_id", "locale", name="uq_lesson_locale"),)
 
@@ -344,7 +344,7 @@ class LessonTranslation(db.Model):
     lesson: Mapped[Lesson] = relationship(back_populates="translations")
 
 
-class LessonResource(TimestampMixin, db.Model):
+class LessonResource(TimestampMixin, Model):
     __tablename__ = "lesson_resources"
 
     id: Mapped[int] = mapped_column(primary_key=True)

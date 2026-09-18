@@ -108,7 +108,7 @@ def reply(
     recipients = {thread.author_id}
     if parent and parent.author_id:
         recipients.add(parent.author_id)
-    for uid in recipients - {user.id, None}:
+    for uid in {r for r in recipients if r is not None and r != user.id}:
         notification_service.notify(
             uid,
             kind="discussion_reply",

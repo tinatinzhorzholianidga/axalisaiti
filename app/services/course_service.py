@@ -79,7 +79,7 @@ def slugify(value: str, max_length: int = 100) -> str:
     return value[:max_length] or "item"
 
 
-def unique_slug(base: str, model: type, exclude_id: int | None = None, **scope: Any) -> str:
+def unique_slug(base: str, model: Any, exclude_id: int | None = None, **scope: Any) -> str:
     slug = slugify(base)
     candidate = slug
     counter = 2

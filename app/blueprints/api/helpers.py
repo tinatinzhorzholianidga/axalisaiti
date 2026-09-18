@@ -19,8 +19,8 @@ def api_error(code: int, message: str, **extra: Any):  # type: ignore[no-untyped
 def api_locale() -> str:
     requested = request.args.get("locale")
     languages = current_app.config["LANGUAGES"]
-    if requested in languages:
-        return requested
+    if requested and requested in languages:
+        return str(requested)
     return str(get_locale() or current_app.config["BABEL_DEFAULT_LOCALE"])
 
 

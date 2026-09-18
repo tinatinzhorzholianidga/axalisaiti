@@ -7,7 +7,7 @@ from datetime import datetime
 from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import (
     AttemptStatus,
     FeedbackMode,
@@ -19,7 +19,7 @@ from app.models.base import (
 )
 
 
-class Quiz(TimestampMixin, db.Model):
+class Quiz(TimestampMixin, Model):
     __tablename__ = "quizzes"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -70,7 +70,7 @@ class Quiz(TimestampMixin, db.Model):
         return float(sum(q.points for q in self.questions))
 
 
-class Question(TimestampMixin, db.Model):
+class Question(TimestampMixin, Model):
     __tablename__ = "questions"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -108,7 +108,7 @@ class Question(TimestampMixin, db.Model):
         ) or ""
 
 
-class QuestionOption(db.Model):
+class QuestionOption(Model):
     __tablename__ = "question_options"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -134,7 +134,7 @@ class QuestionOption(db.Model):
         return (self.match_en if locale == "en" and self.match_en else self.match_ka) or ""
 
 
-class QuizAttempt(TimestampMixin, db.Model):
+class QuizAttempt(TimestampMixin, Model):
     __tablename__ = "quiz_attempts"
     __table_args__ = (
         UniqueConstraint("quiz_id", "user_id", "attempt_number", name="uq_attempt_number"),
@@ -172,7 +172,7 @@ class QuizAttempt(TimestampMixin, db.Model):
         return not (self.expires_at and self.expires_at < utcnow())
 
 
-class QuizAnswer(db.Model):
+class QuizAnswer(Model):
     __tablename__ = "quiz_answers"
     __table_args__ = (UniqueConstraint("attempt_id", "question_id", name="uq_answer_question"),)
 

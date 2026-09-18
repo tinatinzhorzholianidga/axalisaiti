@@ -7,7 +7,7 @@ from datetime import datetime
 from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import (
     BookmarkType,
     EnrollmentStatus,
@@ -18,7 +18,7 @@ from app.models.base import (
 )
 
 
-class Enrollment(TimestampMixin, db.Model):
+class Enrollment(TimestampMixin, Model):
     __tablename__ = "enrollments"
     __table_args__ = (UniqueConstraint("user_id", "course_id", name="uq_enrollment_user_course"),)
 
@@ -42,7 +42,7 @@ class Enrollment(TimestampMixin, db.Model):
     last_lesson = relationship("Lesson", foreign_keys=[last_lesson_id])
 
 
-class LessonProgress(TimestampMixin, db.Model):
+class LessonProgress(TimestampMixin, Model):
     __tablename__ = "lesson_progress"
     __table_args__ = (UniqueConstraint("user_id", "lesson_id", name="uq_lesson_progress_user"),)
 
@@ -62,7 +62,7 @@ class LessonProgress(TimestampMixin, db.Model):
     lesson = relationship("Lesson")
 
 
-class CourseProgress(TimestampMixin, db.Model):
+class CourseProgress(TimestampMixin, Model):
     __tablename__ = "course_progress"
     __table_args__ = (UniqueConstraint("user_id", "course_id", name="uq_course_progress_user"),)
 
@@ -84,7 +84,7 @@ class CourseProgress(TimestampMixin, db.Model):
     course = relationship("Course")
 
 
-class Bookmark(db.Model):
+class Bookmark(Model):
     __tablename__ = "bookmarks"
     __table_args__ = (
         UniqueConstraint("user_id", "target_type", "target_id", name="uq_bookmark_target"),

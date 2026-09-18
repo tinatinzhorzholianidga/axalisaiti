@@ -38,7 +38,7 @@ audit:
 	.venv/bin/pip-audit -r requirements.txt
 
 translations:
-	.venv/bin/pybabel extract -F babel.cfg -k _l -o app/translations/messages.pot app
+	.venv/bin/pybabel extract -F babel.cfg -k _l -k _ -k gettext -k ngettext:1,2 --project=elearning -o app/translations/messages.pot .
 	.venv/bin/pybabel update -i app/translations/messages.pot -d app/translations
 	.venv/bin/pybabel compile -d app/translations -f
 

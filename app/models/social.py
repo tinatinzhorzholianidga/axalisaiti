@@ -7,11 +7,11 @@ from datetime import datetime
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import ReviewStatus, TimestampMixin, str_enum, utcnow
 
 
-class Discussion(TimestampMixin, db.Model):
+class Discussion(TimestampMixin, Model):
     __tablename__ = "discussions"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -37,7 +37,7 @@ class Discussion(TimestampMixin, db.Model):
     )
 
 
-class DiscussionPost(TimestampMixin, db.Model):
+class DiscussionPost(TimestampMixin, Model):
     __tablename__ = "discussion_posts"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -61,7 +61,7 @@ class DiscussionPost(TimestampMixin, db.Model):
     )
 
 
-class DiscussionReport(db.Model):
+class DiscussionReport(Model):
     __tablename__ = "discussion_reports"
     __table_args__ = (UniqueConstraint("post_id", "reporter_id", name="uq_report_post_reporter"),)
 
@@ -81,7 +81,7 @@ class DiscussionReport(db.Model):
     resolved_by = relationship("User", foreign_keys=[resolved_by_id])
 
 
-class Review(TimestampMixin, db.Model):
+class Review(TimestampMixin, Model):
     __tablename__ = "reviews"
     __table_args__ = (UniqueConstraint("course_id", "user_id", name="uq_review_course_user"),)
 

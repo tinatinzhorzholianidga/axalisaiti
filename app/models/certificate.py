@@ -5,11 +5,11 @@ from datetime import datetime
 from sqlalchemy import DateTime, Float, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import utcnow
 
 
-class Certificate(db.Model):
+class Certificate(Model):
     __tablename__ = "certificates"
 
     id: Mapped[int] = mapped_column(primary_key=True)

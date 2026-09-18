@@ -35,7 +35,7 @@ services:
     command: ["web"]
     volumes:
       - uploads:/var/lib/elearning/uploads
-      - static-data:/app/app/static:ro
+      - static-data:/srv/static
     depends_on:
       mariadb:
         condition: service_healthy
@@ -50,6 +50,7 @@ services:
     restart: unless-stopped
 
   worker:
+    build: .
     image: elearning/web:latest
     <<: *app-env
     command: ["worker"]

@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import JSONType, TimestampMixin, utcnow
 
 if TYPE_CHECKING:
@@ -38,7 +38,7 @@ class BilingualMixin:
         }
 
 
-class CyberTrack(BilingualMixin, TimestampMixin, db.Model):
+class CyberTrack(BilingualMixin, TimestampMixin, Model):
     """An age track ("tier") such as Cyber Guardians or Teachers & Parents."""
 
     __tablename__ = "cyber_tracks"
@@ -82,7 +82,7 @@ class CyberTrack(BilingualMixin, TimestampMixin, db.Model):
         return [line.strip() for line in raw.splitlines() if line.strip()]
 
 
-class CyberMission(BilingualMixin, TimestampMixin, db.Model):
+class CyberMission(BilingualMixin, TimestampMixin, Model):
     __tablename__ = "cyber_missions"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -145,7 +145,7 @@ class CyberMission(BilingualMixin, TimestampMixin, db.Model):
         return sum(r.max_points for r in self.rounds)
 
 
-class CyberMissionNote(BilingualMixin, db.Model):
+class CyberMissionNote(BilingualMixin, Model):
     """Theory bullets (shown before the mission) and takeaways (shown after)."""
 
     __tablename__ = "cyber_mission_notes"
@@ -162,7 +162,7 @@ class CyberMissionNote(BilingualMixin, db.Model):
     mission: Mapped[CyberMission] = relationship(back_populates="notes")
 
 
-class CyberMissionRound(BilingualMixin, db.Model):
+class CyberMissionRound(BilingualMixin, Model):
     """One round of a mission. ``round_type`` selects the engine:
     choice (one question, options, optional message card), flags (tap every
     red flag), builder (toggle options until a meter reaches ``target``) or
@@ -231,7 +231,7 @@ class CyberMissionRound(BilingualMixin, db.Model):
         return bool(self.card_body_ka or self.card_body_en)
 
 
-class CyberRoundItem(BilingualMixin, db.Model):
+class CyberRoundItem(BilingualMixin, Model):
     """An option (choice), a flaggable item (flags) or a toggle (builder)."""
 
     __tablename__ = "cyber_round_items"
@@ -259,7 +259,7 @@ class CyberRoundItem(BilingualMixin, db.Model):
     round: Mapped[CyberMissionRound] = relationship(back_populates="items")
 
 
-class CyberBranch(BilingualMixin, db.Model):
+class CyberBranch(BilingualMixin, Model):
     """A node of a branching conversation."""
 
     __tablename__ = "cyber_branches"
@@ -290,7 +290,7 @@ class CyberBranch(BilingualMixin, db.Model):
     )
 
 
-class CyberBranchMessage(BilingualMixin, db.Model):
+class CyberBranchMessage(BilingualMixin, Model):
     __tablename__ = "cyber_branch_messages"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -306,7 +306,7 @@ class CyberBranchMessage(BilingualMixin, db.Model):
     branch: Mapped[CyberBranch] = relationship(back_populates="messages")
 
 
-class CyberBranchChoice(BilingualMixin, db.Model):
+class CyberBranchChoice(BilingualMixin, Model):
     __tablename__ = "cyber_branch_choices"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -324,7 +324,7 @@ class CyberBranchChoice(BilingualMixin, db.Model):
     branch: Mapped[CyberBranch] = relationship(back_populates="choices")
 
 
-class CyberArticle(BilingualMixin, TimestampMixin, db.Model):
+class CyberArticle(BilingualMixin, TimestampMixin, Model):
     """Parent / teacher article (shelves A understand · B act · C school)."""
 
     __tablename__ = "cyber_articles"
@@ -367,7 +367,7 @@ class CyberArticle(BilingualMixin, TimestampMixin, db.Model):
         return self.text("title", locale)
 
 
-class CyberArticleBlock(BilingualMixin, db.Model):
+class CyberArticleBlock(BilingualMixin, Model):
     """Article body block: h2 | p | list | callout (variant script/do/dont/note/emergency)."""
 
     __tablename__ = "cyber_article_blocks"
@@ -391,7 +391,7 @@ class CyberArticleBlock(BilingualMixin, db.Model):
     article: Mapped[CyberArticle] = relationship(back_populates="blocks")
 
 
-class CyberArticleSource(db.Model):
+class CyberArticleSource(Model):
     __tablename__ = "cyber_article_sources"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -404,7 +404,7 @@ class CyberArticleSource(db.Model):
     article: Mapped[CyberArticle] = relationship(back_populates="sources")
 
 
-class CyberSafetyResource(BilingualMixin, TimestampMixin, db.Model):
+class CyberSafetyResource(BilingualMixin, TimestampMixin, Model):
     """Emergency contacts, playbook entries, guides and the family media agreement."""
 
     __tablename__ = "cyber_safety_resources"
@@ -442,7 +442,7 @@ class CyberSafetyResource(BilingualMixin, TimestampMixin, db.Model):
         return [line.strip() for line in raw.splitlines() if line.strip()]
 
 
-class CyberAgreementSection(BilingualMixin, db.Model):
+class CyberAgreementSection(BilingualMixin, Model):
     __tablename__ = "cyber_agreement_sections"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -463,7 +463,7 @@ class CyberAgreementSection(BilingualMixin, db.Model):
     )
 
 
-class CyberAgreementClause(BilingualMixin, db.Model):
+class CyberAgreementClause(BilingualMixin, Model):
     __tablename__ = "cyber_agreement_clauses"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -477,7 +477,7 @@ class CyberAgreementClause(BilingualMixin, db.Model):
     section: Mapped[CyberAgreementSection] = relationship(back_populates="clauses")
 
 
-class CyberMascotTip(BilingualMixin, db.Model):
+class CyberMascotTip(BilingualMixin, Model):
     """IO's contextual tips; ``topics`` decides where they are shown."""
 
     __tablename__ = "cyber_mascot_tips"
@@ -494,7 +494,7 @@ class CyberMascotTip(BilingualMixin, db.Model):
         return [t.strip() for t in self.topics.split(",") if t.strip()]
 
 
-class CyberMascotReaction(BilingualMixin, db.Model):
+class CyberMascotReaction(BilingualMixin, Model):
     """What IO says on achievements / contexts (mission, exam, cert, guardians, building)."""
 
     __tablename__ = "cyber_mascot_reactions"
@@ -506,7 +506,7 @@ class CyberMascotReaction(BilingualMixin, db.Model):
     text_en: Mapped[str] = mapped_column(Text, nullable=False)
 
 
-class CyberKnowledgeSection(BilingualMixin, db.Model):
+class CyberKnowledgeSection(BilingualMixin, Model):
     """IO tutor knowledge base: sections of the approved course material."""
 
     __tablename__ = "cyber_knowledge_sections"
@@ -524,7 +524,7 @@ class CyberKnowledgeSection(BilingualMixin, db.Model):
     )
 
 
-class CyberKnowledgeChunk(db.Model):
+class CyberKnowledgeChunk(Model):
     __tablename__ = "cyber_knowledge_chunks"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -537,7 +537,7 @@ class CyberKnowledgeChunk(db.Model):
     section: Mapped[CyberKnowledgeSection] = relationship(back_populates="chunks")
 
 
-class CyberProgress(TimestampMixin, db.Model):
+class CyberProgress(TimestampMixin, Model):
     """Server-side mission progress for signed-in users (anonymous users use localStorage)."""
 
     __tablename__ = "cyber_progress"
@@ -560,7 +560,7 @@ class CyberProgress(TimestampMixin, db.Model):
     mission: Mapped[CyberMission] = relationship()
 
 
-class CyberCertificate(db.Model):
+class CyberCertificate(Model):
     __tablename__ = "cyber_certificates"
 
     id: Mapped[int] = mapped_column(primary_key=True)

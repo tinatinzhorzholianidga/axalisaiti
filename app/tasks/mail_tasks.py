@@ -13,7 +13,8 @@ log = logging.getLogger(__name__)
 
 @celery.task(name="mail.send", bind=True, max_retries=3, default_retry_delay=30)
 def send_mail_task(self, recipients: list[str], subject: str, body: str, html: str | None) -> None:
-    msg = Message(subject=subject, recipients=recipients, body=body, html=html)
+    to: list[str | tuple[str, str]] = list(recipients)
+    msg = Message(subject=subject, recipients=to, body=body, html=html)
     try:
         mail.send(msg)
     except Exception as exc:  # pragma: no cover - network failure path

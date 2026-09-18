@@ -3,6 +3,10 @@ set -eu
 
 case "${1:-web}" in
   web)
+    if [ -d /srv/static ] && [ -w /srv/static ]; then
+      echo "[entrypoint] publishing static assets for nginx"
+      rm -rf /srv/static/* && cp -R /app/app/static/. /srv/static/
+    fi
     echo "[entrypoint] checking production configuration"
     flask --app wsgi:app check-production
     echo "[entrypoint] applying database migrations"

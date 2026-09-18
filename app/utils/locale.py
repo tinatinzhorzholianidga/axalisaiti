@@ -15,10 +15,10 @@ def select_locale() -> str:
         return default
     chosen = session.get("locale")
     if chosen in languages:
-        return chosen
+        return str(chosen)
     with contextlib.suppress(Exception):  # user loader may not be ready in early requests
         if current_user.is_authenticated and current_user.locale in languages:
-            return current_user.locale
+            return str(current_user.locale)
     best = request.accept_languages.best_match(list(languages.keys()))
     return best or default
 

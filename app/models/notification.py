@@ -5,11 +5,11 @@ from datetime import datetime
 from sqlalchemy import Boolean, DateTime, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import JSONType, utcnow
 
 
-class Notification(db.Model):
+class Notification(Model):
     __tablename__ = "notifications"
 
     id: Mapped[int] = mapped_column(primary_key=True)

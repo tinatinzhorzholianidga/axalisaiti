@@ -31,7 +31,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends libmagic1 curl 
     && rm -rf /var/lib/apt/lists/* \
     && groupadd --system --gid 1001 elearning \
     && useradd --system --uid 1001 --gid elearning --create-home --home-dir /app elearning \
-    && mkdir -p /var/lib/elearning/uploads && chown -R elearning:elearning /var/lib/elearning
+    && mkdir -p /srv/static /var/lib/elearning/uploads \
+    && chown -R elearning:elearning /srv/static /var/lib/elearning
 WORKDIR /app
 COPY --from=python-build /wheels /wheels
 COPY requirements.txt .

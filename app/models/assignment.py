@@ -7,11 +7,11 @@ from datetime import datetime
 from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import SubmissionStatus, SubmissionType, TimestampMixin, str_enum, utcnow
 
 
-class Assignment(TimestampMixin, db.Model):
+class Assignment(TimestampMixin, Model):
     __tablename__ = "assignments"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -65,7 +65,7 @@ class Assignment(TimestampMixin, db.Model):
         return bool(self.due_at and self.due_at < utcnow())
 
 
-class AssignmentSubmission(TimestampMixin, db.Model):
+class AssignmentSubmission(TimestampMixin, Model):
     __tablename__ = "assignment_submissions"
     __table_args__ = (
         UniqueConstraint(
@@ -97,7 +97,7 @@ class AssignmentSubmission(TimestampMixin, db.Model):
     )
 
 
-class Grade(db.Model):
+class Grade(Model):
     __tablename__ = "grades"
 
     id: Mapped[int] = mapped_column(primary_key=True)

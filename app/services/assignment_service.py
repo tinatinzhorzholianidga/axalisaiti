@@ -81,7 +81,7 @@ def submit(
         raise AssignmentError("This assignment accepts text only.")
 
     media = None
-    if has_file:
+    if has_file and file is not None:
         try:
             media = media_service.save_upload(
                 file,

@@ -6,11 +6,11 @@ from typing import Any
 from sqlalchemy import Boolean, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import TimestampMixin
 
 
-class SiteSetting(TimestampMixin, db.Model):
+class SiteSetting(TimestampMixin, Model):
     __tablename__ = "site_settings"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -38,7 +38,7 @@ class SiteSetting(TimestampMixin, db.Model):
         return self.value
 
 
-class FeatureFlag(TimestampMixin, db.Model):
+class FeatureFlag(TimestampMixin, Model):
     __tablename__ = "feature_flags"
 
     id: Mapped[int] = mapped_column(primary_key=True)

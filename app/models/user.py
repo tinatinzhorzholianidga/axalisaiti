@@ -20,7 +20,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model, db
 from app.models.base import JSONType, TimestampMixin, UserStatus, str_enum, utcnow
 
 # Argon2id with parameters above the OWASP minimum recommendation.
@@ -43,7 +43,7 @@ role_permissions = Table(
 )
 
 
-class Permission(db.Model):
+class Permission(Model):
     __tablename__ = "permissions"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -55,7 +55,7 @@ class Permission(db.Model):
     )
 
 
-class Role(TimestampMixin, db.Model):
+class Role(TimestampMixin, Model):
     __tablename__ = "roles"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -78,7 +78,7 @@ class Role(TimestampMixin, db.Model):
         return {p.code for p in self.permissions}
 
 
-class User(UserMixin, TimestampMixin, db.Model):
+class User(UserMixin, TimestampMixin, Model):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -198,7 +198,7 @@ class User(UserMixin, TimestampMixin, db.Model):
         return f"<User {self.id} {self.email}>"
 
 
-class AuthToken(db.Model):
+class AuthToken(Model):
     """Single-use, hashed tokens for email verification and password reset."""
 
     __tablename__ = "auth_tokens"

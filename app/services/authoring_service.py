@@ -178,7 +178,7 @@ def fill_module_form(form: Any, module: Module) -> None:
 
 def save_lesson(module: Module, form: Any, actor: User, lesson: Lesson | None = None) -> Lesson:
     translations = _translations_from_form(form, ("title", "summary", "content"))
-    fields = {
+    fields: dict[str, Any] = {
         "estimated_minutes": form.estimated_minutes.data or 10,
         "is_published": bool(form.is_published.data),
         "is_free_preview": bool(form.is_free_preview.data),
@@ -526,7 +526,7 @@ def course_analytics(course: Course) -> dict[str, Any]:
         "avg_progress": round(float(avg_progress or 0), 1),
         "lessons": lessons,
         "quizzes": quizzes,
-        "max_lesson_started": max((item["started"] for item in lessons), default=0),
+        "max_lesson_started": max((int(str(item["started"])) for item in lessons), default=0),
         "reviews": course.rating_count,
         "rating": course.rating_avg,
     }

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from flask_babel import Babel
 from flask_caching import Cache
 from flask_limiter import Limiter
@@ -29,6 +31,13 @@ class Base(DeclarativeBase):
 
 
 db = SQLAlchemy(model_class=Base)
+
+# ``db.Model`` is created at runtime, which static type checkers cannot see
+# through; models inherit from ``Model`` so mypy checks them against ``Base``.
+if TYPE_CHECKING:
+    Model = Base
+else:
+    Model = db.Model
 migrate = Migrate()
 login_manager = LoginManager()
 csrf = CSRFProtect()

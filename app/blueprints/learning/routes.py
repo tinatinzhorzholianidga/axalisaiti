@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime
 
 from flask import Response, abort, flash, redirect, render_template, request, url_for
 from flask_babel import get_locale
@@ -64,7 +65,7 @@ def dashboard():  # type: ignore[no-untyped-def]
         continue_items.append((enrollment, lesson, progress_map.get(enrollment.course_id)))
     recently_viewed = sorted(
         [e for e in enrollments if e.last_accessed_at],
-        key=lambda e: e.last_accessed_at,
+        key=lambda e: e.last_accessed_at or datetime.min,
         reverse=True,
     )[:4]
     enrolled_ids = {e.course_id for e in enrollments}

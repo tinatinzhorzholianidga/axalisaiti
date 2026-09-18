@@ -366,8 +366,9 @@ def lessons_reorder(course_id: int, module_id: int):  # type: ignore[no-untyped-
 def quiz_new(course_id: int):  # type: ignore[no-untyped-def]
     course = _course(course_id)
     lesson = None
-    if request.args.get("lesson", type=int):
-        lesson = _child(course, Lesson, request.args.get("lesson", type=int), via="module")
+    lesson_id = request.args.get("lesson", type=int)
+    if lesson_id:
+        lesson = _child(course, Lesson, lesson_id, via="module")
         if lesson.quiz:
             return redirect(
                 url_for("instructor.quiz_edit", course_id=course.id, quiz_id=lesson.quiz.id)
@@ -487,8 +488,9 @@ def question_move(course_id: int, quiz_id: int, question_id: int, direction: str
 def assignment_new(course_id: int):  # type: ignore[no-untyped-def]
     course = _course(course_id)
     lesson = None
-    if request.args.get("lesson", type=int):
-        lesson = _child(course, Lesson, request.args.get("lesson", type=int), via="module")
+    lesson_id = request.args.get("lesson", type=int)
+    if lesson_id:
+        lesson = _child(course, Lesson, lesson_id, via="module")
         if lesson.assignment:
             return redirect(
                 url_for(

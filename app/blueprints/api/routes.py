@@ -243,7 +243,7 @@ def toggle_bookmark():  # type: ignore[no-untyped-def]
     try:
         data = json_body()
         target_type = BookmarkType(str(data.get("type")))
-        target_id = int(data.get("id"))
+        target_id = int(data.get("id") or 0)
     except (ValueError, TypeError):
         return api_error(400, "Invalid payload")
     added = bookmark_service.toggle(current_user, target_type, target_id)

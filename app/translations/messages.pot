@@ -1,0 +1,3245 @@
+# Translations template for elearning.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the elearning project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: elearning VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-09-18 11:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "User or course not found."
+msgstr ""
+
+msgid "This learner already has a certificate for the course."
+msgstr ""
+
+msgid "Certificate issued."
+msgstr ""
+
+msgid "Certificate revoked."
+msgstr ""
+
+msgid "Report resolved."
+msgstr ""
+
+#, python-format
+msgid "Announcement sent to %(n)d users."
+msgstr ""
+
+msgid "Course created."
+msgstr ""
+
+msgid "Course saved."
+msgstr ""
+
+msgid "Course published."
+msgstr ""
+
+msgid "Your course was published"
+msgstr ""
+
+msgid "Course sent back to draft."
+msgstr ""
+
+msgid "Your course needs changes"
+msgstr ""
+
+msgid "Status updated."
+msgstr ""
+
+msgid "Course status changed"
+msgstr ""
+
+msgid "Course deleted."
+msgstr ""
+
+msgid "Category created."
+msgstr ""
+
+msgid "Category saved."
+msgstr ""
+
+msgid "Category deleted."
+msgstr ""
+
+#, python-format
+msgid "Seed content reloaded: %(summary)s"
+msgstr ""
+
+msgid "Track saved."
+msgstr ""
+
+msgid "Mission saved."
+msgstr ""
+
+msgid "Mission deleted."
+msgstr ""
+
+msgid "Round saved."
+msgstr ""
+
+msgid "Node saved."
+msgstr ""
+
+msgid "Article saved."
+msgstr ""
+
+msgid "Block saved."
+msgstr ""
+
+msgid "Saved."
+msgstr ""
+
+msgid "Section saved."
+msgstr ""
+
+msgid "Tip added."
+msgstr ""
+
+msgid "Reaction added."
+msgstr ""
+
+msgid "Tip saved."
+msgstr ""
+
+msgid "File uploaded."
+msgstr ""
+
+msgid "File deleted."
+msgstr ""
+
+msgid "Settings saved."
+msgstr ""
+
+msgid "Feature flags saved."
+msgstr ""
+
+#, python-format
+msgid "User %(email)s created."
+msgstr ""
+
+#, python-format
+msgid "Please check the form: %(errors)s"
+msgstr ""
+
+msgid "You cannot remove your own admin role."
+msgstr ""
+
+msgid "User saved."
+msgstr ""
+
+msgid "You cannot change your own account status here."
+msgstr ""
+
+msgid "User suspended and signed out everywhere."
+msgstr ""
+
+msgid "User reinstated."
+msgstr ""
+
+msgid "User deactivated."
+msgstr ""
+
+msgid "Account unlocked."
+msgstr ""
+
+msgid "Enrol in the course first."
+msgstr ""
+
+msgid "Time is up for this attempt."
+msgstr ""
+
+msgid "Your work was submitted."
+msgstr ""
+
+#, python-format
+msgid "Welcome back, %(name)s."
+msgstr ""
+
+msgid "Invalid email or password."
+msgstr ""
+
+msgid "You have been signed out."
+msgstr ""
+
+msgid "Registration is currently closed."
+msgstr ""
+
+msgid "Account created. Check your email to verify your address."
+msgstr ""
+
+#, python-format
+msgid "Welcome to %(site)s!"
+msgstr ""
+
+msgid "This verification link is invalid or has expired."
+msgstr ""
+
+msgid "Your email address is verified. You can sign in now."
+msgstr ""
+
+msgid "If that address needs verification, a new email is on its way."
+msgstr ""
+
+msgid "If an account exists for that email, a reset link has been sent."
+msgstr ""
+
+msgid "Your password has been reset. Please sign in."
+msgstr ""
+
+msgid "Password changed. Other sessions have been signed out."
+msgstr ""
+
+msgid "All categories"
+msgstr ""
+
+msgid "Your enrolment request was sent to the instructor."
+msgstr ""
+
+msgid "You are enrolled. Let's start learning."
+msgstr ""
+
+msgid "You left the course. Your progress is kept if you return."
+msgstr ""
+
+msgid "Bookmarked."
+msgstr ""
+
+msgid "Bookmark removed."
+msgstr ""
+
+msgid "Please choose a rating."
+msgstr ""
+
+msgid "Thank you! Your review will appear after moderation."
+msgstr ""
+
+msgid "Thread updated."
+msgstr ""
+
+msgid "Please give a reason."
+msgstr ""
+
+msgid "Thank you. A moderator will review the post."
+msgstr ""
+
+msgid "Course created. Now add modules and lessons."
+msgstr ""
+
+msgid "Add at least one lesson before publishing."
+msgstr ""
+
+msgid "Course submitted for review. An administrator will publish it."
+msgstr ""
+
+msgid "Course moved back to draft."
+msgstr ""
+
+msgid "Unpublish the course before deleting it."
+msgstr ""
+
+msgid "Module added."
+msgstr ""
+
+msgid "Module title is required."
+msgstr ""
+
+msgid "Module saved."
+msgstr ""
+
+msgid "Module deleted."
+msgstr ""
+
+msgid "Lesson created."
+msgstr ""
+
+msgid "Lesson saved."
+msgstr ""
+
+msgid "Resource added."
+msgstr ""
+
+msgid "Resource title is required."
+msgstr ""
+
+msgid "Lesson deleted."
+msgstr ""
+
+msgid "Quiz created. Add questions."
+msgstr ""
+
+msgid "Quiz saved."
+msgstr ""
+
+msgid "Quiz deleted."
+msgstr ""
+
+msgid "Question saved."
+msgstr ""
+
+msgid "Assignment created."
+msgstr ""
+
+msgid "Assignment saved."
+msgstr ""
+
+msgid "Enrolment approved."
+msgstr ""
+
+msgid "Returned to the learner for revision."
+msgstr ""
+
+msgid "Grade saved and the learner was notified."
+msgstr ""
+
+msgid "Enrol in the course to open this lesson."
+msgstr ""
+
+msgid "Pass the quiz to complete this lesson."
+msgstr ""
+
+msgid "Lesson marked as complete."
+msgstr ""
+
+msgid "Profile saved."
+msgstr ""
+
+msgid "Notification preferences saved."
+msgstr ""
+
+msgid "Password confirmation failed."
+msgstr ""
+
+msgid "Your account has been deactivated. Contact support to restore it."
+msgstr ""
+
+#, python-format
+msgid "%(n)d notifications marked as read."
+msgstr ""
+
+msgid "Use lowercase letters, digits and hyphens."
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "First name"
+msgstr ""
+
+msgid "Last name"
+msgstr ""
+
+msgid "Temporary password"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
+msgid "Create user"
+msgstr ""
+
+msgid "Organisation"
+msgstr ""
+
+msgid "Email verified"
+msgstr ""
+
+msgid "Save user"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Message"
+msgstr ""
+
+msgid "Link (optional)"
+msgstr ""
+
+msgid "Audience"
+msgstr ""
+
+msgid "All users"
+msgstr ""
+
+msgid "Students"
+msgstr ""
+
+msgid "Instructors"
+msgstr ""
+
+msgid "Also send by email"
+msgstr ""
+
+msgid "Send announcement"
+msgstr ""
+
+msgid "Reason"
+msgstr ""
+
+msgid "Revoke"
+msgstr ""
+
+msgid "User ID"
+msgstr ""
+
+msgid "Course ID"
+msgstr ""
+
+msgid "Issue certificate"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Kind"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Document"
+msgstr ""
+
+msgid "Resource"
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "CyberHero illustration"
+msgstr ""
+
+msgid "Alt text"
+msgstr ""
+
+msgid "Publicly accessible"
+msgstr ""
+
+msgid "Upload"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid "Slug"
+msgstr ""
+
+msgid "Order"
+msgstr ""
+
+msgid "Emoji"
+msgstr ""
+
+msgid "Colour"
+msgstr ""
+
+msgid "Route (when active)"
+msgstr ""
+
+msgid "Active (otherwise 'coming soon')"
+msgstr ""
+
+msgid "Featured"
+msgstr ""
+
+msgid "Certificate"
+msgstr ""
+
+msgid "Tag (Georgian)"
+msgstr ""
+
+msgid "Tag (English)"
+msgstr ""
+
+msgid "Name (Georgian)"
+msgstr ""
+
+msgid "Name (English)"
+msgstr ""
+
+msgid "Description (Georgian)"
+msgstr ""
+
+msgid "Description (English)"
+msgstr ""
+
+msgid "Intro (Georgian)"
+msgstr ""
+
+msgid "Intro (English)"
+msgstr ""
+
+msgid "Topics (Georgian, one per line)"
+msgstr ""
+
+msgid "Topics (English, one per line)"
+msgstr ""
+
+msgid "Save track"
+msgstr ""
+
+msgid "Track"
+msgstr ""
+
+msgid "Course"
+msgstr ""
+
+msgid "Related article code (a1…c4)"
+msgstr ""
+
+msgid "Topics (comma separated)"
+msgstr ""
+
+msgid "Priority"
+msgstr ""
+
+msgid "Sensitive topic (shows the help strip)"
+msgstr ""
+
+msgid "Final exam"
+msgstr ""
+
+msgid "Published"
+msgstr ""
+
+msgid "Timer per question (seconds, exam only)"
+msgstr ""
+
+msgid "Pass ratio (e.g. 0.8, exam only)"
+msgstr ""
+
+msgid "Card description (Georgian)"
+msgstr ""
+
+msgid "Card description (English)"
+msgstr ""
+
+msgid "Briefing (Georgian)"
+msgstr ""
+
+msgid "Briefing (English)"
+msgstr ""
+
+msgid "Help strip (Georgian)"
+msgstr ""
+
+msgid "Help strip (English)"
+msgstr ""
+
+msgid "Theory bullets (Georgian, one per line)"
+msgstr ""
+
+msgid "Theory bullets (English, one per line)"
+msgstr ""
+
+msgid "Takeaways (Georgian, one per line)"
+msgstr ""
+
+msgid "Takeaways (English, one per line)"
+msgstr ""
+
+msgid "Save mission"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Choice (one correct)"
+msgstr ""
+
+msgid "Flags (tap every red flag)"
+msgstr ""
+
+msgid "Builder (reach a target)"
+msgstr ""
+
+msgid "Branching conversation"
+msgstr ""
+
+msgid "Question / prompt (Georgian)"
+msgstr ""
+
+msgid "Question / prompt (English)"
+msgstr ""
+
+msgid "Explanation (Georgian)"
+msgstr ""
+
+msgid "Explanation (English)"
+msgstr ""
+
+msgid "Explanation when a negative option was picked (Georgian)"
+msgstr ""
+
+msgid "Explanation when a negative option was picked (English)"
+msgstr ""
+
+msgid "Message card: from (Georgian)"
+msgstr ""
+
+msgid "Message card: from (English)"
+msgstr ""
+
+msgid "Message card: meta (Georgian)"
+msgstr ""
+
+msgid "Message card: meta (English)"
+msgstr ""
+
+msgid "Message card: body (Georgian)"
+msgstr ""
+
+msgid "Message card: body (English)"
+msgstr ""
+
+msgid "Builder target"
+msgstr ""
+
+msgid "Meter label low (Georgian)"
+msgstr ""
+
+msgid "Meter label low (English)"
+msgstr ""
+
+msgid "Meter label high (Georgian)"
+msgstr ""
+
+msgid "Meter label high (English)"
+msgstr ""
+
+msgid "Branch start node key"
+msgstr ""
+
+msgid "Branch max points"
+msgstr ""
+
+msgid "Save round"
+msgstr ""
+
+msgid "Node key"
+msgstr ""
+
+msgid "Ending node"
+msgstr ""
+
+msgid "Scene (Georgian)"
+msgstr ""
+
+msgid "Scene (English)"
+msgstr ""
+
+msgid "Save node"
+msgstr ""
+
+msgid "Code / slug (a1 … c4)"
+msgstr ""
+
+msgid "Shelf"
+msgstr ""
+
+msgid "A · Understand the risks"
+msgstr ""
+
+msgid "B · Act"
+msgstr ""
+
+msgid "C · For school"
+msgstr ""
+
+msgid "Reading minutes"
+msgstr ""
+
+msgid "Related mission slug"
+msgstr ""
+
+msgid "Title (Georgian)"
+msgstr ""
+
+msgid "Title (English)"
+msgstr ""
+
+msgid "Teaser (Georgian)"
+msgstr ""
+
+msgid "Teaser (English)"
+msgstr ""
+
+msgid "Lead (Georgian)"
+msgstr ""
+
+msgid "Lead (English)"
+msgstr ""
+
+msgid "Sources (one per line)"
+msgstr ""
+
+msgid "Save article"
+msgstr ""
+
+msgid "Block"
+msgstr ""
+
+msgid "Heading"
+msgstr ""
+
+msgid "Paragraph"
+msgstr ""
+
+msgid "List"
+msgstr ""
+
+msgid "Callout"
+msgstr ""
+
+msgid "Callout variant"
+msgstr ""
+
+msgid "Ordered list"
+msgstr ""
+
+msgid "Callout title (Georgian)"
+msgstr ""
+
+msgid "Callout title (English)"
+msgstr ""
+
+msgid "Text (Georgian)"
+msgstr ""
+
+msgid "Text (English)"
+msgstr ""
+
+msgid "List items (Georgian, one per line)"
+msgstr ""
+
+msgid "List items (English, one per line)"
+msgstr ""
+
+msgid "Callout paragraphs (Georgian, one per line)"
+msgstr ""
+
+msgid "Callout paragraphs (English, one per line)"
+msgstr ""
+
+msgid "Save block"
+msgstr ""
+
+msgid "Emergency contact"
+msgstr ""
+
+msgid "Playbook entry"
+msgstr ""
+
+msgid "Guide"
+msgstr ""
+
+msgid "Family agreement"
+msgstr ""
+
+msgid "Contact value (phone / URL)"
+msgstr ""
+
+msgid "Verified (contacts are only shown when verified)"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Summary (Georgian)"
+msgstr ""
+
+msgid "Summary (English)"
+msgstr ""
+
+msgid "Body (Georgian, HTML)"
+msgstr ""
+
+msgid "Body (English, HTML)"
+msgstr ""
+
+msgid "Steps (Georgian, one per line)"
+msgstr ""
+
+msgid "Steps (English, one per line)"
+msgstr ""
+
+msgid "Section title (Georgian)"
+msgstr ""
+
+msgid "Section title (English)"
+msgstr ""
+
+msgid "Blank lines to write on"
+msgstr ""
+
+msgid "Clauses (Georgian, one per line)"
+msgstr ""
+
+msgid "Clauses (English, one per line)"
+msgstr ""
+
+msgid "Save section"
+msgstr ""
+
+msgid "Tip (Georgian)"
+msgstr ""
+
+msgid "Tip (English)"
+msgstr ""
+
+msgid "Save tip"
+msgstr ""
+
+msgid "Moment"
+msgstr ""
+
+msgid "Section (Georgian)"
+msgstr ""
+
+msgid "Section (English)"
+msgstr ""
+
+msgid "Text chunks (separate with a blank line)"
+msgstr ""
+
+msgid "Your answer"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Points"
+msgstr ""
+
+msgid "Feedback"
+msgstr ""
+
+msgid "Save grade"
+msgstr ""
+
+msgid "Return for revision"
+msgstr ""
+
+msgid "Post thread"
+msgstr ""
+
+msgid "Reply"
+msgstr ""
+
+msgid "Report"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Keep me signed in"
+msgstr ""
+
+msgid "Sign in"
+msgstr ""
+
+msgid "Organisation (optional)"
+msgstr ""
+
+msgid "Preferred language"
+msgstr ""
+
+msgid "Confirm password"
+msgstr ""
+
+msgid "Passwords must match."
+msgstr ""
+
+msgid "I accept the terms of use and privacy notice"
+msgstr ""
+
+msgid "Create account"
+msgstr ""
+
+msgid "Send reset link"
+msgstr ""
+
+msgid "New password"
+msgstr ""
+
+msgid "Confirm new password"
+msgstr ""
+
+msgid "Set new password"
+msgstr ""
+
+msgid "Current password"
+msgstr ""
+
+msgid "Change password"
+msgstr ""
+
+msgid "Resend verification email"
+msgstr ""
+
+msgid "Platform"
+msgstr ""
+
+msgid "Both"
+msgstr ""
+
+msgid "Categories"
+msgstr ""
+
+msgid "Short description (Georgian)"
+msgstr ""
+
+msgid "Short description (English)"
+msgstr ""
+
+msgid "Description (Georgian, HTML)"
+msgstr ""
+
+msgid "Description (English, HTML)"
+msgstr ""
+
+msgid "Learning objectives (Georgian, one per line)"
+msgstr ""
+
+msgid "Learning objectives (English, one per line)"
+msgstr ""
+
+msgid "Prerequisites (Georgian, one per line)"
+msgstr ""
+
+msgid "Prerequisites (English, one per line)"
+msgstr ""
+
+msgid "Who this course is for (Georgian)"
+msgstr ""
+
+msgid "Who this course is for (English)"
+msgstr ""
+
+msgid "Certificate requirements (Georgian)"
+msgstr ""
+
+msgid "Certificate requirements (English)"
+msgstr ""
+
+msgid "Cover image"
+msgstr ""
+
+msgid "Difficulty"
+msgstr ""
+
+msgid "Beginner"
+msgstr ""
+
+msgid "Intermediate"
+msgstr ""
+
+msgid "Advanced"
+msgstr ""
+
+msgid "Estimated duration (minutes)"
+msgstr ""
+
+msgid "Minimum age"
+msgstr ""
+
+msgid "Maximum age"
+msgstr ""
+
+msgid "Instructor"
+msgstr ""
+
+msgid "Tags (comma separated)"
+msgstr ""
+
+msgid "Featured on the home page"
+msgstr ""
+
+msgid "Free access"
+msgstr ""
+
+msgid "Certificate on completion"
+msgstr ""
+
+msgid "Certificate pass mark (%)"
+msgstr ""
+
+msgid "Enrolment"
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "Requires approval"
+msgstr ""
+
+msgid "Invitation only"
+msgstr ""
+
+msgid "Discussions"
+msgstr ""
+
+msgid "Reviews"
+msgstr ""
+
+msgid "Starts"
+msgstr ""
+
+msgid "Ends"
+msgstr ""
+
+msgid "CyberHero track"
+msgstr ""
+
+msgid "Save course"
+msgstr ""
+
+msgid "Visible to learners"
+msgstr ""
+
+msgid "Save module"
+msgstr ""
+
+msgid "Reading"
+msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "Quiz"
+msgstr ""
+
+msgid "Lab"
+msgstr ""
+
+msgid "Assignment"
+msgstr ""
+
+msgid "Duration (minutes)"
+msgstr ""
+
+msgid "Content (Georgian, HTML)"
+msgstr ""
+
+msgid "Content (English, HTML)"
+msgstr ""
+
+msgid "Video URL"
+msgstr ""
+
+msgid "Video file"
+msgstr ""
+
+msgid "Free preview (no enrolment needed)"
+msgstr ""
+
+msgid "Save lesson"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+msgid "Add resource"
+msgstr ""
+
+msgid "Time limit (minutes, empty = none)"
+msgstr ""
+
+msgid "Maximum attempts (empty = unlimited)"
+msgstr ""
+
+msgid "Pass mark (%)"
+msgstr ""
+
+msgid "Shuffle questions"
+msgstr ""
+
+msgid "Shuffle options"
+msgstr ""
+
+msgid "Instant"
+msgstr ""
+
+msgid "After passing / last attempt"
+msgstr ""
+
+msgid "Show explanations"
+msgstr ""
+
+msgid "Final assessment for the course"
+msgstr ""
+
+msgid "Save quiz"
+msgstr ""
+
+msgid "Single choice"
+msgstr ""
+
+msgid "Multiple choice"
+msgstr ""
+
+msgid "True / false"
+msgstr ""
+
+msgid "Short answer"
+msgstr ""
+
+msgid "Ordering"
+msgstr ""
+
+msgid "Matching"
+msgstr ""
+
+msgid "Question (Georgian)"
+msgstr ""
+
+msgid "Question (English)"
+msgstr ""
+
+msgid "Accepted answers (short answer, one per line)"
+msgstr ""
+
+msgid "Save question"
+msgstr ""
+
+msgid "Instructions (Georgian, HTML)"
+msgstr ""
+
+msgid "Instructions (English, HTML)"
+msgstr ""
+
+msgid "Submission"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Text and file"
+msgstr ""
+
+msgid "Maximum points"
+msgstr ""
+
+msgid "Deadline"
+msgstr ""
+
+msgid "Allow late submissions"
+msgstr ""
+
+msgid "Late penalty (%)"
+msgstr ""
+
+msgid "Resubmissions allowed"
+msgstr ""
+
+msgid "Allowed file extensions"
+msgstr ""
+
+msgid "Save assignment"
+msgstr ""
+
+msgid "Save category"
+msgstr ""
+
+msgid "Note to the instructor"
+msgstr ""
+
+msgid "Approve & publish"
+msgstr ""
+
+msgid "Send back to draft"
+msgstr ""
+
+msgid "Rating"
+msgstr ""
+
+msgid "Your review"
+msgstr ""
+
+msgid "Submit review"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "Any"
+msgstr ""
+
+msgid "Duration"
+msgstr ""
+
+msgid "Under 2 hours"
+msgstr ""
+
+msgid "2–6 hours"
+msgstr ""
+
+msgid "Over 6 hours"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Newest"
+msgstr ""
+
+msgid "Most popular"
+msgstr ""
+
+msgid "Top rated"
+msgstr ""
+
+msgid "Shortest first"
+msgstr ""
+
+msgid "Display name (optional)"
+msgstr ""
+
+msgid "About you"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Theme"
+msgstr ""
+
+msgid "System"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
+msgstr ""
+
+msgid "Save changes"
+msgstr ""
+
+msgid "Email me assignment feedback"
+msgstr ""
+
+msgid "Email me quiz results"
+msgstr ""
+
+msgid "Email me when a certificate is issued"
+msgstr ""
+
+msgid "Email me platform announcements"
+msgstr ""
+
+msgid "Email me discussion replies"
+msgstr ""
+
+msgid "Save preferences"
+msgstr ""
+
+msgid "Confirm with your password"
+msgstr ""
+
+msgid "I understand my account will be deactivated"
+msgstr ""
+
+msgid "Deactivate account"
+msgstr ""
+
+msgid "Administration"
+msgstr ""
+
+msgid "Dashboard"
+msgstr ""
+
+msgid "Users"
+msgstr ""
+
+msgid "Courses"
+msgstr ""
+
+msgid "Learning"
+msgstr ""
+
+msgid "Quizzes"
+msgstr ""
+
+msgid "Assignments"
+msgstr ""
+
+msgid "Certificates"
+msgstr ""
+
+msgid "Notifications"
+msgstr ""
+
+msgid "Media"
+msgstr ""
+
+msgid "Analytics"
+msgstr ""
+
+msgid "Audit log"
+msgstr ""
+
+msgid "Site settings"
+msgstr ""
+
+msgid "Localisation"
+msgstr ""
+
+msgid "Feature flags"
+msgstr ""
+
+msgid "Enrolments"
+msgstr ""
+
+msgid "Completion rate"
+msgstr ""
+
+msgid "Active learners (30 days)"
+msgstr ""
+
+msgid "New users (30 days)"
+msgstr ""
+
+msgid "Quiz pass rate"
+msgstr ""
+
+msgid "Course popularity"
+msgstr ""
+
+msgid "No data yet."
+msgstr ""
+
+msgid "CyberHero mission completions (signed-in learners)"
+msgstr ""
+
+msgid "Anonymous CyberHero progress stays in the browser and is not tracked."
+msgstr ""
+
+msgid "Grading queue"
+msgstr ""
+
+msgid "Max points"
+msgstr ""
+
+msgid "Submissions"
+msgstr ""
+
+msgid "No assignments yet."
+msgstr ""
+
+msgid "Action prefix, e.g. auth."
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Actor email"
+msgstr ""
+
+msgid "Actor"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "When"
+msgstr ""
+
+msgid "Target"
+msgstr ""
+
+msgid "IP"
+msgstr ""
+
+msgid "Request"
+msgstr ""
+
+msgid "Details"
+msgstr ""
+
+msgid "No entries."
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Delete this category?"
+msgstr ""
+
+msgid "New category"
+msgstr ""
+
+msgid "Edit category"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "ID or recipient"
+msgstr ""
+
+msgid "Issue manually"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Recipient"
+msgstr ""
+
+msgid "Issued"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "valid"
+msgstr ""
+
+msgid "revoked"
+msgstr ""
+
+msgid "Revoke this certificate?"
+msgstr ""
+
+msgid "No certificates yet."
+msgstr ""
+
+msgid "None yet."
+msgstr ""
+
+msgid "New course"
+msgstr ""
+
+msgid "Curriculum builder"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Publication"
+msgstr ""
+
+msgid "Current status"
+msgstr ""
+
+msgid "Last note"
+msgstr ""
+
+msgid "Archive"
+msgstr ""
+
+msgid "Facts"
+msgstr ""
+
+msgid "Modules"
+msgstr ""
+
+msgid "Lessons"
+msgstr ""
+
+msgid "Enrolled"
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "Created"
+msgstr ""
+
+msgid "Delete this course, its lessons, quizzes and all progress?"
+msgstr ""
+
+msgid "Delete course"
+msgstr ""
+
+msgid "Search title or slug"
+msgstr ""
+
+msgid "Any status"
+msgstr ""
+
+msgid "Any platform"
+msgstr ""
+
+msgid "Updated"
+msgstr ""
+
+msgid "lessons"
+msgstr ""
+
+msgid "No courses match."
+msgstr ""
+
+msgid "Admin"
+msgstr ""
+
+msgid "Announcement"
+msgstr ""
+
+msgid "Active students"
+msgstr ""
+
+msgid "Published courses"
+msgstr ""
+
+msgid "Draft / in review"
+msgstr ""
+
+msgid "Active instructors"
+msgstr ""
+
+msgid "Completed courses"
+msgstr ""
+
+msgid "Certificates issued"
+msgstr ""
+
+msgid "Quiz attempts"
+msgstr ""
+
+msgid "Needs attention"
+msgstr ""
+
+msgid "Courses awaiting review"
+msgstr ""
+
+msgid "Reviews to moderate"
+msgstr ""
+
+msgid "Submissions waiting for grading"
+msgstr ""
+
+msgid "Manage"
+msgstr ""
+
+msgid "Missions"
+msgstr ""
+
+msgid "Mission completions (signed-in)"
+msgstr ""
+
+msgid "Signed-in learners"
+msgstr ""
+
+msgid "Recent activity"
+msgstr ""
+
+msgid "No activity yet."
+msgstr ""
+
+msgid "Open reports"
+msgstr ""
+
+msgid "Hide post"
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
+msgid "No open reports."
+msgstr ""
+
+msgid "Thread"
+msgstr ""
+
+msgid "Posts"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "Last post"
+msgstr ""
+
+msgid "No threads yet."
+msgstr ""
+
+msgid "Last changed by"
+msgstr ""
+
+msgid ""
+"CYBERHERO_IO_CHAT_ENABLED keeps the experimental in-browser tutor hidden "
+"until switched on; it never sends conversations to an external service."
+msgstr ""
+
+msgid "UI strings translated (Georgian)"
+msgstr ""
+
+msgid "Courses with English"
+msgstr ""
+
+msgid "Lessons with English"
+msgstr ""
+
+msgid "CyberHero missions bilingual"
+msgstr ""
+
+msgid "Course translation coverage"
+msgstr ""
+
+msgid "English title"
+msgstr ""
+
+msgid "Lessons with English content"
+msgstr ""
+
+msgid ""
+"UI strings are managed in the Babel catalogue (app/translations); content"
+" translations are edited on each course, lesson and CyberHero item."
+msgstr ""
+
+msgid "Media library"
+msgstr ""
+
+msgid "File name"
+msgstr ""
+
+msgid "Any kind"
+msgstr ""
+
+msgid "Public"
+msgstr ""
+
+msgid "Private"
+msgstr ""
+
+msgid "Delete this file?"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "No files yet."
+msgstr ""
+
+msgid "Public files can be embedded in lessons and course covers."
+msgstr ""
+
+msgid "Announcements"
+msgstr ""
+
+msgid "Send an announcement"
+msgstr ""
+
+msgid "Internal path such as /courses/…"
+msgstr ""
+
+msgid "Questions"
+msgstr ""
+
+msgid "Pass mark"
+msgstr ""
+
+msgid "Attempts"
+msgstr ""
+
+msgid "Final"
+msgstr ""
+
+msgid "No quizzes yet."
+msgstr ""
+
+msgid "Learner"
+msgstr ""
+
+msgid "Review"
+msgstr ""
+
+msgid "Approve"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
+msgid "Nothing here."
+msgstr ""
+
+msgid "Save settings"
+msgstr ""
+
+msgid "Registered"
+msgstr ""
+
+msgid "Last sign-in"
+msgstr ""
+
+msgid "Failed logins"
+msgstr ""
+
+msgid "locked until"
+msgstr ""
+
+msgid "Security version"
+msgstr ""
+
+msgid "Changing roles signs the user out of every session."
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Account actions"
+msgstr ""
+
+msgid "Suspend this user?"
+msgstr ""
+
+msgid "Reason (recorded in the audit log)"
+msgstr ""
+
+msgid "Suspend"
+msgstr ""
+
+msgid "Reinstate"
+msgstr ""
+
+msgid "Unlock account"
+msgstr ""
+
+msgid "Deactivate this account?"
+msgstr ""
+
+msgid "Deactivate"
+msgstr ""
+
+msgid "Recent actions by this user"
+msgstr ""
+
+msgid "Search name or email"
+msgstr ""
+
+msgid "Role"
+msgstr ""
+
+msgid "Any role"
+msgstr ""
+
+msgid "New user"
+msgstr ""
+
+msgid "The user should change it after first sign-in."
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "Article"
+msgstr ""
+
+msgid "Articles"
+msgstr ""
+
+msgid "New article"
+msgstr ""
+
+msgid "Body blocks"
+msgstr ""
+
+msgid "Move up"
+msgstr ""
+
+msgid "Move down"
+msgstr ""
+
+msgid "Delete block?"
+msgstr ""
+
+msgid "No blocks yet."
+msgstr ""
+
+msgid "Edit block"
+msgstr ""
+
+msgid "New block"
+msgstr ""
+
+msgid ""
+"Headings and paragraphs use Text; lists use Items; callouts use Title, "
+"Paragraphs and Items."
+msgstr ""
+
+msgid "Conversation node"
+msgstr ""
+
+msgid "Round"
+msgstr ""
+
+msgid "New node"
+msgstr ""
+
+msgid "Chat messages shown before the choice"
+msgstr ""
+
+msgid "Name (ka)"
+msgstr ""
+
+msgid "Name (en)"
+msgstr ""
+
+msgid "Text (ka)"
+msgstr ""
+
+msgid "Text (en)"
+msgstr ""
+
+msgid "Choices (leave empty for ending nodes)"
+msgstr ""
+
+msgid "Label (ka)"
+msgstr ""
+
+msgid "Label (en)"
+msgstr ""
+
+msgid "Next key"
+msgstr ""
+
+msgid "Feedback (ka)"
+msgstr ""
+
+msgid "Feedback (en)"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "content"
+msgstr ""
+
+msgid "Mascot"
+msgstr ""
+
+msgid "Knowledge base"
+msgstr ""
+
+msgid "Open CyberHero"
+msgstr ""
+
+msgid "Age tracks"
+msgstr ""
+
+msgid "Parent/teacher articles"
+msgstr ""
+
+msgid "active"
+msgstr ""
+
+msgid "coming soon"
+msgstr ""
+
+msgid "Mission"
+msgstr ""
+
+msgid "Rounds"
+msgstr ""
+
+msgid "Flags"
+msgstr ""
+
+msgid "pts"
+msgstr ""
+
+msgid "Parent & teacher articles"
+msgstr ""
+
+msgid "Code"
+msgstr ""
+
+msgid "Blocks"
+msgstr ""
+
+msgid "Safety resources"
+msgstr ""
+
+msgid "CyberHero courses"
+msgstr ""
+
+msgid ""
+"Reload the seed content from seeds/cyberhero? Edits to seeded items will "
+"be overwritten."
+msgstr ""
+
+msgid "Seed content"
+msgstr ""
+
+msgid ""
+"Reloads tracks, missions, articles, resources, mascot tips and the "
+"knowledge base from the JSON seed files."
+msgstr ""
+
+msgid "Reload seeds"
+msgstr ""
+
+msgid "IO tutor knowledge base"
+msgstr ""
+
+msgid "Section"
+msgstr ""
+
+msgid ""
+"The in-browser tutor answers only from this material. It is only "
+"reachable when the CYBERHERO_IO_CHAT_ENABLED flag is on."
+msgstr ""
+
+msgid "Chunks"
+msgstr ""
+
+msgid "Empty."
+msgstr ""
+
+msgid "Knowledge section"
+msgstr ""
+
+msgid "New section"
+msgstr ""
+
+msgid "IO mascot tips and reactions"
+msgstr ""
+
+msgid "Tips"
+msgstr ""
+
+msgid "Topics"
+msgstr ""
+
+msgid "Georgian"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Delete tip?"
+msgstr ""
+
+msgid "Reactions"
+msgstr ""
+
+msgid "Delete reaction?"
+msgstr ""
+
+msgid "Add tip"
+msgstr ""
+
+msgid ""
+"passwords, phishing, scams, privacy, devices, strangers, help, kindness, "
+"fake, balance, parents"
+msgstr ""
+
+msgid "Add reaction"
+msgstr ""
+
+msgid "New mission"
+msgstr ""
+
+msgid "Delete this round?"
+msgstr ""
+
+msgid "No rounds yet."
+msgstr ""
+
+msgid "Delete this mission?"
+msgstr ""
+
+msgid "Delete mission"
+msgstr ""
+
+msgid "Safety resource"
+msgstr ""
+
+msgid "New resource"
+msgstr ""
+
+msgid "Agreement sections"
+msgstr ""
+
+msgid "clauses"
+msgstr ""
+
+msgid "write lines"
+msgstr ""
+
+msgid "Delete section?"
+msgstr ""
+
+msgid "Add section"
+msgstr ""
+
+msgid "Message card (optional)"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Options: tick the correct one."
+msgstr ""
+
+msgid "Items: tick the red flags; explanation shows after checking."
+msgstr ""
+
+msgid "Toggles: positive values build the meter, negative values are traps."
+msgstr ""
+
+msgid "Correct / flag"
+msgstr ""
+
+msgid "From (ka)"
+msgstr ""
+
+msgid "From (en)"
+msgstr ""
+
+msgid "Explain (ka)"
+msgstr ""
+
+msgid "Explain (en)"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Note (ka)"
+msgstr ""
+
+msgid "Note (en)"
+msgstr ""
+
+msgid "Correct"
+msgstr ""
+
+msgid "More items"
+msgstr ""
+
+msgid "Back to mission"
+msgstr ""
+
+msgid "Conversation nodes"
+msgstr ""
+
+msgid "Node"
+msgstr ""
+
+msgid "Key"
+msgstr ""
+
+msgid "Scene"
+msgstr ""
+
+msgid "Messages"
+msgstr ""
+
+msgid "Choices → next"
+msgstr ""
+
+msgid "Delete node?"
+msgstr ""
+
+msgid "Agreement section"
+msgstr ""
+
+msgid "Tip"
+msgstr ""
+
+msgid "Edit tip"
+msgstr ""
+
+msgid "New track"
+msgstr ""
+
+msgid "e.g. /guardians"
+msgstr ""
+
+msgid "Due"
+msgstr ""
+
+msgid "Late penalty"
+msgstr ""
+
+msgid "late"
+msgstr ""
+
+msgid "Grade"
+msgstr ""
+
+msgid "New submission"
+msgstr ""
+
+msgid "Your submission"
+msgstr ""
+
+#, python-format
+msgid "Allowed: %(ext)s"
+msgstr ""
+
+msgid "Attempt"
+msgstr ""
+
+msgid "Question"
+msgstr ""
+
+msgid "Select every correct answer."
+msgstr ""
+
+msgid "Number the items in the correct order (1 = first)."
+msgstr ""
+
+msgid "Position for"
+msgstr ""
+
+msgid "Match each item on the left with the right one."
+msgstr ""
+
+msgid "Choose…"
+msgstr ""
+
+msgid "Submit answers"
+msgstr ""
+
+msgid "Final assessment"
+msgstr ""
+
+msgid "questions"
+msgstr ""
+
+msgid "minutes"
+msgstr ""
+
+msgid "unlimited"
+msgstr ""
+
+msgid "Instant feedback"
+msgstr ""
+
+msgid "Results after completion"
+msgstr ""
+
+msgid "Best result"
+msgstr ""
+
+msgid "passed"
+msgstr ""
+
+msgid "Resume attempt"
+msgstr ""
+
+msgid "Start attempt"
+msgstr ""
+
+msgid "You have used all attempts for this quiz."
+msgstr ""
+
+msgid "Your attempts"
+msgstr ""
+
+msgid "Started"
+msgstr ""
+
+msgid "Score"
+msgstr ""
+
+msgid "Passed"
+msgstr ""
+
+msgid "Result"
+msgstr ""
+
+msgid "Time expired"
+msgstr ""
+
+msgid "Not passed"
+msgstr ""
+
+msgid "pass mark"
+msgstr ""
+
+msgid "points"
+msgstr ""
+
+msgid "Back to lesson"
+msgstr ""
+
+msgid "Back to course"
+msgstr ""
+
+msgid "Try again"
+msgstr ""
+
+msgid "Incorrect"
+msgstr ""
+
+msgid "your answer"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid ""
+"Detailed feedback becomes available after you pass or use your last "
+"attempt."
+msgstr ""
+
+msgid "Profile"
+msgstr ""
+
+msgid "Changing your password signs out every other device."
+msgstr ""
+
+#, python-format
+msgid "At least %(n)d characters."
+msgstr ""
+
+msgid "Reset password"
+msgstr ""
+
+msgid "Enter your email and we will send a link to choose a new password."
+msgstr ""
+
+msgid "Back to sign in"
+msgstr ""
+
+msgid "Continue your learning where you left off."
+msgstr ""
+
+msgid "Forgot password?"
+msgstr ""
+
+msgid "New here?"
+msgstr ""
+
+msgid "Create an account"
+msgstr ""
+
+msgid "Free access to structured cybersecurity courses and certificates."
+msgstr ""
+
+#, python-format
+msgid "At least %(n)d characters. Use a passphrase you do not use elsewhere."
+msgstr ""
+
+msgid "Already have an account?"
+msgstr ""
+
+msgid "Resend verification"
+msgstr ""
+
+msgid "Verify your email"
+msgstr ""
+
+msgid "Choose a new password"
+msgstr ""
+
+msgid "My certificates"
+msgstr ""
+
+msgid "Verification page"
+msgstr ""
+
+msgid "Certificate of completion"
+msgstr ""
+
+msgid "This certifies that"
+msgstr ""
+
+msgid "has successfully completed the course"
+msgstr ""
+
+msgid "Issue date"
+msgstr ""
+
+msgid "Certificate ID"
+msgstr ""
+
+msgid "Verify at"
+msgstr ""
+
+msgid "View"
+msgstr ""
+
+msgid "No certificates yet"
+msgstr ""
+
+msgid "Complete a course with certificates enabled and pass its final assessment."
+msgstr ""
+
+msgid "Browse courses"
+msgstr ""
+
+msgid "Verify certificate"
+msgstr ""
+
+msgid "Certificate verification"
+msgstr ""
+
+msgid "Check"
+msgstr ""
+
+msgid "Valid certificate"
+msgstr ""
+
+msgid "Issuing organisation"
+msgstr ""
+
+msgid "Valid CyberHero certificate"
+msgstr ""
+
+msgid "This certificate has been revoked."
+msgstr ""
+
+msgid "No certificate found with this ID."
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid ""
+"A national platform for cybersecurity education: structured courses, "
+"practical scenarios and verifiable certificates."
+msgstr ""
+
+msgid "for children, teens, parents and teachers"
+msgstr ""
+
+msgid "Learn"
+msgstr ""
+
+msgid "All courses"
+msgstr ""
+
+msgid "Resources"
+msgstr ""
+
+msgid "My learning"
+msgstr ""
+
+msgid "Verify a certificate"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Privacy"
+msgstr ""
+
+msgid "Accessibility"
+msgstr ""
+
+msgid "Support"
+msgstr ""
+
+msgid "Emergency"
+msgstr ""
+
+msgid "Georgia emergency service"
+msgstr ""
+
+msgid "All rights reserved."
+msgstr ""
+
+msgid "Request ID"
+msgstr ""
+
+msgid "Security token"
+msgstr ""
+
+msgid "Please fix the following:"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid "Open course"
+msgstr ""
+
+msgid "Progress"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Draft"
+msgstr ""
+
+msgid "Pending review"
+msgstr ""
+
+msgid "Archived"
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "Main navigation"
+msgstr ""
+
+msgid "Search (Ctrl+K)"
+msgstr ""
+
+msgid "unread"
+msgstr ""
+
+msgid "Account menu"
+msgstr ""
+
+msgid "Bookmarks"
+msgstr ""
+
+msgid "Instructor panel"
+msgstr ""
+
+msgid "Admin panel"
+msgstr ""
+
+msgid "Sign out"
+msgstr ""
+
+msgid "Register"
+msgstr ""
+
+msgid "Menu"
+msgstr ""
+
+msgid "Mobile navigation"
+msgstr ""
+
+msgid "No results"
+msgstr ""
+
+msgid "Searching…"
+msgstr ""
+
+msgid "Search is unavailable"
+msgstr ""
+
+msgid "Search courses, lessons, resources…"
+msgstr ""
+
+msgid "Choose a direction and start learning."
+msgstr ""
+
+msgid "Filter courses"
+msgstr ""
+
+msgid "Search by title or tag"
+msgstr ""
+
+msgid "Apply"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+#, python-format
+msgid "%(num)d course"
+msgid_plural "%(num)d courses"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Clear filters"
+msgstr ""
+
+msgid "No courses match"
+msgstr ""
+
+msgid "Try another category or clear the filters."
+msgstr ""
+
+msgid "enrolled"
+msgstr ""
+
+msgid "Course progress"
+msgstr ""
+
+msgid "Continue learning"
+msgstr ""
+
+msgid "View certificate"
+msgstr ""
+
+msgid "Enrolment pending approval"
+msgstr ""
+
+msgid "Enrol for free"
+msgstr ""
+
+msgid "Request access"
+msgstr ""
+
+msgid "Sign in to enrol"
+msgstr ""
+
+msgid "Bookmarked"
+msgstr ""
+
+msgid "Bookmark"
+msgstr ""
+
+msgid "Level"
+msgstr ""
+
+msgid "Access"
+msgstr ""
+
+msgid "Free"
+msgstr ""
+
+msgid "Restricted"
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "Syllabus"
+msgstr ""
+
+msgid "What you will learn"
+msgstr ""
+
+msgid "Required knowledge"
+msgstr ""
+
+msgid "Who this course is for"
+msgstr ""
+
+msgid "Certificate requirements"
+msgstr ""
+
+#, python-format
+msgid "Complete every lesson and pass all quizzes with at least %(pct)d%%."
+msgstr ""
+
+msgid "The syllabus is being prepared."
+msgstr ""
+
+#, python-format
+msgid "Final assessment · pass mark %(pct)d%%"
+msgstr ""
+
+msgid "No downloadable resources for this course yet."
+msgstr ""
+
+msgid "No reviews yet. Be the first after you have started the course."
+msgstr ""
+
+msgid "Enrol in the course to leave a review."
+msgstr ""
+
+msgid ""
+"The CyberHero interface has not been built yet. Run \"npm run build\" in "
+"the cyberhero/ directory."
+msgstr ""
+
+msgid "Back to eLearning"
+msgstr ""
+
+msgid "CyberHero needs JavaScript to run."
+msgstr ""
+
+msgid "Pinned"
+msgstr ""
+
+msgid "Locked"
+msgstr ""
+
+msgid "Hidden"
+msgstr ""
+
+msgid "Deleted user"
+msgstr ""
+
+msgid "posts"
+msgstr ""
+
+msgid "No discussions yet"
+msgstr ""
+
+msgid ""
+"Ask a question or share what you learned - your instructor and fellow "
+"learners will see it."
+msgstr ""
+
+msgid "New thread"
+msgstr ""
+
+msgid "Enrol in the course to join the discussion."
+msgstr ""
+
+msgid "Unpin"
+msgstr ""
+
+msgid "Pin"
+msgstr ""
+
+msgid "Unlock"
+msgstr ""
+
+msgid "Lock"
+msgstr ""
+
+msgid "Unhide"
+msgstr ""
+
+msgid "Hide"
+msgstr ""
+
+msgid "This post was deleted."
+msgstr ""
+
+msgid "Inappropriate content"
+msgstr ""
+
+msgid "Delete this post?"
+msgstr ""
+
+msgid "This thread is locked."
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "An unexpected error occurred. Please try again."
+msgstr ""
+
+msgid "Back to home"
+msgstr ""
+
+msgid "Classification"
+msgstr ""
+
+msgid "Leave empty to generate from the title."
+msgstr ""
+
+msgid "PNG, JPG or WebP up to 8 MB."
+msgstr ""
+
+msgid "Delivery"
+msgstr ""
+
+msgid "My courses"
+msgstr ""
+
+msgid "Grading"
+msgstr ""
+
+msgid "Curriculum"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Average progress"
+msgstr ""
+
+msgid "Lesson completion (drop-off)"
+msgstr ""
+
+msgid "No lessons yet."
+msgstr ""
+
+msgid "Pass rate"
+msgstr ""
+
+msgid "Average"
+msgstr ""
+
+msgid "New assignment"
+msgstr ""
+
+msgid "No submissions yet."
+msgstr ""
+
+msgid "Unpublish"
+msgstr ""
+
+msgid "Awaiting review"
+msgstr ""
+
+msgid "Publish"
+msgstr ""
+
+msgid "Submit for review"
+msgstr ""
+
+msgid "Reviewer note"
+msgstr ""
+
+msgid "hidden"
+msgstr ""
+
+msgid "Lesson"
+msgstr ""
+
+msgid "Delete this module and its lessons?"
+msgstr ""
+
+msgid "Delete module"
+msgstr ""
+
+msgid "preview"
+msgstr ""
+
+msgid "min"
+msgstr ""
+
+msgid "quiz"
+msgstr ""
+
+msgid "assignment"
+msgstr ""
+
+msgid "Delete this lesson?"
+msgstr ""
+
+msgid "Delete lesson"
+msgstr ""
+
+msgid "No modules yet. Add the first module on the right."
+msgstr ""
+
+msgid "Assessments"
+msgstr ""
+
+msgid "submissions"
+msgstr ""
+
+msgid "No quizzes or assignments yet."
+msgstr ""
+
+msgid "Add module"
+msgstr ""
+
+msgid "Publishing checklist"
+msgstr ""
+
+msgid "At least one module with lessons"
+msgstr ""
+
+msgid "Georgian titles everywhere (English optional)"
+msgstr ""
+
+msgid "A final quiz if certificates are enabled"
+msgstr ""
+
+msgid "Cover image and short description"
+msgstr ""
+
+msgid "Course settings"
+msgstr ""
+
+msgid "Create course"
+msgstr ""
+
+msgid "Delete this course and all its content?"
+msgstr ""
+
+msgid "Danger zone"
+msgstr ""
+
+msgid "No courses yet"
+msgstr ""
+
+msgid "Create your first course and build its curriculum."
+msgstr ""
+
+msgid "Instructor overview"
+msgstr ""
+
+msgid "To grade"
+msgstr ""
+
+msgid "Assignments to grade"
+msgstr ""
+
+msgid "Nothing waiting for grading."
+msgstr ""
+
+msgid "Open forum"
+msgstr ""
+
+msgid "open reports"
+msgstr ""
+
+msgid "Author"
+msgstr ""
+
+msgid "pinned"
+msgstr ""
+
+msgid "Grade submission"
+msgstr ""
+
+msgid "Instructions"
+msgstr ""
+
+#, python-format
+msgid "Maximum %(max)s. Late penalty %(p)d%% is applied automatically."
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+msgid "Submitted"
+msgstr ""
+
+msgid "Nothing to grade"
+msgstr ""
+
+msgid "New submissions will appear here."
+msgstr ""
+
+msgid "New lesson"
+msgstr ""
+
+msgid ""
+"Allowed HTML: headings, paragraphs, lists, tables, images, code, callouts"
+" (div.callout). Scripts are removed."
+msgstr ""
+
+msgid "MP4 up to 200 MB"
+msgstr ""
+
+msgid "Back to curriculum"
+msgstr ""
+
+msgid "Attached assessment"
+msgstr ""
+
+msgid "Add quiz"
+msgstr ""
+
+msgid "Add assignment"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "No resources."
+msgstr ""
+
+msgid "Edit module"
+msgstr ""
+
+msgid "Edit question"
+msgstr ""
+
+msgid "New question"
+msgstr ""
+
+msgid "Comparison ignores case and extra spaces."
+msgstr ""
+
+msgid "Correct answer"
+msgstr ""
+
+msgid "True"
+msgstr ""
+
+msgid "False"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Tick the correct option(s)."
+msgstr ""
+
+msgid "Enter the correct position (1 = first) for each option."
+msgstr ""
+
+msgid "Each option is a left-hand item; enter the right-hand match it pairs with."
+msgstr ""
+
+msgid "Position"
+msgstr ""
+
+msgid "Match (Georgian)"
+msgstr ""
+
+msgid "Match (English)"
+msgstr ""
+
+msgid "Option text (Georgian)"
+msgstr ""
+
+msgid "Option text (English)"
+msgstr ""
+
+msgid "More options"
+msgstr ""
+
+msgid "New quiz"
+msgstr ""
+
+msgid "Add question"
+msgstr ""
+
+msgid "options"
+msgstr ""
+
+msgid "Delete this question?"
+msgstr ""
+
+msgid "No questions yet."
+msgstr ""
+
+msgid "Statistics"
+msgstr ""
+
+msgid "Delete this quiz and all attempts?"
+msgstr ""
+
+msgid "Delete quiz"
+msgstr ""
+
+msgid "No reviews yet."
+msgstr ""
+
+msgid "Last activity"
+msgstr ""
+
+msgid "No students yet"
+msgstr ""
+
+msgid "Learners appear here as soon as they enrol."
+msgstr ""
+
+msgid ""
+"Cybersecurity learning platform: structured courses, practical exercises "
+"and certificates."
+msgstr ""
+
+msgid "Skip to main content"
+msgstr ""
+
+msgid "Panel navigation"
+msgstr ""
+
+msgid "No bookmarks yet"
+msgstr ""
+
+msgid "Use the bookmark button on a course or lesson to keep it here."
+msgstr ""
+
+#, python-format
+msgid "Hello, %(name)s"
+msgstr ""
+
+msgid "Pick up where you left off."
+msgstr ""
+
+msgid "Find a course"
+msgstr ""
+
+msgid "Learning statistics"
+msgstr ""
+
+msgid "In progress"
+msgstr ""
+
+msgid "Lessons completed"
+msgstr ""
+
+msgid "Quizzes passed"
+msgstr ""
+
+msgid "No enrolled courses yet"
+msgstr ""
+
+msgid "Choose a course from the catalogue and your progress will appear here."
+msgstr ""
+
+msgid "Current courses"
+msgstr ""
+
+msgid "Pending approval"
+msgstr ""
+
+msgid "Recently viewed"
+msgstr ""
+
+msgid "Recommended for you"
+msgstr ""
+
+msgid "Complete a course to earn your first certificate."
+msgstr ""
+
+msgid "Achievements"
+msgstr ""
+
+msgid ""
+"Achievements are awarded for completed courses, certificates and quiz "
+"streaks."
+msgstr ""
+
+msgid "No notifications."
+msgstr ""
+
+msgid "Course navigation"
+msgstr ""
+
+msgid "Bookmark lesson"
+msgstr ""
+
+msgid "Time limit"
+msgstr ""
+
+msgid "Start quiz"
+msgstr ""
+
+msgid "Graded"
+msgstr ""
+
+msgid "Open assignment"
+msgstr ""
+
+msgid "Lesson navigation"
+msgstr ""
+
+msgid "Mark complete"
+msgstr ""
+
+msgid "next"
+msgstr ""
+
+msgid "Profile sections"
+msgstr ""
+
+msgid "Personal information"
+msgstr ""
+
+msgid "Password & security"
+msgstr ""
+
+msgid "Language & theme"
+msgstr ""
+
+msgid "Learning history"
+msgstr ""
+
+msgid "The theme switch in the header changes it instantly on this device."
+msgstr ""
+
+msgid "Last password change"
+msgstr ""
+
+msgid "Email notifications"
+msgstr ""
+
+msgid "You have not enrolled in any course yet."
+msgstr ""
+
+msgid "No achievements yet."
+msgstr ""
+
+msgid "Privacy & data"
+msgstr ""
+
+msgid ""
+"Download everything we store about you, or deactivate your account. "
+"Deactivation signs you out everywhere; support can restore the account on"
+" request."
+msgstr ""
+
+msgid "Export my data (JSON)"
+msgstr ""
+
+msgid "Deactivate your account?"
+msgstr ""
+
+msgid "About the platform"
+msgstr ""
+
+msgid ""
+"A national cybersecurity learning platform with two products: a "
+"professional LMS and CyberHero for families and schools."
+msgstr ""
+
+msgid "Who it is for"
+msgstr ""
+
+msgid ""
+"Public servants, university students, IT and security professionals and "
+"anyone who wants to work and live safely online. Courses are authored by "
+"instructors and reviewed before publication."
+msgstr ""
+
+msgid ""
+"We store only what is needed to run your learning account: your name, "
+"email, progress and certificates. You can export your data and deactivate"
+" your account from your profile at any time. No third-party analytics or "
+"advertising trackers are used."
+msgstr ""
+
+msgid ""
+"The interface targets WCAG 2.1 AA: keyboard navigation, visible focus, "
+"sufficient contrast in both themes, reduced-motion support and screen-"
+"reader friendly forms. If something is hard to use, write to support."
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Cybersecurity learning platform"
+msgstr ""
+
+msgid "A secure"
+msgstr ""
+
+msgid "digital future"
+msgstr ""
+
+msgid "is in your hands"
+msgstr ""
+
+msgid ""
+"Learn cybersecurity through structured lessons, real-world scenarios and "
+"practical exercises. Built for public servants, students and "
+"professionals in Georgia."
+msgstr ""
+
+msgid "How it works"
+msgstr ""
+
+msgid "Platform statistics"
+msgstr ""
+
+msgid "courses"
+msgstr ""
+
+msgid "learners"
+msgstr ""
+
+msgid "completion"
+msgstr ""
+
+msgid "Why this platform"
+msgstr ""
+
+msgid "Learning that transfers to real work"
+msgstr ""
+
+msgid "Structured learning"
+msgstr ""
+
+msgid ""
+"Modules and lessons build on each other, from fundamentals to incident "
+"response."
+msgstr ""
+
+msgid "Interactive exercises"
+msgstr ""
+
+msgid ""
+"Quizzes with six question types, labs and scenario-based assignments with"
+" instructor feedback."
+msgstr ""
+
+msgid ""
+"Verifiable certificates with a public verification link for every "
+"completed course."
+msgstr ""
+
+msgid "Practical experience"
+msgstr ""
+
+msgid ""
+"Real phishing samples, log excerpts and configurations - the material "
+"analysts see every day."
+msgstr ""
+
+msgid "Featured courses"
+msgstr ""
+
+msgid "Courses are being prepared"
+msgstr ""
+
+msgid "The first courses will appear here as soon as they are published."
+msgstr ""
+
+msgid "Directions"
+msgstr ""
+
+msgid "Choose a direction"
+msgstr ""
+
+msgid "Cybersecurity for children, teens, parents and teachers"
+msgstr ""
+
+msgid ""
+"Interactive missions, a printable certificate and calm, practical guides "
+"for families and schools."
+msgstr ""
+
+msgid "Downloadable materials and references from published courses."
+msgstr ""
+
+msgid "No resources yet"
+msgstr ""
+
+msgid "Resources attached to lessons will be listed here."
+msgstr ""
+
+msgid "Nothing found"
+msgstr ""
+
+msgid "Try a different word or browse the catalogue."
+msgstr ""
+
+msgid "Enter at least two characters."
+msgstr ""
+
+msgid "Mark all as read"
+msgstr ""
+
+msgid "Mark as read"
+msgstr ""
+
+msgid "No notifications"
+msgstr ""
+
+msgid "Course updates, quiz results and feedback will appear here."
+msgstr ""
+
+msgid "Go to dashboard"
+msgstr ""
+

@@ -5,11 +5,11 @@ from datetime import datetime
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import Platform, str_enum, utcnow
 
 
-class Achievement(db.Model):
+class Achievement(Model):
     __tablename__ = "achievements"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -33,7 +33,7 @@ class Achievement(db.Model):
         return self.description_en if locale == "en" else self.description_ka
 
 
-class UserAchievement(db.Model):
+class UserAchievement(Model):
     __tablename__ = "user_achievements"
     __table_args__ = (UniqueConstraint("user_id", "achievement_id", name="uq_user_achievement"),)
 

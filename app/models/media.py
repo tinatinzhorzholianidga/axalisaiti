@@ -3,11 +3,11 @@ from __future__ import annotations
 from sqlalchemy import Boolean, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.extensions import db
+from app.extensions import Model
 from app.models.base import MediaKind, TimestampMixin, str_enum
 
 
-class MediaFile(TimestampMixin, db.Model):
+class MediaFile(TimestampMixin, Model):
     __tablename__ = "media_files"
 
     id: Mapped[int] = mapped_column(primary_key=True)
