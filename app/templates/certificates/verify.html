@@ -1,0 +1,38 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% block title %}{{ _('Verify certificate') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="verify-box">
+    <h1 class="page-title">{{ _('Certificate verification') }}</h1>
+    <form class="search-page-form" method="get" action="{{ url_for('certificates.verify', public_id='ID') }}" data-verify-form>
+      <input class="form-control" type="text" name="id" value="{{ public_id if public_id != 'ID' else '' }}" placeholder="EL-2026-XXXXXXXX" aria-label="{{ _('Certificate ID') }}" maxlength="40">
+      <button class="btn btn-primary" type="submit">{{ _('Check') }}</button>
+    </form>
+    {% if public_id != 'ID' %}
+      {% if certificate and certificate.is_valid %}
+      <div class="verify-status valid">{{ icon('check-circle') }} {{ _('Valid certificate') }}</div>
+      <dl class="kv panel">
+        <dt>{{ _('Recipient') }}</dt><dd>{{ certificate.recipient_name }}</dd>
+        <dt>{{ _('Course') }}</dt><dd>{{ certificate.course_title(locale) }}</dd>
+        <dt>{{ _('Issued') }}</dt><dd>{{ certificate.issued_at|date_only }}</dd>
+        <dt>{{ _('Issuing organisation') }}</dt><dd>{{ certificate.organization }}</dd>
+        <dt>{{ _('Certificate ID') }}</dt><dd><code>{{ certificate.public_id }}</code></dd>
+      </dl>
+      {% elif cyber and cyber.is_valid %}
+      <div class="verify-status valid">{{ icon('check-circle') }} {{ _('Valid CyberHero certificate') }}</div>
+      <dl class="kv panel">
+        <dt>{{ _('Recipient') }}</dt><dd>{{ cyber.display_name }}</dd>
+        <dt>{{ _('Track') }}</dt><dd>{{ cyber.track_name_en if locale == 'en' and cyber.track_name_en else cyber.track_name_ka }}</dd>
+        <dt>{{ _('Issued') }}</dt><dd>{{ cyber.issued_at|date_only }}</dd>
+        <dt>{{ _('Certificate ID') }}</dt><dd><code>{{ cyber.public_id }}</code></dd>
+      </dl>
+      {% elif certificate or cyber %}
+      <div class="verify-status invalid">{{ icon('x-circle') }} {{ _('This certificate has been revoked.') }}</div>
+      {% else %}
+      <div class="verify-status invalid">{{ icon('x-circle') }} {{ _('No certificate found with this ID.') }}</div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,1 +1,100 @@
-<header class="site-header"><div class="container"><a href="{{ url_for('main.home') }}">{{ site_name }}</a></div></header>
+{% from "components/icons.html" import icon %}
+{% set nav_items = [
+  ('main.home', _('Home')),
+  ('courses.catalog', _('Courses')),
+  ('learning.dashboard', _('My learning')),
+  ('main.resources', _('Resources')),
+  ('main.about', _('About')),
+] %}
+<header class="site-header">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="brand" href="{{ url_for('main.home') }}">
+        {% include "components/logo.html" %}
+        <span class="brand-name">{{ site_name }}</span>
+      </a>
+      <nav class="main-nav" aria-label="{{ _('Main navigation') }}">
+        {% for endpoint, label in nav_items %}
+        <a href="{{ url_for(endpoint) }}"{% if request.endpoint == endpoint or (endpoint == 'courses.catalog' and request.blueprint == 'courses') or (endpoint == 'learning.dashboard' and request.blueprint == 'learning') %} aria-current="page"{% endif %}>{{ label }}</a>
+        {% endfor %}
+        {% if cyberhero_enabled %}<a href="{{ url_for('cyberhero.shell', path='') }}">CyberHero →</a>{% endif %}
+      </nav>
+      <div class="nav-actions">
+        <button type="button" class="icon-btn" data-search-open aria-label="{{ _('Search') }}" title="{{ _('Search (Ctrl+K)') }}">{{ icon('search') }}</button>
+        <div class="lang-switch" role="group" aria-label="{{ _('Language') }}">
+          <a href="{{ url_with_args(lang='ka') }}" hreflang="ka" {% if current_locale == 'ka' %}aria-current="true"{% endif %}>ქარ</a>
+          <a href="{{ url_with_args(lang='en') }}" hreflang="en" {% if current_locale == 'en' %}aria-current="true"{% endif %}>EN</a>
+        </div>
+        <div class="dropdown desktop-only">
+          <button type="button" class="icon-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{{ _('Theme') }}">{{ icon('sun') }}</button>
+          <div class="dropdown-menu dropdown-menu-end" role="menu">
+            <div class="dropdown-header">{{ _('Theme') }}</div>
+            <button type="button" class="dropdown-item" role="menuitemradio" data-theme-set="light" aria-checked="false">{{ icon('sun') }} {{ _('Light') }}</button>
+            <button type="button" class="dropdown-item" role="menuitemradio" data-theme-set="dark" aria-checked="false">{{ icon('moon') }} {{ _('Dark') }}</button>
+            <button type="button" class="dropdown-item" role="menuitemradio" data-theme-set="system" aria-checked="false">{{ icon('monitor') }} {{ _('System') }}</button>
+          </div>
+        </div>
+        {% if current_user.is_authenticated %}
+        {% set unread = unread_notifications() %}
+        <a class="icon-btn" href="{{ url_for('notifications.inbox') }}" aria-label="{{ _('Notifications') }}{% if unread %} ({{ unread }} {{ _('unread') }}){% endif %}">
+          {{ icon('bell') }}
+          <span class="badge-dot" data-unread-badge data-endpoint="{{ url_for('api.notifications') }}" {% if not unread %}hidden{% endif %}>{{ unread or '' }}</span>
+        </a>
+        <div class="dropdown">
+          <button type="button" class="icon-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{{ _('Account menu') }}"><span class="avatar">{{ current_user.initials }}</span></button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <div class="dropdown-header">{{ current_user.name }}</div>
+            <a class="dropdown-item" href="{{ url_for('learning.dashboard') }}">{{ icon('grid') }} {{ _('Dashboard') }}</a>
+            <a class="dropdown-item" href="{{ url_for('learning.profile') }}">{{ icon('user') }} {{ _('Profile') }}</a>
+            <a class="dropdown-item" href="{{ url_for('certificates.mine') }}">{{ icon('award') }} {{ _('Certificates') }}</a>
+            <a class="dropdown-item" href="{{ url_for('learning.bookmarks') }}">{{ icon('bookmark') }} {{ _('Bookmarks') }}</a>
+            {% if current_user.has_permission('instructor.access') %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url_for('instructor.dashboard') }}">{{ icon('edit') }} {{ _('Instructor panel') }}</a>
+            {% endif %}
+            {% if current_user.has_permission('admin.access') %}
+            <a class="dropdown-item" href="{{ url_for('admin.dashboard') }}">{{ icon('settings') }} {{ _('Admin panel') }}</a>
+            {% endif %}
+            <div class="dropdown-divider"></div>
+            <form method="post" action="{{ url_for('auth.logout') }}">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button type="submit" class="dropdown-item">{{ icon('log-out') }} {{ _('Sign out') }}</button>
+            </form>
+          </div>
+        </div>
+        {% else %}
+        <a class="btn btn-ghost btn-sm desktop-only" href="{{ url_for('auth.login') }}">{{ _('Sign in') }}</a>
+        {% if registration_open %}<a class="btn btn-primary btn-sm desktop-only" href="{{ url_for('auth.register') }}">{{ _('Register') }}</a>{% endif %}
+        {% endif %}
+        <button type="button" class="icon-btn nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="{{ _('Menu') }}">{{ icon('menu') }}</button>
+      </div>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav" data-mobile-nav aria-label="{{ _('Mobile navigation') }}">
+      {% for endpoint, label in nav_items %}<a href="{{ url_for(endpoint) }}">{{ label }}</a>{% endfor %}
+      {% if cyberhero_enabled %}<a href="{{ url_for('cyberhero.shell', path='') }}">CyberHero →</a>{% endif %}
+      <div class="row-actions">
+        <div class="lang-switch" role="group" aria-label="{{ _('Language') }}">
+          <a href="{{ url_with_args(lang='ka') }}" {% if current_locale == 'ka' %}aria-current="true"{% endif %}>ქარ</a>
+          <a href="{{ url_with_args(lang='en') }}" {% if current_locale == 'en' %}aria-current="true"{% endif %}>EN</a>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" data-theme-set="light">{{ icon('sun') }} {{ _('Light') }}</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-theme-set="dark">{{ icon('moon') }} {{ _('Dark') }}</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-theme-set="system">{{ icon('monitor') }} {{ _('System') }}</button>
+        {% if not current_user.is_authenticated %}
+        <a class="btn btn-primary btn-sm" href="{{ url_for('auth.login') }}">{{ _('Sign in') }}</a>
+        {% endif %}
+      </div>
+    </nav>
+  </div>
+</header>
+<div class="search-overlay" data-search-overlay data-search-endpoint="{{ url_for('api.search') }}" hidden
+     data-labels='{"courses": "{{ _('Courses') }}", "lessons": "{{ _('Lessons') }}", "resources": "{{ _('Resources') }}", "empty": "{{ _('No results') }}", "loading": "{{ _('Searching…') }}", "error": "{{ _('Search is unavailable') }}"}'>
+  <div class="search-box" role="dialog" aria-modal="true" aria-label="{{ _('Search') }}">
+    <form action="{{ url_for('main.search') }}" method="get" role="search">
+      {{ icon('search') }}
+      <input type="search" name="q" placeholder="{{ _('Search courses, lessons, resources…') }}" aria-label="{{ _('Search') }}" autocomplete="off" maxlength="100">
+      <button type="button" class="icon-btn" data-search-close aria-label="{{ _('Close') }}">{{ icon('x') }}</button>
+    </form>
+    <div class="search-results" data-search-results aria-live="polite"></div>
+  </div>
+</div>

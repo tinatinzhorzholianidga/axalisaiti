@@ -40,7 +40,7 @@ def login():  # type: ignore[no-untyped-def]
             flash(_("Welcome back, %(name)s.", name=result.user.first_name), "success")
             return redirect(safe_next())
         flash(result.error or _("Invalid email or password."), "error")
-    return render_template("auth/login.html", form=form, registration_open=_registration_open())
+    return render_template("auth/login.html", form=form)
 
 
 @bp.route("/logout", methods=["POST"])
@@ -159,4 +159,4 @@ def change_password():  # type: ignore[no-untyped-def]
 
 @bp.app_context_processor
 def _auth_context():  # type: ignore[no-untyped-def]
-    return {"registration_open": _registration_open, "request_args": request.args}
+    return {"registration_open": _registration_open(), "request_args": request.args}

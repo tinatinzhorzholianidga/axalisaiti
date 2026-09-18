@@ -1,2 +1,17 @@
 {% extends "layouts/base.html" %}
-{% block content %}<div class="container"><h1>{{ site_name }}</h1></div>{% endblock %}
+{% block title %}{{ _('About') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container narrow">
+  <div class="page-head"><h1 class="page-title">{{ _('About the platform') }}</h1><p class="page-subtitle">{{ _('A national cybersecurity learning platform with two products: a professional LMS and CyberHero for families and schools.') }}</p></div>
+  <div class="prose">
+    <h2>{{ _('Who it is for') }}</h2>
+    <p>{{ _('Public servants, university students, IT and security professionals and anyone who wants to work and live safely online. Courses are authored by instructors and reviewed before publication.') }}</p>
+    <h2 id="privacy">{{ _('Privacy') }}</h2>
+    <p>{{ _('We store only what is needed to run your learning account: your name, email, progress and certificates. You can export your data and deactivate your account from your profile at any time. No third-party analytics or advertising trackers are used.') }}</p>
+    <h2 id="accessibility">{{ _('Accessibility') }}</h2>
+    <p>{{ _('The interface targets WCAG 2.1 AA: keyboard navigation, visible focus, sufficient contrast in both themes, reduced-motion support and screen-reader friendly forms. If something is hard to use, write to support.') }}</p>
+    <h2>{{ _('Contact') }}</h2>
+    <p><a href="mailto:{{ support_email }}">{{ support_email }}</a></p>
+  </div>
+</div>
+{% endblock %}

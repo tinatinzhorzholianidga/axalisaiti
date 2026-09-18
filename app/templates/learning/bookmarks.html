@@ -1,0 +1,15 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import course_card, empty_state %}
+{% block title %}{{ _('Bookmarks') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head"><h1 class="page-title">{{ _('Bookmarks') }}</h1></div>
+  {% if not items.courses and not items.lessons and not items.resources %}
+  {{ empty_state(_('No bookmarks yet'), _('Use the bookmark button on a course or lesson to keep it here.'), 'bookmark', _('Browse courses'), url_for('courses.catalog')) }}
+  {% endif %}
+  {% if items.courses %}<h2 class="h4 mb-3">{{ _('Courses') }}</h2><div class="course-grid mb-5">{% for b, c in items.courses %}{{ course_card(c, locale) }}{% endfor %}</div>{% endif %}
+  {% if items.lessons %}<h2 class="h4 mb-3">{{ _('Lessons') }}</h2><ul class="resource-list mb-5">{% for b, l in items.lessons %}<li>{{ icon('file-text') }}<div><a href="{{ url_for('learning.lesson', course_slug=l.course.slug, lesson_slug=l.slug) }}">{{ l.title(locale) }}</a><small class="d-block text-muted">{{ l.course.title(locale) }}</small></div></li>{% endfor %}</ul>{% endif %}
+  {% if items.resources %}<h2 class="h4 mb-3">{{ _('Resources') }}</h2><ul class="resource-list">{% for b, r in items.resources %}<li>{{ icon('link') }}<a href="{{ r.url }}">{{ r.title(locale) }}</a></li>{% endfor %}</ul>{% endif %}
+</div>
+{% endblock %}

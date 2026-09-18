@@ -6,6 +6,7 @@
   <meta name="color-scheme" content="dark light">
   <title>{% block title %}{{ site_name }}{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}{{ _('Cybersecurity learning platform: structured courses, practical exercises and certificates.') }}{% endblock %}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
   {% block head_theme %}<script src="{{ url_for('static', filename='js/theme-init.js') }}"></script>{% endblock %}
   {% block styles %}

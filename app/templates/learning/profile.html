@@ -1,0 +1,79 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf, progress_bar %}
+{% block title %}{{ _('Profile') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head"><h1 class="page-title">{{ _('Profile') }}</h1></div>
+  <div class="profile-layout">
+    <nav class="side-nav" aria-label="{{ _('Profile sections') }}">
+      <a href="#personal">{{ _('Personal information') }}</a>
+      <a href="#security">{{ _('Password & security') }}</a>
+      <a href="#preferences">{{ _('Language & theme') }}</a>
+      <a href="#notifications">{{ _('Notifications') }}</a>
+      <a href="#history">{{ _('Learning history') }}</a>
+      <a href="#certificates">{{ _('Certificates') }}</a>
+      <a href="#achievements">{{ _('Achievements') }}</a>
+      <a href="#privacy">{{ _('Privacy') }}</a>
+    </nav>
+    <div>
+      <div class="profile-header"><span class="avatar">{{ current_user.initials }}</span><div><h2 class="h4 mb-0">{{ current_user.name }}</h2><span class="text-muted">{{ current_user.email }} · {% for r in current_user.role_names|sort %}<span class="chip">{{ r }}</span> {% endfor %}</span></div></div>
+
+      <form id="personal" class="panel" method="post" novalidate>
+        {{ form.hidden_tag() }}{{ error_summary(form) }}
+        <h2 class="h5 mb-3">{{ _('Personal information') }}</h2>
+        <div class="form-grid-2">{{ field(form.first_name, autocomplete="given-name") }}{{ field(form.last_name, autocomplete="family-name") }}</div>
+        {{ field(form.display_name) }}{{ field(form.organization) }}{{ field(form.bio, rows=3) }}
+        <div class="form-section" id="preferences"><h3>{{ _('Language & theme') }}</h3><div class="form-grid-2">{{ field(form.locale) }}{{ field(form.theme, help=_('The theme switch in the header changes it instantly on this device.')) }}</div></div>
+        <div class="form-actions"><button class="btn btn-primary" type="submit" name="submit">{{ _('Save changes') }}</button></div>
+      </form>
+
+      <section id="security" class="panel">
+        <h2 class="h5 mb-2">{{ _('Password & security') }}</h2>
+        <p class="text-muted small">{{ _('Last password change') }}: {{ current_user.password_changed_at|humanize_dt if current_user.password_changed_at else '—' }} · {{ _('Last sign-in') }}: {{ current_user.last_login_at|humanize_dt }}</p>
+        <a class="btn btn-outline" href="{{ url_for('auth.change_password') }}">{{ icon('lock') }} {{ _('Change password') }}</a>
+      </section>
+
+      <form id="notifications" class="panel" method="post" novalidate>
+        {{ prefs_form.hidden_tag() }}
+        <h2 class="h5 mb-3">{{ _('Email notifications') }}</h2>
+        {% for f in prefs_form if f.name.startswith('prefs-email_') %}{{ field(f) }}{% endfor %}
+        <div class="form-actions"><button class="btn btn-primary" type="submit" name="prefs-submit">{{ _('Save preferences') }}</button></div>
+      </form>
+
+      <section id="history" class="panel">
+        <h2 class="h5 mb-3">{{ _('Learning history') }}</h2>
+        {% if enrollments %}
+        <div class="table-wrap"><table class="table table-hover"><thead><tr><th>{{ _('Course') }}</th><th>{{ _('Status') }}</th><th>{{ _('Enrolled') }}</th><th>{{ _('Completed') }}</th></tr></thead><tbody>
+          {% for e in enrollments %}<tr><td><a href="{{ url_for('courses.detail', slug=e.course.slug) }}">{{ e.course.title(locale) }}</a></td><td><span class="chip">{{ e.status.value }}</span></td><td>{{ e.enrolled_at|date_only }}</td><td>{{ e.completed_at|date_only if e.completed_at else '—' }}</td></tr>{% endfor %}
+        </tbody></table></div>
+        {% else %}<p class="text-muted mb-0">{{ _('You have not enrolled in any course yet.') }}</p>{% endif %}
+      </section>
+
+      <section id="certificates" class="panel">
+        <h2 class="h5 mb-3">{{ _('Certificates') }}</h2>
+        {% for c in certificates %}<div class="d-flex gap-2 align-items-center mb-2">{{ icon('award') }}<a href="{{ url_for('certificates.view', public_id=c.public_id) }}">{{ c.course_title(locale) }}</a><span class="text-muted small ms-auto">{{ c.public_id }}</span></div>
+        {% else %}<p class="text-muted mb-0">{{ _('No certificates yet.') }}</p>{% endfor %}
+      </section>
+
+      <section id="achievements" class="panel">
+        <h2 class="h5 mb-3">{{ _('Achievements') }}</h2>
+        {% if achievements %}<div class="d-flex flex-wrap gap-2">{% for ua in achievements %}<span class="achievement" title="{{ ua.earned_at|date_only }}">{{ icon(ua.achievement.icon) }} {{ ua.achievement.name(locale) }}</span>{% endfor %}</div>{% else %}<p class="text-muted mb-0">{{ _('No achievements yet.') }}</p>{% endif %}
+      </section>
+
+      <section id="privacy" class="panel">
+        <h2 class="h5 mb-2">{{ _('Privacy & data') }}</h2>
+        <p class="text-muted small">{{ _('Download everything we store about you, or deactivate your account. Deactivation signs you out everywhere; support can restore the account on request.') }}</p>
+        <a class="btn btn-outline mb-4" href="{{ url_for('learning.export_data') }}">{{ icon('download') }} {{ _('Export my data (JSON)') }}</a>
+        <form method="post" action="{{ url_for('learning.deactivate') }}" data-confirm="{{ _('Deactivate your account?') }}" novalidate>
+          {{ deactivate_form.hidden_tag() }}
+          {{ field(deactivate_form.password, autocomplete="current-password") }}
+          {{ field(deactivate_form.confirm) }}
+          <button class="btn btn-danger" type="submit">{{ _('Deactivate account') }}</button>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

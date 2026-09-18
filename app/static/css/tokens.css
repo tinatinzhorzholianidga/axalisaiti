@@ -1,1 +1,173 @@
+/* ==========================================================================
+   Design system A — eLearning (professional cybersecurity LMS)
+   Tokens only. Dark is the primary identity; light is a designed variant,
+   not an inversion. Theme is selected with data-theme on <html>.
+   ========================================================================== */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
 
+  /* surfaces */
+  --bg: #07111F;
+  --bg-secondary: #0B1728;
+  --surface: #0E1C30;
+  --surface-hover: #132640;
+  --surface-raised: #142A47;
+  --border: #1C3150;
+  --border-strong: #2A4670;
+
+  /* text */
+  --text: #F3F6FF;
+  --text-muted: #98A7BE;
+  --text-faint: #6E7F99;
+  --text-on-accent: #FFFFFF;
+
+  /* accents */
+  --primary: #5681FF;
+  --primary-hover: #6D93FF;
+  --primary-soft: rgba(86, 129, 255, 0.14);
+  --purple: #7767FF;
+  --purple-soft: rgba(119, 103, 255, 0.16);
+  --cyan: #24C4DB;
+  --cyan-soft: rgba(36, 196, 219, 0.14);
+  --success: #37D6A0;
+  --success-soft: rgba(55, 214, 160, 0.14);
+  --warning: #F5B94B;
+  --warning-soft: rgba(245, 185, 75, 0.14);
+  --danger: #FF6B7A;
+  --danger-soft: rgba(255, 107, 122, 0.14);
+  --orange: #F47B2A;
+
+  --gradient-accent: linear-gradient(120deg, #5681FF 0%, #7767FF 100%);
+  --gradient-hero: radial-gradient(60% 70% at 80% 20%, rgba(119, 103, 255, 0.18) 0%, transparent 70%),
+                   radial-gradient(50% 60% at 15% 90%, rgba(36, 196, 219, 0.12) 0%, transparent 70%);
+
+  /* logo */
+  --logo-ink: #FFFFFF;
+  --logo-diamond: #F47B2A;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.45);
+  --focus-ring: 0 0 0 3px rgba(86, 129, 255, 0.45);
+
+  /* code */
+  --code-bg: #0A1526;
+  --code-text: #C9D6F2;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #F4F6FB;
+  --bg-secondary: #EEF2F9;
+  --surface: #FFFFFF;
+  --surface-hover: #F7F9FD;
+  --surface-raised: #FFFFFF;
+  --border: #DEE5F0;
+  --border-strong: #C5D0E2;
+
+  --text: #0E1B33;
+  --text-muted: #55627A;
+  --text-faint: #8391AA;
+  --text-on-accent: #FFFFFF;
+
+  --primary: #3F6BF2;
+  --primary-hover: #2F5AE0;
+  --primary-soft: rgba(63, 107, 242, 0.10);
+  --purple: #6A5AE6;
+  --purple-soft: rgba(106, 90, 230, 0.12);
+  --cyan: #0FA8BE;
+  --cyan-soft: rgba(15, 168, 190, 0.12);
+  --success: #1FA97A;
+  --success-soft: rgba(31, 169, 122, 0.12);
+  --warning: #C98A12;
+  --warning-soft: rgba(201, 138, 18, 0.12);
+  --danger: #D9414F;
+  --danger-soft: rgba(217, 65, 79, 0.10);
+  --orange: #E86F1F;
+
+  --gradient-accent: linear-gradient(120deg, #3F6BF2 0%, #6A5AE6 100%);
+  --gradient-hero: radial-gradient(60% 70% at 80% 20%, rgba(106, 90, 230, 0.12) 0%, transparent 70%),
+                   radial-gradient(50% 60% at 15% 90%, rgba(15, 168, 190, 0.10) 0%, transparent 70%);
+
+  --logo-ink: #0E1B33;
+  --logo-diamond: #F47B2A;
+
+  --shadow-sm: 0 1px 2px rgba(14, 27, 51, 0.06);
+  --shadow-md: 0 6px 18px rgba(14, 27, 51, 0.08);
+  --shadow-lg: 0 18px 40px rgba(14, 27, 51, 0.12);
+  --focus-ring: 0 0 0 3px rgba(63, 107, 242, 0.35);
+
+  --code-bg: #F1F4FA;
+  --code-text: #1D2B4A;
+}
+
+:root {
+  /* typography */
+  --font-sans: "Noto Sans Georgian", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: clamp(2.25rem, 4.5vw, 3.25rem);
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  /* spacing (4px grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* radius: deliberately restrained (6–12px) */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  /* motion */
+  --duration-fast: 150ms;
+  --duration: 200ms;
+  --duration-slow: 300ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* layers */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-overlay: 1040;
+  --z-modal: 1050;
+  --z-toast: 1080;
+
+  /* layout */
+  --container: 1200px;
+  --container-narrow: 760px;
+  --header-height: 64px;
+  --sidebar-width: 300px;
+  --admin-sidebar: 248px;
+
+  /* breakpoints (documentation; use the values in media queries)
+     sm 576px · md 768px · lg 992px · xl 1200px */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration: 0ms;
+    --duration-slow: 0ms;
+  }
+}

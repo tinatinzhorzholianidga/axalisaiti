@@ -1,1 +1,41 @@
-<footer class="site-footer"><div class="container">&copy; {{ now().year }} {{ site_name }}</div></footer>
+{% from "components/icons.html" import icon %}
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="{{ url_for('main.home') }}">{% include "components/logo.html" %}<span>{{ site_name }}</span></a>
+        <p class="mt-3">{{ _('A national platform for cybersecurity education: structured courses, practical scenarios and verifiable certificates.') }}</p>
+        {% if cyberhero_enabled %}<a class="cross-product" href="{{ url_for('cyberhero.shell', path='') }}">🛡️ CyberHero → <span class="text-muted">{{ _('for children, teens, parents and teachers') }}</span></a>{% endif %}
+      </div>
+      <div>
+        <h4>{{ _('Learn') }}</h4>
+        <ul>
+          <li><a href="{{ url_for('courses.catalog') }}">{{ _('All courses') }}</a></li>
+          <li><a href="{{ url_for('main.resources') }}">{{ _('Resources') }}</a></li>
+          <li><a href="{{ url_for('learning.dashboard') }}">{{ _('My learning') }}</a></li>
+          <li><a href="{{ url_for('certificates.verify', public_id='ID') }}">{{ _('Verify a certificate') }}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>{{ _('Platform') }}</h4>
+        <ul>
+          <li><a href="{{ url_for('main.about') }}">{{ _('About') }}</a></li>
+          <li><a href="{{ url_for('main.about') }}#privacy">{{ _('Privacy') }}</a></li>
+          <li><a href="{{ url_for('main.about') }}#accessibility">{{ _('Accessibility') }}</a></li>
+          <li><a href="mailto:{{ support_email }}">{{ _('Support') }}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>{{ _('Emergency') }}</h4>
+        <ul>
+          <li>{{ _('Georgia emergency service') }}: <strong>112</strong></li>
+          <li><a href="https://cert.gov.ge" rel="noopener">CERT.GOV.GE</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; {{ now().year }} {{ site_name }}. {{ _('All rights reserved.') }}</span>
+      <span class="text-muted">{{ _('Request ID') }}: <code>{{ request_id[:8] }}</code></span>
+    </div>
+  </div>
+</footer>

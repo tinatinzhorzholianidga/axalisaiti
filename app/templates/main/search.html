@@ -1,2 +1,33 @@
 {% extends "layouts/base.html" %}
-{% block content %}<div class="container"><h1>{{ site_name }}</h1></div>{% endblock %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import course_card, empty_state %}
+{% block title %}{{ _('Search') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head"><h1 class="page-title">{{ _('Search') }}</h1></div>
+  <form class="search-page-form" method="get" role="search">
+    <input class="form-control" type="search" name="q" value="{{ query }}" placeholder="{{ _('Search courses, lessons, resources…') }}" aria-label="{{ _('Search') }}" maxlength="100" autofocus>
+    <button class="btn btn-primary" type="submit">{{ icon('search') }} {{ _('Search') }}</button>
+  </form>
+  {% if results %}
+    {% set total = results.courses|length + results.lessons|length + results.resources|length %}
+    {% if total == 0 %}
+      {{ empty_state(_('Nothing found'), _('Try a different word or browse the catalogue.'), 'search', _('Browse courses'), url_for('courses.catalog')) }}
+    {% endif %}
+    {% if results.courses %}
+    <section class="result-block"><h2 class="h4 mb-3">{{ _('Courses') }} ({{ results.courses|length }})</h2>
+      <div class="course-grid">{% for c in results.courses %}{{ course_card(c, current_locale) }}{% endfor %}</div></section>
+    {% endif %}
+    {% if results.lessons %}
+    <section class="result-block"><h2 class="h4 mb-3">{{ _('Lessons') }} ({{ results.lessons|length }})</h2>
+      <ul class="resource-list">{% for lesson, course in results.lessons %}<li>{{ icon('file-text') }}<div><a href="{{ url_for('learning.lesson', course_slug=course.slug, lesson_slug=lesson.slug) }}">{{ lesson.title(current_locale) }}</a><small class="d-block text-muted">{{ course.title(current_locale) }}</small></div></li>{% endfor %}</ul></section>
+    {% endif %}
+    {% if results.resources %}
+    <section class="result-block"><h2 class="h4 mb-3">{{ _('Resources') }} ({{ results.resources|length }})</h2>
+      <ul class="resource-list">{% for r in results.resources %}<li>{{ icon('link') }}<a href="{{ r.url or url_for('learning.lesson', course_slug=r.lesson.course.slug, lesson_slug=r.lesson.slug) }}">{{ r.title(current_locale) }}</a></li>{% endfor %}</ul></section>
+    {% endif %}
+  {% elif query %}
+    <p class="text-muted">{{ _('Enter at least two characters.') }}</p>
+  {% endif %}
+</div>
+{% endblock %}

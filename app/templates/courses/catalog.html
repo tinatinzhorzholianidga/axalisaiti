@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field %}
+{% from "components/macros.html" import course_card, paginate, empty_state %}
+{% block title %}{{ _('Courses') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head">
+    <h1 class="page-title">{{ _('Courses') }}</h1>
+    <p class="page-subtitle">{{ _('Choose a direction and start learning.') }}</p>
+  </div>
+  <form class="filter-bar" method="get" role="search" aria-label="{{ _('Filter courses') }}">
+    {{ field(form.q, placeholder=_('Search by title or tag')) }}
+    {{ field(form.category) }}
+    {{ field(form.difficulty) }}
+    {{ field(form.duration) }}
+    {{ field(form.sort) }}
+    <button class="btn btn-primary" type="submit">{{ icon('sliders') }} {{ _('Apply') }}</button>
+  </form>
+  <div class="category-chips" aria-label="{{ _('Categories') }}">
+    <a class="chip" href="{{ url_with_args(category=None, page=None) }}" {% if not filters.category %}aria-current="true"{% endif %}>{{ _('All') }}</a>
+    {% for category in categories %}
+    <a class="chip" href="{{ url_with_args(category=category.slug, page=None) }}" {% if filters.category == category.slug %}aria-current="true"{% endif %}>{{ icon(category.icon) }} {{ category.name(locale) }}</a>
+    {% endfor %}
+  </div>
+  <div class="filter-summary" aria-live="polite">
+    <span>{{ ngettext('%(num)d course', '%(num)d courses', pagination.total) }}{% if filters.query %} · “{{ filters.query }}”{% endif %}</span>
+    {% if filters.query or filters.category or filters.difficulty or filters.duration %}<a href="{{ url_for('courses.catalog') }}">{{ _('Clear filters') }}</a>{% endif %}
+  </div>
+  {% if pagination.items %}
+  <div class="course-grid four">
+    {% for course in pagination.items %}{{ course_card(course, locale, progress_map.get(course.id)) }}{% endfor %}
+  </div>
+  {{ paginate(pagination) }}
+  {% else %}
+  {{ empty_state(_('No courses match'), _('Try another category or clear the filters.'), 'search', _('Clear filters'), url_for('courses.catalog')) }}
+  {% endif %}
+</div>
+{% endblock %}

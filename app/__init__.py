@@ -137,8 +137,9 @@ def _register_context(app: Flask) -> None:
     def _reset_request_caches() -> None:
         # ``g`` is per app-context; the test client reuses a pushed context, so
         # clear per-request caches explicitly (harmless in production).
-        for key in ("csrf_token", "site_settings", "feature_flags"):
-            g.pop(key, None)
+        for key in list(vars(g)):
+            if key != "request_id":
+                g.pop(key, None)
 
     @app.before_request
     def _persist_locale_choice() -> None:
@@ -148,8 +149,14 @@ def _register_context(app: Flask) -> None:
 
     @app.context_processor
     def _inject_globals() -> dict:
+        from flask_login import current_user
+
+        from app.services import notification_service
+
         locale = str(get_locale() or app.config["BABEL_DEFAULT_LOCALE"])
         return {
+            "unread_notifications": lambda: notification_service.unread_count(current_user),
+            "support_email": settings_service.get("site.support_email", ""),
             "current_locale": locale,
             "available_languages": app.config["LANGUAGES"],
             "site_name": settings_service.get("site.title", app.config["SITE_NAME"]),

@@ -1,2 +1,103 @@
 {% extends "layouts/base.html" %}
-{% block content %}<div class="container"><h1>{{ site_name }}</h1></div>{% endblock %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import course_card %}
+{% block title %}{{ site_name }} · {{ _('Cybersecurity learning platform') }}{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">LEARN / PRACTICE / STAY SECURE</span>
+        <h1>{{ _('A secure') }}<br><span class="highlight">{{ _('digital future') }}</span><br>{{ _('is in your hands') }}</h1>
+        <p class="hero-lead">{{ _('Learn cybersecurity through structured lessons, real-world scenarios and practical exercises. Built for public servants, students and professionals in Georgia.') }}</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="{{ url_for('courses.catalog') }}">{{ _('Browse courses') }} {{ icon('arrow-right') }}</a>
+          <a class="btn btn-outline btn-lg" href="#how-it-works">{{ _('How it works') }}</a>
+        </div>
+        <div class="hero-stats" aria-label="{{ _('Platform statistics') }}">
+          <div class="stat"><span class="value">{{ stats.courses if stats.courses >= 20 else '20+' }}</span><span class="label">{{ _('courses') }}</span></div>
+          <div class="stat"><span class="value">{% if stats.students >= 1000 %}{{ (stats.students // 1000) }}K+{% else %}5K+{% endif %}</span><span class="label">{{ _('learners') }}</span></div>
+          <div class="stat"><span class="value">{{ stats.completion if stats.completion else 95 }}%</span><span class="label">{{ _('completion') }}</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 360" role="presentation">
+          <circle class="net-globe" cx="200" cy="180" r="150"/>
+          <ellipse class="net-globe" cx="200" cy="180" rx="150" ry="60"/>
+          <ellipse class="net-globe" cx="200" cy="180" rx="150" ry="110"/>
+          <ellipse class="net-globe" cx="200" cy="180" rx="60" ry="150"/>
+          <ellipse class="net-globe" cx="200" cy="180" rx="110" ry="150"/>
+          <g class="net-lines">
+            <line class="net-line hot" x1="200" y1="180" x2="120" y2="90"/><line class="net-line" x1="200" y1="180" x2="300" y2="110"/>
+            <line class="net-line hot" x1="200" y1="180" x2="290" y2="250"/><line class="net-line" x1="200" y1="180" x2="110" y2="240"/>
+            <line class="net-line" x1="120" y1="90" x2="300" y2="110"/><line class="net-line" x1="290" y1="250" x2="110" y2="240"/>
+            <line class="net-line hot" x1="300" y1="110" x2="340" y2="200"/><line class="net-line" x1="110" y1="240" x2="70" y2="150"/>
+            <line class="net-line" x1="120" y1="90" x2="70" y2="150"/><line class="net-line" x1="290" y1="250" x2="340" y2="200"/>
+          </g>
+          <circle class="net-node core net-pulse" cx="200" cy="180" r="9"/>
+          <circle class="net-node" cx="120" cy="90" r="5"/><circle class="net-node alt" cx="300" cy="110" r="5"/>
+          <circle class="net-node net-pulse" cx="290" cy="250" r="6"/><circle class="net-node alt" cx="110" cy="240" r="5"/>
+          <circle class="net-node" cx="340" cy="200" r="4"/><circle class="net-node alt net-pulse" cx="70" cy="150" r="4"/>
+          <g transform="translate(176 156)"><path d="M24 2 44 10v20c0 14-9 23-20 28C13 53 4 44 4 30V10z" fill="none" stroke="var(--primary)" stroke-width="2"/><path d="m16 30 6 6 10-12" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-linecap="round"/></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">{{ _('Why this platform') }}</span><h2>{{ _('Learning that transfers to real work') }}</h2></div></div>
+    <div class="feature-grid">
+      <div class="feature"><span class="feature-icon">{{ icon('layers') }}</span><h3>{{ _('Structured learning') }}</h3><p>{{ _('Modules and lessons build on each other, from fundamentals to incident response.') }}</p></div>
+      <div class="feature"><span class="feature-icon">{{ icon('target') }}</span><h3>{{ _('Interactive exercises') }}</h3><p>{{ _('Quizzes with six question types, labs and scenario-based assignments with instructor feedback.') }}</p></div>
+      <div class="feature"><span class="feature-icon">{{ icon('award') }}</span><h3>{{ _('Certificates') }}</h3><p>{{ _('Verifiable certificates with a public verification link for every completed course.') }}</p></div>
+      <div class="feature"><span class="feature-icon">{{ icon('terminal') }}</span><h3>{{ _('Practical experience') }}</h3><p>{{ _('Real phishing samples, log excerpts and configurations - the material analysts see every day.') }}</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="eyebrow">{{ _('Featured') }}</span><h2>{{ _('Featured courses') }}</h2></div>
+      <a class="btn btn-outline" href="{{ url_for('courses.catalog') }}">{{ _('All courses') }} {{ icon('arrow-right') }}</a>
+    </div>
+    {% if featured %}
+    <div class="course-grid">
+      {% for course in featured %}{{ course_card(course, locale) }}{% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">{{ icon('book') }}<h3>{{ _('Courses are being prepared') }}</h3><p>{{ _('The first courses will appear here as soon as they are published.') }}</p></div>
+    {% endif %}
+  </div>
+</section>
+
+{% if categories %}
+<section class="section pt-0">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">{{ _('Directions') }}</span><h2>{{ _('Choose a direction') }}</h2></div></div>
+    <div class="category-chips">
+      {% for category in categories %}
+      <a class="chip" href="{{ url_for('courses.catalog', category=category.slug) }}">{{ icon(category.icon) }} {{ category.name(locale) }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if cyberhero_enabled %}
+<section class="section pt-0">
+  <div class="container">
+    <div class="panel d-flex flex-wrap align-items-center justify-content-between gap-4">
+      <div>
+        <span class="eyebrow">CyberHero</span>
+        <h2 class="h4 mb-1">{{ _('Cybersecurity for children, teens, parents and teachers') }}</h2>
+        <p class="text-muted mb-0">{{ _('Interactive missions, a printable certificate and calm, practical guides for families and schools.') }}</p>
+      </div>
+      <a class="btn btn-outline" href="{{ url_for('cyberhero.shell', path='') }}">{{ _('Open CyberHero') }} {{ icon('arrow-right') }}</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

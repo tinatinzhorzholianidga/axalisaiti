@@ -1,0 +1,91 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import lesson_type_icon, lesson_type_label, csrf, progress_bar %}
+{% block title %}{{ lesson.title(locale) }} · {{ course.title(locale) }}{% endblock %}
+{% block main_class %}site-main lesson-main{% endblock %}
+{% block content %}
+<div class="lesson-layout">
+  <aside class="lesson-sidebar" data-lesson-sidebar aria-label="{{ _('Course navigation') }}">
+    <a class="course-link" href="{{ url_for('courses.detail', slug=course.slug) }}">{{ icon('arrow-left', 'me-1', 14) }} {{ course.title(locale) }}</a>
+    {% if progress %}{{ progress_bar(progress.percent) }}{% endif %}
+    <div class="curriculum mt-3">
+      {% for module in course.modules if module.is_published %}
+      <details class="module" {% if lesson.module_id == module.id %}open{% endif %}>
+        <summary><span class="module-num">{{ module.sort_order }}</span>{{ module.title(locale) }}{{ icon('chevron-down', 'chev') }}</summary>
+        <ol class="lesson-list">
+          {% for item in module.lessons if item.is_published %}
+          {% set state = lesson_progress.get(item.id) %}
+          <li {% if item.id == lesson.id %}aria-current="page"{% endif %}>
+            <span class="type">{{ lesson_type_icon(item.lesson_type.value) }}</span>
+            <a href="{{ url_for('learning.lesson', course_slug=course.slug, lesson_slug=item.slug) }}">{{ item.title(locale) }}</a>
+            {% if state and state.status.value == 'completed' %}{{ icon('check-circle', 'done') }}{% endif %}
+          </li>
+          {% endfor %}
+        </ol>
+      </details>
+      {% endfor %}
+    </div>
+  </aside>
+  <div>
+    <div class="lesson-topbar">
+      <button type="button" class="icon-btn sidebar-toggle" data-sidebar-toggle aria-expanded="false" aria-label="{{ _('Course navigation') }}">{{ icon('list') }}</button>
+      <span>{{ _('Lesson') }} {{ index }} / {{ total }}</span>
+      {% if progress %}<div class="progress" role="progressbar" aria-valuenow="{{ progress.percent|round|int }}" aria-valuemin="0" aria-valuemax="100" aria-label="{{ _('Course progress') }}"><div class="fill pf-{{ progress.percent|pct_bucket }}"></div></div><span>{{ progress.percent|round|int }}%</span>{% endif %}
+      {% if current_user.is_authenticated %}
+      <form class="ms-auto" method="post" action="{{ url_for('learning.bookmark_lesson', course_slug=course.slug, lesson_slug=lesson.slug) }}">{{ csrf() }}<button class="icon-btn" type="submit" aria-pressed="{{ 'true' if is_bookmarked else 'false' }}" aria-label="{{ _('Bookmark lesson') }}">{{ icon('bookmark') }}</button></form>
+      {% endif %}
+    </div>
+    <article class="lesson-content" {% if current_user.is_authenticated and progress %}data-lesson-heartbeat="{{ url_for('api.lesson_heartbeat', lesson_id=lesson.id) }}"{% endif %}>
+      <div class="lesson-num">{{ lesson.module.sort_order }}.{{ lesson.sort_order }} · {{ lesson_type_label(lesson.lesson_type.value) }} · {{ lesson.estimated_minutes|duration }}</div>
+      <h1>{{ lesson.title(locale) }}</h1>
+      {% if lesson.lesson_type == LessonType.VIDEO and (lesson.video_media or lesson.video_url) %}
+      <div class="video-frame">
+        {% if lesson.video_media %}<video controls preload="metadata" src="{{ url_for('media.protected_file', media_id=lesson.video_media.id) }}"></video>
+        {% else %}<p class="p-4 text-muted">{{ _('Video') }}: <a href="{{ lesson.video_url }}" rel="noopener">{{ lesson.video_url }}</a></p>{% endif %}
+      </div>
+      {% endif %}
+      <div class="lesson-body">{{ (tr.content if tr else '')|safe_html }}</div>
+
+      {% if lesson.quiz %}
+      <div class="quiz-card mt-5">
+        <h2 class="h4">{{ icon('help-circle') }} {{ lesson.quiz.title(locale) }}</h2>
+        {% if lesson.quiz.description(locale) %}<p class="text-muted">{{ lesson.quiz.description(locale) }}</p>{% endif %}
+        <div class="quiz-meta">
+          <span>{{ lesson.quiz.questions|length }} {{ _('questions') }}</span>
+          <span>{{ _('Pass mark') }}: {{ lesson.quiz.pass_percent }}%</span>
+          {% if lesson.quiz.time_limit_minutes %}<span>{{ _('Time limit') }}: {{ lesson.quiz.time_limit_minutes }} {{ _('min') }}</span>{% endif %}
+          {% if lesson.quiz.max_attempts %}<span>{{ _('Attempts') }}: {{ quiz_attempts|length }}/{{ lesson.quiz.max_attempts }}</span>{% endif %}
+        </div>
+        {% if quiz_attempts %}<p class="small">{{ _('Best result') }}: <strong>{{ (quiz_attempts|map(attribute='percent')|max)|round|int }}%</strong></p>{% endif %}
+        {% if current_user.is_authenticated %}<a class="btn btn-primary" href="{{ url_for('assessments.quiz_intro', quiz_id=lesson.quiz.id) }}">{{ _('Start quiz') }}</a>{% endif %}
+      </div>
+      {% endif %}
+
+      {% if lesson.assignment %}
+      <div class="quiz-card mt-4">
+        <h2 class="h4">{{ icon('edit') }} {{ lesson.assignment.title(locale) }}</h2>
+        <div class="quiz-meta"><span>{{ _('Max points') }}: {{ lesson.assignment.max_points|int }}</span>{% if lesson.assignment.due_at %}<span>{{ _('Due') }}: {{ lesson.assignment.due_at|humanize_dt }}</span>{% endif %}{% if submission %}<span class="chip chip-{{ 'success' if submission.grade else 'primary' }}">{{ _('Graded') if submission.grade else _('Submitted') }}</span>{% endif %}</div>
+        {% if current_user.is_authenticated %}<a class="btn btn-primary" href="{{ url_for('assessments.assignment_view', assignment_id=lesson.assignment.id) }}">{{ _('Open assignment') }}</a>{% endif %}
+      </div>
+      {% endif %}
+
+      {% if lesson.resources %}
+      <h2 class="h5 mt-5 mb-3">{{ _('Resources') }}</h2>
+      <ul class="resource-list">{% for r in lesson.resources %}<li>{{ icon('link' if r.kind == 'link' else 'download') }}<a href="{{ r.url or url_for('media.protected_file', media_id=r.media_id) }}"{% if r.url %} rel="noopener"{% endif %}>{{ r.title(locale) }}</a></li>{% endfor %}</ul>
+      {% endif %}
+
+      <nav class="lesson-nav" aria-label="{{ _('Lesson navigation') }}">
+        {% if prev_lesson %}<a class="btn btn-outline" href="{{ url_for('learning.lesson', course_slug=course.slug, lesson_slug=prev_lesson.slug) }}">{{ icon('arrow-left') }} {{ _('Previous') }}</a>{% else %}<span></span>{% endif %}
+        {% if current_user.is_authenticated and progress is not none %}
+        <form method="post" action="{{ url_for('learning.complete_lesson', course_slug=course.slug, lesson_slug=lesson.slug) }}">
+          {{ csrf() }}
+          {% if is_completed %}<span class="chip chip-success">{{ icon('check') }} {{ _('Completed') }}</span>
+          {% else %}<button class="btn btn-success" type="submit" name="goto" value="{{ 'next' if next_lesson else 'stay' }}">{{ icon('check') }} {{ _('Mark complete') }}{% if next_lesson %} & {{ _('next') }}{% endif %}</button>{% endif %}
+        </form>
+        {% endif %}
+        {% if next_lesson %}<a class="btn btn-outline" href="{{ url_for('learning.lesson', course_slug=course.slug, lesson_slug=next_lesson.slug) }}">{{ _('Next') }} {{ icon('arrow-right') }}</a>{% else %}<a class="btn btn-outline" href="{{ url_for('courses.detail', slug=course.slug) }}">{{ _('Back to course') }}</a>{% endif %}
+      </nav>
+    </article>
+  </div>
+</div>
+{% endblock %}

@@ -1,2 +1,21 @@
 {% extends "layouts/base.html" %}
-{% block content %}<div class="container"><h1>{{ site_name }}</h1></div>{% endblock %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import empty_state %}
+{% block title %}{{ _('Resources') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container narrow">
+  <div class="page-head"><h1 class="page-title">{{ _('Resources') }}</h1><p class="page-subtitle">{{ _('Downloadable materials and references from published courses.') }}</p></div>
+  {% if resources %}
+  <ul class="resource-list">
+    {% for r in resources %}
+    <li>{{ icon('link' if r.kind == 'link' else 'file-text') }}
+      <div><a href="{{ r.url if r.url else url_for('learning.lesson', course_slug=r.lesson.course.slug, lesson_slug=r.lesson.slug) }}"{% if r.url %} rel="noopener"{% endif %}>{{ r.title(current_locale) }}</a>
+        <small class="d-block text-muted">{{ r.lesson.course.title(current_locale) }} · {{ r.lesson.title(current_locale) }}</small></div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  {{ empty_state(_('No resources yet'), _('Resources attached to lessons will be listed here.'), 'file-text', _('Browse courses'), url_for('courses.catalog')) }}
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% from "components/icons.html" import icon %}
+
+{% macro course_card(course, locale, progress=None, show_category=True) %}
+{% set tr = course.tr(locale) %}
+<article class="course-card">
+  <div class="card-top">
+    <span class="course-icon {{ course.color }}">{{ icon(course.icon) }}</span>
+    {% if show_category and course.primary_category %}<span class="chip">{{ course.primary_category.name(locale) }}</span>{% endif %}
+  </div>
+  <h3><a href="{{ url_for('courses.detail', slug=course.slug) }}">{{ course.title(locale) }}</a></h3>
+  <p class="summary">{{ tr.short_description if tr else '' }}</p>
+  <div class="meta">
+    <span class="difficulty-{{ course.difficulty.value }}">{{ icon('activity') }} {{ difficulty_label(course.difficulty.value) }}</span>
+    {% if course.estimated_minutes %}<span>{{ icon('clock') }} {{ course.estimated_minutes|duration }}</span>{% endif %}
+    <span>{{ icon('layers') }} {{ course.lesson_count }} {{ _('lessons') }}</span>
+    {% if course.certificate_enabled %}<span title="{{ _('Certificate on completion') }}">{{ icon('award') }} {{ _('Certificate') }}</span>{% endif %}
+  </div>
+  {% if progress %}
+  <div class="progress-row mb-3"><div class="progress"><div class="fill pf-{{ progress.percent|pct_bucket }}"></div></div><span>{{ progress.percent|round|int }}%</span></div>
+  {% endif %}
+  <div class="card-foot">
+    <span>{% if progress and progress.percent > 0 %}{{ _('Continue') }}{% else %}{{ _('Open course') }}{% endif %}</span>
+    {{ icon('arrow-right') }}
+  </div>
+</article>
+{% endmacro %}
+
+{% macro difficulty_label(value) -%}
+{%- if value == 'beginner' %}{{ _('Beginner') }}{% elif value == 'intermediate' %}{{ _('Intermediate') }}{% else %}{{ _('Advanced') }}{% endif -%}
+{%- endmacro %}
+
+{% macro lesson_type_icon(value) -%}
+{%- if value == 'video' %}{{ icon('video') }}{% elif value == 'quiz' %}{{ icon('help-circle') }}{% elif value == 'lab' %}{{ icon('terminal') }}{% elif value == 'assignment' %}{{ icon('edit') }}{% else %}{{ icon('file-text') }}{% endif -%}
+{%- endmacro %}
+
+{% macro lesson_type_label(value) -%}
+{%- if value == 'video' %}{{ _('Video') }}{% elif value == 'quiz' %}{{ _('Quiz') }}{% elif value == 'lab' %}{{ _('Lab') }}{% elif value == 'assignment' %}{{ _('Assignment') }}{% else %}{{ _('Reading') }}{% endif -%}
+{%- endmacro %}
+
+{% macro progress_bar(percent, large=False, label=True) %}
+<div class="progress-row">
+  <div class="progress{% if large %} progress-lg{% endif %}" role="progressbar" aria-valuenow="{{ percent|round|int }}" aria-valuemin="0" aria-valuemax="100" aria-label="{{ _('Progress') }}">
+    <div class="fill{% if percent >= 100 %} success{% endif %} pf-{{ percent|pct_bucket }}"></div>
+  </div>
+  {% if label %}<span>{{ percent|round|int }}%</span>{% endif %}
+</div>
+{% endmacro %}
+
+{% macro paginate(p, endpoint=None) %}
+{% if p.pages > 1 %}
+<nav aria-label="{{ _('Pagination') }}">
+  <ul class="pagination justify-content-center mt-4">
+    <li class="page-item{% if not p.has_prev %} disabled{% endif %}"><a class="page-link" href="{{ url_with_args(page=p.prev_num) if p.has_prev else '#' }}" aria-label="{{ _('Previous') }}">‹</a></li>
+    {% for num in p.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if num %}
+      <li class="page-item{% if num == p.page %} active{% endif %}"><a class="page-link" href="{{ url_with_args(page=num) }}"{% if num == p.page %} aria-current="page"{% endif %}>{{ num }}</a></li>
+      {% else %}<li class="page-item disabled"><span class="page-link">…</span></li>{% endif %}
+    {% endfor %}
+    <li class="page-item{% if not p.has_next %} disabled{% endif %}"><a class="page-link" href="{{ url_with_args(page=p.next_num) if p.has_next else '#' }}" aria-label="{{ _('Next') }}">›</a></li>
+  </ul>
+</nav>
+{% endif %}
+{% endmacro %}
+
+{% macro empty_state(title, text, icon_name='inbox', cta_label=None, cta_url=None) %}
+<div class="empty-state">
+  {{ icon(icon_name) }}
+  <h3>{{ title }}</h3>
+  <p>{{ text }}</p>
+  {% if cta_label and cta_url %}<a class="btn btn-primary" href="{{ cta_url }}">{{ cta_label }}</a>{% endif %}
+</div>
+{% endmacro %}
+
+{% macro stars(rating) -%}
+<span class="stars" aria-label="{{ rating }} / 5">{% for i in range(1, 6) %}{% if i <= rating %}★{% else %}☆{% endif %}{% endfor %}</span>
+{%- endmacro %}
+
+{% macro status_chip(status) -%}
+<span class="chip status-{{ status.value }}">{% if status.value == 'draft' %}{{ _('Draft') }}{% elif status.value == 'pending_review' %}{{ _('Pending review') }}{% elif status.value == 'published' %}{{ _('Published') }}{% else %}{{ _('Archived') }}{% endif %}</span>
+{%- endmacro %}
+
+{% macro csrf() -%}
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+{%- endmacro %}

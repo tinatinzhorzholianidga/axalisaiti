@@ -1,0 +1,93 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import course_card, progress_bar, empty_state %}
+{% block title %}{{ _('Dashboard') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head d-flex flex-wrap justify-content-between align-items-end gap-3">
+    <div><h1 class="page-title">{{ _('Hello, %(name)s', name=current_user.first_name) }}</h1><p class="page-subtitle">{{ _('Pick up where you left off.') }}</p></div>
+    <a class="btn btn-outline" href="{{ url_for('courses.catalog') }}">{{ icon('search') }} {{ _('Find a course') }}</a>
+  </div>
+
+  <div class="stats-grid" aria-label="{{ _('Learning statistics') }}">
+    <div class="stats-card"><div class="value">{{ stats.courses_in_progress }}</div><div class="label">{{ _('In progress') }}</div></div>
+    <div class="stats-card"><div class="value">{{ stats.courses_completed }}</div><div class="label">{{ _('Completed courses') }}</div></div>
+    <div class="stats-card"><div class="value">{{ stats.lessons_completed }}</div><div class="label">{{ _('Lessons completed') }}</div></div>
+    <div class="stats-card"><div class="value">{{ stats.quizzes_passed }}</div><div class="label">{{ _('Quizzes passed') }}</div></div>
+  </div>
+
+  <div class="dash-grid">
+    <div>
+      <section class="mb-5">
+        <div class="section-head mb-3"><h2 class="h4">{{ _('Continue learning') }}</h2></div>
+        {% for enrollment, lesson, progress in continue_items %}
+        <div class="progress-card">
+          <span class="course-icon {{ enrollment.course.color }}">{{ icon(enrollment.course.icon) }}</span>
+          <div>
+            <h3><a href="{{ url_for('courses.detail', slug=enrollment.course.slug) }}">{{ enrollment.course.title(locale) }}</a></h3>
+            <div class="sub">{% if lesson %}{{ _('Lesson') }} {{ progress.completed_lessons + 1 if progress else 1 }} / {{ enrollment.course.lesson_count }} · {{ lesson.title(locale) }}{% endif %}</div>
+            {{ progress_bar(progress.percent if progress else 0) }}
+          </div>
+          {% if lesson %}<a class="btn btn-primary" href="{{ url_for('learning.lesson', course_slug=enrollment.course.slug, lesson_slug=lesson.slug) }}">{{ _('Continue') }} {{ icon('arrow-right') }}</a>{% endif %}
+        </div>
+        {% else %}
+        {{ empty_state(_('No enrolled courses yet'), _('Choose a course from the catalogue and your progress will appear here.'), 'book', _('Browse courses'), url_for('courses.catalog')) }}
+        {% endfor %}
+      </section>
+
+      {% if active|length > continue_items|length or pending %}
+      <section class="mb-5">
+        <div class="section-head mb-3"><h2 class="h4">{{ _('Current courses') }}</h2></div>
+        <ul class="list-plain">
+          {% for e in active %}<li>{{ icon(e.course.icon) }}<a href="{{ url_for('courses.detail', slug=e.course.slug) }}">{{ e.course.title(locale) }}</a><span class="when">{{ (progress_map[e.course_id].percent if progress_map.get(e.course_id) else 0)|round|int }}%</span></li>{% endfor %}
+          {% for e in pending %}<li>{{ icon('clock') }}<a href="{{ url_for('courses.detail', slug=e.course.slug) }}">{{ e.course.title(locale) }}</a><span class="chip chip-warning">{{ _('Pending approval') }}</span></li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      {% if recently_viewed %}
+      <section class="mb-5">
+        <div class="section-head mb-3"><h2 class="h4">{{ _('Recently viewed') }}</h2></div>
+        <ul class="list-plain">
+          {% for e in recently_viewed %}<li>{{ icon('eye') }}<a href="{% if e.last_lesson %}{{ url_for('learning.lesson', course_slug=e.course.slug, lesson_slug=e.last_lesson.slug) }}{% else %}{{ url_for('courses.detail', slug=e.course.slug) }}{% endif %}">{{ e.course.title(locale) }}{% if e.last_lesson %} · {{ e.last_lesson.title(locale) }}{% endif %}</a><span class="when">{{ e.last_accessed_at|humanize_dt }}</span></li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      {% if completed %}
+      <section class="mb-5">
+        <div class="section-head mb-3"><h2 class="h4">{{ _('Completed courses') }}</h2></div>
+        <ul class="list-plain">
+          {% for e in completed %}<li>{{ icon('check-circle') }}<a href="{{ url_for('courses.detail', slug=e.course.slug) }}">{{ e.course.title(locale) }}</a><span class="when">{{ e.completed_at|date_only }}</span></li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      {% if recommended %}
+      <section>
+        <div class="section-head mb-3"><h2 class="h4">{{ _('Recommended for you') }}</h2></div>
+        <div class="course-grid">{% for c in recommended %}{{ course_card(c, locale) }}{% endfor %}</div>
+      </section>
+      {% endif %}
+    </div>
+
+    <aside>
+      <div class="panel mb-4">
+        <div class="panel-title"><h2>{{ _('Certificates') }}</h2><a class="small" href="{{ url_for('certificates.mine') }}">{{ _('All') }}</a></div>
+        {% for c in certificates %}<div class="d-flex gap-2 align-items-center mb-2 small">{{ icon('award') }}<a href="{{ url_for('certificates.view', public_id=c.public_id) }}">{{ c.course_title(locale) }}</a></div>
+        {% else %}<p class="text-muted small mb-0">{{ _('Complete a course to earn your first certificate.') }}</p>{% endfor %}
+      </div>
+      <div class="panel mb-4">
+        <div class="panel-title"><h2>{{ _('Achievements') }}</h2></div>
+        {% if achievements %}<div class="d-flex flex-wrap gap-2">{% for ua in achievements %}<span class="achievement" title="{{ ua.achievement.description(locale) }}">{{ icon(ua.achievement.icon) }} {{ ua.achievement.name(locale) }}</span>{% endfor %}</div>
+        {% else %}<p class="text-muted small mb-0">{{ _('Achievements are awarded for completed courses, certificates and quiz streaks.') }}</p>{% endif %}
+      </div>
+      <div class="panel">
+        <div class="panel-title"><h2>{{ _('Notifications') }}</h2><a class="small" href="{{ url_for('notifications.inbox') }}">{{ _('All') }}</a></div>
+        {% for n in notifications %}<div class="notif {{ 'read' if n.is_read else 'unread' }}"><span class="dot"></span><div><div class="title">{% if n.link %}<a href="{{ n.link }}">{{ n.title }}</a>{% else %}{{ n.title }}{% endif %}</div><div class="body small">{{ n.body }}</div></div></div>
+        {% else %}<p class="text-muted small mb-0">{{ _('No notifications.') }}</p>{% endfor %}
+      </div>
+    </aside>
+  </div>
+</div>
+{% endblock %}

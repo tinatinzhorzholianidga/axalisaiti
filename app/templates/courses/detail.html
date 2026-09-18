@@ -1,0 +1,144 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field %}
+{% from "components/macros.html" import difficulty_label, lesson_type_icon, lesson_type_label, progress_bar, stars, csrf, status_chip %}
+{% block title %}{{ course.title(locale) }} · {{ site_name }}{% endblock %}
+{% block meta_description %}{{ tr.short_description if tr else '' }}{% endblock %}
+{% block content %}
+<section class="course-hero">
+  <div class="container">
+    <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="{{ url_for('main.home') }}">{{ _('Home') }}</a></li><li class="breadcrumb-item"><a href="{{ url_for('courses.catalog') }}">{{ _('Courses') }}</a></li>{% if course.primary_category %}<li class="breadcrumb-item"><a href="{{ url_for('courses.catalog', category=course.primary_category.slug) }}">{{ course.primary_category.name(locale) }}</a></li>{% endif %}<li class="breadcrumb-item active" aria-current="page">{{ course.title(locale) }}</li></ol></nav>
+    <div class="course-hero-grid">
+      <div>
+        <div class="d-flex gap-2 flex-wrap align-items-center">
+          {% if course.primary_category %}<span class="chip chip-primary">{{ course.primary_category.name(locale) }}</span>{% endif %}
+          {% if not course.is_published %}{{ status_chip(course.status) }}{% endif %}
+          {% for tag in course.tag_list %}<span class="chip">{{ tag }}</span>{% endfor %}
+        </div>
+        <h1>{{ course.title(locale) }}</h1>
+        <p class="lead">{{ tr.short_description if tr else '' }}</p>
+        <div class="course-facts">
+          <span class="difficulty-{{ course.difficulty.value }}">{{ icon('activity') }} {{ difficulty_label(course.difficulty.value) }}</span>
+          {% if course.estimated_minutes %}<span>{{ icon('clock') }} {{ course.estimated_minutes|duration }}</span>{% endif %}
+          <span>{{ icon('layers') }} {{ course.lesson_count }} {{ _('lessons') }}</span>
+          {% if course.certificate_enabled %}<span>{{ icon('award') }} {{ _('Certificate') }}</span>{% endif %}
+          {% if course.rating_count %}<span>{{ stars(course.rating_avg|round|int) }} {{ course.rating_avg }} ({{ course.rating_count }})</span>{% endif %}
+          <span>{{ icon('users') }} {{ course.enrollment_count }} {{ _('enrolled') }}</span>
+        </div>
+        {% if progress and enrollment %}<div class="mt-4" aria-label="{{ _('Course progress') }}">{{ progress_bar(progress.percent) }}</div>{% endif %}
+      </div>
+      <aside class="course-aside">
+        <div class="course-graphic">{% if course.cover %}<img src="{{ url_for('media.public_file', media_id=course.cover.id) }}" alt="">{% else %}{{ icon(course.icon) }}{% endif %}</div>
+        <div class="actions">
+          {% if enrollment and enrollment.status.value in ('active', 'completed') %}
+            {% if next_lesson %}<a class="btn btn-primary btn-lg" href="{{ url_for('learning.lesson', course_slug=course.slug, lesson_slug=next_lesson.slug) }}">{{ _('Continue learning') }} {{ icon('arrow-right') }}</a>{% endif %}
+            {% if enrollment.status.value == 'completed' and course.certificate_enabled %}<a class="btn btn-success" href="{{ url_for('certificates.mine') }}">{{ icon('award') }} {{ _('View certificate') }}</a>{% endif %}
+          {% elif enrollment and enrollment.status.value == 'pending' %}
+            <button class="btn btn-secondary" disabled>{{ _('Enrolment pending approval') }}</button>
+          {% elif current_user.is_authenticated %}
+            <form method="post" action="{{ url_for('courses.enroll', slug=course.slug) }}">{{ csrf() }}<button class="btn btn-primary btn-lg btn-block" type="submit">{{ _('Enrol for free') if course.is_free else _('Request access') }}</button></form>
+          {% else %}
+            <a class="btn btn-primary btn-lg" href="{{ url_for('auth.login', next=request.path) }}">{{ _('Sign in to enrol') }}</a>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+          <form method="post" action="{{ url_for('courses.bookmark', slug=course.slug) }}">{{ csrf() }}<button class="btn btn-outline btn-block" type="submit" aria-pressed="{{ 'true' if is_bookmarked else 'false' }}">{{ icon('bookmark') }} {{ _('Bookmarked') if is_bookmarked else _('Bookmark') }}</button></form>
+          {% endif %}
+        </div>
+        <dl>
+          <dt>{{ _('Level') }}</dt><dd>{{ difficulty_label(course.difficulty.value) }}</dd>
+          <dt>{{ _('Duration') }}</dt><dd>{{ course.estimated_minutes|duration or '—' }}</dd>
+          <dt>{{ _('Lessons') }}</dt><dd>{{ course.lesson_count }}</dd>
+          <dt>{{ _('Certificate') }}</dt><dd>{{ _('Yes') if course.certificate_enabled else _('No') }}</dd>
+          <dt>{{ _('Access') }}</dt><dd>{{ _('Free') if course.is_free else _('Restricted') }}</dd>
+        </dl>
+        {% if course.instructor %}
+        <div class="instructor-box"><span class="avatar">{{ course.instructor.initials }}</span><div><strong>{{ course.instructor.name }}</strong><br><span class="text-muted">{{ course.instructor.organization or _('Instructor') }}</span></div></div>
+        {% endif %}
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="tabs-nav" role="tablist" data-tabs>
+    <a role="tab" href="?tab=overview" data-tab="overview" aria-selected="{{ 'true' if active_tab == 'overview' else 'false' }}">{{ _('Overview') }}</a>
+    <a role="tab" href="?tab=syllabus" data-tab="syllabus" aria-selected="{{ 'true' if active_tab == 'syllabus' else 'false' }}">{{ _('Syllabus') }}</a>
+    <a role="tab" href="?tab=resources" data-tab="resources" aria-selected="{{ 'true' if active_tab == 'resources' else 'false' }}">{{ _('Resources') }}</a>
+    {% if reviews_enabled %}<a role="tab" href="?tab=reviews" data-tab="reviews" aria-selected="{{ 'true' if active_tab == 'reviews' else 'false' }}">{{ _('Reviews') }}</a>{% endif %}
+  </div>
+
+  <section class="tab-panel" data-tab-panel="overview" role="tabpanel" {% if active_tab != 'overview' %}hidden{% endif %}>
+    <div class="overview-grid">
+      <div>
+        {% if tr and tr.description %}<div class="prose mb-5">{{ tr.description|safe_html }}</div>{% endif %}
+        {% if tr and tr.objective_list %}
+        <h2 class="h4 mb-3">{{ _('What you will learn') }}</h2>
+        <ul class="check-list mb-5">{% for item in tr.objective_list %}<li>{{ icon('check-circle') }}<span>{{ item }}</span></li>{% endfor %}</ul>
+        {% endif %}
+      </div>
+      <div>
+        {% if tr and tr.prerequisite_list %}<div class="panel mb-4"><h2 class="h5 mb-3">{{ _('Required knowledge') }}</h2><ul class="check-list">{% for item in tr.prerequisite_list %}<li>{{ icon('chevron-right') }}<span>{{ item }}</span></li>{% endfor %}</ul></div>{% endif %}
+        {% if tr and tr.audience %}<div class="panel mb-4"><h2 class="h5 mb-2">{{ _('Who this course is for') }}</h2><p class="mb-0 text-muted">{{ tr.audience }}</p></div>{% endif %}
+        {% if course.certificate_enabled %}<div class="panel"><h2 class="h5 mb-2">{{ _('Certificate requirements') }}</h2><p class="mb-0 text-muted">{{ (tr.certificate_requirements if tr and tr.certificate_requirements else _('Complete every lesson and pass all quizzes with at least %(pct)d%%.', pct=course.certificate_pass_percent)) }}</p></div>{% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="tab-panel" data-tab-panel="syllabus" role="tabpanel" {% if active_tab != 'syllabus' %}hidden{% endif %}>
+    <div class="curriculum">
+      {% for module in course.modules if module.is_published %}
+      <details class="module" {% if loop.first %}open{% endif %}>
+        <summary><span class="module-num">{{ module.sort_order }}</span>{{ module.title(locale) }}<span class="count">{{ module.lessons|length }} {{ _('lessons') }} · {{ module.total_minutes|duration }}</span>{{ icon('chevron-down', 'chev') }}</summary>
+        <ol class="lesson-list">
+          {% for lesson in module.lessons if lesson.is_published %}
+          {% set state = lesson_progress.get(lesson.id) %}
+          <li>
+            <span class="type" title="{{ lesson_type_label(lesson.lesson_type.value) }}">{{ lesson_type_icon(lesson.lesson_type.value) }}</span>
+            {% if enrollment or lesson.is_free_preview or (current_user.is_authenticated and current_user.has_permission('courses.manage_all')) %}
+            <a href="{{ url_for('learning.lesson', course_slug=course.slug, lesson_slug=lesson.slug) }}">{{ module.sort_order }}.{{ lesson.sort_order }} {{ lesson.title(locale) }}</a>
+            {% else %}<span>{{ module.sort_order }}.{{ lesson.sort_order }} {{ lesson.title(locale) }}</span>{{ icon('lock', 'lock') }}{% endif %}
+            {% if lesson.is_free_preview and not enrollment %}<span class="chip chip-cyan">{{ _('Preview') }}</span>{% endif %}
+            {% if state and state.status.value == 'completed' %}{{ icon('check-circle', 'done') }}{% endif %}
+            <span class="dur">{{ lesson.estimated_minutes|duration }}</span>
+          </li>
+          {% endfor %}
+        </ol>
+      </details>
+      {% else %}
+      <p class="text-muted">{{ _('The syllabus is being prepared.') }}</p>
+      {% endfor %}
+      {% if course.final_quiz %}<div class="panel d-flex align-items-center gap-3">{{ icon('help-circle') }}<div><strong>{{ course.final_quiz.title(locale) }}</strong><br><span class="text-muted small">{{ _('Final assessment · pass mark %(pct)d%%', pct=course.final_quiz.pass_percent) }}</span></div>{% if enrollment %}<a class="btn btn-outline btn-sm ms-auto" href="{{ url_for('assessments.quiz_intro', quiz_id=course.final_quiz.id) }}">{{ _('Open') }}</a>{% endif %}</div>{% endif %}
+    </div>
+  </section>
+
+  <section class="tab-panel" data-tab-panel="resources" role="tabpanel" {% if active_tab != 'resources' %}hidden{% endif %}>
+    {% set resources = [] %}{% for m in course.modules %}{% for l in m.lessons %}{% for r in l.resources %}{% set _ = resources.append((l, r)) %}{% endfor %}{% endfor %}{% endfor %}
+    {% if resources %}
+    <ul class="resource-list">{% for lesson, r in resources %}<li>{{ icon('link' if r.kind == 'link' else 'file-text') }}<div><a href="{{ r.url or url_for('media.protected_file', media_id=r.media_id) }}"{% if r.url %} rel="noopener"{% endif %}>{{ r.title(locale) }}</a><small class="d-block text-muted">{{ lesson.title(locale) }}</small></div></li>{% endfor %}</ul>
+    {% else %}<p class="text-muted">{{ _('No downloadable resources for this course yet.') }}</p>{% endif %}
+  </section>
+
+  {% if reviews_enabled %}
+  <section class="tab-panel" data-tab-panel="reviews" role="tabpanel" {% if active_tab != 'reviews' %}hidden{% endif %}>
+    <div class="overview-grid">
+      <div>
+        {% for review in reviews %}
+        <article class="review"><div class="review-head"><span><strong>{{ review.user.name }}</strong> {{ stars(review.rating) }}</span><time datetime="{{ review.created_at.isoformat() }}">{{ review.created_at|date_only }}</time></div><p class="mb-0">{{ review.body }}</p></article>
+        {% else %}<p class="text-muted">{{ _('No reviews yet. Be the first after you have started the course.') }}</p>{% endfor %}
+      </div>
+      <div>
+        {% if can_review %}
+        <form class="panel" method="post" action="{{ url_for('courses.review', slug=course.slug) }}" novalidate>
+          {{ review_form.hidden_tag() }}
+          <h2 class="h5 mb-3">{{ _('Your review') }}</h2>
+          {{ field(review_form.rating) }}
+          {{ field(review_form.body, rows=4) }}
+          <button class="btn btn-primary" type="submit">{{ _('Submit review') }}</button>
+        </form>
+        {% elif current_user.is_authenticated %}<p class="text-muted">{{ _('Enrol in the course to leave a review.') }}</p>{% endif %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}
