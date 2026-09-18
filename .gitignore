@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Uploads / runtime data
+/data/
+/uploads/
+/instance/
+*.log
+
+# Node / Vite
+cyberhero/node_modules/
+cyberhero/dist/
+app/static/cyberhero/
+app/static/cyberhero/.vite/
+cyberhero/test-results/
+cyberhero/playwright-report/
+
+# Compiled translations (built by `make translations`)
+app/translations/*/LC_MESSAGES/*.mo
+
+# Editors
+.idea/
+.vscode/
+.DS_Store

@@ -1,0 +1,11 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ _('Error') }} 500 · {{ site_name }}{% endblock %}
+{% block content %}
+<section class="container error-page">
+  <p class="error-code">500</p>
+  <h1>{% block error_title %}{{ _('Something went wrong') }}{% endblock %}</h1>
+  <p class="text-muted">{% block error_text %}{{ _('An unexpected error occurred. Please try again.') }}{% endblock %}</p>
+  <p><a class="btn btn-primary" href="{{ url_for('main.home') }}">{{ _('Back to home') }}</a></p>
+  <p class="request-id">{{ _('Request ID') }}: <code>{{ request_id }}</code></p>
+</section>
+{% endblock %}

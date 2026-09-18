@@ -1,0 +1,58 @@
+[project]
+name = "elearning-platform"
+version = "1.0.0"
+description = "Georgian government cybersecurity learning platform: eLearning (professional LMS) + CyberHero (youth/family LMS)"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["app", "tests"]
+exclude = ["migrations/versions", ".venv", "cyberhero"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "N", "C4", "SIM", "RUF"]
+ignore = [
+  "S101",   # asserts are fine in tests
+  "B008",   # function calls in argument defaults (WTForms validators)
+  "RUF012", # mutable class attributes (SQLAlchemy/Flask patterns)
+  "RUF001", "RUF002", "RUF003", # Georgian text in strings/comments
+  "S311",   # random for non-crypto demo data
+  "SIM108",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S105", "S106", "S107", "S108", "E501"]
+"app/cli.py" = ["S106"]
+"seeds/*" = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["app"]
+ignore_missing_imports = true
+warn_unused_ignores = false
+warn_redundant_casts = true
+no_implicit_optional = true
+check_untyped_defs = true
+exclude = ["migrations/", "cyberhero/"]
+
+[[tool.mypy.overrides]]
+module = ["app.models.*"]
+disable_error_code = ["assignment", "attr-defined"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = ["ratelimit: tests that enable the rate limiter"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv", "cyberhero", "migrations"]
+skips = ["B101"]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["app/cli.py"]

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ current_locale }}" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site_name }}{% endblock %}</title>
+  <script src="{{ url_for('static', filename='js/theme-init.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/elearning.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<a class="skip-link" href="#main-content">{{ _('Skip to main content') }}</a>
+{% block navbar %}{% include "components/navbar.html" %}{% endblock %}
+{% if maintenance_banner %}
+<div class="maintenance-banner" role="status">{{ maintenance_banner }}</div>
+{% endif %}
+<main id="main-content" class="{% block main_class %}site-main{% endblock %}" tabindex="-1">
+  {% include "components/flash.html" %}
+  {% block content %}{% endblock %}
+</main>
+{% block footer %}{% include "components/footer.html" %}{% endblock %}
+<script src="{{ url_for('static', filename='vendor/bootstrap/bootstrap.bundle.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/app.js') }}" type="module"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

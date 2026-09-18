@@ -1,0 +1,101 @@
+name: elearning
+
+x-app-env: &app-env
+  env_file: .env
+  environment:
+    APP_ENV: production
+    DATABASE_URL: mysql+pymysql://${MARIADB_USER:-elearning}:${MARIADB_PASSWORD:-elearning}@mariadb:3306/${MARIADB_DATABASE:-elearning}?charset=utf8mb4
+    REDIS_URL: redis://redis:6379/0
+    UPLOAD_PATH: /var/lib/elearning/uploads
+    FORWARDED_ALLOW_IPS: "*"
+
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/proxy_params.conf:/etc/nginx/proxy_params.conf:ro
+      - static-data:/srv/static:ro
+    depends_on:
+      web:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  web:
+    build: .
+    image: elearning/web:latest
+    <<: *app-env
+    command: ["web"]
+    volumes:
+      - uploads:/var/lib/elearning/uploads
+      - static-data:/app/app/static:ro
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/readiness"]
+      interval: 30s
+      timeout: 5s
+      start_period: 40s
+      retries: 3
+    restart: unless-stopped
+
+  worker:
+    image: elearning/web:latest
+    <<: *app-env
+    command: ["worker"]
+    volumes:
+      - uploads:/var/lib/elearning/uploads
+    depends_on:
+      web:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.celery_worker:celery inspect ping -d celery@$$HOSTNAME | grep -q pong"]
+      interval: 60s
+      timeout: 15s
+      retries: 3
+    restart: unless-stopped
+
+  mariadb:
+    image: mariadb:11.4
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-change-me-root}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-elearning}
+      MARIADB_USER: ${MARIADB_USER:-elearning}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:-elearning}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  mariadb-data:
+  redis-data:
+  uploads:
+  static-data:

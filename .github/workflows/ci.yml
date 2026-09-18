@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Lint, type-check, security, tests
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: sudo apt-get update && sudo apt-get install -y libmagic1
+      - run: pip install -r requirements-dev.txt
+      - run: pybabel compile -d app/translations -f
+      - name: ruff
+        run: ruff check . && ruff format --check .
+      - name: mypy
+        run: mypy
+      - name: bandit
+        run: bandit -c pyproject.toml -r app -q
+      - name: pip-audit
+        run: pip-audit -r requirements.txt
+      - name: Semgrep
+        run: pipx run semgrep scan --config p/python --config p/flask --config p/owasp-top-ten --error --exclude cyberhero --exclude .venv .
+      - name: pytest
+        env:
+          REDIS_URL: redis://localhost:6379/1
+        run: pytest --cov=app --cov-report=xml
+      - name: Validate seed content
+        run: APP_ENV=testing flask --app wsgi:app validate-content seeds
+
+  cyberhero:
+    name: CyberHero build + smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: cyberhero/package-lock.json
+      - run: npm ci
+        working-directory: cyberhero
+      - run: npm run lint
+        working-directory: cyberhero
+      - run: npm run build
+        working-directory: cyberhero
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install -y libmagic1 && pip install -r requirements-dev.txt
+      - run: npx playwright install --with-deps chromium
+        working-directory: cyberhero
+      - name: Playwright smoke tests (Flask + built bundle, ka + en)
+        run: npm run test:e2e
+        working-directory: cyberhero
+
+  docker:
+    name: Docker image build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: elearning/web:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
