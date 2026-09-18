@@ -36,7 +36,7 @@ export default function BuilderRound({ round, onDone }) {
         <span>{tx(round.meterHigh)}</span>
       </div>
       <div className="meter" role="progressbar" aria-valuenow={meter} aria-valuemin={0} aria-valuemax={100}>
-        <div className="fill" style={{ width: `${meter}%` }} />
+        <div className="fill" data-value={Math.round(meter / 5) * 5} />
       </div>
       {round.options.map((option, i) => {
         const on = selected.has(i)
@@ -53,12 +53,11 @@ export default function BuilderRound({ round, onDone }) {
         )
       })}
       {!submitted ? (
-        <div style={{ textAlign: 'center', marginTop: 14 }}>
+        <div className="u-center u-mt-14">
           <button
             type="button"
             className="btn-solid"
             disabled={!ready}
-            style={!ready ? { opacity: 0.5, cursor: 'not-allowed' } : undefined}
             onClick={() => {
               setSubmitted(true)
               if (pickedNegative) mascotReact('wrong', { text: round.explainNegative || round.explain })

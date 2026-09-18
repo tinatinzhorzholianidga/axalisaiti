@@ -1,0 +1,48 @@
+/* IO's tips and reactions come from the API (`mascot` in the bootstrap
+   payload, editable in the admin panel). Tips are tagged with topics so
+   the mascot can match what he says to where the user is. */
+
+const EMPTY = { tips: [], reactions: {}, missionTopics: {} }
+
+export function splitTips(mascot = EMPTY) {
+  const tips = mascot.tips || []
+  return {
+    kid: tips.filter((tip) => !(tip.topics || []).includes('parents')),
+    parent: tips.filter((tip) => (tip.topics || []).includes('parents')),
+  }
+}
+
+/* Resolve what the helper should say for a route (app-relative pathname).
+   Returns { tips, opener? } - opener is an optional context greeting. */
+export function getMascotContext(pathname = '/', mascot = EMPTY) {
+  const { kid, parent } = splitTips(mascot)
+  const reactions = mascot.reactions || {}
+  if (pathname.startsWith('/track/')) {
+    return { tips: kid, opener: reactions.building }
+  }
+  const mission = pathname.match(/^\/guardians\/mission\/([^/]+)/)
+  if (mission) {
+    const topics = (mascot.missionTopics || {})[mission[1]] ?? []
+    const pool = kid.filter((tip) => (tip.topics || []).some((topic) => topics.includes(topic)))
+    return { tips: pool.length ? pool : kid }
+  }
+  if (pathname.startsWith('/guardians/certificate')) {
+    return { tips: kid, opener: reactions.cert }
+  }
+  if (pathname.startsWith('/guardians')) {
+    return { tips: kid, opener: reactions.guardians }
+  }
+  if (pathname.startsWith('/parents') || pathname.startsWith('/articles') || pathname.startsWith('/family-agreement')) {
+    return { tips: [...parent, ...kid.filter((tip) => (tip.topics || []).includes('help'))] }
+  }
+  if (pathname.startsWith('/emergency')) {
+    return { tips: kid.filter((tip) => (tip.topics || []).includes('help')) }
+  }
+  return { tips: kid }
+}
+
+export function missionReaction(mascot, index) {
+  const list = mascot?.reactions?.mission || []
+  if (!list.length) return null
+  return list[index % list.length]
+}

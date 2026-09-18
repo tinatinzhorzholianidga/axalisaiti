@@ -1,7 +1,8 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { missionMetaById } from '../../content/guardians/meta.js'
-import { articleById, articlesInShelf } from '../../content/parents/index.js'
+import { ErrorState, Loading } from '../../components/State.jsx'
+import { articlesInShelf, useArticle, useArticles, useMissions } from '../../content/ContentProvider.jsx'
 import { useI18n } from '../../i18n/I18nContext.jsx'
+import { ArticleCard } from './ParentsHubPage.jsx'
 
 const CALLOUT_ICON = {
   script: '💬',
@@ -16,15 +17,15 @@ function Block({ block }) {
   if (block.type === 'h2') return <h2>{tx(block.text)}</h2>
   if (block.type === 'p') return <p>{tx(block.text)}</p>
   if (block.type === 'list') {
-    const items = block.items.map((item, i) => <li key={i}>{tx(item)}</li>)
+    const items = (block.items || []).map((item, i) => <li key={i}>{tx(item)}</li>)
     return block.ordered ? <ol>{items}</ol> : <ul>{items}</ul>
   }
   if (block.type === 'callout') {
     const items = block.items?.map((item, i) => <li key={i}>{tx(item)}</li>)
     return (
-      <div className={`callout ${block.variant}`}>
+      <div className={`callout ${block.variant || 'note'}`}>
         <div className="co-title">
-          <span aria-hidden="true">{CALLOUT_ICON[block.variant]}</span>
+          <span aria-hidden="true">{CALLOUT_ICON[block.variant] || CALLOUT_ICON.note}</span>
           {tx(block.title)}
         </div>
         {block.ps?.map((p, i) => (
@@ -40,17 +41,23 @@ function Block({ block }) {
 export default function ArticlePage() {
   const { articleId } = useParams()
   const { t, tx } = useI18n()
-  const article = articleById[articleId]
+  const detail = useArticle(articleId)
+  const all = useArticles()
+  const missions = useMissions('guardians')
 
-  if (!article) return <Navigate to="/parents" replace />
+  if (detail.status === 'error' && detail.error?.status === 404) return <Navigate to="/parents" replace />
+  if (detail.status === 'loading' || all.status === 'loading') return <Loading />
+  if (detail.status !== 'ready') return <ErrorState error={detail.error} onRetry={detail.reload} />
+  const article = detail.data
+  const articles = all.status === 'ready' ? all.data.items : []
+  const mission = article.mission && missions.status === 'ready' ? missions.data.items.find((m) => m.id === article.mission) : null
 
-  const mission = article.mission ? missionMetaById[article.mission] : null
-  const shelfMates = articlesInShelf(article.shelf).filter((a) => a.id !== article.id)
-  const idx = articlesInShelf(article.shelf).findIndex((a) => a.id === article.id)
+  const shelfMates = articlesInShelf(articles, article.shelf).filter((a) => a.id !== article.id)
+  const idx = articlesInShelf(articles, article.shelf).findIndex((a) => a.id === article.id)
   const nextReads = [...shelfMates.slice(idx), ...shelfMates.slice(0, idx)].slice(0, 2)
 
   return (
-    <div className="article-wrap fade-in" style={{ '--c': article.color }}>
+    <div className={`article-wrap fade-in tone-${article.color}`}>
       <Link to="/parents" className="back-btn">
         ← {t('parents.backToHub')}
       </Link>
@@ -111,17 +118,7 @@ export default function ArticlePage() {
           <h2>{t('parents.nextRead')}</h2>
           <div className="article-grid">
             {nextReads.map((a) => (
-              <Link key={a.id} to={`/parents/${a.id}`} className="article-card" style={{ '--c': a.color }}>
-                <span className="top">
-                  <span className="emoji" aria-hidden="true">
-                    {a.emoji}
-                  </span>
-                  <span className="meta">
-                    {a.id.toUpperCase()} · {a.minutes} {t('parents.minRead')}
-                  </span>
-                </span>
-                <h3>{tx(a.title)}</h3>
-              </Link>
+              <ArticleCard key={a.id} article={a} compact />
             ))}
           </div>
         </div>

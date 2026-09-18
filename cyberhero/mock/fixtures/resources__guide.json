@@ -1,0 +1,77 @@
+{
+ "items": [
+  {
+   "body": {
+    "en": "<p>You do not need to be technical. Read one article from \"Understand the risks\", then sit next to your teen while they play one mission - the mission ends with takeaways you can discuss at dinner. Finish with the Family Media Agreement.</p>",
+    "ka": "<p>ტექნიკური ცოდნა არ გჭირდებათ. წაიკითხეთ ერთი სტატია „გაიგეთ რისკები“ განყოფილებიდან, შემდეგ დაუჯექით მოზარდს გვერდით, სანამ ის ერთ მისიას თამაშობს - მისია მთავარი დასკვნებით მთავრდება, რომლებზეც ვახშამზე ისაუბრებთ. დაასრულეთ ოჯახური მედია-შეთანხმებით.</p>"
+   },
+   "color": "amber",
+   "contact_value": "",
+   "emoji": "🧭",
+   "is_verified": true,
+   "kind": "guide",
+   "slug": "parent-quick-start",
+   "steps": {
+    "en": [
+     "Read article A1 (6 minutes).",
+     "Play mission 1, Phishing Hunter, together.",
+     "Print and fill in the Family Media Agreement.",
+     "Save 112 and the emergency playbook page."
+    ],
+    "ka": [
+     "წაიკითხეთ სტატია A1 (6 წუთი).",
+     "ერთად ითამაშეთ 1-ლი მისია „ფიშინგზე მონადირე“.",
+     "დაბეჭდეთ და შეავსეთ ოჯახური მედია-შეთანხმება.",
+     "შეინახეთ 112 და საგანგებო სამოქმედო გვერდი."
+    ]
+   },
+   "summary": {
+    "en": "How to use CyberHero with your child in one evening.",
+    "ka": "როგორ გამოიყენოთ CyberHero შვილთან ერთად ერთ საღამოში."
+   },
+   "title": {
+    "en": "Quick start for parents",
+    "ka": "სწრაფი დასაწყისი მშობლებისთვის"
+   }
+  },
+  {
+   "body": {
+    "en": "<p>Missions work on a projector with the whole class voting, or individually on phones. Article C2 has ready-made classroom activities for each mission; article C3 explains what to do when a student discloses a problem during the lesson.</p>",
+    "ka": "<p>მისიები მუშაობს პროექტორზე, როცა მთელი კლასი კენჭს ყრის, ან ინდივიდუალურად ტელეფონებზე. სტატია C2 თითოეული მისიისთვის მზა საკლასო აქტივობებს შეიცავს; სტატია C3 განმარტავს, რა გააკეთოთ, როცა მოსწავლე გაკვეთილზე პრობლემას გაანდობს.</p>"
+   },
+   "color": "green",
+   "contact_value": "",
+   "emoji": "🏫",
+   "is_verified": true,
+   "kind": "guide",
+   "slug": "teacher-quick-start",
+   "steps": {
+    "en": [
+     "Read C2 and pick one mission.",
+     "Play the briefing and theory on the projector (10 min).",
+     "Students play the rounds, class discusses each answer (25 min).",
+     "Debrief with the takeaways and hand out the parents' article link (10 min)."
+    ],
+    "ka": [
+     "წაიკითხეთ C2 და აირჩიეთ ერთი მისია.",
+     "პროექტორზე გაიარეთ ბრიფინგი და თეორია (10 წთ).",
+     "მოსწავლეები რაუნდებს თამაშობენ, კლასი თითოეულ პასუხს განიხილავს (25 წთ).",
+     "შეაჯამეთ მთავარი დასკვნებით და მშობლებისთვის სტატიის ბმული დაურიგეთ (10 წთ)."
+    ]
+   },
+   "summary": {
+    "en": "A 45-minute lesson built on one Guardian mission.",
+    "ka": "45-წუთიანი გაკვეთილი ერთ დამცველის მისიაზე."
+   },
+   "title": {
+    "en": "Quick start for teachers",
+    "ka": "სწრაფი დასაწყისი მასწავლებლებისთვის"
+   }
+  }
+ ],
+ "settings": {
+  "cybercrime_contact": "",
+  "emergency_phone": "112",
+  "help_line": ""
+ }
+}

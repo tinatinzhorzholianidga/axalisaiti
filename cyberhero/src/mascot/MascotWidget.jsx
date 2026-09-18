@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useI18n } from '../i18n/I18nContext.jsx'
 import { useProgress } from '../store/progress.jsx'
-import { getMascotContext, MASCOT_REACTIONS } from '../content/mascot.js'
+import { useContent } from '../content/ContentProvider.jsx'
+import { getMascotContext, missionReaction } from './mascotContext.js'
 import RobotCanvas, { useReducedMotion } from './RobotCanvas.jsx'
 import { useMascot } from './MascotProvider.jsx'
 
@@ -30,6 +31,7 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
   const { t, tx } = useI18n()
   const { pathname } = useLocation()
   const { progress } = useProgress()
+  const { mascot } = useContent()
   const reduced = useReducedMotion()
   const { companion, react: mascotReact, setDockMounted, setDockOpen } = useMascot()
   const [open, setOpen] = useState(true)
@@ -44,7 +46,7 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
   // coming-soon track pages: IO puts on his DGA hard hat and holds up a palm
   const isBuilding = !isHero && pathname.startsWith('/track/')
   const size = useWidgetSize()
-  const context = useMemo(() => getMascotContext(pathname), [pathname])
+  const context = useMemo(() => getMascotContext(pathname, mascot), [pathname, mascot])
   const pool = context.tips
 
   // tell the provider whether the bubble can carry mission explanations
@@ -81,13 +83,13 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
 
   // celebrate mission completions while he is on screen
   const doneCount = Object.values(progress.guardians.missions).filter((m) => m.done).length
-  const examDone = Boolean(progress.guardians.missions.g10?.done)
+  const examDone = Object.entries(progress.guardians.missions).some(([id, m]) => m.done && (mascot.missionTopics?.[id] || []).length === 0 && id === 'g10')
   const prevDone = useRef(null)
   const prevExam = useRef(examDone)
   useEffect(() => {
     if (prevDone.current != null && doneCount > prevDone.current) {
       const passedExamNow = examDone && !prevExam.current
-      setReaction(passedExamNow ? MASCOT_REACTIONS.exam : MASCOT_REACTIONS.mission[doneCount % MASCOT_REACTIONS.mission.length])
+      setReaction(passedExamNow ? mascot.reactions?.exam || missionReaction(mascot, doneCount) : missionReaction(mascot, doneCount))
       gestureId.current += 1
       setGesture({ id: gestureId.current, type: 'bounce' })
       clearTimeout(reactionTimer.current)
@@ -95,7 +97,7 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
     }
     prevDone.current = doneCount
     prevExam.current = examDone
-  }, [doneCount, examDone])
+  }, [doneCount, examDone, mascot])
   useEffect(() => () => clearTimeout(reactionTimer.current), [])
 
   const greeting = isHero ? t('mascot.widget.greetingHero') : t('mascot.widget.greeting')
@@ -112,7 +114,7 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
   } else if (tipIdx < 0) {
     fullText = context.opener ? tx(context.opener) : greeting
   } else {
-    fullText = tx(pool[tipIdx % pool.length])
+    fullText = pool.length ? tx(pool[tipIdx % pool.length]) : greeting
   }
   const [shown, setShown] = useState(fullText)
 
@@ -138,7 +140,7 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
   const nextTip = () => {
     setReaction(null)
     mascotReact('clear')
-    setTipIdx((i) => (i + 1) % pool.length)
+    setTipIdx((i) => (pool.length ? (i + 1) % pool.length : 0))
     gestureId.current += 1
     setGesture({ id: gestureId.current, type: gestureId.current % 4 === 0 ? 'bounce' : 'wave' })
   }

@@ -143,6 +143,9 @@ class BaseConfig:
     CYBERHERO_ENABLED = env_bool("CYBERHERO_ENABLED", True)
     CYBERHERO_IO_CHAT_ENABLED = env_bool("CYBERHERO_IO_CHAT_ENABLED", False)
     CYBERHERO_STATIC_DIR = str(BASE_DIR / "app" / "static" / "cyberhero")
+    # Same-origin directory with an MLC-compiled model (+ model.wasm) for the
+    # in-browser IO tutor. Empty = tutor runs in course-lookup mode only.
+    CYBERHERO_TUTOR_MODEL_URL = os.environ.get("CYBERHERO_TUTOR_MODEL_URL", "")
 
     # --- security headers ---------------------------------------------------
     HSTS_ENABLED = env_bool("HSTS_ENABLED", False)

@@ -1,0 +1,38 @@
+{
+ "content": {
+  "en": "<p>Today you work both sides of the glass. First you investigate a stranger’s public profile the way a stalker - or a recruiter - would: no hacking, just careful reading. Then you turn the same lens on your own. Everything you are about to find is technically public. That is exactly the point.</p>\n<h3>The theory in 60 seconds</h3>\n<ul>\n<li>Your digital footprint is everything findable about you - posts, tags, comments, old accounts. Deleting rarely helps: screenshots and archives remember.</li>\n<li>Posts are harmless one at a time. Read together, they assemble into your school, your schedule and your address - a stranger only has to read.</li>\n<li>Live location and \"home alone all weekend\" tell strangers where you are - and where nobody is. Post the trip after you are back.</li>\n<li>Future employers and universities will search your name - most recruiters check public profiles, and a two-year-old \"joke\" reads as who you are today.</li>\n<li>A private account is one switch with the biggest effect: you decide who sees what, instead of everyone seeing everything.</li>\n</ul>\n<blockquote>Posts are harmless one at a time. Strangers read them together: location + schedule + \"home alone\" = a plan.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g2\" rel=\"noopener noreferrer\">Practise it in the mission: Footprint Detective →</a></p>",
+  "ka": "<p>დღეს შუშის ორივე მხარეს იმუშავებ. ჯერ უცნობის საჯარო პროფილს გამოიკვლევ ისე, როგორც სტალკერი - ან რეკრუტერი - გამოიკვლევდა: არანაირი გატეხვა, მხოლოდ ყურადღებით კითხვა. მერე იმავე მზერას საკუთარ პროფილს მიაპყრობ. ყველაფერი, რასაც ახლა იპოვი, ტექნიკურად საჯაროა. საქმეც სწორედ ეს არის.</p>\n<h3>თეორია 60 წამში</h3>\n<ul>\n<li>შენი ციფრული კვალი ყველაფერია, რაც შენზე მოიძებნება - პოსტები, თეგები, კომენტარები, ძველი ანგარიშები. წაშლა იშვიათად შველის: სქრინშოტებსა და არქივებს ახსოვთ.</li>\n<li>პოსტები სათითაოდ უწყინარია. ერთად წაკითხული კი ისინი შენს სკოლად, განრიგად და მისამართად იწყობა - უცნობს მხოლოდ წაკითხვა სჭირდება.</li>\n<li>ლოკაცია რეალურ დროში და „მთელი შაბათ-კვირა მარტო ვარ სახლში“ უცნობებს ეუბნება, სად ხარ - და სად არავინ არის. მოგზაურობა დაბრუნების შემდეგ დაპოსტე.</li>\n<li>მომავალი დამსაქმებლები და უნივერსიტეტები შენს სახელს მოძებნიან - რეკრუტერების უმეტესობა საჯარო პროფილებს ამოწმებს, ორი წლის წინანდელი „ხუმრობა“ კი დღევანდელ შენად იკითხება.</li>\n<li>პრივატული ანგარიში ერთი ჩამრთველია ყველაზე დიდი ეფექტით: ვინ რას ხედავს, შენ წყვეტ - ნაცვლად იმისა, რომ ყველამ ყველაფერი ნახოს.</li>\n</ul>\n<blockquote>პოსტები სათითაოდ უწყინარია. უცნობები მათ ერთად კითხულობენ: ლოკაცია + განრიგი + „მარტო ვარ სახლში“ = გეგმა.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g2\" rel=\"noopener noreferrer\">ივარჯიშე მისიაში: კვალის დეტექტივი →</a></p>"
+ },
+ "course": "cyber-guardians",
+ "index": 4,
+ "minutes": 5,
+ "module_title": {
+  "en": "You, online",
+  "ka": "შენ - ინტერნეტში"
+ },
+ "next": {
+  "slug": "g3-fort-knox",
+  "title": {
+   "en": "Fort Knox",
+   "ka": "ფორტ ნოქსი"
+  }
+ },
+ "prev": {
+  "slug": "g7-reality-check",
+  "title": {
+   "en": "Reality Check",
+   "ka": "რეალობის შემოწმება"
+  }
+ },
+ "slug": "g2-footprint-detective",
+ "summary": {
+  "en": "Investigate a profile the way a stalker - or a recruiter - would.",
+  "ka": "გამოიკვლიე პროფილი ისე, როგორც სტალკერი - ან რეკრუტერი - გამოიკვლევდა."
+ },
+ "title": {
+  "en": "Footprint Detective",
+  "ka": "კვალის დეტექტივი"
+ },
+ "total": 9,
+ "type": "reading"
+}

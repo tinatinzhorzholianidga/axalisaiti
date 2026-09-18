@@ -1,16 +1,18 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { TIERS } from '../content/tiers.js'
+import { useContent } from '../content/ContentProvider.jsx'
 import { useI18n } from '../i18n/I18nContext.jsx'
 
 export default function TrackPage() {
   const { tierId } = useParams()
   const { t, tx } = useI18n()
-  const tier = TIERS.find((x) => x.id === tierId && !x.active)
+  const { tiersById } = useContent()
+  const tier = tiersById[tierId]
 
   if (!tier) return <Navigate to="/" replace />
+  if (tier.active && tier.route) return <Navigate to={tier.route} replace />
 
   return (
-    <div className="detail fade-in" style={{ '--c': tier.color }}>
+    <div className={`detail fade-in tone-${tier.color}`}>
       <Link to="/" className="back-btn">
         ← {t('nav.back')}
       </Link>
@@ -20,13 +22,13 @@ export default function TrackPage() {
         </span>
         <div>
           <div className="tag">{tx(tier.tag)}</div>
-          <h2 style={{ color: tier.color }}>{tx(tier.name)}</h2>
+          <h2 className="tone-text">{tx(tier.name)}</h2>
         </div>
       </div>
       <p className="detail-intro">{tx(tier.intro)}</p>
       <h3 className="topic-list-label">{t('track.learn')}</h3>
       <ul className="topic-list">
-        {tx(tier.topics).map((topic, i) => (
+        {(tx(tier.topics) || []).map((topic, i) => (
           <li key={i}>
             <span className="n" aria-hidden="true">
               {i + 1}

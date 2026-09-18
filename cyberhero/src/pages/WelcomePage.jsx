@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom'
 import Arrow from '../components/Arrow.jsx'
-import { PARENTS_TIER, TIERS } from '../content/tiers.js'
+import { useContent } from '../content/ContentProvider.jsx'
 import { useI18n } from '../i18n/I18nContext.jsx'
 
-// One uniform grid: every card the same size. The two active sections
+// One uniform grid: every card the same size. The active sections
 // (Cyber Guardians, Teachers & Parents) come first so they are seen.
-function TierCard({ tier }) {
+export function TierCard({ tier }) {
   const { t, tx } = useI18n()
-  const to = tier.active ? tier.route : `/track/${tier.id}`
-  const classes = ['tier-card', tier.active ? '' : 'is-soon'].filter(Boolean).join(' ')
+  const to = tier.active ? tier.route || `/track/${tier.id}` : `/track/${tier.id}`
+  const classes = ['tier-card', `tone-${tier.color}`, tier.active ? '' : 'is-soon'].filter(Boolean).join(' ')
 
   return (
-    <Link to={to} className={classes} style={{ '--c': tier.color }}>
+    <Link to={to} className={classes}>
       {tier.active && <span className="live-chip">{t('welcome.activeBadge')}</span>}
       <span className="emoji" aria-hidden="true">
         {tier.emoji}
@@ -30,10 +30,20 @@ function TierCard({ tier }) {
   )
 }
 
+/** Active / featured tracks first, then the rest in their configured order. */
+export function orderTiers(tiers, featured = []) {
+  const rank = (tier) => {
+    const idx = featured.indexOf(tier.id)
+    if (idx >= 0) return idx
+    return tier.active ? featured.length : featured.length + 1
+  }
+  return [...tiers].sort((a, b) => rank(a) - rank(b))
+}
+
 export default function WelcomePage() {
   const { t } = useI18n()
-  const byId = Object.fromEntries(TIERS.map((tier) => [tier.id, tier]))
-  const ordered = [byId.guardians, PARENTS_TIER, byId.kids, byId.cadets, byId.campus, byId.work, byId.seniors]
+  const { tiers, featuredTracks } = useContent()
+  const ordered = orderTiers(tiers, featuredTracks)
   return (
     <div className="fade-in">
       <section className="hero">
@@ -63,6 +73,15 @@ export default function WelcomePage() {
         {ordered.map((tier) => (
           <TierCard key={tier.id} tier={tier} />
         ))}
+      </div>
+
+      <div className="home-links">
+        <Link to="/courses" className="pill-link">
+          📚 {t('courses.title')}
+        </Link>
+        <Link to="/emergency" className="pill-link">
+          🆘 {t('emergency.title')}
+        </Link>
       </div>
     </div>
   )

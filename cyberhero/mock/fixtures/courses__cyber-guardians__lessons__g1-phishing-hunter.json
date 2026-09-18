@@ -1,0 +1,32 @@
+{
+ "content": {
+  "en": "<p>Six messages just landed on your phone. Some are real. Some are traps built to steal your passwords or money. Read each one like a hunter: who sent it, what do they want, and why right now? Decide - then see what you caught.</p>\n<h3>The theory in 60 seconds</h3>\n<ul>\n<li>Phishing - fake messages that fish for your passwords or money. They dress up as your bank, a game, a delivery service: anything you already trust.</li>\n<li>Urgency is the weapon. \"Your card is blocked - verify within 2 hours!\" exists to make you click before you think; real services never hand you a countdown.</li>\n<li>Check the exact sender domain, not the display name: streamf1ix is not streamflix, and bank-secure-ge.com is not your bank. One letter is all a fake needs.</li>\n<li>No real service - bank, game or app - ever asks for your password or SMS code through a link. That request is the attack itself.</li>\n<li>When in doubt, go direct: open the app yourself, type the address yourself, or call the number on the back of your card.</li>\n</ul>\n<blockquote>Urgency is the weapon. Any message that rushes you (\"2 hours!\", \"24h ban!\") earns extra suspicion, not extra speed.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g1\" rel=\"noopener noreferrer\">Practise it in the mission: Phishing Hunter →</a></p>",
+  "ka": "<p>შენს ტელეფონზე ექვსი შეტყობინება მოვიდა. ზოგი ნამდვილია. ზოგი - ხაფანგი, რომელიც შენი პაროლების ან ფულის მოსაპარად შეიქმნა. წაიკითხე თითოეული მონადირესავით: ვინ გამოგზავნა, რა უნდა და რატომ ახლავე? გადაწყვიტე - და ნახე, რა დაიჭირე.</p>\n<h3>თეორია 60 წამში</h3>\n<ul>\n<li>ფიშინგი - ყალბი შეტყობინებები, რომლებიც შენს პაროლებსა და ფულზე „თევზაობენ“. ისინი შენს ბანკად, თამაშად ან საკურიერო სერვისად ინიღბებიან: ყველაფრად, რასაც ისედაც ენდობი.</li>\n<li>აჩქარება იარაღია. „თქვენი ბარათი დაიბლოკა - გაიარეთ ვერიფიკაცია 2 საათში!“ იმისთვის არსებობს, რომ დაფიქრებამდე დააწკაპუნო; ნამდვილი სერვისი ათვლის ტაიმერს არ გირთავს.</li>\n<li>შეამოწმე გამომგზავნის ზუსტი დომენი და არა გამოსახული სახელი: streamf1ix არ არის streamflix, bank-secure-ge.com კი შენი ბანკი არ არის. ყალბს ერთი ასოც ჰყოფნის.</li>\n<li>არცერთი ნამდვილი სერვისი - ბანკი, თამაში თუ აპი - ბმულით პაროლს ან SMS კოდს არასდროს გთხოვს. ეს თხოვნა თავად თავდასხმაა.</li>\n<li>ეჭვის დროს იმოქმედე პირდაპირ: თავად გახსენი აპი, თავად აკრიფე მისამართი ან დარეკე ბარათის უკანა მხარეს მითითებულ ნომერზე.</li>\n</ul>\n<blockquote>აჩქარება იარაღია. ნებისმიერი შეტყობინება, რომელიც გაჩქარებს („2 საათი!“, „24 საათში ბანი!“), იმსახურებს მეტ ეჭვს და არა მეტ სისწრაფეს.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g1\" rel=\"noopener noreferrer\">ივარჯიშე მისიაში: ფიშინგზე მონადირე →</a></p>"
+ },
+ "course": "cyber-guardians",
+ "index": 1,
+ "minutes": 5,
+ "module_title": {
+  "en": "Messages and traps",
+  "ka": "შეტყობინებები და ხაფანგები"
+ },
+ "next": {
+  "slug": "g5-scam-radar",
+  "title": {
+   "en": "Scam Radar",
+   "ka": "თაღლითობის რადარი"
+  }
+ },
+ "prev": null,
+ "slug": "g1-phishing-hunter",
+ "summary": {
+  "en": "Emails, DMs and SMS land in your inbox. Real or phish - you decide.",
+  "ka": "იმეილები, პირადი შეტყობინებები და SMS მოდის შენს საფოსტო ყუთში. ნამდვილია თუ ფიშინგი - შენ წყვეტ."
+ },
+ "title": {
+  "en": "Phishing Hunter",
+  "ka": "ფიშინგზე მონადირე"
+ },
+ "total": 9,
+ "type": "reading"
+}

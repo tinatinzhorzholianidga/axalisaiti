@@ -67,12 +67,11 @@ export default function FlagsRound({ round, onDone }) {
         })}
       </div>
       {!checked ? (
-        <div style={{ textAlign: 'center', marginTop: 14 }}>
+        <div className="u-center u-mt-14">
           <button
             type="button"
             className="btn-solid"
             disabled={selected.size === 0}
-            style={selected.size === 0 ? { opacity: 0.5, cursor: 'not-allowed' } : undefined}
             onClick={() => {
               setChecked(true)
               if (perfect) mascotReact('correct')

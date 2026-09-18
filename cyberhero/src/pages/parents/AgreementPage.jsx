@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
-import agreement from '../../content/parents/agreement.js'
+import { ErrorState, Loading } from '../../components/State.jsx'
+import { useAgreement } from '../../content/ContentProvider.jsx'
 import { useI18n } from '../../i18n/I18nContext.jsx'
 
 export default function AgreementPage() {
   const { t, tx } = useI18n()
+  const { data: agreement, status, error, reload } = useAgreement()
+  if (status === 'loading') return <Loading />
+  if (status !== 'ready') return <ErrorState error={error} onRetry={reload} />
   return (
     <div className="article-wrap fade-in">
       <Link to="/parents" className="back-btn">
@@ -21,10 +25,7 @@ export default function AgreementPage() {
                 {tx(clause)}
               </p>
             ))}
-            {section.writeLines &&
-              Array.from({ length: section.writeLines }, (_, j) => (
-                <div className="write-line" key={j} aria-hidden="true" />
-              ))}
+            {section.writeLines && Array.from({ length: section.writeLines }, (_, j) => <div className="write-line" key={j} aria-hidden="true" />)}
           </section>
         ))}
 
@@ -44,7 +45,7 @@ export default function AgreementPage() {
         </div>
       </div>
 
-      <div className="article-actions no-print" style={{ justifyContent: 'center', marginTop: 18 }}>
+      <div className="article-actions no-print u-justify-center u-mt-18">
         <button type="button" className="btn-solid amber" onClick={() => window.print()}>
           🖨️ {t('parents.printThis')}
         </button>

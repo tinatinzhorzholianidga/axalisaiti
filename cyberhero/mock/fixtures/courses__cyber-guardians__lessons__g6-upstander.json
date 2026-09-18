@@ -1,0 +1,38 @@
+{
+ "content": {
+  "en": "<p>The class chat \"10b 🔥\" has 31 people in it, and right now all of them are looking at the same video: your classmate Dato falling in PE. The jokes are stacking fast, and Dato is online - he sees every message. You are not watching this story. You are in it, and it will go where you push it.</p>\n<h3>The theory in 60 seconds</h3>\n<ul>\n<li>The line between banter and bullying is three questions: does it repeat after \"stop\", is it a group against one, are both sides laughing? Banter is symmetric - bullying has a target.</li>\n<li>Pile-ons run on audience. Every laughing emoji is fuel, and one message that changes the subject can take the air out of the whole thing.</li>\n<li>Silence is not neutral: the bully reads it as approval, and the target reads it as the whole class.</li>\n<li>A private \"I am with you, this is not ok\" is what targets remember years later. Support does not have to be public to work.</li>\n<li>When it escalates, the ladder is: screenshot, block, report, support - plus a trusted adult. Evidence first, because screenshots survive deleted accounts.</li>\n</ul>\n<blockquote>Pile-ons run on audience. Take away the laughter and they die - one message that changes the subject is often enough.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g6\" rel=\"noopener noreferrer\">Practise it in the mission: Upstander →</a></p>",
+  "ka": "<p>საკლასო ჩატში „10ბ 🔥“ 31 ადამიანია და ახლა ყველა ერთსა და იმავე ვიდეოს უყურებს: შენი თანაკლასელი დათო ფიზკულტურაზე ეცემა. ხუმრობები სწრაფად გროვდება, დათო კი ონლაინაა - ის ყველა შეტყობინებას ხედავს. შენ ამ ამბავს არ უყურებ. შენ მის შიგნით ხარ - და ის იქით წავა, საითაც შენ წასწევ.</p>\n<h3>თეორია 60 წამში</h3>\n<ul>\n<li>ხუმრობასა და ბულინგს შორის ზღვარი სამი კითხვაა: მეორდება „შეწყვიტეს“ შემდეგ? ჯგუფია ერთის წინააღმდეგ? ორივე მხარე იცინის? ხუმრობა სიმეტრიულია - ბულინგს კი სამიზნე ჰყავს.</li>\n<li>ჯგუფური დაცინვა აუდიტორიაზე მუშაობს. ყოველი მოცინარი ემოჯი საწვავია, ერთ თემის შემცვლელ შეტყობინებას კი მთელი ამბისთვის ჰაერის გამოცლა შეუძლია.</li>\n<li>დუმილი ნეიტრალური არ არის: მჩაგვრელი მას მოწონებად კითხულობს, სამიზნე კი - მთელ კლასად.</li>\n<li>პირადი „მე შენთან ვარ, ეს ნორმალური არ არის“ ის არის, რაც სამიზნეებს წლების შემდეგაც ახსოვთ. მხარდაჭერა საჯარო არ უნდა იყოს იმისთვის, რომ იმუშაოს.</li>\n<li>როცა საქმე მწვავდება, კიბე ასეთია: სქრინი, დაბლოკვა, დარეპორტება, მხარდაჭერა - და სანდო უფროსი. ჯერ მტკიცებულება, რადგან სქრინები წაშლილ ანგარიშებსაც გადაურჩება.</li>\n</ul>\n<blockquote>ჯგუფური დაცინვა აუდიტორიით საზრდოობს. წაართვი სიცილი - და კვდება. ერთი თემის შემცვლელი შეტყობინებაც ხშირად საკმარისია.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g6\" rel=\"noopener noreferrer\">ივარჯიშე მისიაში: მხარში მდგომი →</a></p>"
+ },
+ "course": "cyber-guardians",
+ "index": 8,
+ "minutes": 5,
+ "module_title": {
+  "en": "People and pressure",
+  "ka": "ადამიანები და ზეწოლა"
+ },
+ "next": {
+  "slug": "g8-stranger-signals",
+  "title": {
+   "en": "Stranger Signals",
+   "ka": "უცნობის სიგნალები"
+  }
+ },
+ "prev": {
+  "slug": "g4-the-blackmail-trap",
+  "title": {
+   "en": "The Blackmail Trap",
+   "ka": "შანტაჟის ხაფანგი"
+  }
+ },
+ "slug": "g6-upstander",
+ "summary": {
+  "en": "A group chat turns on one classmate. What you do next changes everything.",
+  "ka": "ჯგუფური ჩატი ერთ თანაკლასელს დაერევა. შენი შემდეგი ნაბიჯი ყველაფერს ცვლის."
+ },
+ "title": {
+  "en": "Upstander",
+  "ka": "მხარში მდგომი"
+ },
+ "total": 9,
+ "type": "reading"
+}

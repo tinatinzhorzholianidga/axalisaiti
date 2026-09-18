@@ -1,0 +1,428 @@
+{
+ "age_max": 18,
+ "age_min": 13,
+ "audience": {
+  "en": "Grades 8-12 · ages 13-18",
+  "ka": "8-12 კლასი · 13-18 წელი"
+ },
+ "color": "blue",
+ "description_html": {
+  "en": "<p>Every Guardian mission starts with \"the theory in 60 seconds\". This track collects those pages so you can read them first, at your own pace, then jump into the mission to practise.</p><p>Finish the reads, then complete all ten missions to earn the Guardian Certificate.</p>",
+  "ka": "<p>დამცველის ყველა მისია „თეორია 60 წამში“ იწყება. ეს ტრეკი ამ გვერდებს ერთად აგროვებს, რომ ჯერ შენს ტემპში წაიკითხო და მერე მისიაში ივარჯიშო.</p><p>წაიკითხე ყველა გაკვეთილი, შემდეგ დაასრულე ათივე მისია და მოიპოვე დამცველის სერტიფიკატი.</p>"
+ },
+ "difficulty": "beginner",
+ "emoji": "🛡️",
+ "estimated_minutes": 60,
+ "is_featured": true,
+ "lesson_count": 9,
+ "mission_count": 10,
+ "missions": [
+  {
+   "article": "a2",
+   "color": "blue",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "Emails, DMs and SMS land in your inbox. Real or phish - you decide.",
+    "ka": "იმეილები, პირადი შეტყობინებები და SMS მოდის შენს საფოსტო ყუთში. ნამდვილია თუ ფიშინგი - შენ წყვეტ."
+   },
+   "emoji": "🎣",
+   "id": "g1",
+   "max": 70,
+   "name": {
+    "en": "Phishing Hunter",
+    "ka": "ფიშინგზე მონადირე"
+   },
+   "order": 1,
+   "topics": [
+    "phishing"
+   ],
+   "track": "guardians"
+  },
+  {
+   "article": "a1",
+   "color": "cyan",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "Investigate a profile the way a stalker - or a recruiter - would.",
+    "ka": "გამოიკვლიე პროფილი ისე, როგორც სტალკერი - ან რეკრუტერი - გამოიკვლევდა."
+   },
+   "emoji": "🔎",
+   "id": "g2",
+   "max": 70,
+   "name": {
+    "en": "Footprint Detective",
+    "ka": "კვალის დეტექტივი"
+   },
+   "order": 2,
+   "topics": [
+    "privacy"
+   ],
+   "track": "guardians"
+  },
+  {
+   "article": "b3",
+   "color": "green",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "Build a defense attackers cannot crack - passwords, 2FA, recovery.",
+    "ka": "ააგე დაცვა, რომელსაც ვერ გატეხავენ - პაროლები, 2FA, აღდგენა."
+   },
+   "emoji": "🏰",
+   "id": "g3",
+   "max": 60,
+   "name": {
+    "en": "Fort Knox",
+    "ka": "ფორტ ნოქსი"
+   },
+   "order": 3,
+   "topics": [
+    "passwords"
+   ],
+   "track": "guardians"
+  },
+  {
+   "article": "a3",
+   "color": "pink",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "A DM turns into a threat. Every choice matters - and there is always a way out.",
+    "ka": "მიმოწერა მუქარაში გადაიზრდება. ყველა არჩევანი მნიშვნელოვანია - და გამოსავალი ყოველთვის არსებობს."
+   },
+   "emoji": "🛑",
+   "id": "g4",
+   "max": 60,
+   "name": {
+    "en": "The Blackmail Trap",
+    "ka": "შანტაჟის ხაფანგი"
+   },
+   "order": 4,
+   "priority": true,
+   "sensitive": true,
+   "topics": [
+    "help",
+    "strangers"
+   ],
+   "track": "guardians"
+  },
+  {
+   "article": "a2",
+   "color": "amber",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "Fake shops, gift-card tricks, dream jobs. Spot the scam before it costs you.",
+    "ka": "ყალბი მაღაზიები, სასაჩუქრე ბარათების ხრიკები, საოცნებო ვაკანსიები. ამოიცანი თაღლითობა, სანამ დაგიჯდება."
+   },
+   "emoji": "📡",
+   "id": "g5",
+   "max": 60,
+   "name": {
+    "en": "Scam Radar",
+    "ka": "თაღლითობის რადარი"
+   },
+   "order": 5,
+   "topics": [
+    "scams"
+   ],
+   "track": "guardians"
+  },
+  {
+   "article": "a4",
+   "color": "violet",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "A group chat turns on one classmate. What you do next changes everything.",
+    "ka": "ჯგუფური ჩატი ერთ თანაკლასელს დაერევა. შენი შემდეგი ნაბიჯი ყველაფერს ცვლის."
+   },
+   "emoji": "🗣️",
+   "id": "g6",
+   "max": 65,
+   "name": {
+    "en": "Upstander",
+    "ka": "მხარში მდგომი"
+   },
+   "order": 6,
+   "sensitive": true,
+   "topics": [
+    "kindness",
+    "help"
+   ],
+   "track": "guardians"
+  },
+  {
+   "article": "a7",
+   "color": "cyan",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "News, photos, AI content - real or fake? Test your radar.",
+    "ka": "ამბები, ფოტოები, ხელოვნური ინტელექტის კონტენტი - ნამდვილია თუ ყალბი? გამოცადე შენი რადარი."
+   },
+   "emoji": "🧿",
+   "id": "g7",
+   "max": 80,
+   "name": {
+    "en": "Reality Check",
+    "ka": "რეალობის შემოწმება"
+   },
+   "order": 7,
+   "topics": [
+    "fake"
+   ],
+   "track": "guardians"
+  },
+  {
+   "article": "a5",
+   "color": "pink",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "Read a DM conversation and flag every red flag before it goes further.",
+    "ka": "წაიკითხე მიმოწერა და მონიშნე ყველა საგანგაშო ნიშანი, სანამ საქმე შორს წავა."
+   },
+   "emoji": "🚩",
+   "id": "g8",
+   "max": 70,
+   "name": {
+    "en": "Stranger Signals",
+    "ka": "უცნობის სიგნალები"
+   },
+   "order": 8,
+   "sensitive": true,
+   "topics": [
+    "strangers",
+    "help"
+   ],
+   "track": "guardians"
+  },
+  {
+   "article": "a6",
+   "color": "green",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "Sleep, doomscrolling, comparison. Audit yourself - no lectures.",
+    "ka": "ძილი, უსასრულო სქროლვა, შედარება. შეაფასე საკუთარი თავი - ლექციების გარეშე."
+   },
+   "emoji": "🌙",
+   "id": "g9",
+   "max": 65,
+   "name": {
+    "en": "Balance Boss",
+    "ka": "ბალანსის ოსტატი"
+   },
+   "order": 9,
+   "topics": [
+    "balance"
+   ],
+   "track": "guardians"
+  },
+  {
+   "article": "b5",
+   "color": "blue",
+   "course": "cyber-guardians",
+   "desc": {
+    "en": "A timed gauntlet across every topic. Pass it and earn the Guardian Certificate.",
+    "ka": "დროზე გათვლილი გამოცდა ყველა თემაზე. ჩააბარე და მოიპოვე დამცველის სერტიფიკატი."
+   },
+   "emoji": "🏆",
+   "final": true,
+   "id": "g10",
+   "max": 100,
+   "name": {
+    "en": "Guardian Exam",
+    "ka": "დამცველის გამოცდა"
+   },
+   "order": 10,
+   "passRatio": 0.8,
+   "timer": 25,
+   "topics": [],
+   "track": "guardians"
+  }
+ ],
+ "modules": [
+  {
+   "description": {
+    "en": "",
+    "ka": ""
+   },
+   "lessons": [
+    {
+     "minutes": 5,
+     "slug": "g1-phishing-hunter",
+     "summary": {
+      "en": "Emails, DMs and SMS land in your inbox. Real or phish - you decide.",
+      "ka": "იმეილები, პირადი შეტყობინებები და SMS მოდის შენს საფოსტო ყუთში. ნამდვილია თუ ფიშინგი - შენ წყვეტ."
+     },
+     "title": {
+      "en": "Phishing Hunter",
+      "ka": "ფიშინგზე მონადირე"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 5,
+     "slug": "g5-scam-radar",
+     "summary": {
+      "en": "Fake shops, gift-card tricks, dream jobs. Spot the scam before it costs you.",
+      "ka": "ყალბი მაღაზიები, სასაჩუქრე ბარათების ხრიკები, საოცნებო ვაკანსიები. ამოიცანი თაღლითობა, სანამ დაგიჯდება."
+     },
+     "title": {
+      "en": "Scam Radar",
+      "ka": "თაღლითობის რადარი"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 5,
+     "slug": "g7-reality-check",
+     "summary": {
+      "en": "News, photos, AI content - real or fake? Test your radar.",
+      "ka": "ამბები, ფოტოები, ხელოვნური ინტელექტის კონტენტი - ნამდვილია თუ ყალბი? გამოცადე შენი რადარი."
+     },
+     "title": {
+      "en": "Reality Check",
+      "ka": "რეალობის შემოწმება"
+     },
+     "type": "reading"
+    }
+   ],
+   "slug": "m1",
+   "title": {
+    "en": "Messages and traps",
+    "ka": "შეტყობინებები და ხაფანგები"
+   }
+  },
+  {
+   "description": {
+    "en": "",
+    "ka": ""
+   },
+   "lessons": [
+    {
+     "minutes": 5,
+     "slug": "g2-footprint-detective",
+     "summary": {
+      "en": "Investigate a profile the way a stalker - or a recruiter - would.",
+      "ka": "გამოიკვლიე პროფილი ისე, როგორც სტალკერი - ან რეკრუტერი - გამოიკვლევდა."
+     },
+     "title": {
+      "en": "Footprint Detective",
+      "ka": "კვალის დეტექტივი"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 5,
+     "slug": "g3-fort-knox",
+     "summary": {
+      "en": "Build a defense attackers cannot crack - passwords, 2FA, recovery.",
+      "ka": "ააგე დაცვა, რომელსაც ვერ გატეხავენ - პაროლები, 2FA, აღდგენა."
+     },
+     "title": {
+      "en": "Fort Knox",
+      "ka": "ფორტ ნოქსი"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 5,
+     "slug": "g9-balance-boss",
+     "summary": {
+      "en": "Sleep, doomscrolling, comparison. Audit yourself - no lectures.",
+      "ka": "ძილი, უსასრულო სქროლვა, შედარება. შეაფასე საკუთარი თავი - ლექციების გარეშე."
+     },
+     "title": {
+      "en": "Balance Boss",
+      "ka": "ბალანსის ოსტატი"
+     },
+     "type": "reading"
+    }
+   ],
+   "slug": "m2",
+   "title": {
+    "en": "You, online",
+    "ka": "შენ - ინტერნეტში"
+   }
+  },
+  {
+   "description": {
+    "en": "",
+    "ka": ""
+   },
+   "lessons": [
+    {
+     "minutes": 5,
+     "slug": "g4-the-blackmail-trap",
+     "summary": {
+      "en": "A DM turns into a threat. Every choice matters - and there is always a way out.",
+      "ka": "მიმოწერა მუქარაში გადაიზრდება. ყველა არჩევანი მნიშვნელოვანია - და გამოსავალი ყოველთვის არსებობს."
+     },
+     "title": {
+      "en": "The Blackmail Trap",
+      "ka": "შანტაჟის ხაფანგი"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 5,
+     "slug": "g6-upstander",
+     "summary": {
+      "en": "A group chat turns on one classmate. What you do next changes everything.",
+      "ka": "ჯგუფური ჩატი ერთ თანაკლასელს დაერევა. შენი შემდეგი ნაბიჯი ყველაფერს ცვლის."
+     },
+     "title": {
+      "en": "Upstander",
+      "ka": "მხარში მდგომი"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 5,
+     "slug": "g8-stranger-signals",
+     "summary": {
+      "en": "Read a DM conversation and flag every red flag before it goes further.",
+      "ka": "წაიკითხე მიმოწერა და მონიშნე ყველა საგანგაშო ნიშანი, სანამ საქმე შორს წავა."
+     },
+     "title": {
+      "en": "Stranger Signals",
+      "ka": "უცნობის სიგნალები"
+     },
+     "type": "reading"
+    }
+   ],
+   "slug": "m3",
+   "title": {
+    "en": "People and pressure",
+    "ka": "ადამიანები და ზეწოლა"
+   }
+  }
+ ],
+ "objectives": {
+  "en": [
+   "Spot phishing, scams and fake content before they cost you",
+   "Build passwords and accounts attackers give up on",
+   "Know exactly what to do when someone threatens or pressures you online",
+   "Keep screens, sleep and friendships in balance"
+  ],
+  "ka": [
+   "ამოიცანი ფიშინგი, თაღლითობა და ყალბი კონტენტი, სანამ ზიანს მოგაყენებს",
+   "ააგე პაროლები და ანგარიშები, რომლებზეც თავდამსხმელი ხელს ჩაიქნევს",
+   "ზუსტად იცოდე, რა გააკეთო, როცა ვინმე ონლაინ გემუქრება ან ზეწოლას ახდენს",
+   "შეინარჩუნე ბალანსი ეკრანებს, ძილსა და მეგობრობას შორის"
+  ]
+ },
+ "short_description": {
+  "en": "Nine short reads that prepare you for the ten Guardian missions - phishing, passwords, scams, privacy, blackmail, bullying, fakes and balance.",
+  "ka": "ცხრა მოკლე საკითხავი, რომელიც ათი დამცველის მისიისთვის გამზადებს - ფიშინგი, პაროლები, თაღლითობა, პრივატულობა, შანტაჟი, ბულინგი, ყალბი ამბები და ბალანსი."
+ },
+ "slug": "cyber-guardians",
+ "tags": [
+  "phishing",
+  "passwords",
+  "privacy",
+  "scams",
+  "wellbeing"
+ ],
+ "title": {
+  "en": "Cyber Guardians: the theory track",
+  "ka": "კიბერ დამცველები: თეორიის ტრეკი"
+ },
+ "track": "guardians"
+}

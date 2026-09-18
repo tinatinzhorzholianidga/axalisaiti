@@ -44,11 +44,10 @@ html {
 }
 
 body {
-  font-family: 'Noto Sans Georgian Variable', 'Segoe UI', system-ui, -apple-system, 'Noto Sans Georgian', sans-serif;
+  font-family: 'Noto Sans Georgian', 'Segoe UI', system-ui, -apple-system, sans-serif;
   color: var(--ink);
   min-height: 100vh;
   line-height: 1.5;
-  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }

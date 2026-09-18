@@ -1,0 +1,32 @@
+{
+ "active": true,
+ "audience": "parents",
+ "certificate": false,
+ "color": "amber",
+ "courses": [],
+ "desc": {
+  "en": "Understand the risks, act with confidence, and bring it to the classroom - calm, practical, no jargon.",
+  "ka": "გაიგეთ რისკები, იმოქმედეთ თავდაჯერებულად და წაიღეთ საკლასო ოთახში - მშვიდად, პრაქტიკულად, ჟარგონის გარეშე."
+ },
+ "emoji": "🧭",
+ "featured": true,
+ "id": "parents",
+ "intro": {
+  "en": "",
+  "ka": ""
+ },
+ "missions": [],
+ "name": {
+  "en": "Teachers & Parents",
+  "ka": "მასწავლებლები და მშობლები"
+ },
+ "route": "/parents",
+ "tag": {
+  "en": "For the adults who help",
+  "ka": "უფროსებისთვის, ვინც გვერდში დგას"
+ },
+ "topics": {
+  "en": [],
+  "ka": []
+ }
+}

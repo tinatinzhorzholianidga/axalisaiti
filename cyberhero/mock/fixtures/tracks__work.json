@@ -1,0 +1,46 @@
+{
+ "active": false,
+ "audience": "adults",
+ "certificate": false,
+ "color": "cyan",
+ "courses": [],
+ "desc": {
+  "en": "Practical security for work, money, and protecting your family.",
+  "ka": "პრაქტიკული უსაფრთხოება სამსახურის, ფულისა და ოჯახისთვის."
+ },
+ "emoji": "💼",
+ "featured": false,
+ "id": "work",
+ "intro": {
+  "en": "The full curriculum in a workplace-focused, professional tone.",
+  "ka": "სრული კურსი სამსახურზე ორიენტირებული, პროფესიული ტონით."
+ },
+ "missions": [],
+ "name": {
+  "en": "Workplace Security",
+  "ka": "უსაფრთხოება სამსახურში"
+ },
+ "route": null,
+ "tag": {
+  "en": "Working adults",
+  "ka": "მომუშავე ადამიანები"
+ },
+ "topics": {
+  "en": [
+   "Spot phishing at work",
+   "Business email compromise & fake invoices",
+   "Protect against financial fraud",
+   "Secure your home network",
+   "Password managers & 2FA",
+   "Protect your family online"
+  ],
+  "ka": [
+   "ამოიცანი ფიშინგი სამსახურში",
+   "ბიზნეს-იმეილის თაღლითობა და ყალბი ინვოისები",
+   "დაიცავი თავი ფინანსური თაღლითობისგან",
+   "დაიცავი შენი სახლის ქსელი",
+   "პაროლების მენეჯერი და 2FA",
+   "დაიცავი შენი ოჯახი ონლაინში"
+  ]
+ }
+}

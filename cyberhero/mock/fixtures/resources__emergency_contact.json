@@ -1,0 +1,57 @@
+{
+ "items": [
+  {
+   "body": {
+    "en": "",
+    "ka": ""
+   },
+   "color": "pink",
+   "contact_value": "112",
+   "emoji": "🚨",
+   "is_verified": true,
+   "kind": "emergency_contact",
+   "slug": "emergency-112",
+   "steps": {
+    "en": [],
+    "ka": []
+   },
+   "summary": {
+    "en": "Call 112 when there is a threat to someone's safety, a crime is happening (blackmail, threats, fraud), or you do not know who else to call. It is free, 24/7, and the operator will route you to the police.",
+    "ka": "დარეკეთ 112-ზე, როცა ვინმეს უსაფრთხოებას საფრთხე ემუქრება, დანაშაული ხდება (შანტაჟი, მუქარა, თაღლითობა) ან არ იცით, ვის მიმართოთ. ზარი უფასოა, 24/7, ოპერატორი პოლიციასთან დაგაკავშირებთ."
+   },
+   "title": {
+    "en": "112 - Georgia emergency service",
+    "ka": "112 - საქართველოს გადაუდებელი დახმარების სამსახური"
+   }
+  },
+  {
+   "body": {
+    "en": "",
+    "ka": ""
+   },
+   "color": "cyan",
+   "contact_value": "https://cert.gov.ge",
+   "emoji": "🛠️",
+   "is_verified": true,
+   "kind": "emergency_contact",
+   "slug": "cert-gov-ge",
+   "steps": {
+    "en": [],
+    "ka": []
+   },
+   "summary": {
+    "en": "For hacked accounts or devices, malware and other technical incidents you can report to the national computer emergency response team.",
+    "ka": "გატეხილი ანგარიშების ან მოწყობილობების, მავნე პროგრამებისა და სხვა ტექნიკური ინციდენტების შესატყობინებლად მიმართეთ ეროვნულ კომპიუტერულ ინციდენტებზე რეაგირების ჯგუფს."
+   },
+   "title": {
+    "en": "CERT.GOV.GE - technical cyber incidents",
+    "ka": "CERT.GOV.GE - ტექნიკური კიბერინციდენტები"
+   }
+  }
+ ],
+ "settings": {
+  "cybercrime_contact": "",
+  "emergency_phone": "112",
+  "help_line": ""
+ }
+}

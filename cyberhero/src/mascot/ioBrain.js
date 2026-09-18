@@ -6,15 +6,13 @@
    most relevant chunks from that course and put them into the system
    prompt - IO must answer strictly from this material and nothing else. */
 
-import { IO_COURSE } from '../content/ioCourse.js'
-
 /* ---------------- knowledge base ---------------- */
 
-function buildKnowledge() {
+function buildKnowledge(course) {
   const chunks = []
-  for (const section of IO_COURSE.sections) {
-    const title = { en: `${IO_COURSE.title.en} — ${section.en}`, ka: `${IO_COURSE.title.ka} — ${section.ka}` }
-    for (const text of section.chunks) {
+  for (const section of course?.sections || []) {
+    const title = { en: `${course.title.en} — ${section.en}`, ka: `${course.title.ka} — ${section.ka}` }
+    for (const text of section.chunks || []) {
       const clean = (text || '').trim()
       if (clean.length < 30) continue
       // the course is written in Georgian; keep the text on both language
@@ -25,10 +23,20 @@ function buildKnowledge() {
   return chunks
 }
 
-let KNOWLEDGE = null
+let KNOWLEDGE = []
+let SOURCE = null
+
+/* The course text comes from GET /api/v1/cyberhero/knowledge (flag-gated,
+   editable in the admin panel). Call this once the payload has loaded. */
+export function setKnowledgeSource(course) {
+  SOURCE = course || null
+  KNOWLEDGE = buildKnowledge(SOURCE)
+}
 export function getKnowledge() {
-  if (!KNOWLEDGE) KNOWLEDGE = buildKnowledge()
   return KNOWLEDGE
+}
+export function getKnowledgeSource() {
+  return SOURCE
 }
 
 /* ---------------- retrieval ---------------- */
@@ -92,12 +100,23 @@ ${context || '(no course section matched this question - tell the user the cours
   }
 }
 
-/* the chapters IO can teach, for the UI (source: elearning.gov.ge id=18) */
-export const IO_COURSE_TOPICS = IO_COURSE.sections.map((s) => ({ en: s.en, ka: s.ka }))
+/* the chapters IO can teach, for the UI */
+export function courseTopics() {
+  return (SOURCE?.sections || []).map((s) => ({ en: s.en, ka: s.ka }))
+}
 
-/* models offered in the demo, biggest first (quality ↔ download size) */
-export const IO_MODELS = [
-  { id: 'Qwen2.5-7B-Instruct-q4f16_1-MLC', label: 'Qwen2.5 7B', size: '~4.6 GB', note: 'best quality + Georgian' },
-  { id: 'Qwen2.5-3B-Instruct-q4f16_1-MLC', label: 'Qwen2.5 3B', size: '~2.0 GB', note: 'good balance' },
-  { id: 'Qwen2.5-1.5B-Instruct-q4f16_1-MLC', label: 'Qwen2.5 1.5B', size: '~0.9 GB', note: 'fast test (weak Georgian)' },
-]
+/* WebLLM model description for a self-hosted MLC model directory.
+   `baseUrl` must serve the MLC-converted weights (mlc-chat-config.json,
+   params shards, tokenizer) and the compiled `model.wasm`; nothing is
+   ever downloaded from a third-party CDN. */
+export function selfHostedModel(baseUrl) {
+  const base = String(baseUrl || '').replace(/\/+$/, '')
+  if (!base) return null
+  return {
+    model_id: 'cyberhero-tutor',
+    appConfig: {
+      useIndexedDBCache: true,
+      model_list: [{ model: base, model_id: 'cyberhero-tutor', model_lib: `${base}/model.wasm` }],
+    },
+  }
+}

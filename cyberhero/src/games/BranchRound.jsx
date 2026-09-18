@@ -58,7 +58,7 @@ export default function BranchRound({ round, onDone }) {
           </div>
         </div>
       ) : node.end ? (
-        <div style={{ textAlign: 'center', marginTop: 8 }}>
+        <div className="u-center u-mt-8">
           <button type="button" className="btn-solid" onClick={() => onDone(Math.min(earned, round.max))}>
             {t('guardians.continue')} →
           </button>

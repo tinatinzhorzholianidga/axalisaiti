@@ -39,6 +39,11 @@ export default defineConfig(({ mode }) => ({
           if (id.includes('node_modules/three/') || id.includes('node_modules/@react-three/')) {
             return 'three-vendor';
           }
+          // WebLLM is only imported when an operator has configured a
+          // self-hosted tutor model and the visitor presses "load".
+          if (id.includes('node_modules/@mlc-ai/')) {
+            return 'webllm-vendor';
+          }
           return undefined;
         },
       },

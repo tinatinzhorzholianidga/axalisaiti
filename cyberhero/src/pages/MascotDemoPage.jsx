@@ -1,13 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useI18n } from '../i18n/I18nContext.jsx'
-import { getMascotContext, MASCOT_CHECKLIST, MASCOT_REACTIONS } from '../content/mascot.js'
+import { useContent } from '../content/ContentProvider.jsx'
+import { getMascotContext, missionReaction } from '../mascot/mascotContext.js'
 import MascotWidget from '../mascot/MascotWidget.jsx'
 import RobotCanvas, { useReducedMotion } from '../mascot/RobotCanvas.jsx'
 
 const EMOTIONS = ['happy', 'excited', 'funny', 'wink', 'thinking', 'celebrate', 'surprised', 'sleepy', 'sad']
 const GESTURES = ['wave', 'bounce', 'spin']
 const SIZES = { s: 220, m: 320, l: 430 }
+
+/* what the team should verify before the mascot goes live (test page only) */
+const MASCOT_CHECKLIST = [
+  { en: 'Both languages read naturally (EN / ქარ)', ka: 'ორივე ენა ბუნებრივად იკითხება (EN / ქარ)' },
+  { en: 'Runs smoothly on an older phone or laptop', ka: 'ძველ ტელეფონზე და ლეპტოპზეც შეუფერხებლად მუშაობს' },
+  { en: 'Reduced-motion mode: he calms down and stops moving', ka: 'შემცირებული მოძრაობის რეჟიმში წყნარდება და აღარ მოძრაობს' },
+  { en: 'Tips are accurate and age-appropriate', ka: 'რჩევები ზუსტი და ასაკის შესაფერისია' },
+  { en: 'He never covers content or buttons on small screens', ka: 'პატარა ეკრანზე კონტენტს და ღილაკებს არ ფარავს' },
+  { en: 'Keyboard and screen-reader users can use every control', ka: 'კლავიატურითა და ეკრანის წამკითხველით ყველა ღილაკი მუშაობს' },
+]
 
 /* simulated routes, so testers can hear how his tips change per page */
 const TIP_CONTEXTS = [
@@ -41,6 +52,7 @@ function useFps() {
 
 export default function MascotDemoPage() {
   const { t, tx } = useI18n()
+  const { mascot } = useContent()
   const reduced = useReducedMotion()
   const fps = useFps()
 
@@ -64,8 +76,8 @@ export default function MascotDemoPage() {
   // context-aware tips + simulated achievement reactions
   const [tipCtx, setTipCtx] = useState('Home')
   const pool = useMemo(
-    () => getMascotContext(TIP_CONTEXTS.find((c) => c.key === tipCtx)?.path ?? '/').tips,
-    [tipCtx],
+    () => getMascotContext(TIP_CONTEXTS.find((c) => c.key === tipCtx)?.path ?? '/', mascot).tips,
+    [tipCtx, mascot],
   )
   useEffect(() => {
     setTipIdx(null)
@@ -79,7 +91,7 @@ export default function MascotDemoPage() {
 
   const simulateMission = () => {
     if (!reactionNode) prevEmotion.current = emotion
-    setReactionNode(MASCOT_REACTIONS.mission[simCount.current % MASCOT_REACTIONS.mission.length])
+    setReactionNode(missionReaction(mascot, simCount.current))
     simCount.current += 1
     setEmotion('celebrate')
     fireGesture('bounce')
@@ -276,7 +288,7 @@ export default function MascotDemoPage() {
 
           <div className="ctrl-group">
             <h2>{t('mascot.demo.tips')}</h2>
-            <div className="chip-row" style={{ marginBottom: 10 }}>
+            <div className="chip-row u-mb-10">
               {TIP_CONTEXTS.map((c) => (
                 <button
                   key={c.key}

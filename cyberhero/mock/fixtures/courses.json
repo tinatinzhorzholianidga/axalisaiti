@@ -1,0 +1,36 @@
+{
+ "items": [
+  {
+   "age_max": 18,
+   "age_min": 13,
+   "audience": {
+    "en": "Grades 8-12 · ages 13-18",
+    "ka": "8-12 კლასი · 13-18 წელი"
+   },
+   "color": "blue",
+   "difficulty": "beginner",
+   "emoji": "🛡️",
+   "estimated_minutes": 60,
+   "is_featured": true,
+   "lesson_count": 9,
+   "mission_count": 10,
+   "short_description": {
+    "en": "Nine short reads that prepare you for the ten Guardian missions - phishing, passwords, scams, privacy, blackmail, bullying, fakes and balance.",
+    "ka": "ცხრა მოკლე საკითხავი, რომელიც ათი დამცველის მისიისთვის გამზადებს - ფიშინგი, პაროლები, თაღლითობა, პრივატულობა, შანტაჟი, ბულინგი, ყალბი ამბები და ბალანსი."
+   },
+   "slug": "cyber-guardians",
+   "tags": [
+    "phishing",
+    "passwords",
+    "privacy",
+    "scams",
+    "wellbeing"
+   ],
+   "title": {
+    "en": "Cyber Guardians: the theory track",
+    "ka": "კიბერ დამცველები: თეორიის ტრეკი"
+   },
+   "track": "guardians"
+  }
+ ]
+}

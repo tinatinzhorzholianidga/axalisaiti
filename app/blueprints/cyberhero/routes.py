@@ -8,11 +8,12 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from flask import abort, current_app, render_template, url_for
+from flask import abort, current_app, make_response, render_template, url_for
 from flask_babel import get_locale
 from flask_login import current_user
 
 from app.blueprints.cyberhero import bp
+from app.security import build_csp
 from app.services import feature_flags, settings_service
 
 _manifest_cache: dict[str, tuple[float, dict]] = {}
@@ -38,7 +39,9 @@ def bundle_assets() -> dict[str, list[str]]:
     manifest = read_manifest()
     if not manifest:
         return {"js": [], "css": [], "preload": []}
-    entry = manifest.get("src/main.jsx") or next((v for v in manifest.values() if v.get("isEntry")), None)
+    entry = manifest.get("src/main.jsx") or next(
+        (v for v in manifest.values() if v.get("isEntry")), None
+    )
     if not entry:
         return {"js": [], "css": [], "preload": []}
     base = "cyberhero/"
@@ -49,7 +52,11 @@ def bundle_assets() -> dict[str, list[str]]:
         if chunk.get("file"):
             preload.append(url_for("static", filename=base + chunk["file"]))
         css += [url_for("static", filename=base + f) for f in chunk.get("css", [])]
-    return {"js": [url_for("static", filename=base + entry["file"])], "css": css, "preload": preload}
+    return {
+        "js": [url_for("static", filename=base + entry["file"])],
+        "css": css,
+        "preload": preload,
+    }
 
 
 @bp.route("/", defaults={"path": ""})
@@ -66,19 +73,28 @@ def shell(path: str):  # type: ignore[no-untyped-def]
     if settings_service.get("cyberhero.cybercrime_contact_verified", False):
         cybercrime = str(settings_service.get("cyberhero.cybercrime_contact", "") or "")
     current_path = url_for("cyberhero.shell", path=path)
-    return render_template(
-        "cyberhero/shell.html",
-        assets=assets,
-        bundle_missing=not assets["js"],
-        locale=locale,
-        flags_json=json.dumps(flags, separators=(",", ":")),
-        user_name=current_user.name if current_user.is_authenticated else "",
-        user_id=current_user.id if current_user.is_authenticated else "",
-        emergency_phone=str(settings_service.get("cyberhero.emergency_phone", "112")),
-        cybercrime_contact=cybercrime,
-        help_line=str(settings_service.get("cyberhero.help_line", "") or ""),
-        tutor_model_url=str(current_app.config.get("CYBERHERO_TUTOR_MODEL_URL", "") or ""),
-        lang_switch_ka=f"{current_path}?lang=ka",
-        lang_switch_en=f"{current_path}?lang=en",
-        login_url=url_for("auth.login", next=current_path),
+    response = make_response(
+        render_template(
+            "cyberhero/shell.html",
+            assets=assets,
+            bundle_missing=not assets["js"],
+            locale=locale,
+            flags_json=json.dumps(flags, separators=(",", ":")),
+            user_name=current_user.name if current_user.is_authenticated else "",
+            user_id=current_user.id if current_user.is_authenticated else "",
+            emergency_phone=str(settings_service.get("cyberhero.emergency_phone", "112")),
+            cybercrime_contact=cybercrime,
+            help_line=str(settings_service.get("cyberhero.help_line", "") or ""),
+            tutor_model_url=str(current_app.config.get("CYBERHERO_TUTOR_MODEL_URL", "") or ""),
+            lang_switch_ka=f"{current_path}?lang=ka",
+            lang_switch_en=f"{current_path}?lang=en",
+            login_url=url_for("auth.login", next=current_path),
+        )
     )
+    if flags["CYBERHERO_IO_CHAT_ENABLED"] and current_app.config.get("CYBERHERO_TUTOR_MODEL_URL"):
+        # WebLLM compiles the model runtime with WebAssembly; the platform
+        # stays inline-script-free, so only the wasm exception is added here.
+        response.headers["Content-Security-Policy"] = build_csp(
+            {"script-src": "'self' 'wasm-unsafe-eval'"}
+        )
+    return response

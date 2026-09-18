@@ -1,0 +1,521 @@
+{
+ "featured_tracks": [
+  "cyber-guardians",
+  "teachers-parents"
+ ],
+ "flags": {
+  "CYBERHERO_IO_CHAT_ENABLED": false
+ },
+ "locale": "ka",
+ "mascot": {
+  "missionTopics": {
+   "g1": [
+    "phishing"
+   ],
+   "g10": [],
+   "g2": [
+    "privacy"
+   ],
+   "g3": [
+    "passwords"
+   ],
+   "g4": [
+    "help",
+    "strangers"
+   ],
+   "g5": [
+    "scams"
+   ],
+   "g6": [
+    "kindness",
+    "help"
+   ],
+   "g7": [
+    "fake"
+   ],
+   "g8": [
+    "strangers",
+    "help"
+   ],
+   "g9": [
+    "balance"
+   ]
+  },
+  "reactions": {
+   "building": {
+    "en": "Hold up - this area is still under construction! I'm working on it. 🚧",
+    "ka": "მოიცადე - აქ ჯერ მშენებლობაა! უკვე ვმუშაობ. 🚧"
+   },
+   "cert": {
+    "en": "You earned this. I am proud of you! 🎖️",
+    "ka": "ეს შენ დაიმსახურე. ვამაყობ შენით! 🎖️"
+   },
+   "exam": {
+    "en": "🏆 You passed the exam! You are a true Cyber Guardian!",
+    "ka": "🏆 გამოცდა ჩააბარე! ნამდვილი კიბერ დამცველი ხარ!"
+   },
+   "guardians": {
+    "en": "Pick a mission - I will be right here.",
+    "ka": "აირჩიე მისია - მე აქვე ვიქნები."
+   },
+   "mission": [
+    {
+     "en": "🎉 Mission complete! You are getting stronger.",
+     "ka": "🎉 მისია შესრულებულია! სულ უფრო ძლიერდები."
+    },
+    {
+     "en": "⭐ Great job! Another mission down.",
+     "ka": "⭐ ყოჩაღ! კიდევ ერთი მისია მოგებულია."
+    }
+   ]
+  },
+  "tips": [
+   {
+    "en": "A strong password is a long password - 12+ characters beat clever symbols.",
+    "ka": "ძლიერი პაროლი გრძელი პაროლია - 12+ სიმბოლო ხრიკებზე უკეთ მუშაობს.",
+    "topics": [
+     "passwords"
+    ]
+   },
+   {
+    "en": "Never share codes you get by SMS - not even with friends.",
+    "ka": "SMS-ით მოსული კოდი არავის გაუზიარო - მეგობრებსაც კი.",
+    "topics": [
+     "passwords",
+     "scams"
+    ]
+   },
+   {
+    "en": "If a message rushes you - 'act now!' - that's a red flag.",
+    "ka": "თუ შეტყობინება გაჩქარებს - „ახლავე გააკეთე!“ - ეს საგანგაშო ნიშანია.",
+    "topics": [
+     "phishing",
+     "scams"
+    ]
+   },
+   {
+    "en": "Check the address bar before you type a password.",
+    "ka": "სანამ პაროლს აკრეფ, შეამოწმე მისამართის ველი.",
+    "topics": [
+     "phishing",
+     "passwords"
+    ]
+   },
+   {
+    "en": "Updates close security holes - install them when they arrive.",
+    "ka": "განახლებები უსაფრთხოების ხვრელებს კეტავს - დააყენე, როგორც კი მოვა.",
+    "topics": [
+     "devices"
+    ]
+   },
+   {
+    "en": "Something feels off online? Tell an adult you trust.",
+    "ka": "რაღაც უცნაურია ინტერნეტში? უთხარი უფროსს, ვისაც ენდობი.",
+    "topics": [
+     "help",
+     "strangers"
+    ]
+   },
+   {
+    "en": "On public Wi-Fi, don't open your bank and don't type passwords.",
+    "ka": "საჯარო Wi-Fi-ზე ბანკში ნუ შეხვალ და პაროლებს ნუ აკრეფ.",
+    "topics": [
+     "devices",
+     "passwords"
+    ]
+   },
+   {
+    "en": "Think before you post - the internet remembers everything.",
+    "ka": "დაფიქრდი, სანამ გამოაქვეყნებ - ინტერნეტს ყველაფერი ახსოვს.",
+    "topics": [
+     "privacy",
+     "balance"
+    ]
+   },
+   {
+    "en": "A real bank never asks for your password in a message.",
+    "ka": "ნამდვილი ბანკი პაროლს შეტყობინებით არასდროს გთხოვს.",
+    "topics": [
+     "phishing"
+    ]
+   },
+   {
+    "en": "Check who can see your profile - 'friends only' is a strong start.",
+    "ka": "შეამოწმე, ვინ ხედავს შენს პროფილს - „მხოლოდ მეგობრები“ კარგი დასაწყისია.",
+    "topics": [
+     "privacy"
+    ]
+   },
+   {
+    "en": "One account - one password. Repeats turn one leak into ten.",
+    "ka": "ერთი ანგარიში - ერთი პაროლი. გამეორება ერთ გაჟონვას ათად აქცევს.",
+    "topics": [
+     "passwords"
+    ]
+   },
+   {
+    "en": "If a deal looks too good to be true, it usually is.",
+    "ka": "თუ შემოთავაზება ზედმეტად კარგია, როგორც წესი, ტყუილია.",
+    "topics": [
+     "scams"
+    ]
+   },
+   {
+    "en": "See someone being picked on in a chat? One message from you can change everything.",
+    "ka": "ხედავ, რომ ჩატში ვინმეს ავიწროებენ? ერთი შენი შეტყობინება ყველაფერს ცვლის.",
+    "topics": [
+     "kindness"
+    ]
+   },
+   {
+    "en": "Screenshots never disappear - never share one that hurts someone.",
+    "ka": "სქრინშოტები არ ქრება - არასდროს გააზიარო ისეთი, რომელიც ვინმეს ატკენს.",
+    "topics": [
+     "kindness",
+     "privacy"
+    ]
+   },
+   {
+    "en": "Amazing photo? Check who posted it and when, before you believe it.",
+    "ka": "წარმოუდგენელი ფოტოა? სანამ დაიჯერებ, შეამოწმე, ვინ და როდის დადო.",
+    "topics": [
+     "fake"
+    ]
+   },
+   {
+    "en": "AI can fake faces and voices - check surprising news in a second source.",
+    "ka": "ხელოვნურ ინტელექტს სახეების და ხმების გაყალბება შეუძლია - მოულოდნელი ამბავი მეორე წყაროში გადაამოწმე.",
+    "topics": [
+     "fake"
+    ]
+   },
+   {
+    "en": "Online 'friends' you have never met stay online - never meet up alone.",
+    "ka": "ონლაინ „მეგობრები“, რომლებიც არასდროს გინახავს, ონლაინ უნდა დარჩნენ - მარტო არასდროს შეხვდე.",
+    "topics": [
+     "strangers"
+    ]
+   },
+   {
+    "en": "If someone asks you to keep a chat secret from adults - that IS the red flag.",
+    "ka": "თუ ვინმე გთხოვს, მიმოწერა უფროსებს დაუმალო - ეს თავად არის საგანგაშო ნიშანი.",
+    "topics": [
+     "strangers",
+     "help"
+    ]
+   },
+   {
+    "en": "Being threatened online? Never pay, save the proof, tell an adult. It is never your fault.",
+    "ka": "გემუქრებიან ინტერნეტში? არასდროს გადაიხადო, შეინახე მტკიცებულება, უთხარი უფროსს. ეს შენი ბრალი არასდროსაა.",
+    "topics": [
+     "help"
+    ]
+   },
+   {
+    "en": "Screens off 30 minutes before sleep - your brain will thank you.",
+    "ka": "ეკრანები ძილამდე 30 წუთით ადრე გამორთე - ტვინი მადლობას გეტყვის.",
+    "topics": [
+     "balance"
+    ]
+   },
+   {
+    "en": "Ask what your child enjoys online before asking what worries you.",
+    "ka": "ჯერ ჰკითხე, რა მოსწონს შენს შვილს ინტერნეტში, მერე - რა გაწუხებს.",
+    "topics": [
+     "parents"
+    ]
+   },
+   {
+    "en": "Family rules work best when you write them together.",
+    "ka": "ოჯახური წესები ყველაზე კარგად მაშინ მუშაობს, როცა ერთად წერთ.",
+    "topics": [
+     "parents"
+    ]
+   }
+  ]
+ },
+ "settings": {
+  "cybercrime_contact": "",
+  "emergency_phone": "112",
+  "help_line": ""
+ },
+ "tiers": [
+  {
+   "active": false,
+   "audience": "kids",
+   "certificate": false,
+   "color": "orange",
+   "desc": {
+    "en": "Fun games that teach what's safe to click, share, and say online.",
+    "ka": "სახალისო თამაშები იმის შესახებ, თუ რა არის უსაფრთხო ინტერნეტში."
+   },
+   "emoji": "🐣",
+   "featured": false,
+   "id": "kids",
+   "intro": {
+    "en": "Short missions with Fufu the puppy: closing tricky pop-ups, keeping secrets safe, and always asking a grown-up.",
+    "ka": "მოკლე მისიები ლეკვ ფუფუსთან ერთად: მატყუარა ფანჯრების დახურვა, საიდუმლოების დაცვა და უფროსისთვის კითხვა."
+   },
+   "name": {
+    "en": "Digital Foundations",
+    "ka": "ციფრული საფუძვლები"
+   },
+   "route": null,
+   "tag": {
+    "en": "Grades 1-3 · ages 6-9",
+    "ka": "1-3 კლასი · 6-9 წელი"
+   },
+   "topics": {
+    "en": [
+     "Close tricky pop-ups and fake prizes",
+     "Know what stays secret online",
+     "Always ask a grown-up first",
+     "Never answer strangers - tell a trusted adult"
+    ],
+    "ka": [
+     "დახურე მატყუარა ფანჯრები და ყალბი პრიზები",
+     "იცოდე, რა რჩება საიდუმლოდ ინტერნეტში",
+     "ყოველთვის ჯერ უფროსს ჰკითხე",
+     "არასდროს უპასუხო უცნობს - უთხარი სანდო უფროსს"
+    ]
+   }
+  },
+  {
+   "active": false,
+   "audience": "kids",
+   "certificate": false,
+   "color": "green",
+   "desc": {
+    "en": "Your first accounts and phone - passwords, privacy, and being kind online.",
+    "ka": "შენი პირველი ანგარიშები და ტელეფონი - პაროლები, პრივატულობა და კეთილგანწყობა."
+   },
+   "emoji": "🎮",
+   "featured": false,
+   "id": "cadets",
+   "intro": {
+    "en": "Real scenarios from social apps and games, with points and challenges to keep it fun.",
+    "ka": "რეალური სიტუაციები სოც-აპებიდან და თამაშებიდან, ქულებითა და გამოწვევებით."
+   },
+   "name": {
+    "en": "Digital Citizens",
+    "ka": "ციფრული მოქალაქეები"
+   },
+   "route": null,
+   "tag": {
+    "en": "Grades 4-7 · ages 9-13",
+    "ka": "4-7 კლასი · 9-13 წელი"
+   },
+   "topics": {
+    "en": [
+     "Make strong passwords",
+     "Set your profiles to private",
+     "Don't overshare online",
+     "Beware of strangers in game chats",
+     "Recognize and report bullying",
+     "Spot basic phishing tricks"
+    ],
+    "ka": [
+     "შექმენი ძლიერი პაროლები",
+     "გახადე პროფილები დახურული",
+     "ნუ გააზიარებ ზედმეტს",
+     "ფრთხილად უცნობებთან თამაშის ჩატებში",
+     "ამოიცანი და დააფიქსირე ბულინგი",
+     "ამოიცანი ფიშინგის მარტივი ხრიკები"
+    ]
+   }
+  },
+  {
+   "active": true,
+   "audience": "teens",
+   "certificate": true,
+   "color": "blue",
+   "desc": {
+    "en": "Phishing, scams, and protecting your digital footprint - serious skills.",
+    "ka": "ფიშინგი, თაღლითობა და ციფრული კვალის დაცვა - სერიოზული უნარები."
+   },
+   "emoji": "🛡️",
+   "featured": true,
+   "id": "guardians",
+   "intro": {
+    "en": "",
+    "ka": ""
+   },
+   "name": {
+    "en": "Cyber Guardians",
+    "ka": "კიბერ დამცველები"
+   },
+   "route": "/guardians",
+   "tag": {
+    "en": "Grades 8-12 · ages 13-18",
+    "ka": "8-12 კლასი · 13-18 წელი"
+   },
+   "topics": {
+    "en": [],
+    "ka": []
+   }
+  },
+  {
+   "active": false,
+   "audience": "adults",
+   "certificate": false,
+   "color": "violet",
+   "desc": {
+    "en": "The full toolkit: passwords, 2FA, scams, deepfakes, and data privacy.",
+    "ka": "სრული ხელსაწყოები: პაროლები, 2FA, თაღლითობა, დიპფეიქები, მონაცემები."
+   },
+   "emoji": "🎓",
+   "featured": false,
+   "id": "campus",
+   "intro": {
+    "en": "The complete curriculum - every core topic, at full depth, for independent adults.",
+    "ka": "სრული კურსი - ყველა ძირითადი თემა, სრული სიღრმით, დამოუკიდებელი ადამიანებისთვის."
+   },
+   "name": {
+    "en": "Student Security",
+    "ka": "უსაფრთხოება სტუდენტებისთვის"
+   },
+   "route": null,
+   "tag": {
+    "en": "University · ages 18-21",
+    "ka": "სტუდენტები · 18-21 წელი"
+   },
+   "topics": {
+    "en": [
+     "Use a password manager",
+     "Enable 2FA on every account",
+     "Public Wi-Fi risks",
+     "Job & scholarship scams",
+     "Deepfakes and misinformation",
+     "Build a clean professional presence",
+     "Protect your personal data"
+    ],
+    "ka": [
+     "გამოიყენე პაროლების მენეჯერი",
+     "ჩართე 2FA ყველა ანგარიშზე",
+     "საჯარო Wi-Fi-ის რისკები",
+     "სამსახურისა და სტიპენდიის თაღლითობა",
+     "დიპფეიქები და დეზინფორმაცია",
+     "ააგე პროფესიული ონლაინ იმიჯი",
+     "დაიცავი პერსონალური მონაცემები"
+    ]
+   }
+  },
+  {
+   "active": false,
+   "audience": "adults",
+   "certificate": false,
+   "color": "cyan",
+   "desc": {
+    "en": "Practical security for work, money, and protecting your family.",
+    "ka": "პრაქტიკული უსაფრთხოება სამსახურის, ფულისა და ოჯახისთვის."
+   },
+   "emoji": "💼",
+   "featured": false,
+   "id": "work",
+   "intro": {
+    "en": "The full curriculum in a workplace-focused, professional tone.",
+    "ka": "სრული კურსი სამსახურზე ორიენტირებული, პროფესიული ტონით."
+   },
+   "name": {
+    "en": "Workplace Security",
+    "ka": "უსაფრთხოება სამსახურში"
+   },
+   "route": null,
+   "tag": {
+    "en": "Working adults",
+    "ka": "მომუშავე ადამიანები"
+   },
+   "topics": {
+    "en": [
+     "Spot phishing at work",
+     "Business email compromise & fake invoices",
+     "Protect against financial fraud",
+     "Secure your home network",
+     "Password managers & 2FA",
+     "Protect your family online"
+    ],
+    "ka": [
+     "ამოიცანი ფიშინგი სამსახურში",
+     "ბიზნეს-იმეილის თაღლითობა და ყალბი ინვოისები",
+     "დაიცავი თავი ფინანსური თაღლითობისგან",
+     "დაიცავი შენი სახლის ქსელი",
+     "პაროლების მენეჯერი და 2FA",
+     "დაიცავი შენი ოჯახი ონლაინში"
+    ]
+   }
+  },
+  {
+   "active": false,
+   "audience": "adults",
+   "certificate": false,
+   "color": "pink",
+   "desc": {
+    "en": "Spot scam calls and fake messages with calm confidence.",
+    "ka": "ამოიცანი თაღლითური ზარები და ყალბი შეტყობინებები სიმშვიდით."
+   },
+   "emoji": "🏡",
+   "featured": false,
+   "id": "seniors",
+   "intro": {
+    "en": "Calm, simple, large-text lessons focused on the scams that target seniors most.",
+    "ka": "მშვიდი, მარტივი, მსხვილშრიფტიანი გაკვეთილები ყველაზე გავრცელებულ თაღლითობებზე."
+   },
+   "name": {
+    "en": "Security 50+",
+    "ka": "უსაფრთხოება 50+"
+   },
+   "route": null,
+   "tag": {
+    "en": "50+ · Seniors",
+    "ka": "50+ · უფროსი თაობა"
+   },
+   "topics": {
+    "en": [
+     "Recognize scam phone calls",
+     "Spot fake bank SMS and messages",
+     "Avoid tech-support scams",
+     "Recognize romance scams",
+     "One simple rule: stop and verify first"
+    ],
+    "ka": [
+     "ამოიცანი სატელეფონო თაღლითობა",
+     "ამოიცანი ყალბი საბანკო SMS",
+     "აარიდე თავი ტექ-მხარდაჭერის თაღლითობას",
+     "ამოიცანი სასიყვარულო თაღლითობა",
+     "ერთი წესი: გაჩერდი და ჯერ გადაამოწმე"
+    ]
+   }
+  },
+  {
+   "active": true,
+   "audience": "parents",
+   "certificate": false,
+   "color": "amber",
+   "desc": {
+    "en": "Understand the risks, act with confidence, and bring it to the classroom - calm, practical, no jargon.",
+    "ka": "გაიგეთ რისკები, იმოქმედეთ თავდაჯერებულად და წაიღეთ საკლასო ოთახში - მშვიდად, პრაქტიკულად, ჟარგონის გარეშე."
+   },
+   "emoji": "🧭",
+   "featured": true,
+   "id": "parents",
+   "intro": {
+    "en": "",
+    "ka": ""
+   },
+   "name": {
+    "en": "Teachers & Parents",
+    "ka": "მასწავლებლები და მშობლები"
+   },
+   "route": "/parents",
+   "tag": {
+    "en": "For the adults who help",
+    "ka": "უფროსებისთვის, ვინც გვერდში დგას"
+   },
+   "topics": {
+    "en": [],
+    "ka": []
+   }
+  }
+ ],
+ "user": null
+}

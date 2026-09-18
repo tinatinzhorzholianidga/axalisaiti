@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { MISSIONS, missionById, missionMax } from '../../content/guardians/index.js'
+import { ErrorState, Loading } from '../../components/State.jsx'
+import { missionMax, useMission, useMissions } from '../../content/ContentProvider.jsx'
 import BranchRound from '../../games/BranchRound.jsx'
 import BuilderRound from '../../games/BuilderRound.jsx'
 import ChoiceRound from '../../games/ChoiceRound.jsx'
@@ -21,6 +22,8 @@ export default function MissionPage() {
   const { t, tx } = useI18n()
   const { progress, recordMission } = useProgress()
   const { react: mascotReact } = useMascot()
+  const list = useMissions('guardians')
+  const detail = useMission(missionId)
   const [phase, setPhase] = useState('brief') // 'brief' | round index | 'debrief'
   const [score, setScore] = useState(0)
 
@@ -34,17 +37,21 @@ export default function MissionPage() {
   // leaving the mission returns IO to his idle tips
   useEffect(() => () => mascotReact('clear'), [mascotReact])
 
-  const mission = missionById[missionId]
-  if (!mission) return <Navigate to="/guardians" replace />
+  if (detail.status === 'error' && detail.error?.status === 404) return <Navigate to="/guardians" replace />
+  if (list.status === 'loading' || detail.status === 'loading') return <Loading />
+  if (list.status !== 'ready') return <ErrorState error={list.error} onRetry={list.reload} />
+  if (detail.status !== 'ready') return <ErrorState error={detail.error} onRetry={detail.reload} />
 
-  const coreDone = MISSIONS.filter((m) => !m.final).every(
-    (m) => progress.guardians.missions[m.id]?.done,
-  )
+  const MISSIONS = list.data.items
+  const mission = detail.data
+
+  const coreDone = MISSIONS.filter((m) => !m.final).every((m) => progress.guardians.missions[m.id]?.done)
   if (mission.final && !coreDone) return <Navigate to="/guardians" replace />
 
   const max = missionMax(mission)
   const passed = !mission.passRatio || score >= Math.ceil(max * mission.passRatio)
   const next = MISSIONS.find((m) => m.order === mission.order + 1)
+  const tone = `tone-${mission.color}`
 
   const handleRoundDone = (earned) => {
     const newScore = score + earned
@@ -68,20 +75,21 @@ export default function MissionPage() {
 
   const helpStrip = mission.helpStrip && (
     <div className="help-strip" role="note">
-      💛 {tx(mission.helpStrip)}
+      💛 {tx(mission.helpStrip)}{' '}
+      <Link to="/emergency" className="help-strip-link">
+        {t('emergency.title')} →
+      </Link>
     </div>
   )
 
   let body
   if (phase === 'brief') {
     body = (
-      <div className="brief-card" style={{ '--c': mission.color }}>
+      <div className={`brief-card ${tone}`}>
         <div className="b-label">{t('guardians.briefingTitle')}</div>
         <p>{tx(mission.brief)}</p>
-        {mission.passRatio && (
-          <p style={{ marginTop: 10, fontWeight: 700 }}>{t('guardians.exam.passMark')}</p>
-        )}
-        {mission.theory && (
+        {mission.passRatio && <p className="u-mt-10 u-bold">{t('guardians.exam.passMark')}</p>}
+        {mission.theory?.length > 0 && (
           <section className="theory-box" aria-label={t('guardians.theoryTitle')}>
             <h2>💡 {t('guardians.theoryTitle')}</h2>
             <ul>
@@ -102,13 +110,9 @@ export default function MissionPage() {
   } else if (phase === 'debrief') {
     body = (
       <div className="debrief">
-        <div className="brief-card" style={{ '--c': mission.color }}>
+        <div className={`brief-card ${tone}`}>
           <div className="b-label">
-            {mission.passRatio
-              ? passed
-                ? `✅ ${t('guardians.exam.passed')}`
-                : t('guardians.exam.failedTitle')
-              : t('guardians.debriefTitle')}
+            {mission.passRatio ? (passed ? `✅ ${t('guardians.exam.passed')}` : t('guardians.exam.failedTitle')) : t('guardians.debriefTitle')}
           </div>
           <p className="score-line">
             {t('guardians.yourScore')}: {score} / {max} ⚡
@@ -142,7 +146,14 @@ export default function MissionPage() {
               </Link>
             )}
             {!mission.passRatio && next && (
-              <Link to={`/guardians/mission/${next.id}`} className="btn-solid" onClick={() => { setScore(0); setPhase('brief') }}>
+              <Link
+                to={`/guardians/mission/${next.id}`}
+                className="btn-solid"
+                onClick={() => {
+                  setScore(0)
+                  setPhase('brief')
+                }}
+              >
                 {t('guardians.nextMission')}: {tx(next.name)} →
               </Link>
             )}
@@ -160,20 +171,20 @@ export default function MissionPage() {
       <>
         <div className="round-dots" aria-hidden="true">
           {mission.rounds.map((_, i) => (
-            <span key={i} className={i <= phase ? 'hit' : ''} style={{ '--c': mission.color, background: i <= phase ? mission.color : undefined }} />
+            <span key={i} className={i <= phase ? 'hit' : ''} />
           ))}
         </div>
         <p className="round-ind">
           {t('guardians.round')} {phase + 1} {t('guardians.of')} {mission.rounds.length} · ⚡ {score}
         </p>
-        <Round key={phase} round={round} timer={mission.timer || 0} onDone={handleRoundDone} />
+        {Round ? <Round key={phase} round={round} timer={mission.timer || 0} onDone={handleRoundDone} /> : null}
         {helpStrip}
       </>
     )
   }
 
   return (
-    <div className="play-wrap fade-in" style={{ '--c': mission.color }}>
+    <div className={`play-wrap fade-in ${tone}`}>
       <Link to="/guardians" className="back-btn">
         ← {t('guardians.backToMap')}
       </Link>

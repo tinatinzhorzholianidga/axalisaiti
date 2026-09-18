@@ -1,14 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ErrorState, Loading } from '../components/State.jsx'
+import { useContent, useKnowledge } from '../content/ContentProvider.jsx'
 import { useI18n } from '../i18n/I18nContext.jsx'
-import { buildSystemPrompt, IO_MODELS } from '../mascot/ioBrain.js'
+import { buildSystemPrompt, getKnowledgeSource, retrieve, selfHostedModel, setKnowledgeSource } from '../mascot/ioBrain.js'
 import RobotCanvas from '../mascot/RobotCanvas.jsx'
 
-/* IO Chat (demo): Qwen2.5 running fully in the visitor's browser via
-   WebLLM/WebGPU - no server, no API keys, nothing leaves the device.
-   Each question is grounded ONLY on the Government of Georgia Basic
-   Cybersecurity Course (see ioBrain.js / ioCourse.js).
-   Hidden test page - not linked from the site. */
+/* IO Chat: the tutor answers ONLY from the Basic Cybersecurity Course text
+   served by the platform API (GET /knowledge, feature-flagged).
+   - "brain" mode: a self-hosted MLC model runs fully in the visitor's
+     browser via WebLLM/WebGPU (CYBERHERO_TUTOR_MODEL_URL). Nothing the
+     child types ever leaves the device - there is no server-side LLM and
+     no third-party CDN.
+   - "lookup" mode (no model configured / no WebGPU): IO shows the course
+     passages that match the question. */
 
 const STARTERS = [
   { en: 'What is phishing?', ka: 'რა არის ფიშინგი?' },
@@ -19,8 +24,9 @@ const STARTERS = [
 
 export default function IoChatPage() {
   const { t, tx, lang } = useI18n()
+  const { runtime } = useContent()
+  const knowledge = useKnowledge(true)
   const [webgpu, setWebgpu] = useState(null) // null = checking
-  const [modelId, setModelId] = useState(IO_MODELS[0].id)
   const [loadState, setLoadState] = useState('idle') // idle | loading | ready | error
   const [progress, setProgress] = useState('')
   const [messages, setMessages] = useState([]) // {role:'user'|'assistant', content, sources?}
@@ -29,10 +35,16 @@ export default function IoChatPage() {
   const engineRef = useRef(null)
   const threadRef = useRef(null)
   const generationRef = useRef(0)
+  const model = selfHostedModel(runtime.tutorModelUrl)
+  const lookupOnly = !model || webgpu === false
 
   useEffect(() => {
     setWebgpu(Boolean(navigator.gpu))
   }, [])
+
+  useEffect(() => {
+    if (knowledge.status === 'ready' && getKnowledgeSource() !== knowledge.data) setKnowledgeSource(knowledge.data)
+  }, [knowledge.status, knowledge.data])
 
   // auto-scroll the thread
   useEffect(() => {
@@ -48,11 +60,13 @@ export default function IoChatPage() {
   )
 
   const loadModel = async () => {
+    if (!model) return
     setLoadState('loading')
     setProgress('')
     try {
       const { CreateMLCEngine } = await import('@mlc-ai/web-llm')
-      const eng = await CreateMLCEngine(modelId, {
+      const eng = await CreateMLCEngine(model.model_id, {
+        appConfig: model.appConfig,
         initProgressCallback: (p) => setProgress(p.text || ''),
       })
       engineRef.current = eng
@@ -64,17 +78,26 @@ export default function IoChatPage() {
     }
   }
 
+  const canAsk = knowledge.status === 'ready' && (lookupOnly || loadState === 'ready')
+
   const send = async (rawText) => {
     const text = (rawText ?? input).trim()
-    if (!text || !engineRef.current || busy) return
+    if (!text || busy || !canAsk) return
     setInput('')
     setBusy(true)
     const gen = ++generationRef.current
+    const history = [...messages, { role: 'user', content: text }]
+
+    if (lookupOnly) {
+      const found = retrieve(text, 3)
+      const content = found.length ? found.map((c) => c.en).join('\n\n') : t('mascot.chat.noMatch')
+      setMessages([...history, { role: 'assistant', content, sources: found }])
+      setBusy(false)
+      return
+    }
 
     const { prompt, sources } = buildSystemPrompt(text)
-    const history = [...messages, { role: 'user', content: text }]
     setMessages([...history, { role: 'assistant', content: '', sources }])
-
     try {
       const stream = await engineRef.current.chat.completions.create({
         stream: true,
@@ -112,11 +135,13 @@ export default function IoChatPage() {
   const lastAssistant = messages[messages.length - 1]
   const ioTalking = busy && Boolean(lastAssistant?.content)
   const ioEmotion = busy && !lastAssistant?.content ? 'thinking' : 'happy'
-  const model = IO_MODELS.find((m) => m.id === modelId)
+
+  if (knowledge.status === 'loading') return <Loading />
+  if (knowledge.status !== 'ready') return <ErrorState error={knowledge.error} onRetry={knowledge.reload} />
 
   return (
     <div className="fade-in io-chat">
-      <Link to="/mascot-demo" className="back-btn">
+      <Link to="/" className="back-btn">
         ← {t('nav.back')}
       </Link>
 
@@ -128,46 +153,33 @@ export default function IoChatPage() {
         <p>{t('mascot.chat.sub')}</p>
       </header>
 
-      {webgpu === false && <div className="io-warn">⚠️ {t('mascot.chat.needsWebgpu')}</div>}
+      {model && webgpu === false && <div className="io-warn">⚠️ {t('mascot.chat.needsWebgpu')}</div>}
 
       <div className="io-chat-layout">
         <aside className="io-side">
-          <RobotCanvas
-            size={190}
-            character="robot"
-            label={t('mascot.widget.label')}
-            emotion={ioEmotion}
-            talking={ioTalking}
-            follow
-            idle
-          />
+          <RobotCanvas size={190} character="robot" label={t('mascot.widget.label')} emotion={ioEmotion} talking={ioTalking} follow idle />
           <div className="ctrl-group">
             <h2>{t('mascot.chat.model')}</h2>
-            <div className="chip-row">
-              {IO_MODELS.map((m) => (
-                <button
-                  key={m.id}
-                  type="button"
-                  className={`chip-btn ${modelId === m.id ? 'active' : ''}`}
-                  aria-pressed={modelId === m.id}
-                  disabled={loadState === 'loading'}
-                  onClick={() => setModelId(m.id)}
-                >
-                  {m.label} · {m.size}
-                </button>
-              ))}
-            </div>
-            <p className="mascot-ctrl-note">{model?.note}</p>
-            {loadState !== 'ready' ? (
+            {!model && <p className="mascot-ctrl-note">{t('mascot.chat.noModel')}</p>}
+            {model && loadState !== 'ready' && (
               <button type="button" className="btn-solid" disabled={loadState === 'loading' || webgpu === false} onClick={loadModel}>
                 {loadState === 'loading' ? '⏳ ' + t('mascot.chat.loading') : '⬇️ ' + t('mascot.chat.load')}
               </button>
-            ) : (
-              <p className="io-ready">✅ {t('mascot.chat.ready')}</p>
             )}
+            {model && loadState === 'ready' && <p className="io-ready">✅ {t('mascot.chat.ready')}</p>}
             {loadState === 'loading' && <p className="io-progress">{progress}</p>}
-            {loadState === 'error' && <p className="io-warn">⚠️ {t('mascot.chat.loadError')} {progress}</p>}
-            <p className="mascot-ctrl-note">{t('mascot.chat.privacy')}</p>
+            {loadState === 'error' && (
+              <p className="io-warn">
+                ⚠️ {t('mascot.chat.loadError')} {progress}
+              </p>
+            )}
+            <p className="mascot-ctrl-note">{lookupOnly ? t('mascot.chat.lookupMode') : t('mascot.chat.privacy')}</p>
+            <h2>{t('mascot.chat.topics')}</h2>
+            <ul className="io-topics">
+              {knowledge.data.sections.map((s) => (
+                <li key={s.id}>{tx(s)}</li>
+              ))}
+            </ul>
           </div>
         </aside>
 
@@ -182,9 +194,7 @@ export default function IoChatPage() {
               <div key={i} className={`io-msg ${m.role === 'user' ? 'io-msg-user' : 'io-msg-bot'}`}>
                 <p>{m.content || '…'}</p>
                 {m.role === 'assistant' && m.sources?.length > 0 && m.content && (
-                  <span className="io-sources">
-                    📚 {[...new Set(m.sources.map((s) => tx(s.title)))].slice(0, 3).join(' · ')}
-                  </span>
+                  <span className="io-sources">📚 {[...new Set(m.sources.map((s) => tx(s.title)))].slice(0, 3).join(' · ')}</span>
                 )}
               </div>
             ))}
@@ -193,7 +203,7 @@ export default function IoChatPage() {
           {messages.length === 0 && (
             <div className="chip-row io-starters">
               {STARTERS.map((s, i) => (
-                <button key={i} type="button" className="chip-btn" disabled={loadState !== 'ready'} onClick={() => send(tx(s))}>
+                <button key={i} type="button" className="chip-btn" disabled={!canAsk} onClick={() => send(tx(s))}>
                   {tx(s)}
                 </button>
               ))}
@@ -211,11 +221,11 @@ export default function IoChatPage() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={loadState === 'ready' ? t('mascot.chat.placeholder') : t('mascot.chat.placeholderIdle')}
-              disabled={loadState !== 'ready' || busy}
+              placeholder={canAsk ? t('mascot.chat.placeholder') : t('mascot.chat.placeholderIdle')}
+              disabled={!canAsk || busy}
               aria-label={t('mascot.chat.placeholder')}
             />
-            <button type="submit" className="btn-solid" disabled={loadState !== 'ready' || busy || !input.trim()}>
+            <button type="submit" className="btn-solid" disabled={!canAsk || busy || !input.trim()}>
               {t('mascot.chat.send')}
             </button>
             <button type="button" className="btn-ghost" onClick={reset} disabled={messages.length === 0}>
@@ -226,8 +236,8 @@ export default function IoChatPage() {
         </section>
       </div>
 
-      <p className="mascot-fps" style={{ textAlign: 'center', marginTop: 14 }}>
-        IO Chat α2 · {lang === 'ka' ? 'ქართული/English' : 'English/ქართული'} · Qwen2.5 + WebLLM + RAG · course-only (elearning.gov.ge)
+      <p className="mascot-fps u-center u-mt-14">
+        IO Chat · {lang === 'ka' ? 'ქართული/English' : 'English/ქართული'} · {lookupOnly ? 'course lookup' : 'WebLLM (in-browser) + RAG'} · course-only
       </p>
     </div>
   )

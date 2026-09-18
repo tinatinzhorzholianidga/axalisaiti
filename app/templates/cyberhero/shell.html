@@ -4,6 +4,7 @@
 {% block head_theme %}{% endblock %}
 {% block styles %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cyberhero-host.css') }}">
   {% for href in assets.css %}<link rel="stylesheet" href="{{ href }}">{% endfor %}
   {% for href in assets.preload %}<link rel="modulepreload" href="{{ href }}">{% endfor %}
 {% endblock %}

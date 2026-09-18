@@ -1,0 +1,32 @@
+{
+ "content": {
+  "en": "<p>Nika is 14 and good at his favorite game. A month ago someone called Alex_Coach messaged him: friendly, generous, always online. Tonight you read the whole conversation from the outside. Your job is to spot the pattern Nika cannot see from the inside - and then decide what happens next.</p>\n<h3>The theory in 60 seconds</h3>\n<ul>\n<li>Grooming is an adult slowly building trust with a teen in order to use them later. It is a pattern of small moves, not one creepy message - and it works on smart kids too.</li>\n<li>\"You are so mature for your age\" is a documented grooming line: flattery that dresses up an adult-teen chat as one between equals. It is a lever, not a compliment.</li>\n<li>Gifts from an online stranger are leverage: they build a debt to be cashed in later. You never owe anyone photos - no matter what they gave you.</li>\n<li>\"Let us move to a more private app\" means fewer moderators, disappearing messages and less evidence. Ask one question: who benefits from the dark?</li>\n<li>\"Our secret\" and \"do not tell your parents\" end the discussion: real friendship survives being known about. Cutting you off from your parents is the core move.</li>\n<li>The target is never at fault - the adult is running the play. If it is happening: stop replying, screenshot, block, tell a trusted adult, and in Georgia call 112.</li>\n</ul>\n<blockquote>Grooming is a pattern, not a moment: flattery, gifts, secrecy, a \"more private\" app, cutting out your parents. Learn the playbook and you see it early.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g8\" rel=\"noopener noreferrer\">Practise it in the mission: Stranger Signals →</a></p>",
+  "ka": "<p>ნიკა 14 წლისაა და კარგად თამაშობს თავის საყვარელ თამაშს. ერთი თვის წინ ვიღაც Alex_Coach-მა მისწერა: მეგობრული, ხელგაშლილი, ყოველთვის ონლაინ. ამაღამ მთელ მიმოწერას გარედან წაიკითხავ. შენი საქმეა შენიშნო შაბლონი, რომელსაც ნიკა შიგნიდან ვერ ხედავს - და შემდეგ გადაწყვიტო, რა მოხდება მერე.</p>\n<h3>თეორია 60 წამში</h3>\n<ul>\n<li>გრუმინგი ის არის, როცა უფროსი მოზარდთან ნდობას ნელ-ნელა აშენებს, რომ მოგვიანებით გამოიყენოს. ეს წვრილი სვლების შაბლონია და არა ერთი საეჭვო შეტყობინება - და ის ჭკვიან ბავშვებზეც მუშაობს.</li>\n<li>„შენს ასაკზე ბევრად მოწიფული ხარ“ გრუმინგის ცნობილი ფრაზაა: ფერება, რომელიც უფროსსა და მოზარდს შორის მიმოწერას „თანასწორთა“ საუბრად ასაღებს. ეს ბერკეტია და არა კომპლიმენტი.</li>\n<li>ონლაინ უცნობის საჩუქრები ბერკეტია: ისინი ვალის განცდას აშენებენ, რომელსაც მოგვიანებით მოითხოვენ. ფოტოს ვალი არავისთან გაქვს - რაც უნდა ეჩუქებინა შენთვის.</li>\n<li>„უფრო პრივატულ აპზე გადავიდეთ“ ნიშნავს ნაკლებ მოდერატორს, გაქრობად შეტყობინებებს და ნაკლებ მტკიცებულებას. დასვი ერთი კითხვა: ვის აწყობს სიბნელე?</li>\n<li>„ჩვენი საიდუმლოა“ და „მშობლებს ნუ ეტყვი“ კამათს ასრულებს: ნამდვილი მეგობრობა უძლებს იმას, რომ მის შესახებ იციან. მშობლებისგან შენი მოწყვეტა მთავარი სვლაა.</li>\n<li>სამიზნე არასდროს არის დამნაშავე - თამაშს უფროსი მართავს. თუ ეს უკვე ხდება: აღარ უპასუხო, გადაუღე სქრინი, დაბლოკე, უთხარი სანდო უფროსს, საქართველოში კი დარეკე 112-ზე.</li>\n</ul>\n<blockquote>გრუმინგი შაბლონია და არა ერთი წამი: ფერება, საჩუქრები, საიდუმლოება, „უფრო პრივატული“ აპი, მშობლების ჩამოშორება. ისწავლი ამ სქემას - და ადრევე დაინახავ.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g8\" rel=\"noopener noreferrer\">ივარჯიშე მისიაში: უცნობის სიგნალები →</a></p>"
+ },
+ "course": "cyber-guardians",
+ "index": 9,
+ "minutes": 5,
+ "module_title": {
+  "en": "People and pressure",
+  "ka": "ადამიანები და ზეწოლა"
+ },
+ "next": null,
+ "prev": {
+  "slug": "g6-upstander",
+  "title": {
+   "en": "Upstander",
+   "ka": "მხარში მდგომი"
+  }
+ },
+ "slug": "g8-stranger-signals",
+ "summary": {
+  "en": "Read a DM conversation and flag every red flag before it goes further.",
+  "ka": "წაიკითხე მიმოწერა და მონიშნე ყველა საგანგაშო ნიშანი, სანამ საქმე შორს წავა."
+ },
+ "title": {
+  "en": "Stranger Signals",
+  "ka": "უცნობის სიგნალები"
+ },
+ "total": 9,
+ "type": "reading"
+}

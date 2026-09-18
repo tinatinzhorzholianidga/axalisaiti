@@ -1,0 +1,48 @@
+{
+ "active": false,
+ "audience": "adults",
+ "certificate": false,
+ "color": "violet",
+ "courses": [],
+ "desc": {
+  "en": "The full toolkit: passwords, 2FA, scams, deepfakes, and data privacy.",
+  "ka": "სრული ხელსაწყოები: პაროლები, 2FA, თაღლითობა, დიპფეიქები, მონაცემები."
+ },
+ "emoji": "🎓",
+ "featured": false,
+ "id": "campus",
+ "intro": {
+  "en": "The complete curriculum - every core topic, at full depth, for independent adults.",
+  "ka": "სრული კურსი - ყველა ძირითადი თემა, სრული სიღრმით, დამოუკიდებელი ადამიანებისთვის."
+ },
+ "missions": [],
+ "name": {
+  "en": "Student Security",
+  "ka": "უსაფრთხოება სტუდენტებისთვის"
+ },
+ "route": null,
+ "tag": {
+  "en": "University · ages 18-21",
+  "ka": "სტუდენტები · 18-21 წელი"
+ },
+ "topics": {
+  "en": [
+   "Use a password manager",
+   "Enable 2FA on every account",
+   "Public Wi-Fi risks",
+   "Job & scholarship scams",
+   "Deepfakes and misinformation",
+   "Build a clean professional presence",
+   "Protect your personal data"
+  ],
+  "ka": [
+   "გამოიყენე პაროლების მენეჯერი",
+   "ჩართე 2FA ყველა ანგარიშზე",
+   "საჯარო Wi-Fi-ის რისკები",
+   "სამსახურისა და სტიპენდიის თაღლითობა",
+   "დიპფეიქები და დეზინფორმაცია",
+   "ააგე პროფესიული ონლაინ იმიჯი",
+   "დაიცავი პერსონალური მონაცემები"
+  ]
+ }
+}

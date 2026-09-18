@@ -1,37 +1,44 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { getRuntime, langSwitchUrl } from '../lib/runtime.js'
 import en from './en.js'
 import ka from './ka.js'
 
 const dicts = { en, ka }
-const STORAGE_KEY = 'cyberhero.lang'
 
 const I18nContext = createContext(null)
 
-function detectLang() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved === 'en' || saved === 'ka') return saved
-  } catch {
-    /* storage unavailable - fall through to browser language */
+/* The language is a server-side choice (Flask session, `<html lang>`): the
+   shell tells us the active locale through data-locale, and switching
+   navigates to `?lang=xx` so every part of the platform agrees. */
+function detectLang(runtime) {
+  if (typeof window !== 'undefined') {
+    const fromQuery = new URLSearchParams(window.location.search).get('lang')
+    if (fromQuery === 'en' || fromQuery === 'ka') return fromQuery
   }
-  return (navigator.language || '').toLowerCase().startsWith('ka') ? 'ka' : 'en'
+  return runtime.locale === 'en' ? 'en' : 'ka'
 }
 
 function lookup(dict, key) {
   return key.split('.').reduce((node, part) => (node == null ? node : node[part]), dict)
 }
 
-export function I18nProvider({ children }) {
-  const [lang, setLang] = useState(detectLang)
+export function I18nProvider({ children, initialLang, runtime = getRuntime(), navigate }) {
+  const [lang, setLangState] = useState(() => initialLang || detectLang(runtime))
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, lang)
-    } catch {
-      /* private mode - language just won't persist */
-    }
-    document.documentElement.lang = lang
+    if (typeof document !== 'undefined') document.documentElement.lang = lang
   }, [lang])
+
+  const setLang = useCallback(
+    (next) => {
+      if (next !== 'en' && next !== 'ka') return
+      setLangState(next)
+      const url = langSwitchUrl(next, runtime)
+      if (navigate) navigate(url)
+      else if (typeof window !== 'undefined' && url) window.location.assign(url)
+    },
+    [runtime, navigate],
+  )
 
   // t(): UI strings from the en/ka dictionaries, addressed by dot path
   const t = useCallback(
@@ -43,9 +50,10 @@ export function I18nProvider({ children }) {
   )
 
   // tx(): content leaves shaped as { en: ..., ka: ... }
-  const tx = useCallback((node) => (node == null ? '' : (node[lang] ?? node.en ?? '')), [lang])
+  const tx = useCallback((node) => (node == null ? '' : typeof node === 'string' ? node : (node[lang] ?? node.en ?? '')), [lang])
 
-  return <I18nContext.Provider value={{ lang, setLang, t, tx }}>{children}</I18nContext.Provider>
+  const value = useMemo(() => ({ lang, setLang, t, tx }), [lang, setLang, t, tx])
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }
 
 export function useI18n() {

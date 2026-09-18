@@ -1,0 +1,46 @@
+{
+ "active": false,
+ "audience": "kids",
+ "certificate": false,
+ "color": "green",
+ "courses": [],
+ "desc": {
+  "en": "Your first accounts and phone - passwords, privacy, and being kind online.",
+  "ka": "შენი პირველი ანგარიშები და ტელეფონი - პაროლები, პრივატულობა და კეთილგანწყობა."
+ },
+ "emoji": "🎮",
+ "featured": false,
+ "id": "cadets",
+ "intro": {
+  "en": "Real scenarios from social apps and games, with points and challenges to keep it fun.",
+  "ka": "რეალური სიტუაციები სოც-აპებიდან და თამაშებიდან, ქულებითა და გამოწვევებით."
+ },
+ "missions": [],
+ "name": {
+  "en": "Digital Citizens",
+  "ka": "ციფრული მოქალაქეები"
+ },
+ "route": null,
+ "tag": {
+  "en": "Grades 4-7 · ages 9-13",
+  "ka": "4-7 კლასი · 9-13 წელი"
+ },
+ "topics": {
+  "en": [
+   "Make strong passwords",
+   "Set your profiles to private",
+   "Don't overshare online",
+   "Beware of strangers in game chats",
+   "Recognize and report bullying",
+   "Spot basic phishing tricks"
+  ],
+  "ka": [
+   "შექმენი ძლიერი პაროლები",
+   "გახადე პროფილები დახურული",
+   "ნუ გააზიარებ ზედმეტს",
+   "ფრთხილად უცნობებთან თამაშის ჩატებში",
+   "ამოიცანი და დააფიქსირე ბულინგი",
+   "ამოიცანი ფიშინგის მარტივი ხრიკები"
+  ]
+ }
+}

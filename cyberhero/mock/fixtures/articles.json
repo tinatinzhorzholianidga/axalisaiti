@@ -1,0 +1,278 @@
+{
+ "items": [
+  {
+   "color": "blue",
+   "emoji": "🌐",
+   "id": "a1",
+   "minutes": 6,
+   "mission": "g2",
+   "order": 1,
+   "shelf": "A",
+   "teaser": {
+    "en": "Apps, group chats, gaming voice chats and algorithms - a calm map of the territory, and why being a guide beats being a gatekeeper.",
+    "ka": "აპლიკაციები, ჯგუფური ჩატები, თამაშების ხმოვანი ჩატები და ალგორითმები - ამ ტერიტორიის მშვიდი რუკა და იმის ახსნა, რატომ ჯობია იყოთ გზამკვლევი და არა დარაჯი."
+   },
+   "title": {
+    "en": "What your teen’s online world actually looks like",
+    "ka": "როგორ გამოიყურება სინამდვილეში თქვენი მოზარდის ონლაინ სამყარო"
+   }
+  },
+  {
+   "color": "amber",
+   "emoji": "🎣",
+   "id": "a2",
+   "minutes": 5,
+   "mission": "g1",
+   "order": 2,
+   "shelf": "A",
+   "teaser": {
+    "en": "Free V-Bucks, fake giveaways, \"your card is blocked\" SMS - how scams reach kids, and the three rules that stop them.",
+    "ka": "უფასო V-Bucks, ყალბი გათამაშებები, SMS „თქვენი ბარათი დაიბლოკა“ - როგორ წვდება თაღლითობა ბავშვებს და სამი წესი, რომელიც მას აჩერებს."
+   },
+   "title": {
+    "en": "Phishing & scams that target kids",
+    "ka": "ფიშინგი და თაღლითობები, რომლებიც ბავშვებს ემიზნება"
+   }
+  },
+  {
+   "color": "pink",
+   "emoji": "🚨",
+   "id": "a3",
+   "minutes": 7,
+   "mission": "g4",
+   "order": 3,
+   "priority": true,
+   "shelf": "A",
+   "teaser": {
+    "en": "The fastest-growing threat to teens - and the script that saves lives: never pay, don’t delete, it’s not their fault.",
+    "ka": "ყველაზე სწრაფად მზარდი საფრთხე მოზარდებისთვის - და სიტყვები, რომლებიც შველის: არასოდეს გადაიხადო, არ წაშალო, ეს მისი ბრალი არ არის."
+   },
+   "title": {
+    "en": "Sextortion & blackmail: what every parent must know",
+    "ka": "სექსტორცია და შანტაჟი: რა უნდა იცოდეს ყველა მშობელმა"
+   }
+  },
+  {
+   "color": "violet",
+   "emoji": "💬",
+   "id": "a4",
+   "minutes": 6,
+   "mission": "g6",
+   "order": 4,
+   "shelf": "A",
+   "teaser": {
+    "en": "Group-chat pile-ons, fake accounts, spreading screenshots - how to tell drama from bullying, and the four steps that actually help.",
+    "ka": "ერთობლივი დაცინვა ჯგუფურ ჩატში, ყალბი ანგარიშები, სქრინშოტების გავრცელება - როგორ განვასხვავოთ დრამა ბულინგისგან და ოთხი ნაბიჯი, რომელიც ნამდვილად შველის."
+   },
+   "title": {
+    "en": "Cyberbullying & digital drama: a parent’s guide",
+    "ka": "კიბერბულინგი და ციფრული დრამა: გზამკვლევი მშობლებისთვის"
+   }
+  },
+  {
+   "color": "pink",
+   "emoji": "🎭",
+   "id": "a5",
+   "minutes": 6,
+   "mission": "g8",
+   "order": 5,
+   "shelf": "A",
+   "teaser": {
+    "en": "Groomers don’t look like strangers - they look like the friend who finally understands. Learn the pattern, the red-flag phrases, and the calm response that keeps your child talking to you.",
+    "ka": "გრუმერები უცნობებს არ ჰგვანან - ისინი ჰგვანან მეგობარს, რომელიც ბოლოს და ბოლოს გაგიგებს. გაეცანით სქემას, საგანგაშო ფრაზებს და მშვიდ რეაქციას, რომლის წყალობითაც შვილი საუბარს არ შეწყვეტს თქვენთან."
+   },
+   "title": {
+    "en": "Grooming & online strangers: how trust is used as a weapon",
+    "ka": "გრუმინგი და ონლაინ უცნობები: როგორ იქცევა ნდობა იარაღად"
+   }
+  },
+  {
+   "color": "green",
+   "emoji": "😴",
+   "id": "a6",
+   "minutes": 7,
+   "mission": "g9",
+   "order": 6,
+   "shelf": "A",
+   "teaser": {
+    "en": "Stop hunting for the magic hour limit. What matters is what the phone displaces - sleep, movement, real friends - and what your teen is actually watching.",
+    "ka": "ნუღარ ეძებთ ჯადოსნურ საათობრივ ლიმიტს. მნიშვნელოვანია, რას ანაცვლებს ტელეფონი - ძილს, მოძრაობას, ნამდვილ მეგობრებს - და რას უყურებს რეალურად თქვენი შვილი."
+   },
+   "title": {
+    "en": "Screen time, sleep & mental health: what actually matters",
+    "ka": "ეკრანთან გატარებული დრო, ძილი და ფსიქიკური ჯანმრთელობა: რა არის სინამდვილეში მნიშვნელოვანი"
+   }
+  },
+  {
+   "color": "cyan",
+   "emoji": "🤖",
+   "id": "a7",
+   "minutes": 6,
+   "mission": "g7",
+   "order": 7,
+   "shelf": "A",
+   "teaser": {
+    "en": "The feed is built to hold attention, not to tell the truth. Here’s how to raise a teen who checks before believing - without a single lecture.",
+    "ka": "ლენტა ყურადღების შესაკავებლად არის აწყობილი და არა სიმართლის სათქმელად. აი, როგორ გაზარდოთ მოზარდი, რომელიც დაჯერებამდე ამოწმებს - ერთი დარიგების გარეშეც."
+   },
+   "title": {
+    "en": "Fake news, deepfakes & dangerous trends: a parent’s guide",
+    "ka": "ყალბი ამბები, დიპფეიკები და საშიში ტრენდები: გზამკვლევი მშობლებისთვის"
+   }
+  },
+  {
+   "color": "blue",
+   "emoji": "🗣️",
+   "id": "b1",
+   "minutes": 7,
+   "mission": null,
+   "order": 1,
+   "shelf": "B",
+   "teaser": {
+    "en": "Interrogation closes the door; empathy opens it. Word-for-word openers for ages 8-12 and 13-18 - and the phrases that guarantee silence.",
+    "ka": "დაკითხვა კარს კეტავს, თანაგრძნობა კი აღებს. სიტყვასიტყვითი ფრაზები 8-12 და 13-18 წლის შვილებთან სასაუბროდ - და ის ფრაზები, რომლებიც დუმილის გარანტიაა."
+   },
+   "title": {
+    "en": "How to talk so teens listen",
+    "ka": "როგორ ისაუბროთ ისე, რომ მოზარდმა მოგისმინოთ"
+   }
+  },
+  {
+   "color": "amber",
+   "emoji": "⚖️",
+   "id": "b2",
+   "minutes": 6,
+   "mission": null,
+   "order": 2,
+   "shelf": "B",
+   "teaser": {
+    "en": "Monitoring is scaffolding, not surveillance: strong support early, less as they grow - and rules you agree on together, not impose.",
+    "ka": "მონიტორინგი ხარაჩოა და არა თვალთვალი: მეტი მხარდაჭერა ადრეულ ასაკში, ნაკლები - ზრდასთან ერთად, წესები კი ერთად შეთანხმებული და არა თავსმოხვეული."
+   },
+   "title": {
+    "en": "Monitor or trust? Finding the balance",
+    "ka": "კონტროლი თუ ნდობა? ბალანსის პოვნა"
+   }
+  },
+  {
+   "color": "green",
+   "emoji": "🏠",
+   "id": "b3",
+   "minutes": 7,
+   "mission": "g3",
+   "order": 3,
+   "shelf": "B",
+   "teaser": {
+    "en": "Seven concrete steps - private profiles, 2FA, purchase approvals, router basics, and a charging spot outside the bedrooms - all done in one evening.",
+    "ka": "შვიდი კონკრეტული ნაბიჯი - დახურული პროფილები, 2FA, შესყიდვების დადასტურება, როუტერის საფუძვლები და დასატენი ადგილი საძინებლების გარეთ - ყველაფერი ერთ საღამოში."
+   },
+   "title": {
+    "en": "Home setup in 30 minutes",
+    "ka": "სახლის მოწყობა 30 წუთში"
+   }
+  },
+  {
+   "color": "violet",
+   "emoji": "👀",
+   "id": "b4",
+   "minutes": 5,
+   "mission": null,
+   "order": 4,
+   "shelf": "B",
+   "teaser": {
+    "en": "One sign is usually just being a teenager. A cluster of signs is a conversation. What to watch for - and how to open it calmly.",
+    "ka": "ერთი ნიშანი, როგორც წესი, უბრალოდ მოზარდობაა. ნიშნების ერთობლიობა კი - საუბრის მიზეზი. რას მიაქციოთ ყურადღება - და როგორ დაიწყოთ საუბარი მშვიდად."
+   },
+   "title": {
+    "en": "Warning signs checklist",
+    "ka": "გამაფრთხილებელი ნიშნების ჩამონათვალი"
+   }
+  },
+  {
+   "color": "pink",
+   "emoji": "🆘",
+   "id": "b5",
+   "minutes": 8,
+   "mission": "g4",
+   "order": 5,
+   "priority": true,
+   "shelf": "B",
+   "teaser": {
+    "en": "Numbered steps for the five worst moments - bullying, blackmail, a hacked account, a stranger - with the exact contacts in Georgia.",
+    "ka": "ნაბიჯ-ნაბიჯ გეგმა ხუთი ყველაზე მძიმე სიტუაციისთვის - ბულინგი, შანტაჟი, გატეხილი ანგარიში, უცნობი - საქართველოს ზუსტი საკონტაქტო ინფორმაციით."
+   },
+   "title": {
+    "en": "Emergency playbook: \"It already happened\"",
+    "ka": "საგანგებო გეგმა: „უკვე მოხდა“"
+   }
+  },
+  {
+   "color": "blue",
+   "emoji": "📽️",
+   "id": "c1",
+   "minutes": 5,
+   "mission": "g1",
+   "order": 1,
+   "shelf": "C",
+   "teaser": {
+    "en": "One computer, one projector, one class that votes on every choice. No lab, no student accounts, no grading - just fifteen well-spent minutes.",
+    "ka": "ერთი კომპიუტერი, ერთი პროექტორი და კლასი, რომელიც ყველა არჩევანზე კენჭს უყრის. არც კომპიუტერული ლაბორატორია, არც მოსწავლეთა ანგარიშები, არც ნიშნები - მხოლოდ თხუთმეტი კარგად დახარჯული წუთი."
+   },
+   "title": {
+    "en": "Classroom mode: run any mission on a projector",
+    "ka": "საკლასო რეჟიმი: ჩაატარეთ ნებისმიერი მისია პროექტორით"
+   }
+  },
+  {
+   "color": "green",
+   "emoji": "📋",
+   "id": "c2",
+   "minutes": 6,
+   "mission": null,
+   "order": 2,
+   "shelf": "C",
+   "teaser": {
+    "en": "One 45-minute skeleton that works for every mission, plus printable worksheets and ways to assess without testing fear.",
+    "ka": "ერთი 45-წუთიანი კარკასი, რომელიც ყველა მისიას ერგება, ამის გარდა - დასაბეჭდი სამუშაო ფურცლები და შეფასების გზები, რომლებიც შიშს არ ამოწმებს."
+   },
+   "title": {
+    "en": "Lesson plans & worksheets",
+    "ka": "გაკვეთილის გეგმები და სამუშაო ფურცლები"
+   }
+  },
+  {
+   "color": "pink",
+   "emoji": "🤝",
+   "id": "c3",
+   "minutes": 7,
+   "mission": null,
+   "order": 3,
+   "shelf": "C",
+   "teaser": {
+    "en": "After any online-safety lesson, expect a student at your desk. The first sixty seconds decide everything - here is exactly what to say and do.",
+    "ka": "ონლაინ უსაფრთხოების ნებისმიერი გაკვეთილის შემდეგ ელოდეთ მოსწავლეს თქვენს მაგიდასთან. პირველი სამოცი წამი ყველაფერს წყვეტს - აქ ზუსტად წერია, რა თქვათ და რა გააკეთოთ."
+   },
+   "title": {
+    "en": "Handling a disclosure: when a student tells you something happened",
+    "ka": "როგორ მივიღოთ განდობა: როცა მოსწავლე გეუბნებათ, რომ რაღაც მოხდა"
+   }
+  },
+  {
+   "color": "amber",
+   "emoji": "🖼️",
+   "id": "c4",
+   "minutes": 4,
+   "mission": null,
+   "order": 4,
+   "shelf": "C",
+   "teaser": {
+    "en": "The Guardian Certificate as a class goal, the Family Media Agreement for parent evenings, and why a student-made poster beats anything you can buy.",
+    "ka": "დამცველის სერტიფიკატი კლასის მიზნად, ოჯახის მედია-შეთანხმება მშობელთა კრებისთვის და რატომ სჯობს მოსწავლის გაკეთებული პლაკატი ყველაფერს, რისი ყიდვაც შეიძლება."
+   },
+   "title": {
+    "en": "Posters & certificates: what to print and what to make",
+    "ka": "პლაკატები და სერტიფიკატები: რა დაბეჭდოთ და რა შექმნათ"
+   }
+  }
+ ]
+}

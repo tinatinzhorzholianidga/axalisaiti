@@ -1,0 +1,42 @@
+{
+ "active": false,
+ "audience": "kids",
+ "certificate": false,
+ "color": "orange",
+ "courses": [],
+ "desc": {
+  "en": "Fun games that teach what's safe to click, share, and say online.",
+  "ka": "სახალისო თამაშები იმის შესახებ, თუ რა არის უსაფრთხო ინტერნეტში."
+ },
+ "emoji": "🐣",
+ "featured": false,
+ "id": "kids",
+ "intro": {
+  "en": "Short missions with Fufu the puppy: closing tricky pop-ups, keeping secrets safe, and always asking a grown-up.",
+  "ka": "მოკლე მისიები ლეკვ ფუფუსთან ერთად: მატყუარა ფანჯრების დახურვა, საიდუმლოების დაცვა და უფროსისთვის კითხვა."
+ },
+ "missions": [],
+ "name": {
+  "en": "Digital Foundations",
+  "ka": "ციფრული საფუძვლები"
+ },
+ "route": null,
+ "tag": {
+  "en": "Grades 1-3 · ages 6-9",
+  "ka": "1-3 კლასი · 6-9 წელი"
+ },
+ "topics": {
+  "en": [
+   "Close tricky pop-ups and fake prizes",
+   "Know what stays secret online",
+   "Always ask a grown-up first",
+   "Never answer strangers - tell a trusted adult"
+  ],
+  "ka": [
+   "დახურე მატყუარა ფანჯრები და ყალბი პრიზები",
+   "იცოდე, რა რჩება საიდუმლოდ ინტერნეტში",
+   "ყოველთვის ჯერ უფროსს ჰკითხე",
+   "არასდროს უპასუხო უცნობს - უთხარი სანდო უფროსს"
+  ]
+ }
+}

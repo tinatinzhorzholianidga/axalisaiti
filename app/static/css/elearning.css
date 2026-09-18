@@ -597,3 +597,4 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
   .table-wrap .table > :not(caption) > * > * { padding: var(--space-2) var(--space-3); }
   .kv { grid-template-columns: 1fr; }
 }
+

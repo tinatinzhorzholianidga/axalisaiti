@@ -6,7 +6,7 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 
 export default [
   {
-    ignores: ['node_modules/**', 'dist/**', '../app/**', 'playwright-report/**', 'test-results/**'],
+    ignores: ['node_modules/**', 'dist/**', '../app/**', 'playwright-report/**', 'test-results/**', 'mock/fixtures/**'],
   },
   js.configs.recommended,
   react.configs.flat.recommended,
@@ -32,7 +32,7 @@ export default [
   {
     // react-three-fiber elements (<mesh>, <capsuleGeometry args=…>) are not DOM
     // elements, so the unknown-property rule does not apply to the scene.
-    files: ['src/mascot/MascotScene.jsx', 'src/mascot/robot/**/*.jsx'],
+    files: ['src/mascot/RobotCanvas.jsx', 'src/mascot/RobotModel.jsx', 'src/mascot/HeroModel.jsx', 'src/mascot/Fireworks.jsx'],
     rules: { 'react/no-unknown-property': 'off' },
   },
   {

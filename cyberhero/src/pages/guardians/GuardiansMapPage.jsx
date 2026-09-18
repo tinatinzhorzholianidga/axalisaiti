@@ -1,17 +1,23 @@
 import { Link } from 'react-router-dom'
-import { MISSIONS, missionMax } from '../../content/guardians/index.js'
+import { ErrorState, Loading } from '../../components/State.jsx'
+import { missionMax, useMissions } from '../../content/ContentProvider.jsx'
 import { useI18n } from '../../i18n/I18nContext.jsx'
 import { useProgress } from '../../store/progress.jsx'
 
 export default function GuardiansMapPage() {
   const { t, tx } = useI18n()
-  const { progress, resetGuardians } = useProgress()
+  const { progress, resetGuardians, syncState, signedIn } = useProgress()
+  const list = useMissions('guardians')
   const missions = progress.guardians.missions
+
+  if (list.status === 'loading') return <Loading />
+  if (list.status !== 'ready') return <ErrorState error={list.error} onRetry={list.reload} />
+  const MISSIONS = list.data.items
 
   const doneCount = MISSIONS.filter((m) => missions[m.id]?.done).length
   const totalPoints = MISSIONS.reduce((sum, m) => sum + (missions[m.id]?.best ?? 0), 0)
   const coreDone = MISSIONS.filter((m) => !m.final).every((m) => missions[m.id]?.done)
-  const allDone = doneCount === MISSIONS.length
+  const allDone = MISSIONS.length > 0 && doneCount === MISSIONS.length
 
   const handleReset = () => {
     if (window.confirm(t('guardians.resetConfirm'))) resetGuardians()
@@ -36,15 +42,23 @@ export default function GuardiansMapPage() {
           ⚡ {t('guardians.points')}: <span className="val">{totalPoints}</span>
         </span>
         <span className="g-stat">
-          🎯 {t('guardians.missions')}: <span className="val">{doneCount}/{MISSIONS.length}</span>
+          🎯 {t('guardians.missions')}:{' '}
+          <span className="val">
+            {doneCount}/{MISSIONS.length}
+          </span>
         </span>
+        {signedIn && (
+          <span className="g-stat g-sync" data-state={syncState}>
+            {syncState === 'error' ? '⚠️ ' + t('guardians.syncError') : '☁️ ' + t('guardians.synced')}
+          </span>
+        )}
       </div>
 
       <div className="mission-grid">
         {MISSIONS.map((mission) => {
           const state = missions[mission.id]
           const locked = mission.final && !coreDone
-          const classes = ['mission-card', state?.done ? 'done' : '', locked ? 'locked' : '']
+          const classes = ['mission-card', `tone-${mission.color}`, state?.done ? 'done' : '', locked ? 'locked' : '']
             .filter(Boolean)
             .join(' ')
           const inner = (
@@ -64,13 +78,7 @@ export default function GuardiansMapPage() {
               <h3>{tx(mission.name)}</h3>
               <p className="m-desc">{locked ? t('guardians.locked') : tx(mission.desc)}</p>
               <div className="m-state">
-                <span>
-                  {locked
-                    ? t('guardians.lockedShort')
-                    : state?.done
-                      ? `↻ ${t('guardians.replay')}`
-                      : `${t('guardians.start')} →`}
-                </span>
+                <span>{locked ? t('guardians.lockedShort') : state?.done ? `↻ ${t('guardians.replay')}` : `${t('guardians.start')} →`}</span>
                 {state?.done && (
                   <span className="m-score">
                     ✓ {state.best}/{missionMax(mission)}
@@ -81,25 +89,20 @@ export default function GuardiansMapPage() {
           )
           if (locked) {
             return (
-              <div key={mission.id} className={classes} style={{ '--c': mission.color }} aria-disabled="true">
+              <div key={mission.id} className={classes} aria-disabled="true">
                 {inner}
               </div>
             )
           }
           return (
-            <Link
-              key={mission.id}
-              to={`/guardians/mission/${mission.id}`}
-              className={classes}
-              style={{ '--c': mission.color }}
-            >
+            <Link key={mission.id} to={`/guardians/mission/${mission.id}`} className={classes}>
               {inner}
             </Link>
           )
         })}
       </div>
 
-      <div className="g-statbar" style={{ marginTop: 30 }}>
+      <div className="g-statbar u-mt-30">
         {allDone ? (
           <Link to="/guardians/certificate" className="btn-solid">
             🏆 {t('guardians.getCert')}
@@ -110,8 +113,8 @@ export default function GuardiansMapPage() {
       </div>
 
       {(doneCount > 0 || totalPoints > 0) && (
-        <p style={{ textAlign: 'center', marginTop: 18 }}>
-          <button type="button" className="pill-link" onClick={handleReset} style={{ border: 0, cursor: 'pointer', opacity: 0.7 }}>
+        <p className="u-center u-mt-18">
+          <button type="button" className="pill-link as-btn" onClick={handleReset}>
             {t('guardians.resetProgress')}
           </button>
         </p>

@@ -1,0 +1,38 @@
+{
+ "content": {
+  "en": "<p>Top athletes obsess over sleep because it is free, legal performance enhancement. Meanwhile the feed in your hand was engineered by some of the best-paid engineers alive to keep you watching - including at 01:00. This mission is not \"screens are bad\". It is an audit: who is actually running your evening - you, or the algorithm?</p>\n<h3>The theory in 60 seconds</h3>\n<ul>\n<li>The real measure is displacement, not hours: screen time is a problem when it eats your sleep, your friends or the rest of your life - not when a counter hits some number.</li>\n<li>Sleep comes first - it is free performance enhancement, and top athletes guard it like treasure. A bright screen at midnight pushes sleepiness later, never closer.</li>\n<li>Friction beats willpower. A phone charging outside the bedroom wins the fight your discipline loses at 00:30 - you cannot scroll what you cannot reach.</li>\n<li>Feeds are bottomless on purpose: there is no last video, and teams of engineers are paid to turn \"one more\" into forty. Losing to that design is not weakness.</li>\n<li>Curate the feed: mute or unfollow whatever reliably makes you feel worse. The algorithm reads that signal and rebuilds around it - you run it, not the other way around.</li>\n</ul>\n<blockquote>Friction beats willpower. Phone out of the bedroom, alarm on a real clock - top performers guard sleep first, because it is free performance.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g9\" rel=\"noopener noreferrer\">Practise it in the mission: Balance Boss →</a></p>",
+  "ka": "<p>საუკეთესო სპორტსმენები ძილზე იმიტომ გიჟდებიან, რომ ეს უფასო და ლეგალური დოპინგია. ამასობაში ლენტა შენს ხელში მსოფლიოს ყველაზე მაღალანაზღაურებადი ინჟინრების აწყობილია იმისთვის, რომ უყურო - 01:00-ზეც. ეს მისია არ არის „ეკრანები ცუდია“. ეს აუდიტია: სინამდვილეში ვინ მართავს შენს საღამოს - შენ თუ ალგორითმი?</p>\n<h3>თეორია 60 წამში</h3>\n<ul>\n<li>ნამდვილი საზომი ჩანაცვლებაა და არა საათები: საეკრანო დრო მაშინ არის პრობლემა, როცა ძილს, მეგობრებს ან დანარჩენ ცხოვრებას გიჭამს - და არა მაშინ, როცა მთვლელი რომელიღაც ციფრს მიაღწევს.</li>\n<li>ძილი პირველია - ის უფასო დოპინგია და საუკეთესო სპორტსმენები მას განძივით იცავენ. კაშკაშა ეკრანი შუაღამისას ძილიანობას აშორებს და არასდროს - აახლოებს.</li>\n<li>ხახუნი ნებისყოფას ამარცხებს. საძინებლის გარეთ დამტენზე დადებული ტელეფონი იგებს ბრძოლას, რომელსაც შენი დისციპლინა 00:30-ზე აგებს - რასაც ვერ წვდები, ვერც დაასქროლავ.</li>\n<li>ლენტა განზრახ უფსკერულია: ბოლო ვიდეო არ არსებობს, ინჟინრების გუნდებს კი იმაში უხდიან, რომ „კიდევ ერთი“ ორმოცად აქციონ. ამ დიზაინთან წაგება სისუსტე არ არის.</li>\n<li>გააკეთე ლენტის კურირება: გააჩუმე ან გააუქმე ყველაფერი, რაც სტაბილურად თავს ცუდად გაგრძნობინებს. ალგორითმი ამ სიგნალს კითხულობს და ლენტას მის მიხედვით გიწყობს - მას შენ მართავ და არა პირიქით.</li>\n</ul>\n<blockquote>ხახუნი ნებისყოფას ამარცხებს. ტელეფონი საძინებლის გარეთ, მაღვიძარა ნამდვილ საათზე - საუკეთესოები პირველ რიგში ძილს იცავენ, რადგან ეს უფასო ფორმაა.</blockquote>\n<p><a href=\"/cyberhero/guardians/mission/g9\" rel=\"noopener noreferrer\">ივარჯიშე მისიაში: ბალანსის ოსტატი →</a></p>"
+ },
+ "course": "cyber-guardians",
+ "index": 6,
+ "minutes": 5,
+ "module_title": {
+  "en": "You, online",
+  "ka": "შენ - ინტერნეტში"
+ },
+ "next": {
+  "slug": "g4-the-blackmail-trap",
+  "title": {
+   "en": "The Blackmail Trap",
+   "ka": "შანტაჟის ხაფანგი"
+  }
+ },
+ "prev": {
+  "slug": "g3-fort-knox",
+  "title": {
+   "en": "Fort Knox",
+   "ka": "ფორტ ნოქსი"
+  }
+ },
+ "slug": "g9-balance-boss",
+ "summary": {
+  "en": "Sleep, doomscrolling, comparison. Audit yourself - no lectures.",
+  "ka": "ძილი, უსასრულო სქროლვა, შედარება. შეაფასე საკუთარი თავი - ლექციების გარეშე."
+ },
+ "title": {
+  "en": "Balance Boss",
+  "ka": "ბალანსის ოსტატი"
+ },
+ "total": 9,
+ "type": "reading"
+}

@@ -27,12 +27,19 @@ function webglAvailable() {
 
 /* if WebGL is missing or the renderer crashes, show a friendly sticker
    instead of a broken canvas */
-function Fallback({ size }) {
+function Fallback() {
   return (
-    <div className="mascot-fallback" style={{ width: size, height: size }} aria-hidden="true">
+    <div className="mascot-fallback" aria-hidden="true">
       🤖
     </div>
   )
+}
+
+/* Sizes are expressed as data attributes (see styles/platform.css): the
+   platform CSP forbids style="" so the canvas box cannot be sized inline. */
+export const CANVAS_SIZES = [150, 185, 190, 210, 220, 230, 320, 430]
+export function nearestSize(size) {
+  return CANVAS_SIZES.reduce((best, s) => (Math.abs(s - size) < Math.abs(best - size) ? s : best), CANVAS_SIZES[0])
 }
 
 class GLBoundary extends Component {
@@ -66,12 +73,12 @@ export default function RobotCanvas({ size = 300, className = '', label, charact
   return (
     <div
       className={`mascot-canvas ${className}`.trim()}
-      style={{ width: size, height: size }}
+      data-size={nearestSize(size)}
       role="img"
       aria-label={label}
     >
       {hasWebgl ? (
-        <GLBoundary fallback={<Fallback size={size} />}>
+        <GLBoundary fallback={<Fallback />}>
           <Canvas
             dpr={[1, 2]}
             gl={{ antialias: true, alpha: true }}
@@ -86,7 +93,7 @@ export default function RobotCanvas({ size = 300, className = '', label, charact
           </Canvas>
         </GLBoundary>
       ) : (
-        <Fallback size={size} />
+        <Fallback />
       )}
     </div>
   )

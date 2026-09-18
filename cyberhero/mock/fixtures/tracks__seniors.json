@@ -1,0 +1,44 @@
+{
+ "active": false,
+ "audience": "adults",
+ "certificate": false,
+ "color": "pink",
+ "courses": [],
+ "desc": {
+  "en": "Spot scam calls and fake messages with calm confidence.",
+  "ka": "ამოიცანი თაღლითური ზარები და ყალბი შეტყობინებები სიმშვიდით."
+ },
+ "emoji": "🏡",
+ "featured": false,
+ "id": "seniors",
+ "intro": {
+  "en": "Calm, simple, large-text lessons focused on the scams that target seniors most.",
+  "ka": "მშვიდი, მარტივი, მსხვილშრიფტიანი გაკვეთილები ყველაზე გავრცელებულ თაღლითობებზე."
+ },
+ "missions": [],
+ "name": {
+  "en": "Security 50+",
+  "ka": "უსაფრთხოება 50+"
+ },
+ "route": null,
+ "tag": {
+  "en": "50+ · Seniors",
+  "ka": "50+ · უფროსი თაობა"
+ },
+ "topics": {
+  "en": [
+   "Recognize scam phone calls",
+   "Spot fake bank SMS and messages",
+   "Avoid tech-support scams",
+   "Recognize romance scams",
+   "One simple rule: stop and verify first"
+  ],
+  "ka": [
+   "ამოიცანი სატელეფონო თაღლითობა",
+   "ამოიცანი ყალბი საბანკო SMS",
+   "აარიდე თავი ტექ-მხარდაჭერის თაღლითობას",
+   "ამოიცანი სასიყვარულო თაღლითობა",
+   "ერთი წესი: გაჩერდი და ჯერ გადაამოწმე"
+  ]
+ }
+}
