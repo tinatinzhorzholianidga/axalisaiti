@@ -7,8 +7,12 @@ case "${1:-web}" in
       echo "[entrypoint] publishing static assets for nginx"
       rm -rf /srv/static/* && cp -R /app/app/static/. /srv/static/
     fi
-    echo "[entrypoint] checking production configuration"
-    flask --app wsgi:app check-production
+    if [ "${APP_ENV:-production}" = "production" ]; then
+      echo "[entrypoint] checking production configuration"
+      flask --app wsgi:app check-production
+    else
+      echo "[entrypoint] APP_ENV=${APP_ENV}: skipping the production configuration check"
+    fi
     echo "[entrypoint] applying database migrations"
     flask --app wsgi:app db upgrade
     echo "[entrypoint] seeding roles/permissions/settings (idempotent)"

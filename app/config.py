@@ -160,7 +160,7 @@ class BaseConfig:
 
 
 class DevelopmentConfig(BaseConfig):
-    DEBUG = True
+    DEBUG = env_bool("FLASK_DEBUG", True)
     SECRET_KEY = os.environ.get("SECRET_KEY") or "dev-only-secret-key-not-for-production-use!"
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "DATABASE_URL", f"sqlite:///{BASE_DIR / 'data' / 'dev.sqlite3'}"

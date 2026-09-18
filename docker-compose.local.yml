@@ -1,0 +1,28 @@
+# Local trial over plain HTTP (no TLS, no real mail). Use together with the
+# main file:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
+#
+# It switches the app to the development configuration so the session cookie
+# works without HTTPS. Never use this file on a public server: production
+# deployments must keep APP_ENV=production and SESSION_COOKIE_SECURE=true.
+services:
+  web:
+    environment:
+      APP_ENV: development
+      FLASK_DEBUG: "false"
+      SESSION_COOKIE_SECURE: "false"
+      SESSION_TYPE: redis
+      CACHE_TYPE: RedisCache
+      RATELIMIT_STORAGE_URI: redis://redis:6379/0
+      CELERY_TASK_ALWAYS_EAGER: "false"
+      MAIL_SUPPRESS_SEND: "true"
+  worker:
+    environment:
+      APP_ENV: development
+      FLASK_DEBUG: "false"
+      SESSION_TYPE: redis
+      CACHE_TYPE: RedisCache
+      RATELIMIT_STORAGE_URI: redis://redis:6379/0
+      CELERY_TASK_ALWAYS_EAGER: "false"
+      MAIL_SUPPRESS_SEND: "true"
