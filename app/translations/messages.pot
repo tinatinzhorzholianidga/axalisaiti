@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-18 11:32+0000\n"
+"POT-Creation-Date: 2026-09-21 07:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2941,6 +2941,9 @@ msgid "No students yet"
 msgstr ""
 
 msgid "Learners appear here as soon as they enrol."
+msgstr ""
+
+msgid "Learn / Practice / Stay secure"
 msgstr ""
 
 msgid ""

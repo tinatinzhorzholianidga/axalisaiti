@@ -64,7 +64,7 @@ def test_preview_gating(client, demo, student):  # type: ignore[no-untyped-def]
     assert response.status_code == 302 and "/auth/login" in response.headers["Location"]
     login(client, student)
     response = client.get(f"/learn/{demo.slug}/{locked.slug}/", follow_redirects=True)
-    assert "Enrol in the course" in response.data.decode()
+    assert "დარეგისტრირდით კურსზე" in response.data.decode()
 
 
 def test_learner_pages_render(client, demo, student):  # type: ignore[no-untyped-def]
@@ -110,7 +110,7 @@ def test_review_requires_enrollment_and_is_moderated(client, demo, student):  # 
         {"rating": 5, "body": "Great"},
         follow_redirects=True,
     )
-    assert b"enrolled" in response.data
+    assert "დარეგისტრირდით კურსზე" in response.data.decode()
     post(client, f"/courses/{demo.slug}/enroll")
     response = post(
         client,
@@ -118,7 +118,7 @@ def test_review_requires_enrollment_and_is_moderated(client, demo, student):  # 
         {"rating": 5, "body": "Great"},
         follow_redirects=True,
     )
-    assert b"moderation" in response.data
+    assert "მოდერაციის შემდეგ" in response.data.decode()
     from app.models import Review, ReviewStatus
 
     review = db.session.query(Review).one()

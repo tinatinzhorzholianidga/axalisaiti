@@ -7,7 +7,7 @@
   <div class="container">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">LEARN / PRACTICE / STAY SECURE</span>
+        <span class="eyebrow">{{ _('Learn / Practice / Stay secure') }}</span>
         <h1>{{ _('A secure') }}<br><span class="highlight">{{ _('digital future') }}</span><br>{{ _('is in your hands') }}</h1>
         <p class="hero-lead">{{ _('Learn cybersecurity through structured lessons, real-world scenarios and practical exercises. Built for public servants, students and professionals in Georgia.') }}</p>
         <div class="hero-actions">
@@ -15,9 +15,9 @@
           <a class="btn btn-outline btn-lg" href="#how-it-works">{{ _('How it works') }}</a>
         </div>
         <div class="hero-stats" aria-label="{{ _('Platform statistics') }}">
-          <div class="stat"><span class="value">{{ stats.courses if stats.courses >= 20 else '20+' }}</span><span class="label">{{ _('courses') }}</span></div>
-          <div class="stat"><span class="value">{% if stats.students >= 1000 %}{{ (stats.students // 1000) }}K+{% else %}5K+{% endif %}</span><span class="label">{{ _('learners') }}</span></div>
-          <div class="stat"><span class="value">{{ stats.completion if stats.completion else 95 }}%</span><span class="label">{{ _('completion') }}</span></div>
+          <div class="stat"><span class="value">{{ stats.courses }}</span><span class="label">{{ _('courses') }}</span></div>
+          <div class="stat"><span class="value">{% if stats.students >= 1000 %}{{ (stats.students // 1000) }}K+{% else %}{{ stats.students }}{% endif %}</span><span class="label">{{ _('learners') }}</span></div>
+          <div class="stat"><span class="value">{{ stats.completion }}%</span><span class="label">{{ _('completion') }}</span></div>
         </div>
       </div>
       <div class="hero-art" aria-hidden="true">
