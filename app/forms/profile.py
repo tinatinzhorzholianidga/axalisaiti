@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from flask_babel import lazy_gettext as _l
-from flask_wtf import FlaskForm
 from wtforms import (
     BooleanField,
     PasswordField,
@@ -12,8 +11,10 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired, Length, Optional
 
+from app.forms.base import BaseForm
 
-class ProfileForm(FlaskForm):
+
+class ProfileForm(BaseForm):
     first_name = StringField(_l("First name"), validators=[DataRequired(), Length(max=80)])
     last_name = StringField(_l("Last name"), validators=[DataRequired(), Length(max=80)])
     display_name = StringField(
@@ -29,7 +30,7 @@ class ProfileForm(FlaskForm):
     submit = SubmitField(_l("Save changes"))
 
 
-class NotificationPrefsForm(FlaskForm):
+class NotificationPrefsForm(BaseForm):
     email_assignment_feedback = BooleanField(_l("Email me assignment feedback"), default=True)
     email_quiz_result = BooleanField(_l("Email me quiz results"), default=True)
     email_certificate = BooleanField(_l("Email me when a certificate is issued"), default=True)
@@ -38,7 +39,7 @@ class NotificationPrefsForm(FlaskForm):
     submit = SubmitField(_l("Save preferences"))
 
 
-class DeactivateForm(FlaskForm):
+class DeactivateForm(BaseForm):
     password = PasswordField(_l("Confirm with your password"), validators=[DataRequired()])
     confirm = BooleanField(
         _l("I understand my account will be deactivated"), validators=[DataRequired()]

@@ -7,6 +7,7 @@ import re
 from datetime import timedelta
 from typing import Any
 
+from flask_babel import gettext as _
 from sqlalchemy import select
 
 from app.extensions import db
@@ -68,13 +69,13 @@ def best_attempt(user: User, quiz: Quiz) -> QuizAttempt | None:
 
 def start_attempt(user: User, quiz: Quiz) -> QuizAttempt:
     if not quiz.is_published or not quiz.questions:
-        raise QuizError("This quiz is not available.")
+        raise QuizError(_("This quiz is not available."))
     existing = open_attempt(user, quiz)
     if existing:
         return existing
     left = attempts_left(user, quiz)
     if left is not None and left <= 0:
-        raise QuizError("You have used all attempts for this quiz.")
+        raise QuizError(_("You have used all attempts for this quiz."))
     number = len(user_attempts(user, quiz)) + 1
     question_ids = [q.id for q in quiz.questions]
     if quiz.shuffle_questions:
@@ -177,10 +178,10 @@ def grade_question(question: Question, answer: Any) -> tuple[bool, float]:
 
 def submit_attempt(attempt: QuizAttempt, form: Any) -> QuizAttempt:
     if attempt.status != AttemptStatus.IN_PROGRESS:
-        raise QuizError("This attempt was already submitted.")
+        raise QuizError(_("This attempt was already submitted."))
     if attempt.expires_at and utcnow() > attempt.expires_at + timedelta(seconds=GRACE_SECONDS):
         _expire(attempt)
-        raise QuizError("Time is up for this attempt.")
+        raise QuizError(_("Time is up for this attempt."))
     answers = parse_answers(attempt, form)
     score = 0.0
     for question in ordered_questions(attempt):

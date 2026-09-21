@@ -15,6 +15,7 @@ from pathlib import Path
 
 import magic
 from flask import current_app
+from flask_babel import gettext as _
 from PIL import Image, UnidentifiedImageError
 from sqlalchemy import select
 from werkzeug.datastructures import FileStorage
@@ -183,7 +184,7 @@ def validate(
     """Return (data, extension, mime) or raise UploadError."""
     policy = POLICIES[kind]
     if file is None or not file.filename:
-        raise UploadError("No file selected.")
+        raise UploadError(_("No file selected."))
     ext = _extension(file.filename)
     permitted = (
         policy.extensions
@@ -191,13 +192,13 @@ def validate(
         else policy.extensions & {e.lower() for e in allowed_extensions}
     )
     if ext not in permitted:
-        raise UploadError(f"File type .{ext or '?'} is not allowed.")
+        raise UploadError(_("File type .%(ext)s is not allowed.", ext=ext or "?"))
     data = file.read()
     file.stream.seek(0)
     if not data:
-        raise UploadError("The file is empty.")
+        raise UploadError(_("The file is empty."))
     if len(data) > policy.max_mb * 1024 * 1024:
-        raise UploadError(f"The file is larger than {policy.max_mb} MB.")
+        raise UploadError(_("The file is larger than %(mb)d MB.", mb=policy.max_mb))
     mime = magic.from_buffer(data[:8192], mime=True) or "application/octet-stream"
     if mime not in EXT_MIME.get(ext, frozenset()) or mime not in (
         policy.mimes
@@ -210,20 +211,20 @@ def validate(
             "application/csv",
         }
     ):
-        raise UploadError("The file content does not match its extension.")
+        raise UploadError(_("The file content does not match its extension."))
     prefixes = MAGIC_PREFIXES.get(ext)
     if prefixes and not data.startswith(prefixes):
-        raise UploadError("The file signature is invalid.")
+        raise UploadError(_("The file signature is invalid."))
     if ext in {"png", "jpg", "jpeg", "webp", "gif"}:
         try:
             with Image.open(__import__("io").BytesIO(data)) as img:
                 img.verify()
         except (UnidentifiedImageError, OSError) as exc:
-            raise UploadError("The image could not be decoded.") from exc
+            raise UploadError(_("The image could not be decoded.")) from exc
     if ext == "svg":
         lowered = data.lower()
         if any(token in lowered for token in DANGEROUS_SVG_TOKENS):
-            raise UploadError("SVG files must not contain scripts or event handlers.")
+            raise UploadError(_("SVG files must not contain scripts or event handlers."))
         mime = "image/svg+xml"
     return data, ext, mime
 

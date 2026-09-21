@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from flask_babel import gettext as _
 from sqlalchemy import select
 from werkzeug.datastructures import FileStorage
 
@@ -70,15 +71,15 @@ def submit(
         and not text
         and not (assignment.submission_type == SubmissionType.BOTH and has_file)
     ):
-        raise AssignmentError("Please write your answer.")
+        raise AssignmentError(_("Please write your answer."))
     if (
         needs_file
         and not has_file
         and not (assignment.submission_type == SubmissionType.BOTH and text)
     ):
-        raise AssignmentError("Please attach a file.")
+        raise AssignmentError(_("Please attach a file."))
     if has_file and assignment.submission_type == SubmissionType.TEXT:
-        raise AssignmentError("This assignment accepts text only.")
+        raise AssignmentError(_("This assignment accepts text only."))
 
     media = None
     if has_file and file is not None:

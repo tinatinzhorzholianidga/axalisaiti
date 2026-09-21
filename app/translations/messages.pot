@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-21 07:21+0000\n"
+"POT-Creation-Date: 2026-09-21 07:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1167,6 +1167,160 @@ msgstr ""
 msgid "Send back to draft"
 msgstr ""
 
+#, python-format
+msgid "Field must be equal to %(other_name)s."
+msgstr ""
+
+#, python-format
+msgid "Field must be at least %(min)d character long."
+msgid_plural "Field must be at least %(min)d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "Field cannot be longer than %(max)d character."
+msgid_plural "Field cannot be longer than %(max)d characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "Field must be exactly %(max)d character long."
+msgid_plural "Field must be exactly %(max)d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "Field must be between %(min)d and %(max)d characters long."
+msgstr ""
+
+#, python-format
+msgid "Number must be at least %(min)s."
+msgstr ""
+
+#, python-format
+msgid "Number must be at most %(max)s."
+msgstr ""
+
+#, python-format
+msgid "Number must be between %(min)s and %(max)s."
+msgstr ""
+
+msgid "This field is required."
+msgstr ""
+
+msgid "Invalid input."
+msgstr ""
+
+msgid "Invalid email address."
+msgstr ""
+
+msgid "Invalid IP address."
+msgstr ""
+
+msgid "Invalid Mac address."
+msgstr ""
+
+msgid "Invalid URL."
+msgstr ""
+
+msgid "Invalid UUID."
+msgstr ""
+
+#, python-format
+msgid "Invalid value, must be one of: %(values)s."
+msgstr ""
+
+#, python-format
+msgid "Invalid value, can't be any of: %(values)s."
+msgstr ""
+
+msgid "This field cannot be edited."
+msgstr ""
+
+msgid "This field is disabled and cannot have a value."
+msgstr ""
+
+msgid "Invalid CSRF Token."
+msgstr ""
+
+msgid "CSRF token missing."
+msgstr ""
+
+msgid "CSRF failed."
+msgstr ""
+
+msgid "CSRF token expired."
+msgstr ""
+
+msgid "Invalid Choice: could not coerce."
+msgstr ""
+
+msgid "Choices cannot be None."
+msgstr ""
+
+msgid "Not a valid choice."
+msgstr ""
+
+msgid "Invalid choice(s): one or more data inputs could not be coerced."
+msgstr ""
+
+#, python-format
+msgid "'%(value)s' is not a valid choice for this field."
+msgid_plural "'%(value)s' are not valid choices for this field."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Not a valid datetime value."
+msgstr ""
+
+msgid "Not a valid date value."
+msgstr ""
+
+msgid "Not a valid time value."
+msgstr ""
+
+msgid "Not a valid week value."
+msgstr ""
+
+msgid "Not a valid integer value."
+msgstr ""
+
+msgid "Not a valid decimal value."
+msgstr ""
+
+msgid "Not a valid float value."
+msgstr ""
+
+msgid "The CSRF token is missing."
+msgstr ""
+
+msgid "The CSRF session token is missing."
+msgstr ""
+
+msgid "The CSRF token has expired."
+msgstr ""
+
+msgid "The CSRF token is invalid."
+msgstr ""
+
+msgid "The CSRF tokens do not match."
+msgstr ""
+
+#, python-brace-format
+msgid "File does not have an approved extension: {extensions}"
+msgstr ""
+
+msgid "File does not have an approved extension."
+msgstr ""
+
+#, python-brace-format
+msgid "File must be at least {size} bytes."
+msgstr ""
+
+#, python-brace-format
+msgid "File must be at most {size} bytes."
+msgstr ""
+
 msgid "Rating"
 msgstr ""
 
@@ -1261,6 +1415,119 @@ msgid "I understand my account will be deactivated"
 msgstr ""
 
 msgid "Deactivate account"
+msgstr ""
+
+msgid "Please write your answer."
+msgstr ""
+
+msgid "Please attach a file."
+msgstr ""
+
+msgid "This assignment accepts text only."
+msgstr ""
+
+msgid "Too many failed attempts. Try again later."
+msgstr ""
+
+msgid "This account is suspended."
+msgstr ""
+
+msgid "Please verify your email address before signing in."
+msgstr ""
+
+msgid "An account with this email already exists."
+msgstr ""
+
+msgid "This reset link is invalid or has expired."
+msgstr ""
+
+msgid "Current password is incorrect."
+msgstr ""
+
+msgid "New password must differ from the current one."
+msgstr ""
+
+msgid "Provide a link or a file."
+msgstr ""
+
+msgid "Links must start with http:// or https://."
+msgstr ""
+
+msgid "Please enter the name to print on the certificate."
+msgstr ""
+
+msgid "No certificate is available for this track."
+msgstr ""
+
+msgid "Finish every mission of the track first."
+msgstr ""
+
+msgid "You cannot post in this course."
+msgstr ""
+
+msgid "Title is too short."
+msgstr ""
+
+msgid "This thread is locked."
+msgstr ""
+
+msgid "Reply is empty."
+msgstr ""
+
+msgid "You cannot delete this post."
+msgstr ""
+
+msgid "This course is not open for enrolment."
+msgstr ""
+
+msgid "This course is invitation only."
+msgstr ""
+
+msgid "This course has not started yet."
+msgstr ""
+
+msgid "Enrolment for this course has closed."
+msgstr ""
+
+msgid "No file selected."
+msgstr ""
+
+#, python-format
+msgid "File type .%(ext)s is not allowed."
+msgstr ""
+
+msgid "The file is empty."
+msgstr ""
+
+#, python-format
+msgid "The file is larger than %(mb)d MB."
+msgstr ""
+
+msgid "The file content does not match its extension."
+msgstr ""
+
+msgid "The file signature is invalid."
+msgstr ""
+
+msgid "The image could not be decoded."
+msgstr ""
+
+msgid "SVG files must not contain scripts or event handlers."
+msgstr ""
+
+msgid "This quiz is not available."
+msgstr ""
+
+msgid "You have used all attempts for this quiz."
+msgstr ""
+
+msgid "This attempt was already submitted."
+msgstr ""
+
+msgid "You need to be enrolled to review this course."
+msgstr ""
+
+msgid "Rating must be between 1 and 5."
 msgstr ""
 
 msgid "Administration"
@@ -2157,9 +2424,6 @@ msgstr ""
 msgid "Start attempt"
 msgstr ""
 
-msgid "You have used all attempts for this quiz."
-msgstr ""
-
 msgid "Your attempts"
 msgstr ""
 
@@ -2626,9 +2890,6 @@ msgid "Inappropriate content"
 msgstr ""
 
 msgid "Delete this post?"
-msgstr ""
-
-msgid "This thread is locked."
 msgstr ""
 
 msgid "Error"

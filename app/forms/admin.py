@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from flask_babel import lazy_gettext as _l
-from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
 from wtforms import (
     BooleanField,
@@ -16,6 +15,8 @@ from wtforms import (
     TextAreaField,
 )
 from wtforms.validators import DataRequired, Email, Length, NumberRange, Optional, Regexp
+
+from app.forms.base import BaseForm
 
 SLUG = Regexp(
     r"^[a-z0-9]+(?:-[a-z0-9]+)*$", message=_l("Use lowercase letters, digits and hyphens.")
@@ -32,7 +33,7 @@ TONES = [
 ]
 
 
-class UserCreateForm(FlaskForm):
+class UserCreateForm(BaseForm):
     email = StringField(_l("Email"), validators=[DataRequired(), Email(), Length(max=255)])
     first_name = StringField(_l("First name"), validators=[DataRequired(), Length(max=80)])
     last_name = StringField(_l("Last name"), validators=[DataRequired(), Length(max=80)])
@@ -52,7 +53,7 @@ class UserCreateForm(FlaskForm):
     submit = SubmitField(_l("Create user"))
 
 
-class UserEditForm(FlaskForm):
+class UserEditForm(BaseForm):
     first_name = StringField(_l("First name"), validators=[DataRequired(), Length(max=80)])
     last_name = StringField(_l("Last name"), validators=[DataRequired(), Length(max=80)])
     organization = StringField(_l("Organisation"), validators=[Optional(), Length(max=160)])
@@ -69,7 +70,7 @@ class UserEditForm(FlaskForm):
     submit = SubmitField(_l("Save user"))
 
 
-class BroadcastForm(FlaskForm):
+class BroadcastForm(BaseForm):
     title = StringField(_l("Title"), validators=[DataRequired(), Length(max=200)])
     body = TextAreaField(_l("Message"), validators=[DataRequired(), Length(max=2000)])
     link = StringField(_l("Link (optional)"), validators=[Optional(), Length(max=500)])
@@ -85,18 +86,18 @@ class BroadcastForm(FlaskForm):
     submit = SubmitField(_l("Send announcement"))
 
 
-class RevokeForm(FlaskForm):
+class RevokeForm(BaseForm):
     reason = StringField(_l("Reason"), validators=[DataRequired(), Length(min=3, max=300)])
     submit = SubmitField(_l("Revoke"))
 
 
-class IssueCertificateForm(FlaskForm):
+class IssueCertificateForm(BaseForm):
     user_id = IntegerField(_l("User ID"), validators=[DataRequired()])
     course_id = IntegerField(_l("Course ID"), validators=[DataRequired()])
     submit = SubmitField(_l("Issue certificate"))
 
 
-class MediaUploadForm(FlaskForm):
+class MediaUploadForm(BaseForm):
     file = FileField(_l("File"), validators=[DataRequired()])
     kind = SelectField(
         _l("Kind"),
@@ -113,18 +114,18 @@ class MediaUploadForm(FlaskForm):
     submit = SubmitField(_l("Upload"))
 
 
-class FlagForm(FlaskForm):
+class FlagForm(BaseForm):
     enabled = BooleanField(_l("Enabled"))
     submit = SubmitField(_l("Save"))
 
 
-class NoteForm(FlaskForm):
+class NoteForm(BaseForm):
     note = TextAreaField(_l("Note"), validators=[Optional(), Length(max=2000)])
     submit = SubmitField(_l("Save"))
 
 
 # ---- CyberHero -------------------------------------------------------------
-class TrackForm(FlaskForm):
+class TrackForm(BaseForm):
     slug = StringField(_l("Slug"), validators=[DataRequired(), Length(max=80), SLUG])
     sort_order = IntegerField(_l("Order"), validators=[NumberRange(min=0, max=100)], default=0)
     emoji = StringField(_l("Emoji"), validators=[DataRequired(), Length(max=16)])
@@ -155,7 +156,7 @@ class TrackForm(FlaskForm):
     submit = SubmitField(_l("Save track"))
 
 
-class MissionForm(FlaskForm):
+class MissionForm(BaseForm):
     slug = StringField(_l("Slug"), validators=[DataRequired(), Length(max=80), SLUG])
     track_id = SelectField(_l("Track"), coerce=int)
     course_id = SelectField(
@@ -196,7 +197,7 @@ class MissionForm(FlaskForm):
     submit = SubmitField(_l("Save mission"))
 
 
-class RoundForm(FlaskForm):
+class RoundForm(BaseForm):
     round_type = SelectField(
         _l("Type"),
         choices=[
@@ -254,7 +255,7 @@ class RoundForm(FlaskForm):
     submit = SubmitField(_l("Save round"))
 
 
-class BranchNodeForm(FlaskForm):
+class BranchNodeForm(BaseForm):
     key = StringField(_l("Node key"), validators=[DataRequired(), Length(max=40)])
     sort_order = IntegerField(_l("Order"), validators=[NumberRange(min=0, max=100)], default=1)
     is_end = BooleanField(_l("Ending node"))
@@ -263,7 +264,7 @@ class BranchNodeForm(FlaskForm):
     submit = SubmitField(_l("Save node"))
 
 
-class ArticleForm(FlaskForm):
+class ArticleForm(BaseForm):
     slug = StringField(
         _l("Code / slug (a1 … c4)"), validators=[DataRequired(), Length(max=80), SLUG]
     )
@@ -294,7 +295,7 @@ class ArticleForm(FlaskForm):
     submit = SubmitField(_l("Save article"))
 
 
-class BlockForm(FlaskForm):
+class BlockForm(BaseForm):
     block_type = SelectField(
         _l("Block"),
         choices=[
@@ -330,7 +331,7 @@ class BlockForm(FlaskForm):
     submit = SubmitField(_l("Save block"))
 
 
-class SafetyResourceForm(FlaskForm):
+class SafetyResourceForm(BaseForm):
     kind = SelectField(
         _l("Kind"),
         choices=[
@@ -360,7 +361,7 @@ class SafetyResourceForm(FlaskForm):
     submit = SubmitField(_l("Save"))
 
 
-class AgreementSectionForm(FlaskForm):
+class AgreementSectionForm(BaseForm):
     title_ka = StringField(
         _l("Section title (Georgian)"), validators=[DataRequired(), Length(max=200)]
     )
@@ -375,7 +376,7 @@ class AgreementSectionForm(FlaskForm):
     submit = SubmitField(_l("Save section"))
 
 
-class TipForm(FlaskForm):
+class TipForm(BaseForm):
     topics = StringField(_l("Topics (comma separated)"), validators=[Optional(), Length(max=200)])
     sort_order = IntegerField(_l("Order"), validators=[NumberRange(min=0, max=1000)], default=0)
     text_ka = TextAreaField(_l("Tip (Georgian)"), validators=[DataRequired(), Length(max=300)])
@@ -384,7 +385,7 @@ class TipForm(FlaskForm):
     submit = SubmitField(_l("Save tip"))
 
 
-class ReactionForm(FlaskForm):
+class ReactionForm(BaseForm):
     key = SelectField(
         _l("Moment"),
         choices=[
@@ -401,7 +402,7 @@ class ReactionForm(FlaskForm):
     submit = SubmitField(_l("Save"))
 
 
-class KnowledgeSectionForm(FlaskForm):
+class KnowledgeSectionForm(BaseForm):
     title_ka = StringField(_l("Section (Georgian)"), validators=[DataRequired(), Length(max=200)])
     title_en = StringField(_l("Section (English)"), validators=[DataRequired(), Length(max=200)])
     sort_order = IntegerField(_l("Order"), validators=[NumberRange(min=0, max=100)], default=1)

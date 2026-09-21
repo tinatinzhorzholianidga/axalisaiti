@@ -37,7 +37,7 @@ def test_discussion_thread_reply_moderation(client, demo, student, instructor): 
     login(client, student)
     # must be enrolled
     response = post(client, f"/discussions/{demo.slug}/", {"title": "Question", "body": "Hello?"})
-    assert b"cannot post" in response.data
+    assert "პოსტის გამოქვეყნება არ შეგიძლიათ" in response.data.decode()
     post(client, f"/courses/{demo.slug}/enroll")
     response = post(
         client,
@@ -65,7 +65,7 @@ def test_discussion_thread_reply_moderation(client, demo, student, instructor): 
     db.session.refresh(thread)
     assert thread.is_pinned and thread.is_locked
     response = post(client, f"/discussions/{demo.slug}/{thread.id}/", {"body": "locked?"})
-    assert b"locked" in response.data
+    assert "დაბლოკილია" in response.data.decode()
     # report + resolve
     post_id = thread.posts[0].id
     assert (
@@ -89,16 +89,16 @@ def test_discussion_thread_reply_moderation(client, demo, student, instructor): 
 
 
 def test_media_validation_and_access(app, client, student, instructor, admin):  # type: ignore[no-untyped-def]
-    with pytest.raises(UploadError, match="not allowed"):
+    with pytest.raises(UploadError, match="დაუშვებელია"):
         media_service.validate(
             FileStorage(stream=io.BytesIO(b"x"), filename="evil.php"), MediaKind.IMAGE
         )
-    with pytest.raises(UploadError, match=r"does not match|signature|decoded"):
+    with pytest.raises(UploadError, match=r"არ შეესაბამება|სიგნატურა|დეკოდირება"):
         media_service.validate(
             FileStorage(stream=io.BytesIO(b"<html>hi</html>"), filename="x.png"), MediaKind.IMAGE
         )
     svg = b"<svg xmlns='http://www.w3.org/2000/svg'><script>alert(1)</script></svg>"
-    with pytest.raises(UploadError, match="scripts"):
+    with pytest.raises(UploadError, match="სკრიპტებს"):
         media_service.validate(
             FileStorage(stream=io.BytesIO(svg), filename="x.svg"), MediaKind.ICON
         )

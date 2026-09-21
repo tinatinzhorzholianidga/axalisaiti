@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from flask_babel import gettext as _
 from sqlalchemy import func, select
 
 from app.extensions import db
@@ -53,9 +54,9 @@ def can_review(user: User, course: Course) -> bool:
 
 def submit_review(user: User, course: Course, rating: int, body: str) -> Review:
     if not can_review(user, course):
-        raise ReviewError("You need to be enrolled to review this course.")
+        raise ReviewError(_("You need to be enrolled to review this course."))
     if not 1 <= int(rating) <= 5:
-        raise ReviewError("Rating must be between 1 and 5.")
+        raise ReviewError(_("Rating must be between 1 and 5."))
     review = user_review(user, course)
     if review is not None:
         review.rating = int(rating)

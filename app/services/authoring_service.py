@@ -6,6 +6,7 @@ from decimal import Decimal
 from typing import Any
 
 from flask import current_app
+from flask_babel import gettext as _
 from werkzeug.datastructures import FileStorage
 
 from app.extensions import db
@@ -217,9 +218,9 @@ def add_resource_from_form(lesson: Lesson, form: Any, actor: User):  # type: ign
         media = media_service.save_upload(form.file.data, kind=MediaKind.RESOURCE, uploader=actor)
         media_id = media.id
     if not media_id and not url:
-        raise UploadError("Provide a link or a file.")
+        raise UploadError(_("Provide a link or a file."))
     if url and not url.startswith(("http://", "https://", "/")):
-        raise UploadError("Links must start with http:// or https://.")
+        raise UploadError(_("Links must start with http:// or https://."))
     return course_service.add_resource(
         lesson,
         title_ka=form.title_ka.data,

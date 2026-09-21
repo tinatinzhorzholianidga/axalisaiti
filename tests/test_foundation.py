@@ -63,7 +63,8 @@ def test_404_branded_html_and_json(client):  # type: ignore[no-untyped-def]
     response = client.get("/does-not-exist")
     assert response.status_code == 404
     assert b"404" in response.data
-    assert b"Request ID" in response.data
+    assert "მოთხოვნის ID" in response.data.decode()  # Georgian is the default locale
+    assert b"Request ID" in client.get("/does-not-exist?lang=en").data
     response = client.get("/api/v1/does-not-exist")
     assert response.status_code == 404
     assert response.get_json()["error"]["code"] == 404

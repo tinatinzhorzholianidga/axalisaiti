@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from flask import current_app
 from flask_babel import lazy_gettext as _l
-from flask_wtf import FlaskForm
 from wtforms import BooleanField, PasswordField, SelectField, StringField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
+
+from app.forms.base import BaseForm
 
 
 def _min_password() -> int:
@@ -14,7 +15,7 @@ def _min_password() -> int:
 class PasswordPolicy:
     """WTForms validator enforcing the platform password policy."""
 
-    def __call__(self, form: FlaskForm, field) -> None:  # type: ignore[no-untyped-def]
+    def __call__(self, form: BaseForm, field) -> None:  # type: ignore[no-untyped-def]
         from app.services.auth_service import validate_password_strength
 
         problem = validate_password_strength(field.data or "")
@@ -22,14 +23,14 @@ class PasswordPolicy:
             raise ValidationError(problem)
 
 
-class LoginForm(FlaskForm):
+class LoginForm(BaseForm):
     email = StringField(_l("Email"), validators=[DataRequired(), Email(), Length(max=255)])
     password = PasswordField(_l("Password"), validators=[DataRequired(), Length(max=256)])
     remember = BooleanField(_l("Keep me signed in"))
     submit = SubmitField(_l("Sign in"))
 
 
-class RegisterForm(FlaskForm):
+class RegisterForm(BaseForm):
     first_name = StringField(_l("First name"), validators=[DataRequired(), Length(min=1, max=80)])
     last_name = StringField(_l("Last name"), validators=[DataRequired(), Length(min=1, max=80)])
     email = StringField(_l("Email"), validators=[DataRequired(), Email(), Length(max=255)])
@@ -50,12 +51,12 @@ class RegisterForm(FlaskForm):
     submit = SubmitField(_l("Create account"))
 
 
-class ForgotPasswordForm(FlaskForm):
+class ForgotPasswordForm(BaseForm):
     email = StringField(_l("Email"), validators=[DataRequired(), Email(), Length(max=255)])
     submit = SubmitField(_l("Send reset link"))
 
 
-class ResetPasswordForm(FlaskForm):
+class ResetPasswordForm(BaseForm):
     password = PasswordField(
         _l("New password"), validators=[DataRequired(), Length(max=256), PasswordPolicy()]
     )
@@ -66,7 +67,7 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField(_l("Set new password"))
 
 
-class ChangePasswordForm(FlaskForm):
+class ChangePasswordForm(BaseForm):
     current_password = PasswordField(_l("Current password"), validators=[DataRequired()])
     password = PasswordField(
         _l("New password"), validators=[DataRequired(), Length(max=256), PasswordPolicy()]
@@ -78,6 +79,6 @@ class ChangePasswordForm(FlaskForm):
     submit = SubmitField(_l("Change password"))
 
 
-class ResendVerificationForm(FlaskForm):
+class ResendVerificationForm(BaseForm):
     email = StringField(_l("Email"), validators=[DataRequired(), Email(), Length(max=255)])
     submit = SubmitField(_l("Resend verification email"))

@@ -13,6 +13,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from flask_babel import gettext as _
 from sqlalchemy import select
 
 from app.config import BASE_DIR
@@ -978,12 +979,12 @@ def issue_certificate(
 ) -> CyberCertificate:
     name = " ".join((display_name or "").split())[:120]
     if len(name) < 2:
-        raise CyberHeroError("Please enter the name to print on the certificate.")
+        raise CyberHeroError(_("Please enter the name to print on the certificate."))
     track = db.session.execute(
         select(CyberTrack).where(CyberTrack.slug == track_slug)
     ).scalar_one_or_none()
     if track is None or not track.certificate_enabled:
-        raise CyberHeroError("No certificate is available for this track.")
+        raise CyberHeroError(_("No certificate is available for this track."))
     required = missions(track_slug)
     if isinstance(completed, list):
         completed = {slug: {"done": True} for slug in completed}
@@ -1003,7 +1004,7 @@ def issue_certificate(
         }
     missing = [m.slug for m in required if m.slug not in done]
     if missing:
-        raise CyberHeroError("Finish every mission of the track first.")
+        raise CyberHeroError(_("Finish every mission of the track first."))
     points = sum(int((completed or {}).get(m.slug, {}).get("best") or 0) for m in required)
     certificate = CyberCertificate(
         public_id=_public_id(),

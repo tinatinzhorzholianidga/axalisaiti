@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from flask_babel import gettext as _
 from sqlalchemy import select
 
 from app.extensions import db
@@ -38,13 +39,13 @@ def is_enrolled(user: User, course: Course) -> bool:
 
 def enroll(user: User, course: Course) -> Enrollment:
     if not course.is_published:
-        raise EnrollmentError("This course is not open for enrolment.")
+        raise EnrollmentError(_("This course is not open for enrolment."))
     if course.enrollment_mode == EnrollmentMode.INVITE:
-        raise EnrollmentError("This course is invitation only.")
+        raise EnrollmentError(_("This course is invitation only."))
     if course.starts_at and course.starts_at > utcnow():
-        raise EnrollmentError("This course has not started yet.")
+        raise EnrollmentError(_("This course has not started yet."))
     if course.ends_at and course.ends_at < utcnow():
-        raise EnrollmentError("Enrolment for this course has closed.")
+        raise EnrollmentError(_("Enrolment for this course has closed."))
 
     enrollment = get_enrollment(user, course)
     if enrollment:

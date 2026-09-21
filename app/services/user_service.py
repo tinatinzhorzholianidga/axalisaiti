@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from flask_babel import gettext as _
 from sqlalchemy import func, or_
 
 from app.extensions import db
@@ -154,7 +155,7 @@ def create_user(
     from app.services.auth_service import AuthError, find_by_email, normalize_email
 
     if find_by_email(email):
-        raise AuthError("An account with this email already exists.")
+        raise AuthError(_("An account with this email already exists."))
     user = User(
         email=normalize_email(email),
         first_name=first_name,

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from flask_babel import gettext as _
 from sqlalchemy import select
 
 from app.extensions import db
@@ -61,10 +62,10 @@ def create_thread(
     user: User, course: Course, *, title: str, body: str, lesson_id: int | None = None
 ) -> Discussion:
     if not enabled(course) or not can_participate(user, course):
-        raise DiscussionError("You cannot post in this course.")
+        raise DiscussionError(_("You cannot post in this course."))
     title = (title or "").strip()[:200]
     if len(title) < 3:
-        raise DiscussionError("Title is too short.")
+        raise DiscussionError(_("Title is too short."))
     thread = Discussion(course_id=course.id, author_id=user.id, title=title, lesson_id=lesson_id)
     db.session.add(thread)
     db.session.flush()
@@ -86,12 +87,12 @@ def reply(
 ) -> DiscussionPost:
     course = thread.course
     if not enabled(course) or not can_participate(user, course):
-        raise DiscussionError("You cannot post in this course.")
+        raise DiscussionError(_("You cannot post in this course."))
     if thread.is_locked and not can_moderate(user, course):
-        raise DiscussionError("This thread is locked.")
+        raise DiscussionError(_("This thread is locked."))
     clean = sanitize_html(body)[:20000]
     if len(clean.strip()) < 2:
-        raise DiscussionError("Reply is empty.")
+        raise DiscussionError(_("Reply is empty."))
     parent = db.session.get(DiscussionPost, parent_id) if parent_id else None
     if parent is not None and parent.discussion_id != thread.id:
         parent = None
@@ -156,7 +157,7 @@ def hide_post(post: DiscussionPost, hidden: bool, actor: User) -> None:
 
 def delete_own_post(post: DiscussionPost, user: User) -> None:
     if post.author_id != user.id and not can_moderate(user, post.discussion.course):
-        raise DiscussionError("You cannot delete this post.")
+        raise DiscussionError(_("You cannot delete this post."))
     post.is_deleted = True
     post.body = ""
     db.session.commit()

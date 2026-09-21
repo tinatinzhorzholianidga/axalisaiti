@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-21 07:21+0000\n"
+"POT-Creation-Date: 2026-09-21 07:31+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -1166,6 +1166,156 @@ msgstr "დადასტურება და გამოქვეყნე�
 msgid "Send back to draft"
 msgstr "მონახაზში დაბრუნება"
 
+#, python-format
+msgid "Field must be equal to %(other_name)s."
+msgstr "ველი უნდა ემთხვეოდეს ველს „%(other_name)s“."
+
+#, python-format
+msgid "Field must be at least %(min)d character long."
+msgid_plural "Field must be at least %(min)d characters long."
+msgstr[0] "ველი უნდა შეიცავდეს სულ მცირე %(min)d სიმბოლოს."
+
+#, python-format
+msgid "Field cannot be longer than %(max)d character."
+msgid_plural "Field cannot be longer than %(max)d characters."
+msgstr[0] "ველი არ უნდა აღემატებოდეს %(max)d სიმბოლოს."
+
+#, python-format
+msgid "Field must be exactly %(max)d character long."
+msgid_plural "Field must be exactly %(max)d characters long."
+msgstr[0] "ველი უნდა შეიცავდეს ზუსტად %(max)d სიმბოლოს."
+
+#, python-format
+msgid "Field must be between %(min)d and %(max)d characters long."
+msgstr "ველი უნდა შეიცავდეს %(min)d-დან %(max)d-მდე სიმბოლოს."
+
+#, python-format
+msgid "Number must be at least %(min)s."
+msgstr "რიცხვი უნდა იყოს სულ მცირე %(min)s."
+
+#, python-format
+msgid "Number must be at most %(max)s."
+msgstr "რიცხვი უნდა იყოს არაუმეტეს %(max)s."
+
+#, python-format
+msgid "Number must be between %(min)s and %(max)s."
+msgstr "რიცხვი უნდა იყოს %(min)s-დან %(max)s-მდე."
+
+msgid "This field is required."
+msgstr "ეს ველი აუცილებელია."
+
+msgid "Invalid input."
+msgstr "არასწორი მნიშვნელობა."
+
+msgid "Invalid email address."
+msgstr "არასწორი ელფოსტის მისამართი."
+
+msgid "Invalid IP address."
+msgstr "არასწორი IP მისამართი."
+
+msgid "Invalid Mac address."
+msgstr "არასწორი MAC მისამართი."
+
+msgid "Invalid URL."
+msgstr "არასწორი URL."
+
+msgid "Invalid UUID."
+msgstr "არასწორი UUID."
+
+#, python-format
+msgid "Invalid value, must be one of: %(values)s."
+msgstr "არასწორი მნიშვნელობა, უნდა იყოს ერთ-ერთი: %(values)s."
+
+#, python-format
+msgid "Invalid value, can't be any of: %(values)s."
+msgstr "არასწორი მნიშვნელობა, არ შეიძლება იყოს: %(values)s."
+
+msgid "This field cannot be edited."
+msgstr "ამ ველის რედაქტირება შეუძლებელია."
+
+msgid "This field is disabled and cannot have a value."
+msgstr "ეს ველი გამორთულია და მნიშვნელობა ვერ ექნება."
+
+msgid "Invalid CSRF Token."
+msgstr "არასწორი CSRF ტოკენი."
+
+msgid "CSRF token missing."
+msgstr "CSRF ტოკენი აკლია."
+
+msgid "CSRF failed."
+msgstr "CSRF შემოწმება ვერ გაიარა."
+
+msgid "CSRF token expired."
+msgstr "CSRF ტოკენის ვადა ამოიწურა."
+
+msgid "Invalid Choice: could not coerce."
+msgstr "არასწორი არჩევანი."
+
+msgid "Choices cannot be None."
+msgstr "არჩევანი არ შეიძლება იყოს ცარიელი."
+
+msgid "Not a valid choice."
+msgstr "დაუშვებელი არჩევანი."
+
+msgid "Invalid choice(s): one or more data inputs could not be coerced."
+msgstr "დაუშვებელი არჩევანი: ერთი ან რამდენიმე მნიშვნელობა არასწორია."
+
+#, python-format
+msgid "'%(value)s' is not a valid choice for this field."
+msgid_plural "'%(value)s' are not valid choices for this field."
+msgstr[0] "„%(value)s“ ამ ველისთვის დაუშვებელი არჩევანია."
+
+msgid "Not a valid datetime value."
+msgstr "არასწორი თარიღი და დრო."
+
+msgid "Not a valid date value."
+msgstr "არასწორი თარიღი."
+
+msgid "Not a valid time value."
+msgstr "არასწორი დრო."
+
+msgid "Not a valid week value."
+msgstr "არასწორი კვირა."
+
+msgid "Not a valid integer value."
+msgstr "არასწორი მთელი რიცხვი."
+
+msgid "Not a valid decimal value."
+msgstr "არასწორი ათწილადი რიცხვი."
+
+msgid "Not a valid float value."
+msgstr "არასწორი რიცხვი."
+
+msgid "The CSRF token is missing."
+msgstr "CSRF ტოკენი აკლია."
+
+msgid "The CSRF session token is missing."
+msgstr "სესიის CSRF ტოკენი აკლია."
+
+msgid "The CSRF token has expired."
+msgstr "CSRF ტოკენის ვადა ამოიწურა."
+
+msgid "The CSRF token is invalid."
+msgstr "CSRF ტოკენი არასწორია."
+
+msgid "The CSRF tokens do not match."
+msgstr "CSRF ტოკენები არ ემთხვევა."
+
+#, python-brace-format
+msgid "File does not have an approved extension: {extensions}"
+msgstr "ფაილს არ აქვს დაშვებული გაფართოება: {extensions}"
+
+msgid "File does not have an approved extension."
+msgstr "ფაილს არ აქვს დაშვებული გაფართოება."
+
+#, python-brace-format
+msgid "File must be at least {size} bytes."
+msgstr "ფაილი უნდა იყოს სულ მცირე {size} ბაიტი."
+
+#, python-brace-format
+msgid "File must be at most {size} bytes."
+msgstr "ფაილი უნდა იყოს არაუმეტეს {size} ბაიტისა."
+
 msgid "Rating"
 msgstr "შეფასება"
 
@@ -1261,6 +1411,119 @@ msgstr "ვაცნობიერებ, რომ ჩემი ანგა�
 
 msgid "Deactivate account"
 msgstr "ანგარიშის დეაქტივაცია"
+
+msgid "Please write your answer."
+msgstr "გთხოვთ, დაწერეთ პასუხი."
+
+msgid "Please attach a file."
+msgstr "გთხოვთ, მიამაგრეთ ფაილი."
+
+msgid "This assignment accepts text only."
+msgstr "ეს დავალება მხოლოდ ტექსტს იღებს."
+
+msgid "Too many failed attempts. Try again later."
+msgstr "ძალიან ბევრი წარუმატებელი ცდა. სცადეთ მოგვიანებით."
+
+msgid "This account is suspended."
+msgstr "ეს ანგარიში შეჩერებულია."
+
+msgid "Please verify your email address before signing in."
+msgstr "შესვლამდე დაადასტურეთ ელფოსტის მისამართი."
+
+msgid "An account with this email already exists."
+msgstr "ამ ელფოსტით ანგარიში უკვე არსებობს."
+
+msgid "This reset link is invalid or has expired."
+msgstr "აღდგენის ეს ბმული არასწორია ან ვადაგასულია."
+
+msgid "Current password is incorrect."
+msgstr "მიმდინარე პაროლი არასწორია."
+
+msgid "New password must differ from the current one."
+msgstr "ახალი პაროლი მიმდინარესგან უნდა განსხვავდებოდეს."
+
+msgid "Provide a link or a file."
+msgstr "მიუთითეთ ბმული ან ფაილი."
+
+msgid "Links must start with http:// or https://."
+msgstr "ბმულები უნდა იწყებოდეს http:// ან https://-ით."
+
+msgid "Please enter the name to print on the certificate."
+msgstr "გთხოვთ, შეიყვანოთ სერტიფიკატზე დასაბეჭდი სახელი."
+
+msgid "No certificate is available for this track."
+msgstr "ამ მიმართულებისთვის სერტიფიკატი არ გაიცემა."
+
+msgid "Finish every mission of the track first."
+msgstr "ჯერ დაასრულეთ მიმართულების ყველა მისია."
+
+msgid "You cannot post in this course."
+msgstr "ამ კურსში პოსტის გამოქვეყნება არ შეგიძლიათ."
+
+msgid "Title is too short."
+msgstr "სათაური ძალიან მოკლეა."
+
+msgid "This thread is locked."
+msgstr "ეს თემა დაბლოკილია."
+
+msgid "Reply is empty."
+msgstr "პასუხი ცარიელია."
+
+msgid "You cannot delete this post."
+msgstr "ამ პოსტის წაშლა არ შეგიძლიათ."
+
+msgid "This course is not open for enrolment."
+msgstr "ამ კურსზე რეგისტრაცია ღია არ არის."
+
+msgid "This course is invitation only."
+msgstr "ეს კურსი მხოლოდ მოწვევითაა."
+
+msgid "This course has not started yet."
+msgstr "ეს კურსი ჯერ არ დაწყებულა."
+
+msgid "Enrolment for this course has closed."
+msgstr "ამ კურსზე რეგისტრაცია დასრულდა."
+
+msgid "No file selected."
+msgstr "ფაილი არ არის არჩეული."
+
+#, python-format
+msgid "File type .%(ext)s is not allowed."
+msgstr "ფაილის ტიპი .%(ext)s დაუშვებელია."
+
+msgid "The file is empty."
+msgstr "ფაილი ცარიელია."
+
+#, python-format
+msgid "The file is larger than %(mb)d MB."
+msgstr "ფაილი %(mb)d MB-ზე დიდია."
+
+msgid "The file content does not match its extension."
+msgstr "ფაილის შინაარსი მის გაფართოებას არ შეესაბამება."
+
+msgid "The file signature is invalid."
+msgstr "ფაილის სიგნატურა არასწორია."
+
+msgid "The image could not be decoded."
+msgstr "სურათის დეკოდირება ვერ მოხერხდა."
+
+msgid "SVG files must not contain scripts or event handlers."
+msgstr "SVG ფაილები არ უნდა შეიცავდეს სკრიპტებს ან მოვლენათა დამმუშავებლებს."
+
+msgid "This quiz is not available."
+msgstr "ეს ქვიზი მიუწვდომელია."
+
+msgid "You have used all attempts for this quiz."
+msgstr "ამ ქვიზისთვის ყველა ცდა გამოყენებული გაქვთ."
+
+msgid "This attempt was already submitted."
+msgstr "ეს ცდა უკვე გაგზავნილია."
+
+msgid "You need to be enrolled to review this course."
+msgstr "მიმოხილვის დასაწერად კურსზე დარეგისტრირებული უნდა იყოთ."
+
+msgid "Rating must be between 1 and 5."
+msgstr "შეფასება 1-დან 5-მდე უნდა იყოს."
 
 msgid "Administration"
 msgstr "ადმინისტრირება"
@@ -1587,11 +1850,12 @@ msgid "Last changed by"
 msgstr "ბოლოს შეცვალა"
 
 msgid ""
-"CYBERHERO_IO_CHAT_ENABLED keeps the experimental in-browser tutor hidden until switched on; it "
-"never sends conversations to an external service."
+"CYBERHERO_IO_CHAT_ENABLED keeps the experimental in-browser tutor hidden "
+"until switched on; it never sends conversations to an external service."
 msgstr ""
-"CYBERHERO_IO_CHAT_ENABLED ექსპერიმენტულ, ბრაუზერშივე მომუშავე ტუტორს დამალულს ინახავს, სანამ არ "
-"ჩაირთვება; ის საუბრებს გარე სერვისს არასდროს უგზავნის."
+"CYBERHERO_IO_CHAT_ENABLED ექსპერიმენტულ, ბრაუზერშივე მომუშავე ტუტორს "
+"დამალულს ინახავს, სანამ არ ჩაირთვება; ის საუბრებს გარე სერვისს არასდროს "
+"უგზავნის."
 
 msgid "UI strings translated (Georgian)"
 msgstr "თარგმნილი ინტერფეისის სტრიქონები (ქართული)"
@@ -1615,11 +1879,12 @@ msgid "Lessons with English content"
 msgstr "გაკვეთილები ინგლისური შინაარსით"
 
 msgid ""
-"UI strings are managed in the Babel catalogue (app/translations); content translations are edited"
-" on each course, lesson and CyberHero item."
+"UI strings are managed in the Babel catalogue (app/translations); content"
+" translations are edited on each course, lesson and CyberHero item."
 msgstr ""
-"ინტერფეისის სტრიქონები Babel-ის კატალოგში (app/translations) იმართება; შინაარსის თარგმანები "
-"თითოეულ კურსზე, გაკვეთილსა და CyberHero-ს ელემენტზე რედაქტირდება."
+"ინტერფეისის სტრიქონები Babel-ის კატალოგში (app/translations) იმართება; "
+"შინაარსის თარგმანები თითოეულ კურსზე, გაკვეთილსა და CyberHero-ს ელემენტზე "
+"რედაქტირდება."
 
 msgid "Media library"
 msgstr "მედიათეკა"
@@ -1789,10 +2054,12 @@ msgstr "ბლოკის რედაქტირება"
 msgid "New block"
 msgstr "ახალი ბლოკი"
 
-msgid "Headings and paragraphs use Text; lists use Items; callouts use Title, Paragraphs and Items."
+msgid ""
+"Headings and paragraphs use Text; lists use Items; callouts use Title, "
+"Paragraphs and Items."
 msgstr ""
-"სათაურები და აბზაცები იყენებს ველს „ტექსტი“; სიები — „ელემენტები“; გამოყოფილი ბლოკები — "
-"„სათაური“, „აბზაცები“ და „ელემენტები“."
+"სათაურები და აბზაცები იყენებს ველს „ტექსტი“; სიები — „ელემენტები“; "
+"გამოყოფილი ბლოკები — „სათაური“, „აბზაცები“ და „ელემენტები“."
 
 msgid "Conversation node"
 msgstr "საუბრის კვანძი"
@@ -1890,20 +2157,22 @@ msgstr "უსაფრთხოების რესურსები"
 msgid "CyberHero courses"
 msgstr "CyberHero-ს კურსები"
 
-msgid "Reload the seed content from seeds/cyberhero? Edits to seeded items will be overwritten."
+msgid ""
+"Reload the seed content from seeds/cyberhero? Edits to seeded items will "
+"be overwritten."
 msgstr ""
-"ხელახლა ჩაიტვირთოს საწყისი შინაარსი seeds/cyberhero-დან? საწყისი ელემენტების რედაქტირებები "
-"გადაიწერება."
+"ხელახლა ჩაიტვირთოს საწყისი შინაარსი seeds/cyberhero-დან? საწყისი "
+"ელემენტების რედაქტირებები გადაიწერება."
 
 msgid "Seed content"
 msgstr "საწყისი შინაარსი"
 
 msgid ""
-"Reloads tracks, missions, articles, resources, mascot tips and the knowledge base from the JSON "
-"seed files."
+"Reloads tracks, missions, articles, resources, mascot tips and the "
+"knowledge base from the JSON seed files."
 msgstr ""
-"ხელახლა ტვირთავს მიმართულებებს, მისიებს, სტატიებს, რესურსებს, მასკოტის რჩევებსა და ცოდნის ბაზას "
-"JSON საწყისი ფაილებიდან."
+"ხელახლა ტვირთავს მიმართულებებს, მისიებს, სტატიებს, რესურსებს, მასკოტის "
+"რჩევებსა და ცოდნის ბაზას JSON საწყისი ფაილებიდან."
 
 msgid "Reload seeds"
 msgstr "საწყისი მონაცემების ხელახლა ჩატვირთვა"
@@ -1915,11 +2184,12 @@ msgid "Section"
 msgstr "განყოფილება"
 
 msgid ""
-"The in-browser tutor answers only from this material. It is only reachable when the "
-"CYBERHERO_IO_CHAT_ENABLED flag is on."
+"The in-browser tutor answers only from this material. It is only "
+"reachable when the CYBERHERO_IO_CHAT_ENABLED flag is on."
 msgstr ""
-"ბრაუზერშივე მომუშავე ტუტორი მხოლოდ ამ მასალიდან პასუხობს. ის ხელმისაწვდომია მხოლოდ მაშინ, როცა "
-"CYBERHERO_IO_CHAT_ENABLED გადამრთველი ჩართულია."
+"ბრაუზერშივე მომუშავე ტუტორი მხოლოდ ამ მასალიდან პასუხობს. ის "
+"ხელმისაწვდომია მხოლოდ მაშინ, როცა CYBERHERO_IO_CHAT_ENABLED გადამრთველი "
+"ჩართულია."
 
 msgid "Chunks"
 msgstr "ფრაგმენტები"
@@ -1960,8 +2230,12 @@ msgstr "წავშალოთ რეაქცია?"
 msgid "Add tip"
 msgstr "რჩევის დამატება"
 
-msgid "passwords, phishing, scams, privacy, devices, strangers, help, kindness, fake, balance, parents"
-msgstr "passwords, phishing, scams, privacy, devices, strangers, help, kindness, fake, balance, parents"
+msgid ""
+"passwords, phishing, scams, privacy, devices, strangers, help, kindness, "
+"fake, balance, parents"
+msgstr ""
+"passwords, phishing, scams, privacy, devices, strangers, help, kindness, "
+"fake, balance, parents"
 
 msgid "Add reaction"
 msgstr "რეაქციის დამატება"
@@ -2012,10 +2286,14 @@ msgid "Options: tick the correct one."
 msgstr "ვარიანტები: მონიშნეთ სწორი."
 
 msgid "Items: tick the red flags; explanation shows after checking."
-msgstr "ელემენტები: მონიშნეთ საგანგაშო ნიშნები; განმარტება შემოწმების შემდეგ გამოჩნდება."
+msgstr ""
+"ელემენტები: მონიშნეთ საგანგაშო ნიშნები; განმარტება შემოწმების შემდეგ "
+"გამოჩნდება."
 
 msgid "Toggles: positive values build the meter, negative values are traps."
-msgstr "გადამრთველები: დადებითი მნიშვნელობები მაჩვენებელს ზრდის, უარყოფითი — ხაფანგებია."
+msgstr ""
+"გადამრთველები: დადებითი მნიშვნელობები მაჩვენებელს ზრდის, უარყოფითი — "
+"ხაფანგებია."
 
 msgid "Correct / flag"
 msgstr "სწორი / საგანგაშო"
@@ -2162,9 +2440,6 @@ msgstr "ცდის გაგრძელება"
 msgid "Start attempt"
 msgstr "ცდის დაწყება"
 
-msgid "You have used all attempts for this quiz."
-msgstr "ამ ქვიზისთვის ყველა ცდა გამოყენებული გაქვთ."
-
 msgid "Your attempts"
 msgstr "თქვენი ცდები"
 
@@ -2210,8 +2485,12 @@ msgstr "თქვენი პასუხი"
 msgid "Accepted"
 msgstr "მისაღები"
 
-msgid "Detailed feedback becomes available after you pass or use your last attempt."
-msgstr "დეტალური უკუკავშირი ხელმისაწვდომი გახდება ჩაბარების ან ბოლო ცდის გამოყენების შემდეგ."
+msgid ""
+"Detailed feedback becomes available after you pass or use your last "
+"attempt."
+msgstr ""
+"დეტალური უკუკავშირი ხელმისაწვდომი გახდება ჩაბარების ან ბოლო ცდის "
+"გამოყენების შემდეგ."
 
 msgid "Profile"
 msgstr "პროფილი"
@@ -2327,11 +2606,11 @@ msgid "Close"
 msgstr "დახურვა"
 
 msgid ""
-"A national platform for cybersecurity education: structured courses, practical scenarios and "
-"verifiable certificates."
+"A national platform for cybersecurity education: structured courses, "
+"practical scenarios and verifiable certificates."
 msgstr ""
-"კიბერუსაფრთხოების განათლების ეროვნული პლატფორმა: სტრუქტურირებული კურსები, პრაქტიკული სცენარები და"
-" გადამოწმებადი სერტიფიკატები."
+"კიბერუსაფრთხოების განათლების ეროვნული პლატფორმა: სტრუქტურირებული კურსები,"
+" პრაქტიკული სცენარები და გადამოწმებადი სერტიფიკატები."
 
 msgid "for children, teens, parents and teachers"
 msgstr "ბავშვების, მოზარდების, მშობლებისა და მასწავლებლებისთვის"
@@ -2565,8 +2844,12 @@ msgstr "მიმოხილვები ჯერ არ არის. კუ�
 msgid "Enrol in the course to leave a review."
 msgstr "მიმოხილვის დასატოვებლად დარეგისტრირდით კურსზე."
 
-msgid "The CyberHero interface has not been built yet. Run \"npm run build\" in the cyberhero/ directory."
-msgstr "CyberHero-ს ინტერფეისი ჯერ არ არის აწყობილი. გაუშვით „npm run build“ cyberhero/ დირექტორიაში."
+msgid ""
+"The CyberHero interface has not been built yet. Run \"npm run build\" in "
+"the cyberhero/ directory."
+msgstr ""
+"CyberHero-ს ინტერფეისი ჯერ არ არის აწყობილი. გაუშვით „npm run build“ "
+"cyberhero/ დირექტორიაში."
 
 msgid "Back to eLearning"
 msgstr "eLearning-ზე დაბრუნება"
@@ -2592,8 +2875,12 @@ msgstr "პოსტი"
 msgid "No discussions yet"
 msgstr "დისკუსიები ჯერ არ არის"
 
-msgid "Ask a question or share what you learned - your instructor and fellow learners will see it."
-msgstr "დასვით კითხვა ან გაუზიარეთ ნასწავლი — მას თქვენი ინსტრუქტორი და თანამსმენელები დაინახავენ."
+msgid ""
+"Ask a question or share what you learned - your instructor and fellow "
+"learners will see it."
+msgstr ""
+"დასვით კითხვა ან გაუზიარეთ ნასწავლი — მას თქვენი ინსტრუქტორი და "
+"თანამსმენელები დაინახავენ."
 
 msgid "New thread"
 msgstr "ახალი თემა"
@@ -2627,9 +2914,6 @@ msgstr "შეუფერებელი შინაარსი"
 
 msgid "Delete this post?"
 msgstr "წავშალოთ ეს პოსტი?"
-
-msgid "This thread is locked."
-msgstr "ეს თემა დაბლოკილია."
 
 msgid "Error"
 msgstr "შეცდომა"
@@ -2831,11 +3115,11 @@ msgid "New lesson"
 msgstr "ახალი გაკვეთილი"
 
 msgid ""
-"Allowed HTML: headings, paragraphs, lists, tables, images, code, callouts (div.callout). Scripts "
-"are removed."
+"Allowed HTML: headings, paragraphs, lists, tables, images, code, callouts"
+" (div.callout). Scripts are removed."
 msgstr ""
-"დაშვებული HTML: სათაურები, აბზაცები, სიები, ცხრილები, სურათები, კოდი, გამოყოფილი ბლოკები "
-"(div.callout). სკრიპტები იშლება."
+"დაშვებული HTML: სათაურები, აბზაცები, სიები, ცხრილები, სურათები, კოდი, "
+"გამოყოფილი ბლოკები (div.callout). სკრიპტები იშლება."
 
 msgid "MP4 up to 200 MB"
 msgstr "MP4, მაქსიმუმ 200 MB"
@@ -2889,7 +3173,9 @@ msgid "Enter the correct position (1 = first) for each option."
 msgstr "შეიყვანეთ თითოეული ვარიანტის სწორი პოზიცია (1 = პირველი)."
 
 msgid "Each option is a left-hand item; enter the right-hand match it pairs with."
-msgstr "თითოეული ვარიანტი მარცხენა ელემენტია; შეიყვანეთ მისი შესაბამისი მარჯვენა წყვილი."
+msgstr ""
+"თითოეული ვარიანტი მარცხენა ელემენტია; შეიყვანეთ მისი შესაბამისი მარჯვენა "
+"წყვილი."
 
 msgid "Position"
 msgstr "პოზიცია"
@@ -2948,10 +3234,12 @@ msgstr "მსმენელები აქ რეგისტრაციი�
 msgid "Learn / Practice / Stay secure"
 msgstr "ისწავლე / ივარჯიშე / დარჩი უსაფრთხოდ"
 
-msgid "Cybersecurity learning platform: structured courses, practical exercises and certificates."
+msgid ""
+"Cybersecurity learning platform: structured courses, practical exercises "
+"and certificates."
 msgstr ""
-"კიბერუსაფრთხოების სასწავლო პლატფორმა: სტრუქტურირებული კურსები, პრაქტიკული სავარჯიშოები და "
-"სერტიფიკატები."
+"კიბერუსაფრთხოების სასწავლო პლატფორმა: სტრუქტურირებული კურსები, პრაქტიკული"
+" სავარჯიშოები და სერტიფიკატები."
 
 msgid "Skip to main content"
 msgstr "ძირითად შინაარსზე გადასვლა"
@@ -3011,8 +3299,12 @@ msgstr "პირველი სერტიფიკატის მისა�
 msgid "Achievements"
 msgstr "მიღწევები"
 
-msgid "Achievements are awarded for completed courses, certificates and quiz streaks."
-msgstr "მიღწევები გაიცემა დასრულებული კურსების, სერტიფიკატებისა და ქვიზების სერიებისთვის."
+msgid ""
+"Achievements are awarded for completed courses, certificates and quiz "
+"streaks."
+msgstr ""
+"მიღწევები გაიცემა დასრულებული კურსების, სერტიფიკატებისა და ქვიზების "
+"სერიებისთვის."
 
 msgid "No notifications."
 msgstr "შეტყობინებები არ არის."
@@ -3078,11 +3370,13 @@ msgid "Privacy & data"
 msgstr "კონფიდენციალურობა და მონაცემები"
 
 msgid ""
-"Download everything we store about you, or deactivate your account. Deactivation signs you out "
-"everywhere; support can restore the account on request."
+"Download everything we store about you, or deactivate your account. "
+"Deactivation signs you out everywhere; support can restore the account on"
+" request."
 msgstr ""
-"ჩამოტვირთეთ ყველაფერი, რასაც თქვენ შესახებ ვინახავთ, ან დეაქტივირეთ ანგარიში. დეაქტივაცია ყველგან"
-" გამოგიყვანთ; მხარდაჭერას მოთხოვნისას ანგარიშის აღდგენა შეუძლია."
+"ჩამოტვირთეთ ყველაფერი, რასაც თქვენ შესახებ ვინახავთ, ან დეაქტივირეთ "
+"ანგარიში. დეაქტივაცია ყველგან გამოგიყვანთ; მხარდაჭერას მოთხოვნისას "
+"ანგარიშის აღდგენა შეუძლია."
 
 msgid "Export my data (JSON)"
 msgstr "ჩემი მონაცემების ექსპორტი (JSON)"
@@ -3094,39 +3388,44 @@ msgid "About the platform"
 msgstr "პლატფორმის შესახებ"
 
 msgid ""
-"A national cybersecurity learning platform with two products: a professional LMS and CyberHero "
-"for families and schools."
+"A national cybersecurity learning platform with two products: a "
+"professional LMS and CyberHero for families and schools."
 msgstr ""
-"კიბერუსაფრთხოების ეროვნული სასწავლო პლატფორმა ორი პროდუქტით: პროფესიული LMS და CyberHero "
-"ოჯახებისა და სკოლებისთვის."
+"კიბერუსაფრთხოების ეროვნული სასწავლო პლატფორმა ორი პროდუქტით: პროფესიული "
+"LMS და CyberHero ოჯახებისა და სკოლებისთვის."
 
 msgid "Who it is for"
 msgstr "ვისთვის არის"
 
 msgid ""
-"Public servants, university students, IT and security professionals and anyone who wants to work "
-"and live safely online. Courses are authored by instructors and reviewed before publication."
+"Public servants, university students, IT and security professionals and "
+"anyone who wants to work and live safely online. Courses are authored by "
+"instructors and reviewed before publication."
 msgstr ""
-"საჯარო მოხელეები, სტუდენტები, IT და უსაფრთხოების სპეციალისტები და ყველა, ვისაც ინტერნეტში "
-"უსაფრთხოდ მუშაობა და ცხოვრება სურს. კურსებს ინსტრუქტორები ქმნიან და გამოქვეყნებამდე განიხილება."
+"საჯარო მოხელეები, სტუდენტები, IT და უსაფრთხოების სპეციალისტები და ყველა, "
+"ვისაც ინტერნეტში უსაფრთხოდ მუშაობა და ცხოვრება სურს. კურსებს "
+"ინსტრუქტორები ქმნიან და გამოქვეყნებამდე განიხილება."
 
 msgid ""
-"We store only what is needed to run your learning account: your name, email, progress and "
-"certificates. You can export your data and deactivate your account from your profile at any time."
-" No third-party analytics or advertising trackers are used."
+"We store only what is needed to run your learning account: your name, "
+"email, progress and certificates. You can export your data and deactivate"
+" your account from your profile at any time. No third-party analytics or "
+"advertising trackers are used."
 msgstr ""
-"ვინახავთ მხოლოდ იმას, რაც თქვენი სასწავლო ანგარიშისთვის არის საჭირო: სახელს, ელფოსტას, პროგრესსა "
-"და სერტიფიკატებს. მონაცემების ექსპორტი და ანგარიშის დეაქტივაცია პროფილიდან ნებისმიერ დროს "
-"შეგიძლიათ. მესამე მხარის ანალიტიკა და სარეკლამო ტრეკერები არ გამოიყენება."
+"ვინახავთ მხოლოდ იმას, რაც თქვენი სასწავლო ანგარიშისთვის არის საჭირო: "
+"სახელს, ელფოსტას, პროგრესსა და სერტიფიკატებს. მონაცემების ექსპორტი და "
+"ანგარიშის დეაქტივაცია პროფილიდან ნებისმიერ დროს შეგიძლიათ. მესამე მხარის "
+"ანალიტიკა და სარეკლამო ტრეკერები არ გამოიყენება."
 
 msgid ""
-"The interface targets WCAG 2.1 AA: keyboard navigation, visible focus, sufficient contrast in "
-"both themes, reduced-motion support and screen-reader friendly forms. If something is hard to "
-"use, write to support."
+"The interface targets WCAG 2.1 AA: keyboard navigation, visible focus, "
+"sufficient contrast in both themes, reduced-motion support and screen-"
+"reader friendly forms. If something is hard to use, write to support."
 msgstr ""
-"ინტერფეისი WCAG 2.1 AA სტანდარტზეა ორიენტირებული: კლავიატურით ნავიგაცია, ხილული ფოკუსი, საკმარისი"
-" კონტრასტი ორივე თემაში, შემცირებული მოძრაობის მხარდაჭერა და ეკრანის წამკითხველისთვის "
-"მოსახერხებელი ფორმები. თუ რამე ძნელად გამოსაყენებელია, მოგვწერეთ მხარდაჭერაზე."
+"ინტერფეისი WCAG 2.1 AA სტანდარტზეა ორიენტირებული: კლავიატურით ნავიგაცია, "
+"ხილული ფოკუსი, საკმარისი კონტრასტი ორივე თემაში, შემცირებული მოძრაობის "
+"მხარდაჭერა და ეკრანის წამკითხველისთვის მოსახერხებელი ფორმები. თუ რამე "
+"ძნელად გამოსაყენებელია, მოგვწერეთ მხარდაჭერაზე."
 
 msgid "Contact"
 msgstr "კონტაქტი"
@@ -3144,11 +3443,13 @@ msgid "is in your hands"
 msgstr "თქვენს ხელშია"
 
 msgid ""
-"Learn cybersecurity through structured lessons, real-world scenarios and practical exercises. "
-"Built for public servants, students and professionals in Georgia."
+"Learn cybersecurity through structured lessons, real-world scenarios and "
+"practical exercises. Built for public servants, students and "
+"professionals in Georgia."
 msgstr ""
-"ისწავლეთ კიბერუსაფრთხოება სტრუქტურირებული გაკვეთილებით, რეალური სცენარებითა და პრაქტიკული "
-"სავარჯიშოებით. შექმნილია საქართველოს საჯარო მოხელეების, სტუდენტებისა და პროფესიონალებისთვის."
+"ისწავლეთ კიბერუსაფრთხოება სტრუქტურირებული გაკვეთილებით, რეალური "
+"სცენარებითა და პრაქტიკული სავარჯიშოებით. შექმნილია საქართველოს საჯარო "
+"მოხელეების, სტუდენტებისა და პროფესიონალებისთვის."
 
 msgid "How it works"
 msgstr "როგორ მუშაობს"
@@ -3174,27 +3475,39 @@ msgstr "სწავლა, რომელიც რეალურ სამ�
 msgid "Structured learning"
 msgstr "სტრუქტურირებული სწავლა"
 
-msgid "Modules and lessons build on each other, from fundamentals to incident response."
-msgstr "მოდულები და გაკვეთილები ერთმანეთს ეფუძნება — საფუძვლებიდან ინციდენტებზე რეაგირებამდე."
+msgid ""
+"Modules and lessons build on each other, from fundamentals to incident "
+"response."
+msgstr ""
+"მოდულები და გაკვეთილები ერთმანეთს ეფუძნება — საფუძვლებიდან ინციდენტებზე "
+"რეაგირებამდე."
 
 msgid "Interactive exercises"
 msgstr "ინტერაქტიული სავარჯიშოები"
 
-msgid "Quizzes with six question types, labs and scenario-based assignments with instructor feedback."
+msgid ""
+"Quizzes with six question types, labs and scenario-based assignments with"
+" instructor feedback."
 msgstr ""
-"ქვიზები ექვსი ტიპის კითხვით, პრაქტიკული სამუშაოები და სცენარებზე დაფუძნებული დავალებები "
-"ინსტრუქტორის უკუკავშირით."
+"ქვიზები ექვსი ტიპის კითხვით, პრაქტიკული სამუშაოები და სცენარებზე "
+"დაფუძნებული დავალებები ინსტრუქტორის უკუკავშირით."
 
-msgid "Verifiable certificates with a public verification link for every completed course."
-msgstr "გადამოწმებადი სერტიფიკატები საჯარო გადამოწმების ბმულით ყოველი დასრულებული კურსისთვის."
+msgid ""
+"Verifiable certificates with a public verification link for every "
+"completed course."
+msgstr ""
+"გადამოწმებადი სერტიფიკატები საჯარო გადამოწმების ბმულით ყოველი დასრულებული"
+" კურსისთვის."
 
 msgid "Practical experience"
 msgstr "პრაქტიკული გამოცდილება"
 
-msgid "Real phishing samples, log excerpts and configurations - the material analysts see every day."
+msgid ""
+"Real phishing samples, log excerpts and configurations - the material "
+"analysts see every day."
 msgstr ""
-"რეალური ფიშინგის ნიმუშები, ლოგების ამონარიდები და კონფიგურაციები — მასალა, რომელსაც ანალიტიკოსები"
-" ყოველდღე ხედავენ."
+"რეალური ფიშინგის ნიმუშები, ლოგების ამონარიდები და კონფიგურაციები — "
+"მასალა, რომელსაც ანალიტიკოსები ყოველდღე ხედავენ."
 
 msgid "Featured courses"
 msgstr "რჩეული კურსები"
@@ -3214,10 +3527,12 @@ msgstr "აირჩიეთ მიმართულება"
 msgid "Cybersecurity for children, teens, parents and teachers"
 msgstr "კიბერუსაფრთხოება ბავშვების, მოზარდების, მშობლებისა და მასწავლებლებისთვის"
 
-msgid "Interactive missions, a printable certificate and calm, practical guides for families and schools."
+msgid ""
+"Interactive missions, a printable certificate and calm, practical guides "
+"for families and schools."
 msgstr ""
-"ინტერაქტიული მისიები, დასაბეჭდი სერტიფიკატი და მშვიდი, პრაქტიკული გზამკვლევები ოჯახებისა და "
-"სკოლებისთვის."
+"ინტერაქტიული მისიები, დასაბეჭდი სერტიფიკატი და მშვიდი, პრაქტიკული "
+"გზამკვლევები ოჯახებისა და სკოლებისთვის."
 
 msgid "Downloadable materials and references from published courses."
 msgstr "ჩამოსატვირთი მასალები და წყაროები გამოქვეყნებული კურსებიდან."

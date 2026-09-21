@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from datetime import timedelta
 
 from flask import current_app, url_for
+from flask_babel import gettext as _
 from flask_login import login_user, logout_user
 from sqlalchemy import func
 
@@ -70,7 +71,7 @@ def validate_password_strength(password: str) -> str | None:
 # ---- login / logout ---------------------------------------------------------
 def authenticate(email: str, password: str, remember: bool = False) -> LoginResult:
     user = find_by_email(email)
-    generic = "Invalid email or password."
+    generic = _("Invalid email or password.")
     if user is None:
         # Constant-ish time: still run a hash verify to avoid timing enumeration.
         from app.models.user import password_hasher
@@ -81,7 +82,7 @@ def authenticate(email: str, password: str, remember: bool = False) -> LoginResu
 
     if user.is_locked:
         audit_service.record("auth.login_locked", target=user, actor=user, commit=True)
-        return LoginResult(None, "Too many failed attempts. Try again later.", locked=True)
+        return LoginResult(None, _("Too many failed attempts. Try again later."), locked=True)
 
     if not user.check_password(password):
         user.failed_login_count = (user.failed_login_count or 0) + 1
@@ -97,11 +98,11 @@ def authenticate(email: str, password: str, remember: bool = False) -> LoginResu
             audit_service.record("auth.login_failed", target=user, actor=user)
         db.session.commit()
         if locked:
-            return LoginResult(None, "Too many failed attempts. Try again later.", locked=True)
+            return LoginResult(None, _("Too many failed attempts. Try again later."), locked=True)
         return LoginResult(None, generic)
 
     if user.status == UserStatus.SUSPENDED:
-        return LoginResult(None, "This account is suspended.")
+        return LoginResult(None, _("This account is suspended."))
     if user.status in {UserStatus.DEACTIVATED, UserStatus.PENDING_DELETION}:
         return LoginResult(None, "This account is not active.")
 
@@ -114,7 +115,7 @@ def authenticate(email: str, password: str, remember: bool = False) -> LoginResu
         )
     )
     if verification_required and not user.is_email_verified:
-        return LoginResult(None, "Please verify your email address before signing in.")
+        return LoginResult(None, _("Please verify your email address before signing in."))
 
     if user.needs_rehash():
         user.set_password(password)
@@ -147,7 +148,7 @@ def register(
 ) -> User:
     email = normalize_email(email)
     if find_by_email(email):
-        raise AuthError("An account with this email already exists.")
+        raise AuthError(_("An account with this email already exists."))
     problem = validate_password_strength(password)
     if problem:
         raise AuthError(problem)
@@ -251,7 +252,7 @@ def request_password_reset(email: str) -> None:
 def reset_password(raw: str, new_password: str) -> User:
     user = consume_token(raw, "reset")
     if user is None:
-        raise AuthError("This reset link is invalid or has expired.")
+        raise AuthError(_("This reset link is invalid or has expired."))
     problem = validate_password_strength(new_password)
     if problem:
         raise AuthError(problem)
@@ -266,12 +267,12 @@ def reset_password(raw: str, new_password: str) -> User:
 
 def change_password(user: User, current_password: str, new_password: str) -> None:
     if not user.check_password(current_password):
-        raise AuthError("Current password is incorrect.")
+        raise AuthError(_("Current password is incorrect."))
     problem = validate_password_strength(new_password)
     if problem:
         raise AuthError(problem)
     if user.check_password(new_password):
-        raise AuthError("New password must differ from the current one.")
+        raise AuthError(_("New password must differ from the current one."))
     user.set_password(new_password)
     user.bump_security_version()
     audit_service.record("auth.password_changed", target=user, actor=user)

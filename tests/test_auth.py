@@ -24,11 +24,11 @@ def test_login_rejects_bad_password_generic_message(client, student):  # type: i
         client, "/auth/login", {"email": student.email, "password": "wrong-password-123"}
     )
     assert response.status_code == 200
-    assert b"Invalid email or password" in response.data
+    assert "არასწორი ელფოსტა ან პაროლი" in response.data.decode()
     response = post(
         client, "/auth/login", {"email": "nobody@example.org", "password": "wrong-password-123"}
     )
-    assert b"Invalid email or password" in response.data
+    assert "არასწორი ელფოსტა ან პაროლი" in response.data.decode()
 
 
 def test_csrf_required_on_login(client, student):  # type: ignore[no-untyped-def]
@@ -46,7 +46,7 @@ def test_account_lockout_after_failed_attempts(app, client, student):  # type: i
     response = post(
         client, "/auth/login", {"email": student.email, "password": "CorrectHorse!Battery9"}
     )
-    assert b"Too many failed attempts" in response.data
+    assert "ძალიან ბევრი წარუმატებელი ცდა" in response.data.decode()
     assert db.session.query(AuditLog).filter_by(action="auth.account_locked").count() == 1
     # lock expires
     student.locked_until = utcnow() - timedelta(minutes=1)
@@ -91,7 +91,7 @@ def test_registration_enforces_password_policy(client):  # type: ignore[no-untyp
         },
     )
     assert response.status_code == 200
-    assert b"at least 12 characters" in response.data
+    assert "სულ მცირე 12 სიმბოლო" in response.data.decode()
     assert db.session.query(User).filter_by(email="weak@example.org").count() == 0
 
 
@@ -109,7 +109,7 @@ def test_duplicate_registration_rejected(client, student):  # type: ignore[no-un
             "accept_terms": "y",
         },
     )
-    assert b"already exists" in response.data
+    assert "უკვე არსებობს" in response.data.decode()
 
 
 def test_password_reset_flow_invalidates_sessions(app, client, student):  # type: ignore[no-untyped-def]
@@ -148,7 +148,7 @@ def test_password_reset_flow_invalidates_sessions(app, client, student):  # type
 
 def test_reset_request_does_not_reveal_accounts(client):  # type: ignore[no-untyped-def]
     response = post(client, "/auth/reset", {"email": "ghost@example.org"}, follow_redirects=True)
-    assert b"If an account exists" in response.data
+    assert "თუ ამ ელფოსტით ანგარიში არსებობს" in response.data.decode()
 
 
 def test_change_password_requires_current(client, logged_in_student):  # type: ignore[no-untyped-def]
@@ -161,7 +161,7 @@ def test_change_password_requires_current(client, logged_in_student):  # type: i
             "confirm": "Another-Strong-Pass-1",
         },
     )
-    assert b"Current password is incorrect" in response.data
+    assert "მიმდინარე პაროლი არასწორია" in response.data.decode()
     response = post(
         client,
         "/auth/password",
@@ -183,7 +183,7 @@ def test_suspended_user_cannot_login(client, student):  # type: ignore[no-untype
     response = post(
         client, "/auth/login", {"email": student.email, "password": "CorrectHorse!Battery9"}
     )
-    assert b"suspended" in response.data
+    assert "შეჩერებულია" in response.data.decode()
 
 
 def test_open_redirect_blocked(client, student):  # type: ignore[no-untyped-def]
@@ -206,7 +206,7 @@ def test_unverified_user_blocked_when_verification_required(app, client, student
     response = post(
         client, "/auth/login", {"email": student.email, "password": "CorrectHorse!Battery9"}
     )
-    assert b"verify your email" in response.data
+    assert "დაადასტურეთ ელფოსტის მისამართი" in response.data.decode()
     raw = auth_service.issue_token(student, "verify")
     client.get(f"/auth/verify/{raw}")
     db.session.refresh(student)

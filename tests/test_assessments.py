@@ -92,7 +92,7 @@ def test_quiz_flow_via_http(client, demo, student):  # type: ignore[no-untyped-d
     assert response.status_code == 302
     post(client, f"/courses/{demo.slug}/enroll")
     response = client.get(f"/quiz/{quiz.id}/")
-    assert response.status_code == 200 and b"Start attempt" in response.data
+    assert response.status_code == 200 and "ცდის დაწყება" in response.data.decode()
     response = post(client, f"/quiz/{quiz.id}/start")
     attempt = db.session.query(QuizAttempt).one()
     assert response.headers["Location"].endswith(f"/quiz/attempt/{attempt.id}/")
@@ -106,7 +106,7 @@ def test_quiz_flow_via_http(client, demo, student):  # type: ignore[no-untyped-d
     result = client.get(f"/quiz/result/{attempt.id}/").data.decode()
     db.session.refresh(attempt)
     assert attempt.status.value == "submitted" and f"{attempt.percent:.0f}%" in result
-    assert "Incorrect" in result and "Correct" in result  # instant feedback shows review
+    assert "არასწორი" in result and result.count("სწორი") > result.count("არასწორი")  # review shown
     # passing marks the lesson complete and creates a notification
     if attempt.passed:
         lp = progress_service.lesson_progress_map(student, demo)[lesson.id]
@@ -124,10 +124,10 @@ def test_attempt_limits_and_expiry(app, demo, student):  # type: ignore[no-untyp
     assert quiz_service.open_attempt(student, quiz) is attempt
     attempt.expires_at = utcnow() - timedelta(minutes=5)
     db.session.commit()
-    with pytest.raises(QuizError, match="Time is up"):
+    with pytest.raises(QuizError, match="დრო ამოიწურა"):
         quiz_service.submit_attempt(attempt, {})
     assert attempt.status.value == "expired"
-    with pytest.raises(QuizError, match="all attempts"):
+    with pytest.raises(QuizError, match="ყველა ცდა"):
         quiz_service.start_attempt(student, quiz)
 
 
@@ -161,14 +161,14 @@ def test_assignment_submission_and_grading(client, demo, student, instructor):  
     response = post(
         client, f"/assignment/{assignment.id}/", {"text_content": ""}, follow_redirects=True
     )
-    assert b"write your answer" in response.data
+    assert "დაწერეთ პასუხი" in response.data.decode()
     response = post(
         client,
         f"/assignment/{assignment.id}/",
         {"text_content": "My incident report " * 20},
         follow_redirects=True,
     )
-    assert b"submitted" in response.data
+    assert "ნამუშევარი გაიგზავნა" in response.data.decode()
     submission = db.session.query(AssignmentSubmission).one()
     assert submission.attempt_number == 1 and not submission.is_late
     # file upload is rejected for text-only assignments
@@ -179,7 +179,7 @@ def test_assignment_submission_and_grading(client, demo, student, instructor):  
         content_type="multipart/form-data",
         follow_redirects=True,
     )
-    assert b"text only" in response.data
+    assert "მხოლოდ ტექსტს" in response.data.decode()
     # instructor grades: late penalty not applied, lesson completed, notification sent
     grade = assignment_service.grade(
         submission, grader=instructor, points=18, feedback="<b>Good</b><script>x</script>"
@@ -212,10 +212,10 @@ def test_file_assignment_upload_validation(app, demo, student, upload_dir):  # t
     enrollment_service.enroll(student, soc)
     assignment = soc.modules[1].lessons[1].assignment
     fake_pdf = FileStorage(stream=io.BytesIO(b"MZ\x90\x00 not a pdf"), filename="ticket.pdf")
-    with pytest.raises(AssignmentError, match=r"does not match|signature"):
+    with pytest.raises(AssignmentError, match=r"არ შეესაბამება|სიგნატურა"):
         assignment_service.submit(student, assignment, text="", file=fake_pdf)
     exe = FileStorage(stream=io.BytesIO(b"MZ\x90\x00"), filename="ticket.exe")
-    with pytest.raises(AssignmentError, match="not allowed"):
+    with pytest.raises(AssignmentError, match="დაუშვებელია"):
         assignment_service.submit(student, assignment, text="", file=exe)
     real_txt = FileStorage(
         stream=io.BytesIO(b"Priority P1: brute force with success\n"), filename="ticket.txt"
@@ -264,5 +264,5 @@ def test_course_completion_issues_certificate(app, demo, student):  # type: igno
     assert {"first_course", "first_certificate"} <= codes
     client = app.test_client()
     page = client.get(f"/certificates/verify/{certificate.public_id}")
-    assert page.status_code == 200 and b"Valid certificate" in page.data
+    assert page.status_code == 200 and "ნამდვილი სერტიფიკატი" in page.data.decode()
     assert student.email.encode() not in page.data

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from flask_babel import lazy_gettext as _l
-from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
 from wtforms import (
     BooleanField,
@@ -18,12 +17,14 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired, Length, NumberRange, Optional, Regexp
 
+from app.forms.base import BaseForm
+
 SLUG = Regexp(
     r"^[a-z0-9]+(?:-[a-z0-9]+)*$", message=_l("Use lowercase letters, digits and hyphens.")
 )
 
 
-class CourseForm(FlaskForm):
+class CourseForm(BaseForm):
     title_ka = StringField(_l("Title (Georgian)"), validators=[DataRequired(), Length(max=200)])
     title_en = StringField(_l("Title (English)"), validators=[Optional(), Length(max=200)])
     slug = StringField(_l("Slug"), validators=[Optional(), Length(max=120), SLUG])
@@ -136,7 +137,7 @@ class CourseForm(FlaskForm):
     submit = SubmitField(_l("Save course"))
 
 
-class ModuleForm(FlaskForm):
+class ModuleForm(BaseForm):
     title_ka = StringField(_l("Title (Georgian)"), validators=[DataRequired(), Length(max=200)])
     title_en = StringField(_l("Title (English)"), validators=[Optional(), Length(max=200)])
     description_ka = TextAreaField(
@@ -149,7 +150,7 @@ class ModuleForm(FlaskForm):
     submit = SubmitField(_l("Save module"))
 
 
-class LessonForm(FlaskForm):
+class LessonForm(BaseForm):
     title_ka = StringField(_l("Title (Georgian)"), validators=[DataRequired(), Length(max=200)])
     title_en = StringField(_l("Title (English)"), validators=[Optional(), Length(max=200)])
     slug = StringField(_l("Slug"), validators=[Optional(), Length(max=120), SLUG])
@@ -181,7 +182,7 @@ class LessonForm(FlaskForm):
     submit = SubmitField(_l("Save lesson"))
 
 
-class ResourceForm(FlaskForm):
+class ResourceForm(BaseForm):
     title_ka = StringField(_l("Title (Georgian)"), validators=[DataRequired(), Length(max=200)])
     title_en = StringField(_l("Title (English)"), validators=[Optional(), Length(max=200)])
     url = StringField(_l("Link"), validators=[Optional(), Length(max=500)])
@@ -189,7 +190,7 @@ class ResourceForm(FlaskForm):
     submit = SubmitField(_l("Add resource"))
 
 
-class QuizForm(FlaskForm):
+class QuizForm(BaseForm):
     title_ka = StringField(_l("Title (Georgian)"), validators=[DataRequired(), Length(max=200)])
     title_en = StringField(_l("Title (English)"), validators=[Optional(), Length(max=200)])
     description_ka = TextAreaField(
@@ -221,7 +222,7 @@ class QuizForm(FlaskForm):
     submit = SubmitField(_l("Save quiz"))
 
 
-class QuestionForm(FlaskForm):
+class QuestionForm(BaseForm):
     question_type = SelectField(
         _l("Type"),
         choices=[
@@ -255,7 +256,7 @@ class QuestionForm(FlaskForm):
     submit = SubmitField(_l("Save question"))
 
 
-class AssignmentForm(FlaskForm):
+class AssignmentForm(BaseForm):
     title_ka = StringField(_l("Title (Georgian)"), validators=[DataRequired(), Length(max=200)])
     title_en = StringField(_l("Title (English)"), validators=[Optional(), Length(max=200)])
     instructions_ka = TextAreaField(
@@ -288,7 +289,7 @@ class AssignmentForm(FlaskForm):
     submit = SubmitField(_l("Save assignment"))
 
 
-class CategoryForm(FlaskForm):
+class CategoryForm(BaseForm):
     slug = StringField(_l("Slug"), validators=[DataRequired(), Length(max=80), SLUG])
     name_ka = StringField(_l("Name (Georgian)"), validators=[DataRequired(), Length(max=120)])
     name_en = StringField(_l("Name (English)"), validators=[DataRequired(), Length(max=120)])
@@ -312,7 +313,7 @@ class CategoryForm(FlaskForm):
     submit = SubmitField(_l("Save category"))
 
 
-class ReviewDecisionForm(FlaskForm):
+class ReviewDecisionForm(BaseForm):
     note = TextAreaField(_l("Note to the instructor"), validators=[Optional(), Length(max=2000)])
     approve = SubmitField(_l("Approve & publish"))
     reject = SubmitField(_l("Send back to draft"))
