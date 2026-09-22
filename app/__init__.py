@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import logging
 import os
 from pathlib import Path
@@ -18,6 +19,21 @@ from app.logging_config import configure_logging
 from app.security import register_security_headers
 
 log = logging.getLogger(__name__)
+
+
+def _static_version(app: Flask) -> str:
+    """Cache-busting stamp for /static URLs. nginx serves static files with a
+    long immutable cache, so every deploy must change the URL: the stamp is the
+    build's APP_VERSION when set, otherwise a hash of the static files' mtimes."""
+    explicit = (app.config.get("APP_VERSION") or "").strip()
+    if explicit:
+        return explicit[:16]
+    digest = hashlib.sha256()
+    static_root = Path(app.static_folder or "")
+    for path in sorted(static_root.rglob("*")):
+        if path.is_file() and "cyberhero" not in path.parts:
+            digest.update(f"{path.relative_to(static_root)}:{int(path.stat().st_mtime)}".encode())
+    return digest.hexdigest()[:10]
 
 
 def _check_translations(app: Flask) -> list[str]:
@@ -58,6 +74,13 @@ def create_app(config_name: str | None = None, overrides: dict | None = None) ->
     configure_logging(app)
     _init_extensions(app)
     _check_translations(app)
+    app.config["STATIC_VERSION"] = _static_version(app)
+
+    @app.url_defaults
+    def _stamp_static(endpoint: str, values: dict) -> None:
+        if endpoint == "static" and "v" not in values:
+            values["v"] = app.config["STATIC_VERSION"]
+
     _register_blueprints(app)
     _register_context(app)
     register_security_headers(app)

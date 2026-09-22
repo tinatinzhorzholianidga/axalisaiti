@@ -25,6 +25,8 @@ RUN pip wheel --wheel-dir /wheels -r requirements.txt
 # Stage 3: slim runtime (no Node, no compilers, non-root)
 # ---------------------------------------------------------------------------
 FROM python:3.12-slim-bookworm AS runtime
+ARG APP_VERSION=dev
+ENV APP_VERSION=${APP_VERSION}
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
     APP_ENV=production UPLOAD_PATH=/var/lib/elearning/uploads
 RUN apt-get update && apt-get install -y --no-install-recommends libmagic1 curl \

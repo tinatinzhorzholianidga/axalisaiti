@@ -34,7 +34,7 @@
   </div>
   <div class="panel">
     <div class="panel-title"><h2>{{ _('Recent activity') }}</h2><a class="small" href="{{ url_for('admin.audit') }}">{{ _('Audit log') }}</a></div>
-    <ul class="list-plain small">
+    <ul class="list-plain small activity-list">
       {% for a in recent_activity %}<li><code class="small">{{ a.action }}</code><span class="text-muted">{{ a.actor_email or '—' }}{% if a.target_label %} · {{ a.target_label }}{% endif %}</span><span class="when">{{ a.created_at|humanize_dt }}</span></li>{% else %}<li class="text-muted">{{ _('No activity yet.') }}</li>{% endfor %}
     </ul>
   </div>

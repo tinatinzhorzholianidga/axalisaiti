@@ -140,6 +140,8 @@ class BaseConfig:
     INSTRUCTOR_APPROVAL_REQUIRED = env_bool("INSTRUCTOR_APPROVAL_REQUIRED", True)
 
     # --- features -----------------------------------------------------------
+    # Build identifier (git SHA / tag) used to cache-bust static URLs; auto-derived if empty
+    APP_VERSION = os.environ.get("APP_VERSION", "")
     CYBERHERO_ENABLED = env_bool("CYBERHERO_ENABLED", True)
     CYBERHERO_IO_CHAT_ENABLED = env_bool("CYBERHERO_IO_CHAT_ENABLED", False)
     CYBERHERO_STATIC_DIR = str(BASE_DIR / "app" / "static" / "cyberhero")

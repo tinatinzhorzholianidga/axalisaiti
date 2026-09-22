@@ -7,9 +7,13 @@ case "${1:-web}" in
       echo "[entrypoint] compiling translation catalogues"
       pybabel compile -d app/translations -f --statistics
     fi
-    if [ -d /srv/static ] && [ -w /srv/static ]; then
-      echo "[entrypoint] publishing static assets for nginx"
-      rm -rf /srv/static/* && cp -R /app/app/static/. /srv/static/
+    if [ -d /srv/static ]; then
+      if [ -w /srv/static ]; then
+        echo "[entrypoint] publishing static assets for nginx"
+        rm -rf /srv/static/* && cp -R /app/app/static/. /srv/static/
+      else
+        echo "[entrypoint] WARNING: /srv/static is not writable; nginx may serve stale assets" >&2
+      fi
     fi
     if [ "${APP_ENV:-production}" = "production" ]; then
       echo "[entrypoint] checking production configuration"

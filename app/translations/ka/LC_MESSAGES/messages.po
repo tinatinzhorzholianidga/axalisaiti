@@ -2631,7 +2631,7 @@ msgid "Verify a certificate"
 msgstr "სერტიფიკატის გადამოწმება"
 
 msgid "About"
-msgstr "პლატფორმის შესახებ"
+msgstr "შესახებ"
 
 msgid "Privacy"
 msgstr "კონფიდენციალურობა"

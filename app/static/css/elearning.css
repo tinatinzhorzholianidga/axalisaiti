@@ -57,10 +57,11 @@ hr { border-color: var(--border); opacity: 1; }
 }
 .certificate .brand-logo, .certificate .brand-logo .logo-img { height: 72px; }
 .brand-name small { display: block; font-size: var(--text-xs); font-weight: 500; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
-.main-nav { display: flex; align-items: center; gap: var(--space-1); margin: 0 var(--space-4); }
-.main-nav a { color: var(--text-muted); font-weight: 500; padding: var(--space-2) var(--space-3); border-radius: var(--radius); font-size: var(--text-sm); }
+.main-nav { display: flex; align-items: center; gap: 2px; margin: 0 var(--space-3); min-width: 0; }
+.main-nav a { color: var(--text-muted); font-weight: 500; padding: var(--space-2) 10px; border-radius: var(--radius); font-size: var(--text-sm); white-space: nowrap; }
 .main-nav a:hover, .main-nav a[aria-current="page"] { color: var(--text); background: var(--surface-hover); text-decoration: none; }
-.nav-actions { margin-left: auto; display: flex; align-items: center; gap: var(--space-1); }
+.nav-actions { margin-left: auto; display: flex; align-items: center; gap: var(--space-1); flex: none; }
+.nav-actions .btn { white-space: nowrap; }
 .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--radius); border: 1px solid transparent; background: transparent; color: var(--text-muted); position: relative; transition: background var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease); }
 .icon-btn:hover, .icon-btn[aria-expanded="true"] { background: var(--surface-hover); color: var(--text); }
 .icon-btn svg { width: 20px; height: 20px; }
@@ -422,7 +423,7 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
 
 /* ---- profile ------------------------------------------------------------- */
 .profile-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--space-8); }
-.side-nav { position: sticky; top: calc(var(--header-height) + var(--space-4)); display: grid; gap: var(--space-1); }
+.side-nav { position: sticky; top: calc(var(--header-height) + var(--space-4)); display: grid; gap: var(--space-1); align-content: start; align-self: start; }
 .side-nav a { padding: var(--space-2) var(--space-3); border-radius: var(--radius); color: var(--text-muted); font-size: var(--text-sm); font-weight: 500; }
 .side-nav a:hover, .side-nav a[aria-current="true"] { background: var(--surface-hover); color: var(--text); text-decoration: none; }
 .profile-header { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); }
@@ -507,6 +508,11 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
 .admin-topbar .btn-group-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; }
 .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-6); }
 .two-col { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-6); }
+.activity-list li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-2) var(--space-3); align-items: center; padding: var(--space-2) 0; border-bottom: 1px solid var(--border); }
+.activity-list li:last-child { border-bottom: 0; }
+.activity-list li > span:not(.when) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.activity-list .when { color: var(--text-faint); font-size: var(--text-xs); white-space: nowrap; }
+.activity-list code { font-size: 11px; }
 .kv { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-2) var(--space-6); font-size: var(--text-sm); }
 .kv dt { color: var(--text-muted); font-weight: 500; }
 .kv dd { margin: 0; }
@@ -567,7 +573,7 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
   .filter-bar { grid-template-columns: 1fr 1fr 1fr; }
   .metric-grid, .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 991px) {
+@media (max-width: 1199px) {
   .main-nav, .nav-actions .lang-switch, .nav-actions .desktop-only { display: none; }
   .nav-toggle { display: inline-flex; }
   .mobile-nav { display: none; border-top: 1px solid var(--border); padding: var(--space-3) 0 var(--space-4); }
