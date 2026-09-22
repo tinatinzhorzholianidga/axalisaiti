@@ -8,6 +8,83 @@ function csrfToken() {
   return meta ? meta.getAttribute("content") : "";
 }
 
+/* ---- styled selects ------------------------------------------------------
+   Native <select> popups cannot be themed, so filter selects are enhanced
+   into a listbox dropdown that follows the design system. The native select
+   stays in the DOM (hidden) and keeps the form working without JavaScript. */
+function initFancySelects() {
+  document.querySelectorAll("select[data-fancy-select]").forEach((select) => {
+    if (select.dataset.enhanced) return;
+    select.dataset.enhanced = "1";
+    const wrap = document.createElement("div");
+    wrap.className = "fselect";
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "form-select fselect-toggle";
+    button.setAttribute("aria-haspopup", "listbox");
+    button.setAttribute("aria-expanded", "false");
+    if (select.id) button.setAttribute("aria-labelledby", `${select.id}-label`);
+    const list = document.createElement("ul");
+    list.className = "fselect-menu";
+    list.setAttribute("role", "listbox");
+    list.hidden = true;
+    const labelEl = select.id ? document.querySelector(`label[for="${select.id}"]`) : null;
+    if (labelEl) labelEl.id = labelEl.id || `${select.id}-label`;
+
+    const items = Array.from(select.options).map((option, index) => {
+      const li = document.createElement("li");
+      li.setAttribute("role", "option");
+      li.dataset.index = String(index);
+      li.textContent = option.textContent;
+      li.setAttribute("aria-selected", option.selected ? "true" : "false");
+      li.tabIndex = -1;
+      list.appendChild(li);
+      return li;
+    });
+    const sync = () => {
+      button.textContent = select.options[select.selectedIndex]?.textContent || "";
+      items.forEach((li, i) => li.setAttribute("aria-selected", i === select.selectedIndex ? "true" : "false"));
+    };
+    const close = () => { list.hidden = true; button.setAttribute("aria-expanded", "false"); wrap.classList.remove("open"); };
+    const open = () => {
+      list.hidden = false; button.setAttribute("aria-expanded", "true"); wrap.classList.add("open");
+      (items[select.selectedIndex] || items[0])?.focus();
+    };
+    const choose = (index) => {
+      if (index === select.selectedIndex) { close(); button.focus(); return; }
+      select.selectedIndex = index;
+      sync();
+      close();
+      button.focus();
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      if (select.form && select.dataset.autoSubmit !== undefined) select.form.requestSubmit();
+    };
+    button.addEventListener("click", () => (list.hidden ? open() : close()));
+    button.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp" || event.key === " ") { event.preventDefault(); open(); }
+    });
+    items.forEach((li, index) => {
+      li.addEventListener("click", () => choose(index));
+      li.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowDown") { event.preventDefault(); (items[index + 1] || items[0]).focus(); }
+        else if (event.key === "ArrowUp") { event.preventDefault(); (items[index - 1] || items[items.length - 1]).focus(); }
+        else if (event.key === "Enter" || event.key === " ") { event.preventDefault(); choose(index); }
+        else if (event.key === "Escape") { event.preventDefault(); close(); button.focus(); }
+        else if (event.key === "Tab") { close(); }
+      });
+    });
+    document.addEventListener("click", (event) => { if (!wrap.contains(event.target)) close(); });
+    select.classList.add("fselect-native");
+    select.setAttribute("tabindex", "-1");
+    select.setAttribute("aria-hidden", "true");
+    select.parentNode.insertBefore(wrap, select);
+    wrap.appendChild(button);
+    wrap.appendChild(list);
+    wrap.appendChild(select);
+    sync();
+  });
+}
+
 /* ---- theme -------------------------------------------------------------- */
 function applyTheme(pref) {
   const root = document.documentElement;
@@ -339,3 +416,4 @@ initQuestionEditor();
 initRoundEditor();
 initReplies();
 initFlash();
+initFancySelects();

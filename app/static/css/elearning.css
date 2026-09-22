@@ -261,6 +261,20 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
 .filter-bar .form-control:focus, .filter-bar .form-select:focus { border-color: var(--primary); box-shadow: var(--focus-ring); }
 .filter-bar .form-select { text-overflow: ellipsis; }
 .filter-bar .form-field:first-child .form-control { padding-left: 42px; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2398A7BE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3ccircle cx='11' cy='11' r='7'/%3e%3cpath d='m21 21-4.3-4.3'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: 14px center; background-size: 18px 18px; }
+/* enhanced selects (see initFancySelects in app.js) */
+.fselect { position: relative; }
+.fselect-native { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; margin: 0; }
+.fselect-toggle { display: block; width: 100%; text-align: left; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.fselect.open .fselect-toggle { border-color: var(--primary); box-shadow: var(--focus-ring); }
+.fselect-menu { position: absolute; z-index: 40; top: calc(100% + 6px); left: 0; min-width: 100%; max-height: 320px; overflow: auto; margin: 0; padding: var(--space-2); list-style: none; background: var(--surface-raised); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); animation: fselect-in var(--duration-fast) var(--ease); }
+.fselect-menu[hidden] { display: none; }
+.fselect-menu li { padding: 9px 12px; border-radius: var(--radius-sm); font-size: var(--text-sm); color: var(--text); cursor: pointer; white-space: nowrap; outline: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.fselect-menu li:hover, .fselect-menu li:focus { background: var(--surface-hover); }
+.fselect-menu li[aria-selected="true"] { color: var(--primary); font-weight: 600; background: var(--primary-soft); }
+.fselect-menu li[aria-selected="true"]::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex: none; }
+@keyframes fselect-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .fselect-menu { animation: none; } }
+.form-select option { background: var(--surface-raised); color: var(--text); }
 .filter-bar .btn { height: 46px; border-radius: 12px; padding-inline: var(--space-5); white-space: nowrap; }
 .filter-bar .btn svg { width: 18px; height: 18px; }
 .category-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }

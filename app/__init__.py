@@ -78,7 +78,11 @@ def create_app(config_name: str | None = None, overrides: dict | None = None) ->
 
     @app.url_defaults
     def _stamp_static(endpoint: str, values: dict) -> None:
-        if endpoint == "static" and "v" not in values:
+        # The CyberHero bundle is already content-hashed and its chunks import
+        # each other by bare path: a query string would make the browser load a
+        # second copy of the entry module (and mount a second React root).
+        hashed_bundle = str(values.get("filename", "")).startswith("cyberhero/")
+        if endpoint == "static" and "v" not in values and not hashed_bundle:
             values["v"] = app.config["STATIC_VERSION"]
 
     _register_blueprints(app)

@@ -1,5 +1,5 @@
 {# Accessible form field rendering. Every input gets a label, aria-describedby for help/errors. #}
-{% macro field(f, help=None, autocomplete=None, placeholder=None, autofocus=False, rows=6, extra_class="") %}
+{% macro field(f, help=None, autocomplete=None, placeholder=None, autofocus=False, rows=6, extra_class="", attrs=None) %}
   {% set has_error = f.errors|length > 0 %}
   {% set describedby = [] %}
   {% if help %}{% set _ = describedby.append(f.id ~ '-help') %}{% endif %}
@@ -15,7 +15,7 @@
       {% if f.type == 'TextAreaField' %}
         {{ f(class_="form-control" ~ (" is-invalid" if has_error else ""), rows=rows, placeholder=placeholder, **{'aria-describedby': describedby|join(' ') or None, 'aria-invalid': 'true' if has_error else None}) }}
       {% elif f.type in ('SelectField', 'SelectMultipleField') %}
-        {{ f(class_="form-select" ~ (" is-invalid" if has_error else ""), **{'aria-describedby': describedby|join(' ') or None, 'aria-invalid': 'true' if has_error else None}) }}
+        {{ f(class_="form-select" ~ (" is-invalid" if has_error else ""), **dict({'aria-describedby': describedby|join(' ') or None, 'aria-invalid': 'true' if has_error else None}, **(attrs or {}))) }}
       {% elif f.type == 'FileField' %}
         {{ f(class_="form-control" ~ (" is-invalid" if has_error else ""), **{'aria-describedby': describedby|join(' ') or None}) }}
       {% else %}

@@ -7,8 +7,9 @@ import { mockApiPlugin } from './mock/api.js';
 
 const FLASK_DEV = 'http://127.0.0.1:8000';
 
-export default defineConfig(({ mode }) => ({
-  base: '/static/cyberhero/',
+export default defineConfig(({ mode, command }) => ({
+  // the production bundle lives under Flask's static tree; the dev server serves from /
+  base: command === 'build' ? '/static/cyberhero/' : '/',
   publicDir: false,
   plugins: [
     react(),

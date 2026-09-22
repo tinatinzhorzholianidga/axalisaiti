@@ -11,10 +11,10 @@
   </div>
   <form class="filter-bar" method="get" role="search" aria-label="{{ _('Filter courses') }}">
     {{ field(form.q, placeholder=_('Search by title or tag')) }}
-    {{ field(form.category) }}
-    {{ field(form.difficulty) }}
-    {{ field(form.duration) }}
-    {{ field(form.sort) }}
+    {{ field(form.category, attrs={'data-fancy-select': '', 'data-auto-submit': ''}) }}
+    {{ field(form.difficulty, attrs={'data-fancy-select': '', 'data-auto-submit': ''}) }}
+    {{ field(form.duration, attrs={'data-fancy-select': '', 'data-auto-submit': ''}) }}
+    {{ field(form.sort, attrs={'data-fancy-select': '', 'data-auto-submit': ''}) }}
     <button class="btn btn-primary" type="submit">{{ icon('sliders') }} {{ _('Apply') }}</button>
   </form>
   <div class="category-chips" aria-label="{{ _('Categories') }}">
