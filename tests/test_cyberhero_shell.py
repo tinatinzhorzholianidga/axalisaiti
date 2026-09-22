@@ -53,9 +53,10 @@ def test_shell_serves_every_route_with_runtime_attributes(client, built):  # typ
     assert json.loads(attrs["flags"].replace("&#34;", '"')) == {"CYBERHERO_IO_CHAT_ENABLED": False}
     assert attrs["user-id"] == ""
     assert attrs["lang-switch-ka"].endswith("?lang=ka")
-    assert 'src="/static/cyberhero/assets/main-abc.js"' in html
-    assert 'href="/static/cyberhero/assets/main-abc.css"' in html
-    assert 'rel="modulepreload" href="/static/cyberhero/assets/three-vendor-xyz.js"' in html
+    # static URLs carry the cache-busting stamp (?v=...)
+    assert 'src="/static/cyberhero/assets/main-abc.js?v=' in html
+    assert 'href="/static/cyberhero/assets/main-abc.css?v=' in html
+    assert 'rel="modulepreload" href="/static/cyberhero/assets/three-vendor-xyz.js?v=' in html
     # strict CSP: no inline scripts / styles on the shell
     assert "<script>" not in html and "onclick=" not in html and "style=" not in html
     csp = client.get("/cyberhero/").headers["Content-Security-Policy"]
