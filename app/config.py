@@ -226,6 +226,12 @@ class ProductionConfig(BaseConfig):
             problems.append("REDIS_URL is not configured")
         if cls.MAIL_SERVER in {"", "localhost"} and not cls.MAIL_SUPPRESS_SEND:
             problems.append("MAIL_SERVER is not configured (or set MAIL_SUPPRESS_SEND=true)")
+        catalog = Path(cls.BABEL_TRANSLATION_DIRECTORIES) / "ka" / "LC_MESSAGES" / "messages.mo"
+        if not catalog.exists():
+            problems.append(
+                "Georgian translations are not compiled; "
+                "run: pybabel compile -d app/translations -f"
+            )
         return problems
 
 

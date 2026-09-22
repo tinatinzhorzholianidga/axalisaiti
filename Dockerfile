@@ -42,7 +42,7 @@ COPY --chown=elearning:elearning migrations ./migrations
 COPY --chown=elearning:elearning seeds ./seeds
 COPY --chown=elearning:elearning docker/gunicorn.conf.py docker/entrypoint.sh wsgi.py babel.cfg ./
 COPY --from=cyberhero-build --chown=elearning:elearning /build/app/static/cyberhero ./app/static/cyberhero
-RUN pybabel compile -d app/translations -f 2>/dev/null || true \
+RUN pybabel compile -d app/translations -f --statistics \
     && chmod +x /app/entrypoint.sh
 USER elearning
 EXPOSE 8000

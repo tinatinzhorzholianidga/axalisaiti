@@ -3,6 +3,10 @@ set -eu
 
 case "${1:-web}" in
   web)
+    if [ ! -f app/translations/ka/LC_MESSAGES/messages.mo ]; then
+      echo "[entrypoint] compiling translation catalogues"
+      pybabel compile -d app/translations -f --statistics
+    fi
     if [ -d /srv/static ] && [ -w /srv/static ]; then
       echo "[entrypoint] publishing static assets for nginx"
       rm -rf /srv/static/* && cp -R /app/app/static/. /srv/static/

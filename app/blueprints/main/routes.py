@@ -39,6 +39,8 @@ def readiness():  # type: ignore[no-untyped-def]
             healthy = False
     else:
         checks["redis"] = "not-configured"
+    missing = current_app.config.get("TRANSLATIONS_MISSING") or []
+    checks["translations"] = "ok" if not missing else "missing: " + ", ".join(missing)
     status = 200 if healthy else 503
     return jsonify({"status": "ready" if healthy else "degraded", "checks": checks}), status
 

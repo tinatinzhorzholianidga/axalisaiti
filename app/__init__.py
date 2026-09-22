@@ -20,6 +20,24 @@ from app.security import register_security_headers
 log = logging.getLogger(__name__)
 
 
+def _check_translations(app: Flask) -> list[str]:
+    """Languages other than the source language must have a compiled .mo file."""
+    missing: list[str] = []
+    base = Path(app.config["BABEL_TRANSLATION_DIRECTORIES"])
+    for code in app.config["LANGUAGES"]:
+        if code == "en":
+            continue
+        if not (base / code / "LC_MESSAGES" / "messages.mo").exists():
+            missing.append(code)
+    if missing:
+        app.logger.warning(
+            "No compiled translation catalogue for %s; run: pybabel compile -d app/translations -f",
+            ", ".join(missing),
+        )
+    app.config["TRANSLATIONS_MISSING"] = missing
+    return missing
+
+
 def create_app(config_name: str | None = None, overrides: dict | None = None) -> Flask:
     app = Flask(
         __name__,
@@ -39,6 +57,7 @@ def create_app(config_name: str | None = None, overrides: dict | None = None) ->
 
     configure_logging(app)
     _init_extensions(app)
+    _check_translations(app)
     _register_blueprints(app)
     _register_context(app)
     register_security_headers(app)
