@@ -8,10 +8,10 @@ from pathlib import Path
 
 import pytest
 
-from app.services import feature_flags, seed_service, settings_service
+from app.services import feature_flags
 
 ATTR = re.compile(r"data-([a-z-]+)=([\"'])(.*?)\2")
-DOOR = re.compile(r'<a class="path-card path-(basic|kids)" href="([^"]+)"')
+DOOR = re.compile(r'<a class="btn[^"]*" href="([^"]+)" data-io-path="(basic|kids)"')
 
 
 def _root_attrs(html: str) -> dict[str, str]:
@@ -20,8 +20,8 @@ def _root_attrs(html: str) -> dict[str, str]:
 
 
 def _doors(html: str) -> dict[str, str]:
-    """The two path cards IO reacts to, by kind -> href."""
-    return dict(DOOR.findall(html))
+    """The buttons IO reacts to ("doors"), by kind -> href."""
+    return {kind: href for href, kind in DOOR.findall(html)}
 
 
 @pytest.fixture
@@ -61,24 +61,12 @@ def test_home_mounts_io_with_runtime_attributes(client, built):  # type: ignore[
     assert 'href="/static/cyberhero/assets/io-host-def.css"' in html
     assert 'rel="modulepreload" href="/static/cyberhero/assets/three-vendor-xyz.js"' in html
     assert "assets/main-abc.js" not in html
-    # the two doors are real links IO can react to
-    assert 'data-io-path="basic"' in html and 'data-io-path="kids"' in html
-    assert 'href="/cyberhero/"' in html
-    # nothing seeded: the first door leads to the catalogue
+    # his two doors are the page's own buttons: the catalogue and CyberHero
     assert _doors(html) == {"basic": "/courses/", "kids": "/cyberhero/"}
+    # the hero itself is the original one
+    assert "A secure" in html and "digital future" in html and 'class="hero-art"' in html
     assert _root_attrs(client.get("/?lang=ka").get_data(as_text=True))["locale"] == "ka"
     assert 'data-label-close="იოს დამალვა"' in client.get("/?lang=ka").get_data(as_text=True)
-
-
-def test_first_door_leads_to_the_configured_course(client, built):  # type: ignore[no-untyped-def]
-    seed_service.seed_demo_content()
-    html = client.get("/?lang=ka").get_data(as_text=True)
-    assert _doors(html)["basic"] == "/courses/basic-cybersecurity/"
-    assert 'id="path-basic-title">კიბერუსაფრთხოების საბაზისო კურსი<' in html
-    # an unknown slug falls back to the catalogue instead of a broken link
-    settings_service.set_value("site.home_basic_course", "does-not-exist")
-    html = client.get("/").get_data(as_text=True)
-    assert _doors(html)["basic"] == "/courses/"
 
 
 def test_kids_door_follows_the_cyberhero_flag(client, built):  # type: ignore[no-untyped-def]
@@ -86,8 +74,7 @@ def test_kids_door_follows_the_cyberhero_flag(client, built):  # type: ignore[no
     feature_flags.invalidate()
     html = client.get("/").get_data(as_text=True)
     assert _root_attrs(html)["doors"] == "basic"
-    assert 'data-io-path="kids"' not in html
-    assert 'data-io-path="basic"' in html
+    assert _doors(html) == {"basic": "/courses/"}
 
 
 def test_unbuilt_bundle_renders_the_page_without_io(client):  # type: ignore[no-untyped-def]
@@ -96,8 +83,7 @@ def test_unbuilt_bundle_renders_the_page_without_io(client):  # type: ignore[no-
     assert response.status_code == 200
     html = response.get_data(as_text=True)
     assert 'id="io-host-root"' not in html and "/static/cyberhero/" not in html
-    # the doors are still plain links
-    assert _doors(html) == {"basic": "/courses/", "kids": "/cyberhero/"}
+    assert 'class="hero-art"' in html
 
 
 def test_home_keeps_the_strict_policy(client, built):  # type: ignore[no-untyped-def]

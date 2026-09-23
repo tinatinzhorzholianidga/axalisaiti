@@ -63,8 +63,8 @@ for (const lang of ['ka', 'en']) {
       .poll(async () => (await live.textContent()).trim())
       .toMatch(new RegExp(pool(lang, 'pickPath').map((l) => l.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')));
 
-    // the doors are real links: the basic course and CyberHero
-    await expect(page.locator('[data-io-path="basic"]')).toHaveAttribute('href', /\/courses\//);
+    // the doors are the page's own buttons: the course catalogue and CyberHero
+    await expect(page.locator('[data-io-path="basic"]')).toHaveAttribute('href', '/courses/');
     await expect(page.locator('[data-io-path="kids"]')).toHaveAttribute('href', '/cyberhero/');
     expect(errors, errors.join('\n')).toEqual([]);
   });

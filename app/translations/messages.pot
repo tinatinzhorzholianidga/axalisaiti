@@ -3509,60 +3509,6 @@ msgstr ""
 
 # --- home page: IO, the welcome host (templates/main/home.html) ---
 
-msgid "Welcome"
-msgstr ""
-
-msgid "Hi! I'm IO —"
-msgstr ""
-
-msgid "your cybersecurity guide"
-msgstr ""
-
-msgid "Pick where to start: the basic course for adults, or CyberHero for kids and teens."
-msgstr ""
-
-msgid "Where shall we start?"
-msgstr ""
-
-msgid "For adults · employees"
-msgstr ""
-
-msgid "Basic Cybersecurity Course"
-msgstr ""
-
-msgid "Nine topics, about 3 hours, and a certificate at the end. For everyone who uses a computer and the internet every day."
-msgstr ""
-
-msgid "~3 hours"
-msgstr ""
-
-msgid "9 topics"
-msgstr ""
-
-msgid "Test + certificate"
-msgstr ""
-
-msgid "Start the course"
-msgstr ""
-
-msgid "For kids · teens · parents"
-msgstr ""
-
-msgid "CyberHero"
-msgstr ""
-
-msgid "Scenario missions for ages 13-18, guides for parents and teachers — and me, IO, by your side at every step."
-msgstr ""
-
-msgid "10 missions"
-msgstr ""
-
-msgid "Georgian / English"
-msgstr ""
-
-msgid "Go to CyberHero"
-msgstr ""
-
 msgid "IO, the cybersecurity guide robot — press to hear more"
 msgstr ""
 

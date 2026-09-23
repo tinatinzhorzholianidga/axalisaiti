@@ -9,63 +9,47 @@
   {% for href in io_host.assets.preload %}<link rel="modulepreload" href="{{ href }}">{% endfor %}
 {% endblock %}
 {% block content %}
-<section class="hero hero-io">
+<section class="hero">
   <div class="container">
     <div class="hero-grid">
-      <div class="hero-copy">
-        <span class="eyebrow">{{ _('Welcome') }}</span>
-        <h1>{{ _("Hi! I'm IO —") }}<br><span class="highlight">{{ _('your cybersecurity guide') }}</span></h1>
-        <p class="hero-lead">{{ _('Pick where to start: the basic course for adults, or CyberHero for kids and teens.') }}</p>
-
-        {# The two doors. IO, floating in the corner (cyberhero/src/host/HomeHost.jsx),
-           listens to [data-io-path]: hover/focus makes him react, choosing one
-           gets a goodbye wave; the links themselves navigate normally. #}
-        <h2 class="paths-title">{{ _('Where shall we start?') }}</h2>
-        <div class="path-grid">
-          {% set basic = io_host.basic %}
-          <a class="path-card path-basic" href="{{ io_host.basic_url }}" data-io-path="basic" aria-labelledby="path-basic-title path-basic-cta">
-            <span class="path-badge">{{ _('For adults · employees') }}</span>
-            <span class="path-title" id="path-basic-title">{% if basic %}{{ basic.title(locale) }}{% else %}{{ _('Basic Cybersecurity Course') }}{% endif %}</span>
-            {% if basic %}
-            {% set tr = basic.tr(locale) %}
-            <span class="path-desc">{{ tr.short_description if tr else '' }}</span>
-            <span class="path-chips">
-              {% if basic.estimated_minutes %}<span class="chip chip-primary">{{ icon('clock') }} {{ basic.estimated_minutes|duration }}</span>{% endif %}
-              <span class="chip chip-primary">{{ icon('layers') }} {{ basic.lesson_count }} {{ _('lessons') }}</span>
-              {% if basic.certificate_enabled %}<span class="chip chip-primary">{{ icon('award') }} {{ _('Certificate') }}</span>{% endif %}
-            </span>
-            {% else %}
-            <span class="path-desc">{{ _('Nine topics, about 3 hours, and a certificate at the end. For everyone who uses a computer and the internet every day.') }}</span>
-            <span class="path-chips">
-              <span class="chip chip-primary">{{ icon('clock') }} {{ _('~3 hours') }}</span>
-              <span class="chip chip-primary">{{ icon('layers') }} {{ _('9 topics') }}</span>
-              <span class="chip chip-primary">{{ icon('award') }} {{ _('Test + certificate') }}</span>
-            </span>
-            {% endif %}
-            <span class="path-cta" id="path-basic-cta">{{ _('Start the course') }} {{ icon('arrow-right') }}</span>
-          </a>
-          {% if cyberhero_enabled %}
-          <a class="path-card path-kids" href="{{ url_for('cyberhero.shell', path='') }}" data-io-path="kids" aria-labelledby="path-kids-title path-kids-cta">
-            <span class="path-badge">{{ _('For kids · teens · parents') }}</span>
-            <span class="path-title" id="path-kids-title">{{ _('CyberHero') }}</span>
-            <span class="path-desc">{{ _('Scenario missions for ages 13-18, guides for parents and teachers — and me, IO, by your side at every step.') }}</span>
-            <span class="path-chips">
-              <span class="chip chip-purple">{{ icon('target') }} {{ _('10 missions') }}</span>
-              <span class="chip chip-purple">{{ icon('languages') }} {{ _('Georgian / English') }}</span>
-              <span class="chip chip-purple">{{ icon('star') }} {{ _('Free') }}</span>
-            </span>
-            <span class="path-cta" id="path-kids-cta">{{ _('Go to CyberHero') }} {{ icon('arrow-right') }}</span>
-          </a>
-          {% endif %}
+      <div>
+        <span class="eyebrow">{{ _('Learn / Practice / Stay secure') }}</span>
+        <h1>{{ _('A secure') }}<br><span class="highlight">{{ _('digital future') }}</span><br>{{ _('is in your hands') }}</h1>
+        <p class="hero-lead">{{ _('Learn cybersecurity through structured lessons, real-world scenarios and practical exercises. Built for public servants, students and professionals in Georgia.') }}</p>
+        <div class="hero-actions">
+          {# data-io-path: IO, floating in the corner, reacts when this door is hovered or focused #}
+          <a class="btn btn-primary btn-lg" href="{{ url_for('courses.catalog') }}" data-io-path="basic">{{ _('Browse courses') }} {{ icon('arrow-right') }}</a>
+          <a class="btn btn-outline btn-lg" href="#how-it-works">{{ _('How it works') }}</a>
         </div>
-
         <div class="hero-stats" aria-label="{{ _('Platform statistics') }}">
           <div class="stat"><span class="value">{{ stats.courses }}</span><span class="label">{{ _('courses') }}</span></div>
           <div class="stat"><span class="value">{% if stats.students >= 1000 %}{{ (stats.students // 1000) }}K+{% else %}{{ stats.students }}{% endif %}</span><span class="label">{{ _('learners') }}</span></div>
           <div class="stat"><span class="value">{{ stats.completion }}%</span><span class="label">{{ _('completion') }}</span></div>
         </div>
       </div>
-
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 360" role="presentation">
+          <circle class="net-globe" cx="200" cy="180" r="150"/>
+          <ellipse class="net-globe" cx="200" cy="180" rx="150" ry="60"/>
+          <ellipse class="net-globe" cx="200" cy="180" rx="150" ry="110"/>
+          <ellipse class="net-globe" cx="200" cy="180" rx="60" ry="150"/>
+          <ellipse class="net-globe" cx="200" cy="180" rx="110" ry="150"/>
+          <g class="net-lines">
+            <line class="net-line hot" x1="200" y1="180" x2="120" y2="90"/><line class="net-line" x1="200" y1="180" x2="300" y2="110"/>
+            <line class="net-line hot" x1="200" y1="180" x2="290" y2="250"/><line class="net-line" x1="200" y1="180" x2="110" y2="240"/>
+            <line class="net-line" x1="120" y1="90" x2="300" y2="110"/><line class="net-line" x1="290" y1="250" x2="110" y2="240"/>
+            <line class="net-line hot" x1="300" y1="110" x2="340" y2="200"/><line class="net-line" x1="110" y1="240" x2="70" y2="150"/>
+            <line class="net-line" x1="120" y1="90" x2="70" y2="150"/><line class="net-line" x1="290" y1="250" x2="340" y2="200"/>
+          </g>
+          <circle class="net-node core net-pulse" cx="200" cy="180" r="9"/>
+          <circle class="net-node" cx="120" cy="90" r="5"/><circle class="net-node alt" cx="300" cy="110" r="5"/>
+          <circle class="net-node net-pulse" cx="290" cy="250" r="6"/><circle class="net-node alt" cx="110" cy="240" r="5"/>
+          <circle class="net-node" cx="340" cy="200" r="4"/><circle class="net-node alt net-pulse" cx="70" cy="150" r="4"/>
+          <g transform="translate(176 156)"><path d="M24 2 44 10v20c0 14-9 23-20 28C13 53 4 44 4 30V10z" fill="none" stroke="var(--primary)" stroke-width="2"/><path d="m16 30 6 6 10-12" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-linecap="round"/></g>
+        </svg>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="section" id="how-it-works">
@@ -118,7 +102,7 @@
         <h2 class="h4 mb-1">{{ _('Cybersecurity for children, teens, parents and teachers') }}</h2>
         <p class="text-muted mb-0">{{ _('Interactive missions, a printable certificate and calm, practical guides for families and schools.') }}</p>
       </div>
-      <a class="btn btn-outline" href="{{ url_for('cyberhero.shell', path='') }}">{{ _('Open CyberHero') }} {{ icon('arrow-right') }}</a>
+      <a class="btn btn-outline" href="{{ url_for('cyberhero.shell', path='') }}" data-io-path="kids">{{ _('Open CyberHero') }} {{ icon('arrow-right') }}</a>
     </div>
   </div>
 </section>
@@ -126,7 +110,9 @@
 
 {# IO, the welcome host: a floating corner widget (cyberhero/src/io-host.jsx)
    that reads its configuration from data-*, follows the visitor down the
-   page and can be hidden. Only rendered when the bundle is built. #}
+   page and can be hidden. His two "doors" are the buttons tagged
+   data-io-path above (Browse courses, Open CyberHero). Only rendered when
+   the bundle is built. #}
 {% if io_host.assets.js %}
 <div id="io-host-root" class="io-host-root"
      data-locale="{{ locale }}"

@@ -63,13 +63,13 @@ python scripts/dump_cyberhero_fixtures.py     # from the repository root
   CyberHero widget (fixed, so he follows the visitor down the page, with the
   same hide / bring-back chip). He greets by the time of day, introduces himself,
   walks his orientation lines on click (or Enter / Space), reacts when one of
-  the two path cards (`[data-io-path="basic|kids"]`) is hovered or focused
-  and waves goodbye when one is chosen. Everything he says is in
-  `src/host/hints.js` (Georgian and English, checked by `npm test`), which
-  line plays when is in `src/host/hostBrain.js`. The page passes locale, skin
-  and the doors on `#io-host-root` as `data-*`; the first door is the course
-  named by the admin setting `site.home_basic_course` (fallback: the
-  catalogue), the second is CyberHero while it is enabled.
+  the page's two "doors" (the buttons tagged `data-io-path="basic|kids"`:
+  *Browse courses* and *Open CyberHero*) is hovered or focused and waves
+  goodbye when one is chosen. Everything he says is in `src/host/hints.js`
+  (Georgian and English, checked by `npm test`), which line plays when is in
+  `src/host/hostBrain.js`. The page passes locale, skin and the doors on
+  `#io-host-root` as `data-*`; the CyberHero door exists while that product
+  is enabled.
 * **Language.** The active locale is the platform's (Flask session →
   `<html lang>`). The header toggle navigates to `?lang=xx`, so the whole
   platform switches together.

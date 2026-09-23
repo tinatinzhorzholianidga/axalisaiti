@@ -4,14 +4,14 @@ from __future__ import annotations
 
 from typing import Any
 
-from flask import current_app, jsonify, render_template, request, url_for
+from flask import current_app, jsonify, render_template, request
 from flask_babel import get_locale
 from sqlalchemy import text
 
 from app.blueprints.cyberhero import routes as cyberhero_routes
 from app.blueprints.main import bp
 from app.extensions import csrf, db, limiter
-from app.services import course_service, feature_flags, search_service, settings_service
+from app.services import course_service, feature_flags, search_service
 
 
 @bp.route("/health")
@@ -49,25 +49,19 @@ def readiness():  # type: ignore[no-untyped-def]
 
 
 def io_host_context() -> dict[str, Any]:
-    """IO, the platform's welcome host, on the home page.
+    """IO, the platform's welcome host, floating in the corner of the home page.
 
     The 3D host ships in the CyberHero bundle (``cyberhero/src/io-host.jsx``) and
     reads its configuration from ``data-*`` attributes on ``#io-host-root``; without
-    a build the hero shows a static placeholder instead. His first door is the
-    basic course (admin setting ``site.home_basic_course``, falling back to the
-    catalogue) and the second is CyberHero while that product is enabled.
+    a build the widget is left out. His "doors" are the page's own buttons tagged
+    ``data-io-path``: the course catalogue, and CyberHero while that product is
+    enabled.
     """
-    slug = str(settings_service.get("site.home_basic_course", "") or "").strip()
-    basic = course_service.get_course(slug) if slug else None
     doors = ["basic"]
     if feature_flags.is_enabled("CYBERHERO_ENABLED"):
         doors.append("kids")
     return {
         "assets": cyberhero_routes.bundle_assets(cyberhero_routes.ENTRY_IO_HOST),
-        "basic": basic,
-        "basic_url": (
-            url_for("courses.detail", slug=basic.slug) if basic else url_for("courses.catalog")
-        ),
         "doors": ",".join(doors),
         "skin": "classic",
     }
