@@ -81,11 +81,22 @@ def seed_demo() -> None:
 
 
 @click.command("seed-cyberhero")
+@click.option(
+    "--if-empty",
+    is_flag=True,
+    help="Only seed when no CyberHero track exists yet, so admin edits are never overwritten.",
+)
 @with_appcontext
-def seed_cyberhero() -> None:
+def seed_cyberhero(if_empty: bool) -> None:
     """Load CyberHero tracks, missions, articles and safety resources (idempotent)."""
+    from app.services import cyberhero_service
     from app.services.seed_service import seed_cyberhero_content
 
+    if if_empty and cyberhero_service.tracks():
+        click.echo(
+            "CyberHero content already present; skipping (run without --if-empty to refresh)."
+        )
+        return
     summary = seed_cyberhero_content()
     for key, value in summary.items():
         click.echo(f"{key}: {value}")

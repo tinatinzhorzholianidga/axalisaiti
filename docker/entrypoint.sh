@@ -25,6 +25,8 @@ case "${1:-web}" in
     flask --app wsgi:app db upgrade
     echo "[entrypoint] seeding roles/permissions/settings (idempotent)"
     flask --app wsgi:app seed-roles
+    echo "[entrypoint] seeding CyberHero content on first start (kept as-is afterwards)"
+    flask --app wsgi:app seed-cyberhero --if-empty
     exec gunicorn --config gunicorn.conf.py wsgi:app
     ;;
   worker)

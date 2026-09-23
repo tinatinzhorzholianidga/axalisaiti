@@ -15,6 +15,7 @@ from app.models import (
     User,
     utcnow,
 )
+from app.repositories.ordering import newest_first
 from app.services import audit_service, notification_service
 
 
@@ -115,9 +116,7 @@ def user_enrollments(
     stmt = select(Enrollment).where(Enrollment.user_id == user.id)
     if statuses:
         stmt = stmt.where(Enrollment.status.in_(statuses))
-    stmt = stmt.order_by(
-        Enrollment.last_accessed_at.desc().nullslast(), Enrollment.enrolled_at.desc()
-    )
+    stmt = stmt.order_by(*newest_first(Enrollment.last_accessed_at), Enrollment.enrolled_at.desc())
     return list(db.session.execute(stmt).scalars())
 
 

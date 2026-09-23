@@ -9,6 +9,10 @@ export function TierCard({ tier }) {
   const { t, tx } = useI18n()
   const to = tier.active ? tier.route || `/track/${tier.id}` : `/track/${tier.id}`
   const classes = ['tier-card', `tone-${tier.color}`, tier.active ? '' : 'is-soon'].filter(Boolean).join(' ')
+  // admin-created tracks may leave the tag blank: skip the hollow pill
+  // (the description span stays, it keeps the card heights aligned)
+  const tag = tx(tier.tag)
+  const desc = tx(tier.desc)
 
   return (
     <Link to={to} className={classes}>
@@ -16,9 +20,9 @@ export function TierCard({ tier }) {
       <span className="emoji" aria-hidden="true">
         {tier.emoji}
       </span>
-      <span className="tag">{tx(tier.tag)}</span>
+      {tag && <span className="tag">{tag}</span>}
       <h3>{tx(tier.name)}</h3>
-      <span className="desc">{tx(tier.desc)}</span>
+      <span className="desc">{desc}</span>
       {tier.active ? (
         <span className="go">
           {t('welcome.start')} <Arrow />

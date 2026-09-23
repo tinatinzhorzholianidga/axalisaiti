@@ -227,10 +227,15 @@ a {
 }
 
 /* Layout ---------------------------------------------------------- */
-main {
+/* The page column is the React wrapper (App.jsx renders `.app-main`); the
+   host document's own <main> sits outside `.cyberhero-root`, so a bare
+   `main` selector would never match once the bundle is prefixed. */
+.app-main {
+  width: 100%;
   max-width: 1160px;
   margin: 0 auto;
   padding: clamp(16px, 4vw, 40px) clamp(16px, 5vw, 56px) 70px;
+  box-sizing: border-box;
 }
 
 .site-footer {
@@ -442,8 +447,16 @@ main {
 /* Bento tier grid ---------------------------------------------------- */
 .tier-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
   gap: 18px;
+}
+
+/* A short list (up to three tracks, e.g. a freshly set-up site) sits centred
+   instead of hugging the left edge, and no card stretches past a comfortable
+   width. Browsers without :has() keep the plain left-aligned grid. */
+.tier-grid:has(> :first-child:nth-last-child(-n + 3)) {
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 340px));
+  justify-content: center;
 }
 
 .tier-grid > * {
@@ -2781,7 +2794,7 @@ main {
     display: none !important;
   }
 
-  main {
+  .app-main {
     padding: 0;
     max-width: none;
   }

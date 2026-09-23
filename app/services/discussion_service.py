@@ -7,6 +7,7 @@ from sqlalchemy import select
 
 from app.extensions import db
 from app.models import Course, Discussion, DiscussionPost, DiscussionReport, User, utcnow
+from app.repositories.ordering import newest_first
 from app.services import (
     audit_service,
     enrollment_service,
@@ -52,7 +53,7 @@ def threads(course: Course, *, include_hidden: bool = False) -> list[Discussion]
         stmt = stmt.where(Discussion.is_hidden.is_(False))
     stmt = stmt.order_by(
         Discussion.is_pinned.desc(),
-        Discussion.last_post_at.desc().nullslast(),
+        *newest_first(Discussion.last_post_at),
         Discussion.created_at.desc(),
     )
     return list(db.session.execute(stmt).scalars())
