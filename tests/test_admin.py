@@ -282,6 +282,9 @@ def test_admin_course_create_feature_and_archive(client, logged_in_admin, instru
     response = post(client, "/admin/courses/new", data)
     assert response.status_code == 302, response.data[:600]
     course = db.session.query(Course).order_by(Course.id.desc()).first()
+    # a new course lands straight in the builder, where modules and lessons are added
+    assert response.headers["Location"].endswith(f"/instructor/courses/{course.id}/builder")
+    assert client.get(response.headers["Location"]).status_code == 200
     assert course.instructor_id == instructor.id and course.is_featured
     assert course.platform.value == "both"
     response = post(client, f"/admin/courses/{course.id}/feature")
@@ -631,3 +634,18 @@ def test_track_delete_requires_permission(client, logged_in_student, seeded):  #
     track = db.session.query(CyberTrack).filter_by(slug="guardians").one()
     assert post(client, f"/admin/cyberhero/tracks/{track.id}/delete").status_code == 403
     assert db.session.get(CyberTrack, track.id) is not None
+
+
+def test_admin_forms_never_render_none_attributes(client, logged_in_admin, seeded):  # type: ignore[no-untyped-def]
+    from app.models import Course as CourseModel
+
+    course = db.session.query(CourseModel).first()
+    for url in (
+        "/admin/courses/new",
+        f"/instructor/courses/{course.id}/builder",
+        "/admin/cyberhero/tracks/new",
+        "/admin/cyberhero/missions/new",
+        "/admin/settings/",
+    ):
+        html = client.get(url).get_data(as_text=True)
+        assert '="None"' not in html, url

@@ -6,7 +6,7 @@
 {% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
 {% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.courses') }}">{{ _('Courses') }}</a>{% if course %} / {{ status_chip(course.status) }} {{ course.platform.value }}{% endif %}</div>{% endblock %}
 {% block panel_title %}{{ course.title(locale) if course else _('New course') }}{% endblock %}
-{% block panel_actions %}{% if course %}<a class="btn btn-outline" href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ icon('layers') }} {{ _('Curriculum builder') }}</a><a class="btn btn-outline" href="{{ url_for('courses.detail', slug=course.slug) }}">{{ icon('eye') }} {{ _('Preview') }}</a>{% endif %}{% endblock %}
+{% block panel_actions %}{% if course %}<a class="btn btn-primary" href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ icon('layers') }} {{ _('Modules & lessons') }}</a><a class="btn btn-outline" href="{{ url_for('courses.detail', slug=course.slug) }}">{{ icon('eye') }} {{ _('Preview') }}</a>{% endif %}{% endblock %}
 {% block panel_content %}
 <div class="two-col">
   <form method="post" enctype="multipart/form-data" class="panel" novalidate>

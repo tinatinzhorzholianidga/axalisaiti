@@ -51,8 +51,8 @@ def course_new():  # type: ignore[no-untyped-def]
         except UploadError as exc:
             flash(str(exc), "error")
         else:
-            flash(_("Course created."), "success")
-            return redirect(url_for("admin.course_detail", course_id=course.id))
+            flash(_("Course created. Now add modules and lessons."), "success")
+            return redirect(url_for("instructor.builder", course_id=course.id))
     return render_template("admin/course_form.html", form=form, course=None, locale=locale())
 
 
