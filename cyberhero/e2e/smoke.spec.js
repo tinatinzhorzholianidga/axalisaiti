@@ -57,6 +57,26 @@ for (const lang of ['ka', 'en']) {
   });
 }
 
+test('the page column stays centred on wide screens', async ({ page }) => {
+  // The React wrapper (.app-main) owns the page width; the host <main> sits
+  // outside .cyberhero-root and must not be what the layout relies on.
+  await page.setViewportSize({ width: 1900, height: 1000 });
+  await page.goto('/cyberhero/?lang=en');
+  await expect(page.locator('.tier-grid .tier-card').first()).toBeVisible();
+  const column = await page.locator('.app-main').boundingBox();
+  expect(column.width).toBeLessThanOrEqual(1160);
+  expect(column.x).toBeGreaterThan(300);
+  const grid = await page.locator('.tier-grid').boundingBox();
+  expect(grid.x).toBeGreaterThan(column.x);
+  expect(grid.x + grid.width).toBeLessThan(column.x + column.width);
+  // every card sits inside the column (nothing hangs off the viewport edge)
+  for (const card of await page.locator('.tier-grid .tier-card').all()) {
+    const box = await card.boundingBox();
+    expect(box.x).toBeGreaterThanOrEqual(grid.x - 1);
+    expect(box.x + box.width).toBeLessThanOrEqual(grid.x + grid.width + 1);
+  }
+});
+
 test('language toggle switches the whole page', async ({ page }) => {
   await page.goto('/cyberhero/?lang=ka');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ka');

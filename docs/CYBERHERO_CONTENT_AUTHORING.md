@@ -3,7 +3,10 @@
 CyberHero content is data, not code. Admins edit it in the admin panel
 (`/admin/cyberhero/…`). The initial content ships as JSON under
 `seeds/cyberhero/` and is loaded with `flask seed-cyberhero` (idempotent:
-records are matched by `slug`/`code`/`context` and updated in place).
+records are matched by `slug`/`code`/`context` and updated in place, so a
+plain run also resets admin edits to the seeded records). The Docker
+entrypoint runs `flask seed-cyberhero --if-empty` on every start: it loads
+the content once, on a database with no tracks, and never touches it again.
 `flask validate-content seeds` checks the files in CI.
 
 Every human-readable field is bilingual: `{"ka": "...", "en": "..."}`.

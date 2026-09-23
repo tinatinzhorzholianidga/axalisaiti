@@ -28,6 +28,7 @@ from app.models import (
     UserStatus,
     utcnow,
 )
+from app.repositories.ordering import newest_first
 from app.services import (
     audit_service,
     certificate_service,
@@ -125,7 +126,7 @@ def cyber_certificate_revoke(certificate_id: int):  # type: ignore[no-untyped-de
 @require_permission("discussions.moderate_all")
 def discussions():  # type: ignore[no-untyped-def]
     reports = discussion_service.open_reports()
-    stmt = select(Discussion).order_by(Discussion.last_post_at.desc().nullslast())
+    stmt = select(Discussion).order_by(*newest_first(Discussion.last_post_at))
     pagination = db.paginate(stmt, page=page(), per_page=per_page(), error_out=False)
     return render_template(
         "admin/discussions.html", reports=reports, pagination=pagination, locale=locale()
