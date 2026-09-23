@@ -3567,3 +3567,64 @@ msgstr "კურსის განახლებები, ქვიზის
 msgid "Go to dashboard"
 msgstr "სამართავ პანელზე გადასვლა"
 
+# --- home page: IO, the welcome host (templates/main/home.html) ---
+
+msgid "Welcome"
+msgstr "მოგესალმებით"
+
+msgid "Hi! I'm IO —"
+msgstr "გამარჯობა! მე იო ვარ —"
+
+msgid "your cybersecurity guide"
+msgstr "თქვენი კიბერუსაფრთხოების გზამკვლევი"
+
+msgid "Pick where to start: the basic course for adults, or CyberHero for kids and teens."
+msgstr "აირჩიეთ, საიდან დაიწყებთ: საბაზისო კურსით უფროსებისთვის თუ კიბერგმირით — ბავშვებისა და მოზარდებისთვის."
+
+msgid "Where shall we start?"
+msgstr "საიდან დავიწყოთ?"
+
+msgid "For adults · employees"
+msgstr "უფროსებისთვის · თანამშრომლებისთვის"
+
+msgid "Basic Cybersecurity Course"
+msgstr "კიბერუსაფრთხოების საბაზისო კურსი"
+
+msgid "Nine topics, about 3 hours, and a certificate at the end. For everyone who uses a computer and the internet every day."
+msgstr "9 თემა, დაახლოებით 3 საათი, ბოლოს კი სერტიფიკატი. ყველასთვის, ვინც ყოველდღიურად იყენებს კომპიუტერსა და ინტერნეტს."
+
+msgid "~3 hours"
+msgstr "~3 საათი"
+
+msgid "9 topics"
+msgstr "9 თემა"
+
+msgid "Test + certificate"
+msgstr "ტესტი + სერტიფიკატი"
+
+msgid "Start the course"
+msgstr "კურსის დაწყება"
+
+msgid "For kids · teens · parents"
+msgstr "ბავშვებისთვის · მოზარდებისთვის · მშობლებისთვის"
+
+msgid "CyberHero"
+msgstr "კიბერგმირი"
+
+msgid "Scenario missions for ages 13-18, guides for parents and teachers — and me, IO, by your side at every step."
+msgstr "სცენარული მისიები 13-18 წლის მოზარდებისთვის, გზამკვლევები მშობლებისა და მასწავლებლებისთვის — და მე, იო, ყოველ ნაბიჯზე თქვენ გვერდით."
+
+msgid "10 missions"
+msgstr "10 მისია"
+
+msgid "Georgian / English"
+msgstr "ქართული / English"
+
+msgid "Go to CyberHero"
+msgstr "კიბერგმირზე გადასვლა"
+
+msgid "IO, the cybersecurity guide robot — press to hear more"
+msgstr "იო, კიბერუსაფრთხოების გზამკვლევი რობოტი — დააწკაპუნეთ, რომ კიდევ რამე გითხრათ"
+
+msgid "Click IO — he has more to say"
+msgstr "დააწკაპუნეთ იოზე — კიდევ ბევრი აქვს სათქმელი"

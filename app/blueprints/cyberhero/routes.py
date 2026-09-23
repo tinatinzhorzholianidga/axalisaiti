@@ -18,6 +18,10 @@ from app.services import feature_flags, settings_service
 
 _manifest_cache: dict[str, tuple[float, dict]] = {}
 
+# the two Vite entries of the bundle (cyberhero/vite.config.js)
+ENTRY_APP = "src/main.jsx"  # the CyberHero app, served by this shell
+ENTRY_IO_HOST = "src/io-host.jsx"  # IO as the welcome host on the eLearning home page
+
 
 def read_manifest() -> dict | None:
     """Vite manifest (cached by mtime). ``None`` when the bundle is not built."""
@@ -35,13 +39,14 @@ def read_manifest() -> dict | None:
     return data
 
 
-def bundle_assets() -> dict[str, list[str]]:
+def bundle_assets(entry_name: str = ENTRY_APP) -> dict[str, list[str]]:
+    """Hashed JS/CSS/preload URLs of one Vite entry (empty when not built)."""
     manifest = read_manifest()
     if not manifest:
         return {"js": [], "css": [], "preload": []}
-    entry = manifest.get("src/main.jsx") or next(
-        (v for v in manifest.values() if v.get("isEntry")), None
-    )
+    entry = manifest.get(entry_name)
+    if not entry and entry_name == ENTRY_APP:
+        entry = next((v for v in manifest.values() if v.get("isEntry")), None)
     if not entry:
         return {"js": [], "css": [], "preload": []}
     base = "cyberhero/"

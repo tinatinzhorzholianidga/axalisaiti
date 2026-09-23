@@ -32,7 +32,10 @@ export default defineConfig(({ mode, command }) => ({
     target: 'es2020',
     chunkSizeWarningLimit: 900,
     rollupOptions: {
-      input: 'src/main.jsx',
+      // two pages share one bundle: the CyberHero app (src/main.jsx) and IO
+      // as the welcome host on the eLearning home page (src/io-host.jsx);
+      // the manifest keeps both under their source paths
+      input: { main: 'src/main.jsx', 'io-host': 'src/io-host.jsx' },
       output: {
         manualChunks(id) {
           // three.js + react-three-fiber are only ever imported by the lazy

@@ -239,6 +239,13 @@ The CyberHero shell extends the site layout but wraps the React root in
   `<script type="module" src="…hashed.js">` plus hashed CSS.
 * Runtime config (basename, locale, feature flags, API base, user display name)
   is passed through `data-*` attributes on `#cyberhero-root`; no inline script.
+* The same bundle has a second entry, `cyberhero/src/io-host.jsx`: IO as the
+  welcome host of the eLearning home page (`/`). `main.home` reads that entry's
+  files from the manifest and passes locale, skin and the two path cards
+  (`site.home_basic_course` → course or catalogue; CyberHero while enabled) as
+  `data-*` on `#io-host-root`; without a build the hero shows a static
+  placeholder. Its stylesheet (`src/styles/io-host.css`) is scoped by hand
+  under `.io-host-root` and skips the `.cyberhero-root` prefixer.
 * Content is fetched from `/api/v1/cyberhero/*`; anonymous progress is kept in
   `localStorage`; signed-in users sync to `cyber_progress`.
 

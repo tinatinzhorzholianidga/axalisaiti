@@ -10,6 +10,8 @@ family agreement, mascot tips and courses are edited in the admin panel.
 cyberhero/
 ├── src/
 │   ├── main.jsx            entry: mounts on #cyberhero-root, BrowserRouter with data-basename
+│   ├── io-host.jsx         second entry: IO as the welcome host on the eLearning home page (/)
+│   ├── host/               the home-page host: hints.js (IO's lines), hostBrain.js, IoHost.jsx, HomeHost.jsx
 │   ├── App.jsx             routes (+ feature-flag gate for the IO tutor pages)
 │   ├── lib/runtime.js      reads the data-* attributes the Flask shell renders
 │   ├── lib/api.js          fetch wrapper: same-origin cookies, X-CSRFToken, ?locale=
@@ -19,7 +21,8 @@ cyberhero/
 │   ├── games/              the four round engines (choice, flags, builder, branch)
 │   ├── mascot/             IO: three.js model, widget, tips context, tutor brain
 │   ├── pages/              welcome, tracks, guardians, parents, courses, emergency, verify, 404
-│   └── styles/             global.css (original design), platform.css (tones/utilities), meter.css (generated)
+│   └── styles/             global.css (original design), platform.css (tones/utilities), meter.css (generated),
+│                           io-host.css (the home-page host, scoped under .io-host-root, not prefixed)
 ├── mock/                   Vite plugin serving fixtures (npm run dev:mock)
 ├── test/                   vitest + testing-library suites
 ├── e2e/                    Playwright smoke tests against the Flask shell
@@ -33,7 +36,7 @@ cyberhero/
 | `npm install` | install dependencies (Node ≥ 20) |
 | `npm run dev` | Vite dev server on :5173, proxying `/api` to Flask on :8000 |
 | `npm run dev:mock` | same, but the API is served from `mock/fixtures/` (no backend needed) |
-| `npm run build` | production bundle → `../app/static/cyberhero/` (+ `.vite/manifest.json`) |
+| `npm run build` | production bundle → `../app/static/cyberhero/` (+ `.vite/manifest.json`); both entries |
 | `npm run lint` | eslint (react, hooks, jsx-a11y) |
 | `npm test` | vitest unit/component tests |
 | `npm run test:e2e` | Playwright smoke tests (starts `scripts/e2e_server.py` on :5055) |
@@ -53,6 +56,18 @@ python scripts/dump_cyberhero_fixtures.py     # from the repository root
   configuration reaches the app only through `data-*` attributes on
   `#cyberhero-root` (basename, locale, API base, user, feature flags,
   emergency contacts, tutor model URL). No inline scripts, no CDN.
+* **IO on the home page.** The bundle has a second entry, `src/io-host.jsx`,
+  that the eLearning home page (`templates/main/home.html`, route `main.home`)
+  loads instead of the app: IO as the bilingual *welcome host* ported from the
+  IO-for-main-page project. He greets by the time of day, introduces himself,
+  walks his orientation lines on click (or Enter / Space), reacts when one of
+  the two path cards (`[data-io-path="basic|kids"]`) is hovered or focused
+  and waves goodbye when one is chosen. Everything he says is in
+  `src/host/hints.js` (Georgian and English, checked by `npm test`), which
+  line plays when is in `src/host/hostBrain.js`. The page passes locale, skin
+  and the doors on `#io-host-root` as `data-*`; the first door is the course
+  named by the admin setting `site.home_basic_course` (fallback: the
+  catalogue), the second is CyberHero while it is enabled.
 * **Language.** The active locale is the platform's (Flask session →
   `<html lang>`). The header toggle navigates to `?lang=xx`, so the whole
   platform switches together.

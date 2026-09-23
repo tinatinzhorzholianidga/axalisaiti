@@ -8,6 +8,9 @@ export default {
   plugins: [
     prefixSelector({
       prefix: ROOT,
+      // the home-page IO host lives outside .cyberhero-root; its stylesheet
+      // is scoped by hand under .io-host-root (see src/styles/io-host.css)
+      ignoreFiles: [/io-host\.css$/],
       // `@keyframes` step selectors (from/to/percentages) are never touched by
       // the plugin; the transform below handles the root and html/body.
       transform(prefix, selector, prefixedSelector) {

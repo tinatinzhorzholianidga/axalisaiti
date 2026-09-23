@@ -37,6 +37,14 @@ DEFAULT_SETTINGS: dict[str, tuple[Any, str, str, str, str, bool]] = {
         True,
     ),
     "site.home_featured_limit": (6, "int", "general", "Featured courses on home page", "", True),
+    "site.home_basic_course": (
+        "basic-cybersecurity",
+        "string",
+        "general",
+        "Home page: basic course",
+        "Slug of the course IO's first door leads to; empty or unknown = the catalogue",
+        True,
+    ),
     "auth.registration_enabled": (True, "bool", "auth", "Allow self-registration", "", True),
     "auth.email_verification_required": (
         False,
