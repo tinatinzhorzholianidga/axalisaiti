@@ -20,6 +20,7 @@ if (root) {
         closeLabel={ds.labelClose || ''}
         openLabel={ds.labelOpen || ''}
         doors={doors}
+        signedIn={ds.signedIn === '1'}
       />
     </React.StrictMode>,
   )

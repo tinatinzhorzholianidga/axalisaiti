@@ -24,7 +24,11 @@ ENTRY_IO_HOST = "src/io-host.jsx"  # IO as the welcome host on the eLearning hom
 
 
 def read_manifest() -> dict | None:
-    """Vite manifest (cached by mtime). ``None`` when the bundle is not built."""
+    """Vite manifest (cached by mtime). ``None`` when the bundle is not built.
+
+    A half-written or corrupt manifest (a build in progress) is treated like a
+    missing one, so the pages that embed the bundle degrade instead of failing.
+    """
     static_dir = Path(current_app.config["CYBERHERO_STATIC_DIR"])
     path = static_dir / ".vite" / "manifest.json"
     if not path.exists():
@@ -33,8 +37,14 @@ def read_manifest() -> dict | None:
     cached = _manifest_cache.get(str(path))
     if cached and cached[0] == mtime:
         return cached[1]
-    with path.open(encoding="utf-8") as fh:
-        data = json.load(fh)
+    try:
+        with path.open(encoding="utf-8") as fh:
+            data = json.load(fh)
+    except (OSError, ValueError):
+        current_app.logger.warning("CyberHero manifest %s is unreadable; bundle ignored", path)
+        return None
+    if not isinstance(data, dict):
+        return None
     _manifest_cache[str(path)] = (mtime, data)
     return data
 
@@ -47,7 +57,7 @@ def bundle_assets(entry_name: str = ENTRY_APP) -> dict[str, list[str]]:
     entry = manifest.get(entry_name)
     if not entry and entry_name == ENTRY_APP:
         entry = next((v for v in manifest.values() if v.get("isEntry")), None)
-    if not entry:
+    if not isinstance(entry, dict) or not entry.get("file"):
         return {"js": [], "css": [], "preload": []}
     base = "cyberhero/"
     css = [url_for("static", filename=base + f) for f in entry.get("css", [])]

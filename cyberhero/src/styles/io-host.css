@@ -6,8 +6,8 @@
    colours come from the eLearning design tokens (tokens.css), so IO's
    bubble follows the site's dark / light theme. He floats fixed in the
    bottom-right corner (the CyberHero widget's placement), so he follows the
-   visitor down the page. The hero and the path cards he reacts to are
-   styled in app/static/css/elearning.css. */
+   visitor down the page. The page around him (the hero and the buttons he
+   reacts to) is styled in app/static/css/elearning.css. */
 
 /* ---- the floating widget (same corner as on CyberHero) ------------------ */
 .io-host-root {
@@ -33,6 +33,9 @@
     transform: none;
     opacity: 1;
   }
+}
+.io-host-root .io-host-wrap {
+  display: contents;
 }
 .io-host-root .io-host {
   display: flex;

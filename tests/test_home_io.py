@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 from app.services import feature_flags
+from tests.conftest import login
 
 ATTR = re.compile(r"data-([a-z-]+)=([\"'])(.*?)\2")
 DOOR = re.compile(r'<a class="btn[^"]*" href="([^"]+)" data-io-path="(basic|kids)"')
@@ -69,6 +70,12 @@ def test_home_mounts_io_with_runtime_attributes(client, built):  # type: ignore[
     assert 'data-label-close="იოს დამალვა"' in client.get("/?lang=ka").get_data(as_text=True)
 
 
+def test_signed_in_visitors_are_flagged_for_io(client, built, student):  # type: ignore[no-untyped-def]
+    assert _root_attrs(client.get("/").get_data(as_text=True))["signed-in"] == ""
+    login(client, student)
+    assert _root_attrs(client.get("/").get_data(as_text=True))["signed-in"] == "1"
+
+
 def test_kids_door_follows_the_cyberhero_flag(client, built):  # type: ignore[no-untyped-def]
     feature_flags.set_flag("CYBERHERO_ENABLED", False)
     feature_flags.invalidate()
@@ -84,6 +91,23 @@ def test_unbuilt_bundle_renders_the_page_without_io(client):  # type: ignore[no-
     html = response.get_data(as_text=True)
     assert 'id="io-host-root"' not in html and "/static/cyberhero/" not in html
     assert 'class="hero-art"' in html
+
+
+@pytest.mark.parametrize(
+    "manifest",
+    [
+        '{"src/main.jsx": {"file": "assets/m',  # a build in progress
+        '{"src/io-host.jsx": {"isEntry": true, "css": []}}',  # entry without a file
+        "[]",
+    ],
+)
+def test_broken_manifest_never_breaks_the_home_page(client, built, manifest):  # type: ignore[no-untyped-def]
+    (built / ".vite" / "manifest.json").write_text(manifest)
+    response = client.get("/")
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
+    assert 'id="io-host-root"' not in html and "/static/cyberhero/" not in html
+    assert client.get("/cyberhero/").status_code == 200
 
 
 def test_home_keeps_the_strict_policy(client, built):  # type: ignore[no-untyped-def]

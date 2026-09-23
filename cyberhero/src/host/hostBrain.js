@@ -1,7 +1,8 @@
 /* IO's home-page brain: decides WHICH line he says and HOW he feels.
 
    On the eLearning home page IO is a host, not a teacher - his lines
-   welcome people and route them to the right course (see hints.js).
+   welcome people and route them to the right course (see hints.js) through
+   the page's two "doors", the Browse courses and Open CyberHero buttons.
    This module never touches the 3D model; it only picks lines, emotions
    and gestures for the IoHost component to play. */
 
@@ -43,8 +44,12 @@ export const CYCLE = [
   'encouragement',
 ]
 
-/* lines that only make sense while the CyberHero door is on the page */
-const KIDS_ONLY = new Set(['kidsPlatform', 'pickPath'])
+/* a line that only makes sense while the CyberHero door is on the page:
+   it names CyberHero or talks about "both / two paths" */
+const MENTIONS_KIDS = /CyberHero|კიბერგმირ|both paths|two paths|ორივე გზა|ორი გზა/i
+export function mentionsKids(line) {
+  return MENTIONS_KIDS.test(`${line.en} ${line.ka}`)
+}
 
 export function timeOfDay(date = new Date()) {
   const h = date.getHours()
@@ -56,19 +61,27 @@ export function timeOfDay(date = new Date()) {
 /* A tiny stateful host: round-robin inside each category, round-robin
    across the CYCLE, so nothing repeats until the pool is exhausted.
    `seed` just rotates the starting point so two page loads don't always
-   open with the same second line. `doors` lists the path cards on the
-   page ('basic', 'kids'); without the kids door IO skips the lines that
-   point to CyberHero. */
-export function createHost({ seed = 0, date = new Date(), doors = ['basic', 'kids'] } = {}) {
+   open with the same second line. `doors` lists the doors on the page
+   ('basic', 'kids'); without the kids door every line that points to
+   CyberHero is dropped (and a category left empty is skipped). A signed-in
+   visitor is not told where the sign-in button is. */
+export function createHost({ seed = 0, date = new Date(), doors = ['basic', 'kids'], signedIn = false } = {}) {
+  const kids = doors.includes('kids')
+  const pools = {}
+  for (const [key, lines] of Object.entries(HINTS)) {
+    if (!Array.isArray(lines)) continue
+    pools[key] = kids ? lines : lines.filter((line) => !mentionsKids(line))
+  }
+  if (signedIn) pools.login = []
   const cursor = {}
   const pick = (key) => {
-    const pool = HINTS[key] || []
+    const pool = pools[key] || []
     if (!pool.length) return null
     const i = (cursor[key] ?? (seed % pool.length)) % pool.length
     cursor[key] = i + 1
     return { key, line: pool[i], mood: MOOD[key] || 'happy' }
   }
-  const cycle = doors.includes('kids') ? CYCLE : CYCLE.filter((key) => !KIDS_ONLY.has(key))
+  const cycle = CYCLE.filter((key) => pools[key]?.length)
   let step = 0 // the cycle always starts with orientation; seed only rotates lines inside a pool
 
   return {
@@ -86,7 +99,7 @@ export function createHost({ seed = 0, date = new Date(), doors = ['basic', 'kid
       step += 1
       return pick(key)
     },
-    /* the visitor is hovering / focusing one of the path cards */
+    /* the visitor is hovering / focusing one of the doors */
     hover(card) {
       return pick(card === 'kids' ? 'hoverKids' : 'hoverBasic')
     },

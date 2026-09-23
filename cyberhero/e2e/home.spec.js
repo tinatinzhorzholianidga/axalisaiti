@@ -1,6 +1,6 @@
 // IO, the welcome host, on the eLearning home page (served by Flask, not by
 // the CyberHero shell): the bundle's second entry mounts on #io-host-root,
-// greets, reacts to the two path cards and stays CSP-clean.
+// greets, reacts to the page's two doors (Browse courses, Open CyberHero) and stays CSP-clean.
 import { expect, test } from '@playwright/test';
 import { HINTS } from '../src/host/hints.js';
 

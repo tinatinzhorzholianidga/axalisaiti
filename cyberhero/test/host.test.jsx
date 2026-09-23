@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { HINTS } from '../src/host/hints.js';
-import { CYCLE, MOOD, createHost, timeOfDay } from '../src/host/hostBrain.js';
+import { CYCLE, MOOD, createHost, mentionsKids, timeOfDay } from '../src/host/hostBrain.js';
 import HomeHost, { attachDoors } from '../src/host/HomeHost.jsx';
 
 /* ---- IO's lines (the checks the IO-for-main-page project ran as
@@ -87,12 +87,28 @@ describe('host brain', () => {
     expect(host.farewell().key).toBe('farewell');
   });
 
-  it('skips the CyberHero lines when that door is not on the page', () => {
+  it('never mentions CyberHero when that door is not on the page', () => {
     const host = createHost({ doors: ['basic'] });
-    const keys = new Set(CYCLE.map(() => host.next().key));
+    const said = [host.greet(), host.intro(), host.hover('basic'), host.hover('kids'), host.farewell(), host.farewell()];
+    for (let i = 0; i < CYCLE.length * 2; i += 1) said.push(host.next());
+    const keys = new Set(said.filter(Boolean).map((pick) => pick.key));
     expect(keys.has('kidsPlatform')).toBe(false);
     expect(keys.has('pickPath')).toBe(false);
     expect(keys.has('basicCourse')).toBe(true);
+    for (const pick of said.filter(Boolean)) {
+      expect(mentionsKids(pick.line), `${pick.key}: ${pick.line.en}`).toBe(false);
+      expect(`${pick.line.en} ${pick.line.ka}`).not.toMatch(/CyberHero|კიბერგმირ/);
+    }
+    // with both doors the lines about CyberHero are back
+    const both = createHost();
+    expect(CYCLE.map(() => both.next().key)).toEqual(CYCLE);
+  });
+
+  it('does not point a signed-in visitor to the sign-in button', () => {
+    const host = createHost({ signedIn: true });
+    const keys = CYCLE.map(() => host.next()?.key);
+    expect(keys).not.toContain('login');
+    expect(keys).toContain('certificate');
   });
 });
 
@@ -141,16 +157,42 @@ describe('HomeHost', () => {
     expect(screen.getByRole('button', { name: 'IO' })).toBeInTheDocument();
   });
 
-  it('speaks Georgian by default and detaches its listeners on unmount', () => {
-    const { unmount } = render(<HomeHost />);
+  it('speaks Georgian by default', () => {
+    render(<HomeHost />);
     act(() => vi.advanceTimersByTime(600));
     expect(screen.getByRole('status').textContent).toMatch(/[ა-ჰ]/);
-    unmount();
-    // a stale listener would throw on a missing ref; attachDoors must have cleaned up
+  });
+
+  it('attachDoors wires the doors to the host and detaches them again', () => {
+    const io = { current: { hover: vi.fn(), unhover: vi.fn(), farewell: vi.fn() } };
+    const off = attachDoors(io);
     const basic = document.querySelector('[data-io-path="basic"]');
-    expect(() => basic.dispatchEvent(new MouseEvent('mouseenter'))).not.toThrow();
-    const off = attachDoors({ current: null });
-    expect(() => basic.dispatchEvent(new MouseEvent('mouseenter'))).not.toThrow();
+    const kids = document.querySelector('[data-io-path="kids"]');
+    basic.dispatchEvent(new MouseEvent('mouseenter'));
+    expect(io.current.hover).toHaveBeenCalledWith('basic', 'mouse');
+    kids.dispatchEvent(new FocusEvent('focus'));
+    expect(io.current.hover).toHaveBeenCalledWith('kids', 'focus');
+    basic.dispatchEvent(new MouseEvent('mouseleave'));
+    expect(io.current.unhover).toHaveBeenCalledWith('mouse');
+    // a plain click is a choice; a modifier-click (new tab) leaves IO where he is
+    basic.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    expect(io.current.farewell).toHaveBeenCalledTimes(1);
+    basic.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, ctrlKey: true }));
+    basic.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 1 }));
+    expect(io.current.farewell).toHaveBeenCalledTimes(1);
     off();
+    basic.dispatchEvent(new MouseEvent('mouseenter'));
+    kids.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    expect(io.current.hover).toHaveBeenCalledTimes(2);
+    expect(io.current.farewell).toHaveBeenCalledTimes(1);
+  });
+
+  it('keeps keyboard focus on the widget when IO is hidden and shown', () => {
+    render(<HomeHost lang="en" label="IO" closeLabel="Hide IO" openLabel="Show IO" />);
+    act(() => vi.advanceTimersByTime(600));
+    fireEvent.click(screen.getByRole('button', { name: 'Hide IO' }));
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Show IO' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Show IO' }));
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'IO' }));
   });
 });

@@ -120,7 +120,8 @@
      data-doors="{{ io_host.doors }}"
      data-label="{{ _('IO, the cybersecurity guide robot — press to hear more') }}"
      data-label-close="{{ _('Hide IO') }}"
-     data-label-open="{{ _('Show IO') }}"></div>
+     data-label-open="{{ _('Show IO') }}"
+     data-signed-in="{{ '1' if current_user.is_authenticated else '' }}"></div>
 {% endif %}
 {% endblock %}
 {% block scripts %}

@@ -7,19 +7,28 @@ import { createHost } from './hostBrain.js'
 
    - on mount he flies in, waves and greets (time of day), then introduces himself
    - clicking him (or Enter / Space) walks through his orientation lines
-   - the page tells him when a path card is hovered/focused (`hover`) or
-     chosen (`farewell`) via the ref
+   - the page tells him when one of its doors (Browse courses, Open
+     CyberHero) is hovered/focused (`hover`) or chosen (`farewell`) via the ref
    - lines type out letter by letter unless the visitor prefers reduced
      motion, in which case they appear at once
 
    Ported from IO-for-main-page (Cyber-Learning-Platform); the only
    change is that the 3D stage is the platform's CSP-safe RobotCanvas. */
 const IoHost = forwardRef(function IoHost(
-  { lang = 'ka', size = 230, skin = 'classic', hintLabel = '', closeLabel = '', doors = ['basic', 'kids'], onClose },
+  {
+    lang = 'ka',
+    size = 230,
+    skin = 'classic',
+    hintLabel = '',
+    closeLabel = '',
+    doors = ['basic', 'kids'],
+    signedIn = false,
+    onClose,
+  },
   ref,
 ) {
   const reduced = useReducedMotion()
-  const host = useMemo(() => createHost({ seed: new Date().getMinutes(), doors }), [doors])
+  const host = useMemo(() => createHost({ seed: new Date().getMinutes(), doors, signedIn }), [doors, signedIn])
   const [said, setSaid] = useState(null) // { key, line, mood }
   const [emotion, setEmotion] = useState('happy')
   const [gesture, setGesture] = useState(null)
