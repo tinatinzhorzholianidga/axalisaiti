@@ -14,7 +14,7 @@ import { createHost } from './hostBrain.js'
    Ported from IO-for-main-page (Cyber-Learning-Platform); the only
    change is that the 3D stage is the platform's CSP-safe RobotCanvas. */
 const IoHost = forwardRef(function IoHost(
-  { lang = 'ka', size = 320, skin = 'classic', hintLabel = '', doors = ['basic', 'kids'] },
+  { lang = 'ka', size = 230, skin = 'classic', hintLabel = '', doors = ['basic', 'kids'] },
   ref,
 ) {
   const reduced = useReducedMotion()

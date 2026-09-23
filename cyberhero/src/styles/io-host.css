@@ -22,7 +22,7 @@
   touch-action: manipulation;
   cursor: pointer;
   border-radius: 50%;
-  filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.28));
 }
 .io-host-root .mascot-canvas:focus-visible {
   outline: none;
@@ -32,7 +32,7 @@
   display: block;
   outline: none;
 }
-/* sizes (RobotCanvas picks the nearest one, HomeHost asks for 210 / 230 / 320) */
+/* sizes (RobotCanvas picks the nearest one; HomeHost asks for 150 / 185 / 230, like the CyberHero widget) */
 .io-host-root .mascot-canvas[data-size="150"] { width: 150px; height: 150px; }
 .io-host-root .mascot-canvas[data-size="185"] { width: 185px; height: 185px; }
 .io-host-root .mascot-canvas[data-size="190"] { width: 190px; height: 190px; }

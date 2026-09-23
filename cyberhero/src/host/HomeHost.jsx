@@ -6,12 +6,13 @@ import IoHost from './IoHost.jsx'
    to them - hover / focus gets a line about that door, choosing one gets
    a goodbye wave (the link itself navigates normally). */
 
-// bigger IO on monitors, compact on phones (the sizes exist in io-host.css)
+// the same sizes as the CyberHero widget (MascotWidget.jsx): bigger on
+// monitors, compact on phones - all present in io-host.css
 function stageSize() {
-  if (typeof window === 'undefined') return 320
-  if (window.innerWidth >= 1200) return 320
-  if (window.innerWidth >= 576) return 230
-  return 210
+  if (typeof window === 'undefined') return 230
+  if (window.innerWidth >= 1100) return 230
+  if (window.innerWidth >= 720) return 185
+  return 150
 }
 
 function useStageSize() {
