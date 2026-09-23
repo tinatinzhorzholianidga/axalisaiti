@@ -164,6 +164,13 @@ hr { border-color: var(--border); opacity: 1; }
 
 /* ---- forms --------------------------------------------------------------- */
 .form-field { margin-bottom: var(--space-4); }
+.check-group { border: 0; padding: 0; margin: 0; min-width: 0; }
+.check-group legend { float: none; width: auto; padding: 0; }
+.check-grid { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.check-pill { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border: 1px solid var(--border-strong); border-radius: var(--radius-pill); background: var(--bg-secondary); cursor: pointer; font-size: var(--text-sm); transition: border-color var(--duration-fast) var(--ease), background var(--duration-fast) var(--ease); }
+.check-pill:hover { border-color: var(--primary); }
+.check-pill:has(input:checked) { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+.check-pill .form-check-input { margin: 0; float: none; }
 .form-label { font-weight: 600; font-size: var(--text-sm); color: var(--text); margin-bottom: var(--space-1); }
 .form-label .req { color: var(--danger); }
 .form-control, .form-select { background: var(--bg-secondary); border: 1px solid var(--border-strong); color: var(--text); border-radius: var(--radius-md); padding: 10px 14px; font-size: var(--text-sm); transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease); }

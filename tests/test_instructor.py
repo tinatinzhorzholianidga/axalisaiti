@@ -320,3 +320,19 @@ def test_module_delete_and_course_delete(client, logged_in_instructor):  # type:
     response = post(client, f"/instructor/courses/{course.id}/delete")
     assert response.status_code == 302
     assert db.session.get(Course, course.id) is None
+
+
+def test_instructor_form_without_platform(client, logged_in_instructor):  # type: ignore[no-untyped-def]
+    """The platform field is hidden for instructors and must not block submission."""
+    from app.services import seed_service
+
+    seed_service.seed_categories()
+    page = client.get("/instructor/courses/new").get_data(as_text=True)
+    assert 'type="checkbox" name="categories"' in page
+    data = {k: v for k, v in COURSE_FORM.items() if k != "platform"}
+    data["categories"] = ["1", "2"]
+    response = post(client, "/instructor/courses/new", data)
+    assert response.status_code == 302, response.data[:600]
+    course = db.session.query(Course).order_by(Course.id.desc()).first()
+    assert course.platform.value == "elearning"
+    assert {c.id for c in course.categories} == {1, 2}

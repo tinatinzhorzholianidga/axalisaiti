@@ -1,4 +1,4 @@
-{% from "components/forms.html" import field, error_summary %}
+{% from "components/forms.html" import field, checkbox_group, error_summary %}
 {{ form.hidden_tag() }}{{ error_summary(form) }}
 <ul class="nav locale-tabs mb-3" role="tablist" data-tabs>
   <li class="nav-item"><button class="nav-link active" type="button" role="tab" data-tab="ka" aria-selected="true">ქართული</button></li>
@@ -7,7 +7,8 @@
 <div data-tab-panel="ka">{{ field(form.title_ka) }}{{ field(form.short_description_ka, rows=2) }}{{ field(form.description_ka, rows=8, extra_class="code-field") }}{{ field(form.objectives_ka, rows=4) }}{{ field(form.prerequisites_ka, rows=3) }}{{ field(form.audience_ka, rows=2) }}{{ field(form.certificate_requirements_ka, rows=2) }}</div>
 <div data-tab-panel="en" hidden>{{ field(form.title_en) }}{{ field(form.short_description_en, rows=2) }}{{ field(form.description_en, rows=8) }}{{ field(form.objectives_en, rows=4) }}{{ field(form.prerequisites_en, rows=3) }}{{ field(form.audience_en, rows=2) }}{{ field(form.certificate_requirements_en, rows=2) }}</div>
 <div class="form-section"><h3>{{ _('Classification') }}</h3>
-  <div class="form-grid-3">{{ field(form.slug, help=_('Leave empty to generate from the title.')) }}{% if show_platform %}{{ field(form.platform) }}{{ field(form.cyber_track_id) }}{% endif %}{{ field(form.categories) }}{{ field(form.difficulty) }}{{ field(form.icon) }}{{ field(form.color) }}{{ field(form.tags) }}{% if show_instructor %}{{ field(form.instructor_id) }}{% endif %}</div>
+  <div class="form-grid-3">{{ field(form.slug, help=_('Leave empty to generate from the title.')) }}{% if show_platform %}{{ field(form.platform) }}{{ field(form.cyber_track_id) }}{% endif %}{{ field(form.difficulty) }}{{ field(form.icon) }}{{ field(form.color) }}{{ field(form.tags) }}{% if show_instructor %}{{ field(form.instructor_id) }}{% endif %}</div>
+  {{ checkbox_group(form.categories, empty_text=_('No categories exist yet.'), empty_link=(url_for('admin.categories') if current_user.has_permission('courses.manage_all') else None), empty_link_text=_('Create categories in the admin panel.')) }}
   {{ field(form.cover, help=_('PNG, JPG or WebP up to 8 MB.')) }}
 </div>
 <div class="form-section"><h3>{{ _('Delivery') }}</h3>

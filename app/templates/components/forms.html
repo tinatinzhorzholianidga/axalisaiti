@@ -48,3 +48,27 @@
 {% macro submit(label, class_="btn btn-primary", name="submit") %}
   <button type="submit" class="{{ class_ }}" name="{{ name }}">{{ label }}</button>
 {% endmacro %}
+
+{# Multi-select rendered as a checkbox grid (far easier than a <select multiple>). #}
+{% macro checkbox_group(f, help=None, empty_text=None, empty_link=None, empty_link_text=None) %}
+  {% set has_error = f.errors|length > 0 %}
+  <div class="form-field{% if has_error %} has-error{% endif %}">
+    <fieldset class="check-group">
+      <legend class="form-label">{{ f.label.text }}</legend>
+      {% if f.choices %}
+      <div class="check-grid">
+        {% for value, label in f.choices %}
+        <label class="form-check check-pill">
+          <input class="form-check-input" type="checkbox" name="{{ f.name }}" id="{{ f.id }}-{{ value }}" value="{{ value }}"{% if f.data and value in f.data %} checked{% endif %}>
+          <span class="form-check-label">{{ label }}</span>
+        </label>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="form-text">{{ empty_text }}{% if empty_link %} <a href="{{ empty_link }}">{{ empty_link_text }}</a>{% endif %}</p>
+      {% endif %}
+    </fieldset>
+    {% if help %}<div class="form-text">{{ help }}</div>{% endif %}
+    {% if has_error %}<div class="invalid-feedback d-block">{% for e in f.errors %}<span>{{ e }}</span>{% endfor %}</div>{% endif %}
+  </div>
+{% endmacro %}
