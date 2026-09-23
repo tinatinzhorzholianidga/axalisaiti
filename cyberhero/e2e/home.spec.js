@@ -33,12 +33,12 @@ for (const lang of ['ka', 'en']) {
     expect(html).toContain('data-doors="basic,kids"');
     await expect(page.locator('html')).toHaveAttribute('lang', lang);
 
-    // React replaced the static placeholder with the host and his stage
+    // the host mounted in the corner with his stage
     const root = page.locator('#io-host-root');
     await expect(root.locator('.io-host')).toBeVisible();
-    await expect(root.locator('.io-static')).toHaveCount(0);
-    const stage = root.getByRole('button');
+    const stage = root.locator('.mascot-canvas'); // IO himself (the close button is the other button)
     await expect(stage).toBeVisible();
+    await expect(stage).toHaveAttribute('role', 'button');
     await expect(stage).toHaveAttribute('tabindex', '0');
 
     // he greets on arrival (the live region carries the whole line)
@@ -69,6 +69,27 @@ for (const lang of ['ka', 'en']) {
     expect(errors, errors.join('\n')).toEqual([]);
   });
 }
+
+test('IO floats in the bottom-right corner and follows the scroll', async ({ page }) => {
+  await page.goto('/?lang=en');
+  const bot = page.locator('#io-host-root .io-host-bot');
+  await expect(bot).toBeVisible();
+  await page.waitForTimeout(1200); // let the fly-in finish before measuring
+  const viewport = page.viewportSize();
+  const before = await bot.boundingBox();
+  expect(before.x + before.width).toBeGreaterThan(viewport.width - 60);
+  expect(before.y + before.height).toBeGreaterThan(viewport.height - 60);
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(300);
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(200);
+  const after = await bot.boundingBox();
+  expect(Math.abs(after.y - before.y)).toBeLessThan(2); // still on screen, same spot
+  // hide him, bring him back
+  await page.getByRole('button', { name: 'Hide IO' }).click();
+  await expect(page.locator('#io-host-root .io-host')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Show IO' }).click();
+  await expect(page.locator('#io-host-root .io-host')).toBeVisible();
+});
 
 test('choosing a door says goodbye and navigates', async ({ page }) => {
   await page.goto('/?lang=en');

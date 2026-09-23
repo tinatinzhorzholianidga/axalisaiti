@@ -17,9 +17,9 @@
         <h1>{{ _("Hi! I'm IO —") }}<br><span class="highlight">{{ _('your cybersecurity guide') }}</span></h1>
         <p class="hero-lead">{{ _('Pick where to start: the basic course for adults, or CyberHero for kids and teens.') }}</p>
 
-        {# The two doors. IO (cyberhero/src/host/HomeHost.jsx) listens to
-           [data-io-path]: hover/focus makes him react, choosing one gets a
-           goodbye wave; the links themselves navigate normally. #}
+        {# The two doors. IO, floating in the corner (cyberhero/src/host/HomeHost.jsx),
+           listens to [data-io-path]: hover/focus makes him react, choosing one
+           gets a goodbye wave; the links themselves navigate normally. #}
         <h2 class="paths-title">{{ _('Where shall we start?') }}</h2>
         <div class="path-grid">
           {% set basic = io_host.basic %}
@@ -66,26 +66,6 @@
         </div>
       </div>
 
-      {# IO's stage. The bundle (cyberhero/src/io-host.jsx) mounts on
-         #io-host-root and reads everything it needs from data-*; the 🤖
-         placeholder inside is what visitors see until React mounts, without
-         JavaScript, or while the bundle is not built. #}
-      <div class="hero-stage">
-        {% if io_host.assets.js %}
-        <div id="io-host-root" class="io-host-root"
-             data-locale="{{ locale }}"
-             data-skin="{{ io_host.skin }}"
-             data-doors="{{ io_host.doors }}"
-             data-label="{{ _('IO, the cybersecurity guide robot — press to hear more') }}">
-          <div class="io-static" aria-hidden="true">🤖</div>
-        </div>
-        <p class="io-hint">{{ _('Click IO — he has more to say') }}</p>
-        {% else %}
-        <div class="io-host-root io-host-static" aria-hidden="true"><div class="io-static">🤖</div></div>
-        {% endif %}
-      </div>
-    </div>
-  </div>
 </section>
 
 <section class="section" id="how-it-works">
@@ -142,6 +122,19 @@
     </div>
   </div>
 </section>
+{% endif %}
+
+{# IO, the welcome host: a floating corner widget (cyberhero/src/io-host.jsx)
+   that reads its configuration from data-*, follows the visitor down the
+   page and can be hidden. Only rendered when the bundle is built. #}
+{% if io_host.assets.js %}
+<div id="io-host-root" class="io-host-root"
+     data-locale="{{ locale }}"
+     data-skin="{{ io_host.skin }}"
+     data-doors="{{ io_host.doors }}"
+     data-label="{{ _('IO, the cybersecurity guide robot — press to hear more') }}"
+     data-label-close="{{ _('Hide IO') }}"
+     data-label-open="{{ _('Show IO') }}"></div>
 {% endif %}
 {% endblock %}
 {% block scripts %}

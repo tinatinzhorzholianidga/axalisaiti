@@ -213,16 +213,12 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
 .net-line.hot { stroke: var(--primary); opacity: 0.7; }
 
 /* ---- home hero with IO (templates/main/home.html) ------------------------
-   IO himself (bubble, 3D stage) is styled by the bundle's io-host.css under
-   .io-host-root; these rules lay out the stage and the two path cards. */
-.hero-io .hero-grid { align-items: start; }
-.hero-copy { min-width: 0; }
+   IO himself (the floating corner widget: bubble, 3D stage, close chip) is
+   styled by the bundle's io-host.css under .io-host-root; these rules lay
+   out the hero copy and the two path cards he reacts to. */
+.hero-io .hero-grid { grid-template-columns: minmax(0, 1fr); }
+.hero-copy { min-width: 0; max-width: 820px; }
 .hero-io h1 { margin-top: var(--space-2); overflow-wrap: anywhere; }
-.hero-stage { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); position: sticky; top: calc(var(--header-height) + var(--space-8)); }
-/* the stage keeps its height before React mounts, so the hero never jumps */
-.io-host-root { width: 100%; min-height: 330px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
-.io-static { width: 230px; height: 230px; max-width: 100%; border-radius: 50%; display: grid; place-items: center; font-size: 4.5rem; line-height: 1; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-md); }
-.io-hint { margin: 0; font-size: var(--text-xs); font-weight: 600; color: var(--text-muted); }
 .paths-title { font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin: var(--space-2) 0 var(--space-4); }
 .path-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-10); }
 .path-card { position: relative; display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-5) var(--space-5) var(--space-5) var(--space-6); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); color: var(--text); box-shadow: var(--shadow-sm); overflow: hidden; transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease), border-color var(--duration) var(--ease); }
@@ -626,8 +622,6 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
   .mobile-nav a:hover { background: var(--surface-hover); text-decoration: none; }
   .mobile-nav .row-actions { display: flex; gap: var(--space-2); padding: var(--space-3) var(--space-2) 0; flex-wrap: wrap; }
   .hero-grid, .course-hero-grid, .dash-grid, .overview-grid, .two-col, .profile-layout, .diff-wrap { grid-template-columns: 1fr; }
-  .hero-stage { position: static; order: -1; }
-  .io-host-root { min-height: 0; }
   .course-grid, .course-grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .course-aside { position: static; }
   .lesson-layout { grid-template-columns: 1fr; }
@@ -652,7 +646,6 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
   .hero-stats { gap: var(--space-6); }
   .path-grid { grid-template-columns: 1fr; }
   .hero-io h1 { font-size: 2rem; }
-  .io-static { width: 150px; height: 150px; font-size: 3rem; }
   .auth-card { padding: var(--space-8) var(--space-4); }
   .certificate { padding: var(--space-8) var(--space-4); }
   .progress-card { grid-template-columns: 1fr; }

@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { HINTS } from '../src/host/hints.js';
 import { CYCLE, MOOD, createHost, timeOfDay } from '../src/host/hostBrain.js';
@@ -128,6 +128,17 @@ describe('HomeHost', () => {
       kids.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(HINTS.farewell.map((l) => l.en)).toContain(live.textContent);
+  });
+
+  it('can be hidden and brought back with the chip', () => {
+    render(<HomeHost lang="en" label="IO" closeLabel="Hide IO" openLabel="Show IO" />);
+    act(() => vi.advanceTimersByTime(600));
+    fireEvent.click(screen.getByRole('button', { name: 'Hide IO' }));
+    expect(screen.queryByRole('status')).toBeNull();
+    expect(document.querySelector('.io-host')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Show IO' }));
+    expect(document.querySelector('.io-host')).not.toBeNull();
+    expect(screen.getByRole('button', { name: 'IO' })).toBeInTheDocument();
   });
 
   it('speaks Georgian by default and detaches its listeners on unmount', () => {

@@ -3626,5 +3626,8 @@ msgstr "კიბერგმირზე გადასვლა"
 msgid "IO, the cybersecurity guide robot — press to hear more"
 msgstr "იო, კიბერუსაფრთხოების გზამკვლევი რობოტი — დააწკაპუნეთ, რომ კიდევ რამე გითხრათ"
 
-msgid "Click IO — he has more to say"
-msgstr "დააწკაპუნეთ იოზე — კიდევ ბევრი აქვს სათქმელი"
+msgid "Hide IO"
+msgstr "იოს დამალვა"
+
+msgid "Show IO"
+msgstr "იოს ჩვენება"

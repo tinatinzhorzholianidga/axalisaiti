@@ -59,7 +59,9 @@ python scripts/dump_cyberhero_fixtures.py     # from the repository root
 * **IO on the home page.** The bundle has a second entry, `src/io-host.jsx`,
   that the eLearning home page (`templates/main/home.html`, route `main.home`)
   loads instead of the app: IO as the bilingual *welcome host* ported from the
-  IO-for-main-page project. He greets by the time of day, introduces himself,
+  IO-for-main-page project, floating in the bottom-right corner like the
+  CyberHero widget (fixed, so he follows the visitor down the page, with the
+  same hide / bring-back chip). He greets by the time of day, introduces himself,
   walks his orientation lines on click (or Enter / Space), reacts when one of
   the two path cards (`[data-io-path="basic|kids"]`) is hovered or focused
   and waves goodbye when one is chosen. Everything he says is in

@@ -4,15 +4,91 @@
    (postcss.config.js ignores it): every rule is scoped by hand under
    `.io-host-root`, the element the Flask home page renders, and the
    colours come from the eLearning design tokens (tokens.css), so IO's
-   bubble follows the site's dark / light theme. The page around IO
-   (path cards, hero) is styled in app/static/css/elearning.css. */
+   bubble follows the site's dark / light theme. He floats fixed in the
+   bottom-right corner (the CyberHero widget's placement), so he follows the
+   visitor down the page. The hero and the path cards he reacts to are
+   styled in app/static/css/elearning.css. */
 
+/* ---- the floating widget (same corner as on CyberHero) ------------------ */
+.io-host-root {
+  position: fixed;
+  right: 18px;
+  bottom: 16px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+/* he flies in from the corner when he first appears */
+@keyframes io-arrive {
+  0% {
+    transform: translate(130%, 30%) rotate(-14deg) scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(-4%, -3%) rotate(3deg) scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
 .io-host-root .io-host {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-2, 8px);
-  width: 100%;
+  align-items: flex-end;
+  gap: 14px;
+  animation: io-arrive 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.io-host-root .io-host-bot {
+  position: relative;
+}
+.io-host-root .io-host-close {
+  position: absolute;
+  top: 6px;
+  right: 2px;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong, #dfe6ef);
+  background: var(--surface-raised, #fff);
+  color: var(--text-muted, #5b6b82);
+  font-weight: 800;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.2));
+  transition: transform 0.12s, color 0.2s;
+}
+.io-host-root .io-host-close:hover {
+  transform: scale(1.1);
+  color: var(--danger, #ff6b7a);
+}
+/* while he is hidden: a chip that brings him back */
+.io-host-root .io-host-chip {
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  border-radius: 18px;
+  border: 1px solid var(--border-strong, #dfe6ef);
+  background: var(--surface-raised, #fff);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-md, 0 6px 18px rgba(0, 0, 0, 0.2));
+  transform: rotate(-6deg);
+  transition: transform 0.2s;
+}
+.io-host-root .io-host-chip:hover {
+  transform: rotate(6deg) scale(1.1);
+}
+.io-host-root .io-host-close:focus-visible,
+.io-host-root .io-host-chip:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring, 0 0 0 3px rgba(86, 129, 255, 0.45));
 }
 
 /* ---- the 3D stage (RobotCanvas) ---------------------------------------- */
@@ -62,8 +138,8 @@
   border-radius: var(--radius-lg, 12px);
   padding: 14px 18px;
   box-shadow: var(--shadow-md, 0 6px 18px rgba(0, 0, 0, 0.12));
-  max-width: 380px;
-  min-width: 220px;
+  max-width: min(300px, calc(100vw - 40px));
+  min-width: 200px;
   animation: io-rise 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
   transition: opacity 0.25s;
 }
@@ -73,14 +149,15 @@
 .io-host-root .io-bubble::after {
   content: '';
   position: absolute;
-  left: 50%;
+  right: 42px;
   bottom: -9px;
   width: 16px;
   height: 16px;
   background: var(--surface-raised, #fff);
   border-right: 1px solid var(--border-strong, #dfe6ef);
   border-bottom: 1px solid var(--border-strong, #dfe6ef);
-  transform: translateX(-50%) rotate(45deg);
+  border-bottom-right-radius: 3px;
+  transform: rotate(45deg);
 }
 .io-host-root .io-bubble p {
   margin: 0;
@@ -117,7 +194,12 @@
   }
 }
 
+@media (max-width: 600px) {
+  .io-host-root .mascot-canvas[data-size="150"] { width: 116px; height: 116px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .io-host-root .io-host,
   .io-host-root .io-bubble {
     animation: none;
     transition: none;

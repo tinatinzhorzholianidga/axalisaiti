@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import IoHost from './IoHost.jsx'
 
-/* IO on the eLearning home page. The Flask template renders the path
-   cards (`<a data-io-path="basic|kids">`); this component makes IO react
-   to them - hover / focus gets a line about that door, choosing one gets
-   a goodbye wave (the link itself navigates normally). */
+/* IO on the eLearning home page: the floating corner widget (fixed, so he
+   follows the visitor down the page, with the same close / reopen chip as
+   on CyberHero). The Flask template renders the path cards
+   (`<a data-io-path="basic|kids">`); this component makes IO react to them -
+   hover / focus gets a line about that door, choosing one gets a goodbye
+   wave (the link itself navigates normally). */
 
 // the same sizes as the CyberHero widget (MascotWidget.jsx): bigger on
 // monitors, compact on phones - all present in io-host.css
@@ -45,11 +47,39 @@ export function attachDoors(io, root = document) {
   return () => detach.forEach((off) => off())
 }
 
-export default function HomeHost({ lang = 'ka', skin = 'classic', label = '', doors = ['basic', 'kids'] }) {
+export default function HomeHost({
+  lang = 'ka',
+  skin = 'classic',
+  label = '',
+  closeLabel = '',
+  openLabel = '',
+  doors = ['basic', 'kids'],
+}) {
   const io = useRef(null)
   const size = useStageSize()
+  const [open, setOpen] = useState(true)
 
+  // the doors keep working while he is hidden (the ref is simply empty)
   useEffect(() => attachDoors(io), [])
 
-  return <IoHost ref={io} lang={lang} size={size} skin={skin} hintLabel={label} doors={doors} />
+  if (!open) {
+    return (
+      <button type="button" className="io-host-chip" onClick={() => setOpen(true)} aria-label={openLabel}>
+        🤖
+      </button>
+    )
+  }
+
+  return (
+    <IoHost
+      ref={io}
+      lang={lang}
+      size={size}
+      skin={skin}
+      hintLabel={label}
+      closeLabel={closeLabel}
+      doors={doors}
+      onClose={() => setOpen(false)}
+    />
+  )
 }

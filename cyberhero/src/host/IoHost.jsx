@@ -2,9 +2,10 @@ import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState }
 import RobotCanvas, { useReducedMotion } from '../mascot/RobotCanvas.jsx'
 import { createHost } from './hostBrain.js'
 
-/* IO as the welcome host: the 3D character plus his speech bubble.
+/* IO as the welcome host: the 3D character plus his speech bubble, floating
+   in the corner of the page like the CyberHero widget.
 
-   - on mount he waves and greets (time of day), then introduces himself
+   - on mount he flies in, waves and greets (time of day), then introduces himself
    - clicking him (or Enter / Space) walks through his orientation lines
    - the page tells him when a path card is hovered/focused (`hover`) or
      chosen (`farewell`) via the ref
@@ -14,7 +15,7 @@ import { createHost } from './hostBrain.js'
    Ported from IO-for-main-page (Cyber-Learning-Platform); the only
    change is that the 3D stage is the platform's CSP-safe RobotCanvas. */
 const IoHost = forwardRef(function IoHost(
-  { lang = 'ka', size = 230, skin = 'classic', hintLabel = '', doors = ['basic', 'kids'] },
+  { lang = 'ka', size = 230, skin = 'classic', hintLabel = '', closeLabel = '', doors = ['basic', 'kids'], onClose },
   ref,
 ) {
   const reduced = useReducedMotion()
@@ -148,17 +149,24 @@ const IoHost = forwardRef(function IoHost(
           {text}
         </span>
       </div>
-      <RobotCanvas
-        size={size}
-        skin={skin}
-        label={hintLabel}
-        emotion={emotion}
-        gesture={gesture}
-        talking={talking}
-        follow
-        idle
-        onTap={onTap}
-      />
+      <div className="io-host-bot">
+        {onClose && (
+          <button type="button" className="io-host-close" onClick={onClose} aria-label={closeLabel}>
+            ✕
+          </button>
+        )}
+        <RobotCanvas
+          size={size}
+          skin={skin}
+          label={hintLabel}
+          emotion={emotion}
+          gesture={gesture}
+          talking={talking}
+          follow
+          idle
+          onTap={onTap}
+        />
+      </div>
     </div>
   )
 })

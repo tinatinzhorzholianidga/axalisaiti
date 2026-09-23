@@ -6,7 +6,7 @@ import HomeHost from './host/HomeHost.jsx'
 /* Second Vite entry: IO as the welcome host on the eLearning home page
    (templates/main/home.html). The template renders `#io-host-root` with
    everything the host needs as data-* attributes - no inline script
-   (strict CSP). Its static 🤖 placeholder is replaced when React mounts. */
+   (strict CSP). He floats in the bottom-right corner, like on CyberHero. */
 const root = document.getElementById('io-host-root')
 if (root) {
   const ds = root.dataset
@@ -17,6 +17,8 @@ if (root) {
         lang={ds.locale === 'en' ? 'en' : 'ka'}
         skin={ds.skin === 'metal' ? 'metal' : 'classic'}
         label={ds.label || ''}
+        closeLabel={ds.labelClose || ''}
+        openLabel={ds.labelOpen || ''}
         doors={doors}
       />
     </React.StrictMode>,

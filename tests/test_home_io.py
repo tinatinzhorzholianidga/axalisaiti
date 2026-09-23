@@ -55,6 +55,7 @@ def test_home_mounts_io_with_runtime_attributes(client, built):  # type: ignore[
     assert attrs["skin"] == "classic"
     assert attrs["doors"] == "basic,kids"
     assert attrs["label"].startswith("IO, the cybersecurity guide robot")
+    assert attrs["label-close"] == "Hide IO" and attrs["label-open"] == "Show IO"
     # only the host entry (and its shared three.js chunk) is loaded, not the CyberHero app
     assert 'src="/static/cyberhero/assets/io-host-def.js"' in html
     assert 'href="/static/cyberhero/assets/io-host-def.css"' in html
@@ -66,7 +67,7 @@ def test_home_mounts_io_with_runtime_attributes(client, built):  # type: ignore[
     # nothing seeded: the first door leads to the catalogue
     assert _doors(html) == {"basic": "/courses/", "kids": "/cyberhero/"}
     assert _root_attrs(client.get("/?lang=ka").get_data(as_text=True))["locale"] == "ka"
-    assert "დააწკაპუნეთ იოზე" in client.get("/?lang=ka").get_data(as_text=True)
+    assert 'data-label-close="იოს დამალვა"' in client.get("/?lang=ka").get_data(as_text=True)
 
 
 def test_first_door_leads_to_the_configured_course(client, built):  # type: ignore[no-untyped-def]
@@ -89,13 +90,14 @@ def test_kids_door_follows_the_cyberhero_flag(client, built):  # type: ignore[no
     assert 'data-io-path="basic"' in html
 
 
-def test_unbuilt_bundle_keeps_a_static_host(client):  # type: ignore[no-untyped-def]
+def test_unbuilt_bundle_renders_the_page_without_io(client):  # type: ignore[no-untyped-def]
     client.application.config["CYBERHERO_STATIC_DIR"] = "/nonexistent/path"
     response = client.get("/")
     assert response.status_code == 200
     html = response.get_data(as_text=True)
-    assert "io-host-static" in html and 'id="io-host-root"' not in html
-    assert "/static/cyberhero/" not in html
+    assert 'id="io-host-root"' not in html and "/static/cyberhero/" not in html
+    # the doors are still plain links
+    assert _doors(html) == {"basic": "/courses/", "kids": "/cyberhero/"}
 
 
 def test_home_keeps_the_strict_policy(client, built):  # type: ignore[no-untyped-def]
