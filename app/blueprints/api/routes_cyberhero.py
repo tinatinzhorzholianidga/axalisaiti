@@ -89,7 +89,7 @@ def cyberhero_missions():  # type: ignore[no-untyped-def]
 @bp.get(f"{PREFIX}/missions/<slug>")
 def cyberhero_mission(slug: str):  # type: ignore[no-untyped-def]
     mission = ch.mission_by_slug(slug)
-    if mission is None or not mission.is_published:
+    if mission is None or not mission.is_published or mission.track.is_hidden:
         return api_error(404, "Mission not found")
     return jsonify(ch.serialize_mission(mission))
 

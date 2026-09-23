@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-21 07:31+0000\n"
+"POT-Creation-Date: 2026-09-23 09:20+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -77,6 +77,16 @@ msgstr "საწყისი შინაარსი ხელახლა ჩ
 
 msgid "Track saved."
 msgstr "მიმართულება შენახულია."
+
+#, python-format
+msgid ""
+"“%(name)s” still has %(missions)d missions, %(courses)d courses and "
+"%(certificates)d certificates. Delete or move them first, or hide the "
+"track instead."
+msgstr "„%(name)s“-ს ჯერ კიდევ აქვს %(missions)d მისია, %(courses)d კურსი და %(certificates)d სერტიფიკატი. ჯერ წაშალეთ ან გადაიტანეთ ისინი, ან დამალეთ მიმართულება."
+
+msgid "Track deleted."
+msgstr "მიმართულება წაიშალა."
 
 msgid "Mission saved."
 msgstr "მისია შენახულია."
@@ -457,6 +467,9 @@ msgstr "აქტიური (სხვა შემთხვევაში �
 
 msgid "Featured"
 msgstr "რჩეული"
+
+msgid "Hidden (not shown to visitors)"
+msgstr "დამალული (ვიზიტორებისთვის არ ჩანს)"
 
 msgid "Certificate"
 msgstr "სერტიფიკატი"
@@ -2124,11 +2137,17 @@ msgstr "ასაკობრივი მიმართულებები"
 msgid "Parent/teacher articles"
 msgstr "სტატიები მშობლებისა და მასწავლებლებისთვის"
 
+msgid "hidden"
+msgstr "დამალული"
+
 msgid "active"
 msgstr "აქტიური"
 
 msgid "coming soon"
 msgstr "მალე დაემატება"
+
+msgid "Delete this track? This cannot be undone."
+msgstr "წავშალოთ ეს მიმართულება? ამ მოქმედების გაუქმება შეუძლებელია."
 
 msgid "Mission"
 msgstr "მისია"
@@ -2363,6 +2382,25 @@ msgstr "ახალი მიმართულება"
 
 msgid "e.g. /guardians"
 msgstr "მაგ. /guardians"
+
+msgid ""
+"A hidden track disappears from CyberHero but keeps its missions, learner "
+"progress and certificates. Use it instead of deleting a track that is in "
+"use."
+msgstr "დამალული მიმართულება კიბერგმირიდან ქრება, თუმცა მისი მისიები, მსმენელთა პროგრესი და სერტიფიკატები ინახება. გამოიყენეთ ეს ვარიანტი გამოყენებაში მყოფი მიმართულების წაშლის ნაცვლად."
+
+msgid "Delete track"
+msgstr "მიმართულების წაშლა"
+
+#, python-format
+msgid ""
+"This track is still in use: %(missions)d missions, %(courses)d courses, "
+"%(certificates)d certificates. Delete or move them first, or tick "
+"“Hidden” above to take the track offline without losing anything."
+msgstr "ეს მიმართულება ჯერ კიდევ გამოიყენება: %(missions)d მისია, %(courses)d კურსი, %(certificates)d სერტიფიკატი. ჯერ წაშალეთ ან გადაიტანეთ ისინი, ან მონიშნეთ ზემოთ „დამალული“, რომ მიმართულება არაფრის დაკარგვის გარეშე გამორთოთ."
+
+msgid "Nothing depends on this track yet, so it can be removed for good."
+msgstr "ამ მიმართულებაზე ჯერ არაფერია დამოკიდებული, ამიტომ მისი სამუდამოდ წაშლა შესაძლებელია."
 
 msgid "Due"
 msgstr "ვადა"
@@ -2933,6 +2971,12 @@ msgstr "კლასიფიკაცია"
 msgid "Leave empty to generate from the title."
 msgstr "დატოვეთ ცარიელი, რომ სათაურიდან შეიქმნას."
 
+msgid "No categories exist yet."
+msgstr "კატეგორიები ჯერ არ არსებობს."
+
+msgid "Create categories in the admin panel."
+msgstr "შექმენით კატეგორიები ადმინისტრატორის პანელში."
+
 msgid "PNG, JPG or WebP up to 8 MB."
 msgstr "PNG, JPG ან WebP, მაქსიმუმ 8 MB."
 
@@ -2986,9 +3030,6 @@ msgstr "განსახილველად გაგზავნა"
 
 msgid "Reviewer note"
 msgstr "განმხილველის შენიშვნა"
-
-msgid "hidden"
-msgstr "დამალული"
 
 msgid "Lesson"
 msgstr "გაკვეთილი"
@@ -3534,6 +3575,18 @@ msgstr ""
 "ინტერაქტიული მისიები, დასაბეჭდი სერტიფიკატი და მშვიდი, პრაქტიკული "
 "გზამკვლევები ოჯახებისა და სკოლებისთვის."
 
+# --- home page: IO, the welcome host (templates/main/home.html) ---
+msgid "IO, the cybersecurity guide robot — press to hear more"
+msgstr ""
+"იო, კიბერუსაფრთხოების გზამკვლევი რობოტი — დააწკაპუნეთ, რომ კიდევ რამე "
+"გითხრათ"
+
+msgid "Hide IO"
+msgstr "იოს დამალვა"
+
+msgid "Show IO"
+msgstr "იოს ჩვენება"
+
 msgid "Downloadable materials and references from published courses."
 msgstr "ჩამოსატვირთი მასალები და წყაროები გამოქვეყნებული კურსებიდან."
 
@@ -3567,13 +3620,3 @@ msgstr "კურსის განახლებები, ქვიზის
 msgid "Go to dashboard"
 msgstr "სამართავ პანელზე გადასვლა"
 
-# --- home page: IO, the welcome host (templates/main/home.html) ---
-
-msgid "IO, the cybersecurity guide robot — press to hear more"
-msgstr "იო, კიბერუსაფრთხოების გზამკვლევი რობოტი — დააწკაპუნეთ, რომ კიდევ რამე გითხრათ"
-
-msgid "Hide IO"
-msgstr "იოს დამალვა"
-
-msgid "Show IO"
-msgstr "იოს ჩვენება"

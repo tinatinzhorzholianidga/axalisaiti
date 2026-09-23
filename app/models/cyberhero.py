@@ -12,7 +12,17 @@ from __future__ import annotations
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import (
+    Boolean,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    Text,
+    UniqueConstraint,
+    false,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.extensions import Model
@@ -52,6 +62,11 @@ class CyberTrack(BilingualMixin, TimestampMixin, Model):
     route: Mapped[str | None] = mapped_column(String(80))  # e.g. /guardians when active
     is_active: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     is_featured: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    # hidden tracks stay in the admin panel (missions, progress and
+    # certificates intact) but never reach the public API / CyberHero app
+    is_hidden: Mapped[bool] = mapped_column(
+        Boolean, default=False, server_default=false(), nullable=False
+    )
     certificate_enabled: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     illustration_media_id: Mapped[int | None] = mapped_column(
         ForeignKey("media_files.id", ondelete="SET NULL")

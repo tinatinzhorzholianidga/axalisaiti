@@ -142,6 +142,7 @@ class TrackForm(BaseForm):
     route = StringField(_l("Route (when active)"), validators=[Optional(), Length(max=80)])
     is_active = BooleanField(_l("Active (otherwise 'coming soon')"))
     is_featured = BooleanField(_l("Featured"))
+    is_hidden = BooleanField(_l("Hidden (not shown to visitors)"))
     certificate_enabled = BooleanField(_l("Certificate"))
     tag_ka = StringField(_l("Tag (Georgian)"), validators=[Optional(), Length(max=120)])
     tag_en = StringField(_l("Tag (English)"), validators=[Optional(), Length(max=120)])

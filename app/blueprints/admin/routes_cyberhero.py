@@ -77,7 +77,7 @@ def _log(action: str, target, meta: dict | None = None) -> None:  # type: ignore
 def cyberhero():  # type: ignore[no-untyped-def]
     return render_template(
         "admin/cyberhero/index.html",
-        tracks=cyberhero_service.tracks(),
+        tracks=cyberhero_service.tracks(include_hidden=True),
         missions=cyberhero_service.missions(published_only=False),
         articles=list(
             db.session.execute(
@@ -119,6 +119,7 @@ TRACK_FIELDS = (
     "route",
     "is_active",
     "is_featured",
+    "is_hidden",
     "certificate_enabled",
     "tag_ka",
     "tag_en",
@@ -152,8 +153,39 @@ def cyber_track(track_id: int | None = None):  # type: ignore[no-untyped-def]
         flash(_("Track saved."), "success")
         return redirect(url_for("admin.cyberhero"))
     return render_template(
-        "admin/cyberhero/track_form.html", form=form, track=track, locale=locale()
+        "admin/cyberhero/track_form.html",
+        form=form,
+        track=track,
+        usage=cyberhero_service.track_usage(track) if track else None,
+        locale=locale(),
     )
+
+
+@bp.route("/cyberhero/tracks/<int:track_id>/delete", methods=["POST"])
+@require_permission("cyberhero.manage")
+def cyber_track_delete(track_id: int):  # type: ignore[no-untyped-def]
+    track = get_or_404(CyberTrack, track_id)
+    usage = cyberhero_service.track_usage(track)
+    if any(usage.values()):
+        # never cascade away missions, learner progress or issued certificates
+        flash(
+            _(
+                "“%(name)s” still has %(missions)d missions, %(courses)d courses and "
+                "%(certificates)d certificates. Delete or move them first, or hide the "
+                "track instead.",
+                name=track.name(locale()),
+                **usage,
+            ),
+            "error",
+        )
+        return redirect(url_for("admin.cyber_track", track_id=track.id))
+    audit_service.record(
+        "cyberhero.track_deleted", target=track, actor=current_user, meta={"slug": track.slug}
+    )
+    db.session.delete(track)
+    db.session.commit()
+    flash(_("Track deleted."), "info")
+    return redirect(url_for("admin.cyberhero"))
 
 
 # ---- missions ---------------------------------------------------------------
@@ -181,7 +213,9 @@ MISSION_FIELDS = (
 
 
 def _mission_choices(form: MissionForm) -> None:
-    form.track_id.choices = [(t.id, t.name("en") or t.slug) for t in cyberhero_service.tracks()]
+    form.track_id.choices = [
+        (t.id, t.name("en") or t.slug) for t in cyberhero_service.tracks(include_hidden=True)
+    ]
     form.course_id.choices = [(0, "—")] + [
         (c.id, c.title("en") or c.slug)
         for c in db.session.execute(

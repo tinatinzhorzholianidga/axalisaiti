@@ -460,8 +460,30 @@ def seed_all(seed_dir: Path | None = None, actor: User | None = None) -> dict[st
 # ---------------------------------------------------------------------------
 # serialisation (original CyberHero data shapes)
 # ---------------------------------------------------------------------------
-def tracks() -> list[CyberTrack]:
-    return list(db.session.execute(select(CyberTrack).order_by(CyberTrack.sort_order)).scalars())
+def tracks(*, include_hidden: bool = False) -> list[CyberTrack]:
+    """Tracks in display order; hidden ones only for the admin panel."""
+    stmt = select(CyberTrack).order_by(CyberTrack.sort_order)
+    if not include_hidden:
+        stmt = stmt.where(CyberTrack.is_hidden.is_(False))
+    return list(db.session.execute(stmt).scalars())
+
+
+def track_usage(track: CyberTrack) -> dict[str, int]:
+    """What still depends on a track; a track is only deletable when all are zero."""
+    from sqlalchemy import func
+
+    certificates = int(
+        db.session.execute(
+            select(func.count())
+            .select_from(CyberCertificate)
+            .where(CyberCertificate.track_id == track.id)
+        ).scalar_one()
+    )
+    return {
+        "missions": len(track.missions),
+        "courses": len(track.courses),
+        "certificates": certificates,
+    }
 
 
 def serialize_track(track: CyberTrack) -> dict:
@@ -483,11 +505,12 @@ def serialize_track(track: CyberTrack) -> dict:
 
 
 def missions(track_slug: str | None = None, published_only: bool = True) -> list[CyberMission]:
-    stmt = select(CyberMission).order_by(CyberMission.sort_order)
+    stmt = select(CyberMission).join(CyberTrack).order_by(CyberMission.sort_order)
     if published_only:
-        stmt = stmt.where(CyberMission.is_published.is_(True))
+        # a hidden track takes its missions off the public API with it
+        stmt = stmt.where(CyberMission.is_published.is_(True), CyberTrack.is_hidden.is_(False))
     if track_slug:
-        stmt = stmt.join(CyberTrack).where(CyberTrack.slug == track_slug)
+        stmt = stmt.where(CyberTrack.slug == track_slug)
     return list(db.session.execute(stmt).scalars())
 
 

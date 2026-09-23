@@ -92,7 +92,7 @@ def seed_cyberhero(if_empty: bool) -> None:
     from app.services import cyberhero_service
     from app.services.seed_service import seed_cyberhero_content
 
-    if if_empty and cyberhero_service.tracks():
+    if if_empty and cyberhero_service.tracks(include_hidden=True):
         click.echo(
             "CyberHero content already present; skipping (run without --if-empty to refresh)."
         )
