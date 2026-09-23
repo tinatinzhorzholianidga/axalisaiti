@@ -9,7 +9,10 @@ import { createContext, useCallback, useContext, useMemo, useRef, useState } fro
    - 'missionDone'  → celebrate + fireworks overlay
    - 'clear'        → back to idle tips
    While the widget is closed or not yet loaded, `companionActive` is
-   false and the rounds fall back to showing explanations inline. */
+   false and the rounds fall back to showing explanations inline.
+   `peek(text, mood)` / `unpeek()` is the lighter channel the welcome page
+   uses: while a track card is hovered IO says a hint about that track,
+   then goes back to whatever he was saying. */
 const MascotContext = createContext(null)
 
 const CORRECT_MOODS = ['excited', 'funny', 'wink']
@@ -17,6 +20,7 @@ const CORRECT_MOVES = ['bounce', 'wave', 'spin']
 
 export function MascotProvider({ children }) {
   const [companion, setCompanion] = useState(null)
+  const [peeked, setPeeked] = useState(null) // { id, text: {en,ka}, mood }
   const [fireworksAt, setFireworksAt] = useState(0)
   const [dockMounted, setDockMounted] = useState(false)
   const [dockOpen, setDockOpen] = useState(true)
@@ -43,16 +47,26 @@ export function MascotProvider({ children }) {
     }
   }, [])
 
+  const peek = useCallback((text, mood = 'excited') => {
+    if (!text) return
+    idRef.current += 1
+    setPeeked({ id: idRef.current, text, mood })
+  }, [])
+  const unpeek = useCallback(() => setPeeked(null), [])
+
   const value = useMemo(
     () => ({
       companion,
       react,
+      peeked,
+      peek,
+      unpeek,
       fireworksAt,
       companionActive: dockMounted && dockOpen,
       setDockMounted,
       setDockOpen,
     }),
-    [companion, react, fireworksAt, dockMounted, dockOpen],
+    [companion, react, peeked, peek, unpeek, fireworksAt, dockMounted, dockOpen],
   )
 
   return <MascotContext.Provider value={value}>{children}</MascotContext.Provider>
@@ -65,6 +79,9 @@ export function useMascot() {
     ctx || {
       companion: null,
       react: () => {},
+      peeked: null,
+      peek: () => {},
+      unpeek: () => {},
       fireworksAt: 0,
       companionActive: false,
       setDockMounted: () => {},

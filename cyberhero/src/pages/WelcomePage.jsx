@@ -1,12 +1,20 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Arrow from '../components/Arrow.jsx'
 import { useContent } from '../content/ContentProvider.jsx'
 import { useI18n } from '../i18n/I18nContext.jsx'
+import { trackHint } from '../mascot/mascotContext.js'
+import { useMascot } from '../mascot/MascotProvider.jsx'
 
 // One uniform grid: every card the same size. The active sections
 // (Cyber Guardians, Teachers & Parents) come first so they are seen.
+// Hovering or focusing a card makes IO (the corner widget) say a hint about
+// that track - the "track.<id>" reactions from the admin panel.
 export function TierCard({ tier }) {
   const { t, tx } = useI18n()
+  const { mascot } = useContent()
+  const { peek, unpeek } = useMascot()
+  const visits = useRef(0) // repeated hovers walk through the track's hints
   const to = tier.active ? tier.route || `/track/${tier.id}` : `/track/${tier.id}`
   const classes = ['tier-card', `tone-${tier.color}`, tier.active ? '' : 'is-soon'].filter(Boolean).join(' ')
   // admin-created tracks may leave the tag blank: skip the hollow pill
@@ -14,8 +22,14 @@ export function TierCard({ tier }) {
   const tag = tx(tier.tag)
   const desc = tx(tier.desc)
 
+  const look = () => {
+    const hint = trackHint(mascot, tier, visits.current)
+    visits.current += 1
+    if (hint) peek(hint, tier.active ? 'excited' : 'thinking')
+  }
+
   return (
-    <Link to={to} className={classes}>
+    <Link to={to} className={classes} onMouseEnter={look} onMouseLeave={unpeek} onFocus={look} onBlur={unpeek}>
       {tier.active && <span className="live-chip">{t('welcome.activeBadge')}</span>}
       <span className="emoji" aria-hidden="true">
         {tier.emoji}

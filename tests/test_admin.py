@@ -649,3 +649,41 @@ def test_admin_forms_never_render_none_attributes(client, logged_in_admin, seede
     ):
         html = client.get(url).get_data(as_text=True)
         assert '="None"' not in html, url
+
+
+def test_admin_can_add_a_track_hint_reaction(client, logged_in_admin, seeded):  # type: ignore[no-untyped-def]
+    """The reaction key list offers one "track.<slug>" per track; a saved one reaches IO."""
+    page = client.get("/admin/cyberhero/mascot/").get_data(as_text=True)
+    assert 'value="track.guardians"' in page and 'value="track.parents"' in page
+    response = post(
+        client,
+        "/admin/cyberhero/mascot/",
+        {
+            "re-key": "track.kids",
+            "re-sort_order": "1",
+            "re-text_ka": "ლეკვი ფუფუ უკვე ვარჯიშობს.",
+            "re-text_en": "Fufu the puppy is already in training.",
+            "re-submit": "1",
+            "re-csrf_token": get_csrf(client),
+        },
+    )
+    assert response.status_code == 302, response.data[:400]
+    api = client.get("/api/v1/cyberhero/mascot").get_json()
+    assert api["reactions"]["tracks"]["kids"] == [
+        {"en": "Fufu the puppy is already in training.", "ka": "ლეკვი ფუფუ უკვე ვარჯიშობს."}
+    ]
+    # an unknown key is refused by the select
+    response = post(
+        client,
+        "/admin/cyberhero/mascot/",
+        {
+            "re-key": "track.nope",
+            "re-sort_order": "1",
+            "re-text_ka": "x",
+            "re-text_en": "x",
+            "re-submit": "1",
+            "re-csrf_token": get_csrf(client),
+        },
+    )
+    assert response.status_code == 200
+    assert "track.nope" not in str(client.get("/api/v1/cyberhero/mascot").get_json())

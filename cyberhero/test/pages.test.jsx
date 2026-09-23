@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it } from 'vitest';
 import App from '../src/App.jsx';
@@ -7,6 +7,7 @@ import { I18nProvider } from '../src/i18n/I18nContext.jsx';
 import { readRuntime, resetRuntime } from '../src/lib/runtime.js';
 import { resetCsrfToken } from '../src/lib/api.js';
 import { ProgressProvider } from '../src/store/progress.jsx';
+import { trackHint } from '../src/mascot/mascotContext.js';
 import { fixture, mockFetch, mountRoot } from './helpers.js';
 
 function renderApp(path, attrs = {}) {
@@ -39,6 +40,29 @@ describe('pages', () => {
     await waitFor(() => expect(screen.getByText(guardians.name.ka)).toBeInTheDocument());
     expect(document.documentElement.lang).toBe('ka');
     expect(document.querySelectorAll('[style]').length).toBe(0);
+  });
+
+  it('hovering a track card makes IO say a hint about that track', async () => {
+    renderApp('/', { locale: 'en' });
+    const tiers = fixture('tracks').items;
+    const guardians = tiers.find((t) => t.id === 'guardians');
+    const kids = tiers.find((t) => t.id === 'kids');
+    const mascot = fixture('mascot');
+    await waitFor(() => expect(screen.getByText(guardians.name.en)).toBeInTheDocument());
+    // the corner widget mounts a moment after first paint (lazy three.js)
+    const bubble = await screen.findByRole('status', {}, { timeout: 5000 });
+    const card = screen.getByText(guardians.name.en).closest('a');
+    fireEvent.mouseEnter(card);
+    const expected = trackHint(mascot, guardians, 0).en;
+    await waitFor(() => expect(bubble.textContent).toContain(expected.slice(0, 24)), { timeout: 4000 });
+    // a second look gives the next hint, keyboard focus works too, leaving restores his tips
+    fireEvent.mouseLeave(card);
+    const kidsCard = screen.getByText(kids.name.en).closest('a');
+    fireEvent.focus(kidsCard);
+    const kidsHint = trackHint(mascot, kids, 0).en;
+    await waitFor(() => expect(bubble.textContent).toContain(kidsHint.slice(0, 24)), { timeout: 4000 });
+    fireEvent.blur(kidsCard);
+    await waitFor(() => expect(bubble.textContent).not.toContain(kidsHint.slice(0, 24)), { timeout: 4000 });
   });
 
   it('renders in English when the shell says so', async () => {

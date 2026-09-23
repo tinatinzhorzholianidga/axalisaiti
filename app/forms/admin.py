@@ -387,16 +387,9 @@ class TipForm(BaseForm):
 
 
 class ReactionForm(BaseForm):
-    key = SelectField(
-        _l("Moment"),
-        choices=[
-            ("mission", "mission"),
-            ("exam", "exam"),
-            ("cert", "cert"),
-            ("guardians", "guardians"),
-            ("building", "building"),
-        ],
-    )
+    # choices are filled per request (fixed moments + "track.<slug>" for every
+    # track, see cyberhero_service.reaction_keys)
+    key = SelectField(_l("Moment"), choices=[])
     sort_order = IntegerField(_l("Order"), validators=[NumberRange(min=0, max=100)], default=1)
     text_ka = TextAreaField(_l("Text (Georgian)"), validators=[DataRequired(), Length(max=300)])
     text_en = TextAreaField(_l("Text (English)"), validators=[DataRequired(), Length(max=300)])

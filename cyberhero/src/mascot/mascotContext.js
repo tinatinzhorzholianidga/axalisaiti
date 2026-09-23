@@ -46,3 +46,15 @@ export function missionReaction(mascot, index) {
   if (!list.length) return null
   return list[index % list.length]
 }
+
+/* What IO says when the visitor hovers (or focuses) a track card on the
+   welcome page: the admin-edited "track.<id>" reactions in turn, falling
+   back to the track's own intro / description so every card gets a line.
+   `index` counts the visits so repeated hovers walk through the pool. */
+export function trackHint(mascot, tier, index = 0) {
+  if (!tier) return null
+  const pool = ((mascot?.reactions?.tracks || {})[tier.id] || []).filter((line) => line && (line.en || line.ka))
+  if (pool.length) return pool[((index % pool.length) + pool.length) % pool.length]
+  const own = [tier.intro, tier.desc].find((text) => text && (text.en || text.ka))
+  return own || null
+}

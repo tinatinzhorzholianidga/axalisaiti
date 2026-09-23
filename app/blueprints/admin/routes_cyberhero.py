@@ -729,6 +729,7 @@ def cyber_agreement_section_delete(resource_id: int, section_id: int):  # type: 
 def cyber_mascot():  # type: ignore[no-untyped-def]
     tip_form = TipForm(prefix="tip")
     reaction_form = ReactionForm(prefix="re")
+    reaction_form.key.choices = cyberhero_service.reaction_keys()
     if tip_form.submit.data and tip_form.validate_on_submit():
         tip = CyberMascotTip(
             topics=tip_form.topics.data or "",

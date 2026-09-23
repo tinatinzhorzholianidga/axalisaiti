@@ -101,6 +101,30 @@ test('a mission can be started and the first round answered', async ({ page }) =
   expect(errors, errors.join('\n')).toEqual([]);
 });
 
+test('hovering an age track makes IO say a hint about it', async ({ page }) => {
+  const mascot = await (await page.request.get('/api/v1/cyberhero/mascot')).json();
+  const tracks = (await (await page.request.get('/api/v1/cyberhero/tracks')).json()).items;
+  await page.goto('/cyberhero/?lang=en');
+  const bubble = page.locator('.mascot-widget .mascot-bubble');
+  await expect(bubble).toBeVisible({ timeout: 15000 });
+  for (const id of ['guardians', 'kids']) {
+    const tier = tracks.find((t) => t.id === id);
+    const pool = mascot.reactions.tracks?.[id] || [];
+    const expected = (pool.length ? pool.map((l) => l.en) : [tier.intro?.en, tier.desc?.en]).filter(Boolean);
+    await page.locator('.tier-card', { hasText: tier.name.en }).hover();
+    await expect
+      .poll(
+        async () => {
+          const said = await bubble.textContent();
+          return expected.some((line) => said.includes(line.slice(0, 24)));
+        },
+        { timeout: 8000 },
+      )
+      .toBe(true);
+    await page.mouse.move(5, 5);
+  }
+});
+
 test('the IO tutor pages are hidden while the feature flag is off', async ({ page }) => {
   await page.goto('/cyberhero/io-chat?lang=en');
   await expect(page.getByText('Page not found')).toBeVisible();

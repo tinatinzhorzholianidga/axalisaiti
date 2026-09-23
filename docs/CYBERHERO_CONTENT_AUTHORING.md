@@ -130,9 +130,23 @@ printable agreement and whose `steps` are the individual promises.
 Emergency contacts: only `112` is verified by default; other contacts are
 added by admins through site settings.
 
-### `tips.json` (IO mascot)
+### `mascot.json` (IO mascot)
 ```json
-[{"context": "home", "mood": "happy", "sort_order": 1, "text": {"ka": "…", "en": "…"}}]
+{
+  "tips": [{"topics": ["passwords"], "en": "…", "ka": "…"}],
+  "reactions": {
+    "mission": [{"en": "…", "ka": "…"}], "exam": {"en": "…", "ka": "…"},
+    "cert": {"…": "…"}, "guardians": {"…": "…"}, "building": {"…": "…"},
+    "track.guardians": [{"en": "…", "ka": "…"}, {"en": "…", "ka": "…"}]
+  }
+}
 ```
-Contexts: `home, catalog, course, lesson, mission_intro, mission_correct, mission_wrong,
-mission_complete, articles, emergency, certificate`. Moods: `happy, think, celebrate, alert, neutral`.
+Tips are tagged with topics (`passwords, phishing, scams, privacy, devices, strangers,
+help, kindness, fake, balance, parents`) so IO can match them to the page. Reactions are
+keyed by *moment*: `mission` (one is picked per finished mission), `exam`, `cert`,
+`guardians`, `building` (coming-soon pages), and one `track.<track id>` list per age
+track - what IO says when the visitor hovers or focuses that track's card on the
+welcome page (he walks through the list on repeated hovers; without one he reads the
+track's own intro / description). All of it is editable under Admin → CyberHero →
+Mascot; the API serves it as `mascot.reactions` with the track hints under
+`reactions.tracks.<track id>`.

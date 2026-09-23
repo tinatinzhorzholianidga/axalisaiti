@@ -113,6 +113,20 @@ def _upsert(model: type, **key: Any) -> tuple[Any, bool]:
 # ---------------------------------------------------------------------------
 # seeding
 # ---------------------------------------------------------------------------
+# reaction keys: fixed moments, plus one per track for the welcome-page hover hints
+REACTION_MOMENTS = ("mission", "exam", "cert", "guardians", "building")
+TRACK_REACTION_PREFIX = "track."
+
+
+def reaction_keys() -> list[tuple[str, str]]:
+    """(key, label) pairs the admin panel offers for a new reaction."""
+    keys = [(k, k) for k in REACTION_MOMENTS]
+    for track in tracks(include_hidden=True):
+        label = f"track: {track.name_en or track.slug}"
+        keys.append((f"{TRACK_REACTION_PREFIX}{track.slug}", label))
+    return keys
+
+
 def seed_tracks(data: dict) -> int:
     created = 0
     for tier in data["tiers"]:
@@ -766,9 +780,21 @@ def mascot() -> dict:
     ).scalars():
         reactions.setdefault(r.key, []).append(r.pair("text"))
     mission_topics = {m.slug: m.topic_list for m in missions(published_only=False)}
+    # "track.<slug>" reactions are what IO says when that track's card is
+    # hovered on the welcome page; every other key keeps its original shape
+    tracks_hints = {
+        k[len(TRACK_REACTION_PREFIX) :]: v
+        for k, v in reactions.items()
+        if k.startswith(TRACK_REACTION_PREFIX)
+    }
+    moments = {
+        k: (v if k == "mission" else v[0])
+        for k, v in reactions.items()
+        if not k.startswith(TRACK_REACTION_PREFIX)
+    }
     return {
         "tips": [{"topics": t.topic_list, "en": t.text_en, "ka": t.text_ka} for t in tips],
-        "reactions": {k: (v if k == "mission" else v[0]) for k, v in reactions.items()},
+        "reactions": {**moments, "tracks": tracks_hints},
         "missionTopics": mission_topics,
     }
 

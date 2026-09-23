@@ -33,7 +33,7 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
   const { progress } = useProgress()
   const { mascot } = useContent()
   const reduced = useReducedMotion()
-  const { companion, react: mascotReact, setDockMounted, setDockOpen } = useMascot()
+  const { companion, peeked, react: mascotReact, setDockMounted, setDockOpen } = useMascot()
   const [open, setOpen] = useState(true)
   const [arrived, setArrived] = useState(reduced)
   const [tipIdx, setTipIdx] = useState(-1) // -1 = greeting / context opener
@@ -81,6 +81,12 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
     if (companion?.gesture) setGesture(companion.gesture)
   }, [companion])
 
+  // a hovered track card: a little wave with the hint about it
+  useEffect(() => {
+    if (!peeked || reduced) return
+    setGesture({ id: `peek-${peeked.id}`, type: 'wave' })
+  }, [peeked, reduced])
+
   // celebrate mission completions while he is on screen
   const doneCount = Object.values(progress.guardians.missions).filter((m) => m.done).length
   const examDone = Object.entries(progress.guardians.missions).some(([id, m]) => m.done && (mascot.missionTopics?.[id] || []).length === 0 && id === 'g10')
@@ -109,6 +115,8 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
     fullText = praisePool[companion.id % praisePool.length]
   } else if (companion?.mode === 'celebrate') {
     fullText = t('mascot.companion.missionDone')
+  } else if (peeked) {
+    fullText = tx(peeked.text)
   } else if (reaction) {
     fullText = tx(reaction)
   } else if (tipIdx < 0) {
@@ -153,7 +161,7 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
     )
   }
 
-  const emotion = companion?.mood || (reaction ? 'celebrate' : 'happy')
+  const emotion = companion?.mood || (peeked ? peeked.mood : reaction ? 'celebrate' : 'happy')
   const bubbleMood = companion?.mode === 'wrong' ? ' is-wrong' : companion?.mode ? ' is-correct' : ''
 
   return (
@@ -161,7 +169,7 @@ export default function MascotWidget({ character = 'robot', skin = 'classic' }) 
       {arrived && (
         <div className={`mascot-bubble${bubbleMood}`} role="status" aria-live="polite">
           <p>{shown}</p>
-          {!companion && (
+          {!companion && !peeked && (
             <div className="mascot-bubble-actions">
               <button type="button" className="mascot-tip-btn" onClick={nextTip}>
                 💡 {t('mascot.widget.nextTip')}

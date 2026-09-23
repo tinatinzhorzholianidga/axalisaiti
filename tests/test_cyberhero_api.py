@@ -219,3 +219,35 @@ def test_cyberhero_disabled_flag_hides_everything(client, seeded):  # type: igno
     db.session.commit()
     assert client.get("/cyberhero/").status_code == 404
     assert client.get("/api/v1/cyberhero/missions").status_code == 404
+
+
+def test_track_hints_ride_the_mascot_payload(client, seeded):  # type: ignore[no-untyped-def]
+    """ "track.<slug>" reactions are what IO says when that track's card is hovered."""
+    from app.extensions import db
+    from app.models import CyberMascotReaction
+    from app.services import cyberhero_service
+
+    db.session.add_all(
+        [
+            CyberMascotReaction(
+                key="track.guardians", sort_order=2, text_ka="მეორე", text_en="second"
+            ),
+            CyberMascotReaction(
+                key="track.guardians", sort_order=1, text_ka="პირველი", text_en="first"
+            ),
+        ]
+    )
+    db.session.commit()
+    mascot = client.get("/api/v1/cyberhero/mascot").get_json()
+    assert mascot["reactions"]["tracks"]["guardians"] == [
+        {"en": "first", "ka": "პირველი"},
+        {"en": "second", "ka": "მეორე"},
+    ]
+    # the fixed moments keep their shape and the track keys never leak into them
+    assert isinstance(mascot["reactions"]["guardians"], dict)
+    assert isinstance(mascot["reactions"]["mission"], list)
+    assert "track.guardians" not in mascot["reactions"]
+    # the admin panel offers one reaction key per track
+    keys = dict(cyberhero_service.reaction_keys())
+    assert "track.guardians" in keys and "track.parents" in keys and "mission" in keys
+    assert keys["track.guardians"] == "track: Cyber Guardians"
