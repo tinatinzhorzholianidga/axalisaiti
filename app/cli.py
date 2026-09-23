@@ -59,9 +59,13 @@ def seed_roles() -> None:
     settings = settings_service.seed_defaults()
     flags = feature_flags.seed_defaults()
     achievements = achievement_service.seed_defaults()
+    from app.services.seed_service import seed_categories
+
+    categories = seed_categories()
     click.echo(
         f"Roles: +{result['roles']}, permissions: +{result['permissions']}, "
-        f"settings: +{settings}, flags: +{flags}, achievements: +{achievements}"
+        f"settings: +{settings}, flags: +{flags}, achievements: +{achievements}, "
+        f"categories: +{categories}"
     )
 
 

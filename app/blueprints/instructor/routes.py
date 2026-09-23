@@ -100,6 +100,10 @@ def _prepare_course_form(form: CourseForm) -> None:
     form.categories.choices = authoring_service.category_choices(LOCALE())
     form.instructor_id.choices = [(current_user.id, current_user.name)]
     form.cyber_track_id.choices = [(0, "—")]
+    # instructors cannot choose the platform (the field is not rendered), so
+    # give the hidden field a valid value instead of failing validation
+    if form.platform.data not in {"elearning", "cyberhero", "both"}:
+        form.platform.data = "elearning"
 
 
 @bp.route("/courses/")
