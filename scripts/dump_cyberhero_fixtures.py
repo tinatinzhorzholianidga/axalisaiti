@@ -48,7 +48,6 @@ def main() -> None:
             "bootstrap",
             "tracks",
             "missions",
-            "articles",
             "agreement",
             "mascot",
             "knowledge",
@@ -59,8 +58,6 @@ def main() -> None:
         paths += [f"tracks/{t['id']}" for t in tracks]
         missions = client.get("/api/v1/cyberhero/missions").get_json()["items"]
         paths += [f"missions/{m['id']}" for m in missions]
-        articles = client.get("/api/v1/cyberhero/articles").get_json()["items"]
-        paths += [f"articles/{a['id']}" for a in articles]
         courses = client.get("/api/v1/cyberhero/courses").get_json()["items"]
         for course in courses:
             paths.append(f"courses/{course['slug']}")

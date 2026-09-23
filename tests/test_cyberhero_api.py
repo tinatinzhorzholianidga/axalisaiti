@@ -73,18 +73,34 @@ def test_mission_list_and_detail_shapes(client, seeded):  # type: ignore[no-unty
     assert client.get("/api/v1/cyberhero/missions/nope").status_code == 404
 
 
-def test_articles_and_agreement(client, seeded):  # type: ignore[no-untyped-def]
-    items = client.get("/api/v1/cyberhero/articles").get_json()["items"]
-    assert len(items) == 16 and items[0]["id"] == "a1"
-    shelf_b = client.get("/api/v1/cyberhero/articles?shelf=b").get_json()["items"]
-    assert {a["shelf"] for a in shelf_b} == {"B"} and len(shelf_b) == 5
-    a3 = client.get("/api/v1/cyberhero/articles/a3").get_json()
-    assert a3["priority"] is True
-    types = {b["type"] for b in a3["body"]}
-    assert {"h2", "p"} <= types
-    callout = next(b for b in a3["body"] if b["type"] == "callout")
-    assert callout["variant"] and callout["title"]["ka"]
-    assert a3["sources"]
+def test_parents_course_and_agreement(client, seeded):  # type: ignore[no-untyped-def]
+    # the 16 parent/teacher articles are the lessons of the Teachers & Parents course
+    parents = next(
+        t
+        for t in client.get("/api/v1/cyberhero/bootstrap").get_json()["tiers"]
+        if t["id"] == "parents"
+    )
+    assert parents["active"] is True and parents["route"] == "/course/teachers-parents"
+    course = client.get("/api/v1/cyberhero/courses/teachers-parents").get_json()
+    assert course["track"] == "parents" and course["title"]["ka"]
+    assert [m["title"]["en"] for m in course["modules"]] == [
+        "Understand the risks",
+        "Act",
+        "For school",
+    ]
+    slugs = [les["slug"] for m in course["modules"] for les in m["lessons"]]
+    assert slugs == [f"a{i}" for i in range(1, 8)] + [f"b{i}" for i in range(1, 6)] + [
+        f"c{i}" for i in range(1, 5)
+    ]
+    a3 = client.get("/api/v1/cyberhero/courses/teachers-parents/lessons/a3").get_json()
+    assert a3["module_title"]["ka"] and a3["summary"]["en"]
+    for locale in ("en", "ka"):
+        html = a3["content"][locale]
+        assert "<h3>" in html and 'class="callout callout-' in html and "<ul>" in html
+    assert "Sources" in a3["content"]["en"] and "წყაროები" in a3["content"]["ka"]
+    assert "<script" not in a3["content"]["en"]
+    # the old article API is gone, the old links are handled by the app's redirects
+    assert client.get("/api/v1/cyberhero/articles").status_code == 404
     agreement = client.get("/api/v1/cyberhero/agreement").get_json()
     assert agreement["title"]["ka"] and len(agreement["sections"]) == 4
     assert agreement["sections"][-1]["writeLines"] == 3
@@ -99,7 +115,9 @@ def test_resources_and_courses(client, seeded):  # type: ignore[no-untyped-def]
     assert contacts[0]["contact_value"] == "112"
     assert client.get("/api/v1/cyberhero/resources/other").status_code == 404
     courses = client.get("/api/v1/cyberhero/courses").get_json()["items"]
-    assert courses[0]["slug"] == "cyber-guardians" and courses[0]["lesson_count"] == 9
+    assert {c["slug"] for c in courses} == {"cyber-guardians", "teachers-parents"}
+    guardians = next(c for c in courses if c["slug"] == "cyber-guardians")
+    assert guardians["lesson_count"] == 9 and guardians["track"] == "guardians"
     course = client.get("/api/v1/cyberhero/courses/cyber-guardians").get_json()
     assert len(course["modules"]) == 3 and len(course["missions"]) == 10
     first = course["modules"][0]["lessons"][0]["slug"]

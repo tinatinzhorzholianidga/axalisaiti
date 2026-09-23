@@ -11,8 +11,7 @@ import Fireworks from './mascot/Fireworks.jsx'
 import WelcomePage from './pages/WelcomePage.jsx'
 import TracksPage from './pages/TracksPage.jsx'
 import TrackPage from './pages/TrackPage.jsx'
-import ParentsHubPage from './pages/parents/ParentsHubPage.jsx'
-import ArticlePage from './pages/parents/ArticlePage.jsx'
+import { ParentsCourseRedirect } from './pages/parents/ParentsCourseRedirect.jsx'
 import AgreementPage from './pages/parents/AgreementPage.jsx'
 import GuardiansMapPage from './pages/guardians/GuardiansMapPage.jsx'
 import MissionPage from './pages/guardians/MissionPage.jsx'
@@ -64,11 +63,12 @@ export default function App() {
         <Route path="/" element={<WelcomePage />} />
         <Route path="/tracks" element={<TracksPage />} />
         <Route path="/track/:tierId" element={<TrackPage />} />
-        <Route path="/parents" element={<ParentsHubPage />} />
+        {/* The parent/teacher articles are lessons of the Teachers & Parents course now; old links still land there. */}
+        <Route path="/parents" element={<ParentsCourseRedirect />} />
         <Route path="/parents/agreement" element={<AgreementPage />} />
-        <Route path="/parents/:articleId" element={<ArticlePage />} />
-        <Route path="/articles" element={<ParentsHubPage />} />
-        <Route path="/articles/:articleId" element={<ArticlePage />} />
+        <Route path="/parents/:articleId" element={<ParentsCourseRedirect />} />
+        <Route path="/articles" element={<ParentsCourseRedirect />} />
+        <Route path="/articles/:articleId" element={<ParentsCourseRedirect />} />
         <Route path="/family-agreement" element={<AgreementPage />} />
         <Route path="/guardians" element={<GuardiansMapPage />} />
         <Route path="/guardians/mission/:missionId" element={<MissionPage />} />

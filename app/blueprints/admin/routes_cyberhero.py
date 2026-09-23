@@ -13,8 +13,6 @@ from app.blueprints.admin.helpers import get_or_404, lines, locale
 from app.extensions import db
 from app.forms.admin import (
     AgreementSectionForm,
-    ArticleForm,
-    BlockForm,
     BranchNodeForm,
     KnowledgeSectionForm,
     MissionForm,
@@ -28,9 +26,6 @@ from app.models import (
     Course,
     CyberAgreementClause,
     CyberAgreementSection,
-    CyberArticle,
-    CyberArticleBlock,
-    CyberArticleSource,
     CyberBranch,
     CyberBranchChoice,
     CyberBranchMessage,
@@ -79,11 +74,6 @@ def cyberhero():  # type: ignore[no-untyped-def]
         "admin/cyberhero/index.html",
         tracks=cyberhero_service.tracks(include_hidden=True),
         missions=cyberhero_service.missions(published_only=False),
-        articles=list(
-            db.session.execute(
-                select(CyberArticle).order_by(CyberArticle.shelf, CyberArticle.sort_order)
-            ).scalars()
-        ),
         resources=list(
             db.session.execute(
                 select(CyberSafetyResource).order_by(
@@ -490,125 +480,6 @@ def cyber_branch_delete(round_id: int, node_id: int):  # type: ignore[no-untyped
     db.session.delete(node)
     _log("branch_deleted", rnd.mission)
     return redirect(url_for("admin.cyber_round", mission_id=rnd.mission_id, round_id=rnd.id))
-
-
-# ---- articles ---------------------------------------------------------------
-ARTICLE_FIELDS = (
-    "slug",
-    "shelf",
-    "sort_order",
-    "emoji",
-    "color",
-    "minutes",
-    "mission_slug",
-    "is_priority",
-    "is_published",
-    "title_ka",
-    "title_en",
-    "teaser_ka",
-    "teaser_en",
-    "lead_ka",
-    "lead_en",
-)
-
-
-@bp.route("/cyberhero/articles/new", methods=["GET", "POST"])
-@bp.route("/cyberhero/articles/<int:article_id>", methods=["GET", "POST"])
-@require_permission("cyberhero.manage")
-def cyber_article(article_id: int | None = None):  # type: ignore[no-untyped-def]
-    article = get_or_404(CyberArticle, article_id) if article_id else None
-    form = ArticleForm()
-    if request.method == "GET" and article:
-        _fill(form, article, ARTICLE_FIELDS)
-        form.sources.data = "\n".join(s.citation for s in article.sources)
-    if form.validate_on_submit():
-        if article is None:
-            article = CyberArticle(
-                slug=form.slug.data, shelf=form.shelf.data, title_ka="", title_en=""
-            )
-            db.session.add(article)
-            db.session.flush()
-        _apply(form, article, ARTICLE_FIELDS)
-        article.mission_slug = (form.mission_slug.data or "").strip() or None
-        article.sources.clear()
-        for i, citation in enumerate(lines(form.sources.data), start=1):
-            article.sources.append(CyberArticleSource(sort_order=i, citation=citation[:500]))
-        _log("article_saved", article)
-        flash(_("Article saved."), "success")
-        return redirect(url_for("admin.cyber_article", article_id=article.id))
-    return render_template(
-        "admin/cyberhero/article_form.html", form=form, article=article, locale=locale()
-    )
-
-
-@bp.route("/cyberhero/articles/<int:article_id>/blocks/new", methods=["GET", "POST"])
-@bp.route("/cyberhero/articles/<int:article_id>/blocks/<int:block_id>", methods=["GET", "POST"])
-@require_permission("cyberhero.manage")
-def cyber_block(article_id: int, block_id: int | None = None):  # type: ignore[no-untyped-def]
-    article = get_or_404(CyberArticle, article_id)
-    block = get_or_404(CyberArticleBlock, block_id) if block_id else None
-    if block is not None and block.article_id != article.id:
-        abort(404)
-    form = BlockForm()
-    if request.method == "GET" and block:
-        _fill(
-            form,
-            block,
-            ("block_type", "variant", "ordered", "title_ka", "title_en", "text_ka", "text_en"),
-        )
-        form.items_ka.data = "\n".join(i.get("ka", "") for i in block.items)
-        form.items_en.data = "\n".join(i.get("en", "") for i in block.items)
-        form.paragraphs_ka.data = "\n".join(p.get("ka", "") for p in block.paragraphs)
-        form.paragraphs_en.data = "\n".join(p.get("en", "") for p in block.paragraphs)
-    if form.validate_on_submit():
-        if block is None:
-            block = CyberArticleBlock(
-                article_id=article.id,
-                sort_order=len(article.blocks) + 1,
-                block_type=form.block_type.data,
-            )
-            db.session.add(block)
-            article.blocks.append(block)
-        _apply(
-            form,
-            block,
-            ("block_type", "variant", "ordered", "title_ka", "title_en", "text_ka", "text_en"),
-        )
-        ka_items, en_items = lines(form.items_ka.data), lines(form.items_en.data)
-        block.items = [
-            {"ka": ka, "en": en_items[i] if i < len(en_items) else ka}
-            for i, ka in enumerate(ka_items)
-        ]
-        ka_ps, en_ps = lines(form.paragraphs_ka.data), lines(form.paragraphs_en.data)
-        block.paragraphs = [
-            {"ka": ka, "en": en_ps[i] if i < len(en_ps) else ka} for i, ka in enumerate(ka_ps)
-        ]
-        _log("block_saved", article, {"block_id": block.id})
-        flash(_("Block saved."), "success")
-        return redirect(url_for("admin.cyber_article", article_id=article.id))
-    return render_template(
-        "admin/cyberhero/block_form.html", form=form, article=article, block=block, locale=locale()
-    )
-
-
-@bp.route("/cyberhero/articles/<int:article_id>/blocks/<int:block_id>/<action>", methods=["POST"])
-@require_permission("cyberhero.manage")
-def cyber_block_action(article_id: int, block_id: int, action: str):  # type: ignore[no-untyped-def]
-    article = get_or_404(CyberArticle, article_id)
-    block = get_or_404(CyberArticleBlock, block_id)
-    if block.article_id != article.id:
-        abort(404)
-    if action == "delete":
-        article.blocks.remove(block)
-        db.session.delete(block)
-        db.session.flush()
-        course_service.renumber(article.blocks)
-    elif action in {"up", "down"}:
-        course_service.move(article.blocks, block.id, -1 if action == "up" else 1)
-    else:
-        abort(400)
-    _log("block_changed", article)
-    return redirect(url_for("admin.cyber_article", article_id=article.id))
 
 
 # ---- safety resources + agreement ------------------------------------------

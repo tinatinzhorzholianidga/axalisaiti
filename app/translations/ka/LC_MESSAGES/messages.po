@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-23 09:27+0000\n"
+"POT-Creation-Date: 2026-09-23 09:45+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -102,12 +102,6 @@ msgstr "რაუნდი შენახულია."
 
 msgid "Node saved."
 msgstr "კვანძი შენახულია."
-
-msgid "Article saved."
-msgstr "სტატია შენახულია."
-
-msgid "Block saved."
-msgstr "ბლოკი შენახულია."
 
 msgid "Saved."
 msgstr "შენახულია."
@@ -660,99 +654,6 @@ msgstr "სცენა (ინგლისურად)"
 msgid "Save node"
 msgstr "კვანძის შენახვა"
 
-msgid "Code / slug (a1 … c4)"
-msgstr "კოდი / slug (a1 … c4)"
-
-msgid "Shelf"
-msgstr "თარო"
-
-msgid "A · Understand the risks"
-msgstr "A · გაიგეთ რისკები"
-
-msgid "B · Act"
-msgstr "B · იმოქმედეთ"
-
-msgid "C · For school"
-msgstr "C · სკოლისთვის"
-
-msgid "Reading minutes"
-msgstr "წასაკითხი წუთები"
-
-msgid "Related mission slug"
-msgstr "დაკავშირებული მისიის slug"
-
-msgid "Title (Georgian)"
-msgstr "სათაური (ქართულად)"
-
-msgid "Title (English)"
-msgstr "სათაური (ინგლისურად)"
-
-msgid "Teaser (Georgian)"
-msgstr "ანონსი (ქართულად)"
-
-msgid "Teaser (English)"
-msgstr "ანონსი (ინგლისურად)"
-
-msgid "Lead (Georgian)"
-msgstr "შესავალი აბზაცი (ქართულად)"
-
-msgid "Lead (English)"
-msgstr "შესავალი აბზაცი (ინგლისურად)"
-
-msgid "Sources (one per line)"
-msgstr "წყაროები (თითო ხაზზე)"
-
-msgid "Save article"
-msgstr "სტატიის შენახვა"
-
-msgid "Block"
-msgstr "ბლოკი"
-
-msgid "Heading"
-msgstr "სათაური"
-
-msgid "Paragraph"
-msgstr "აბზაცი"
-
-msgid "List"
-msgstr "სია"
-
-msgid "Callout"
-msgstr "გამოყოფილი ბლოკი"
-
-msgid "Callout variant"
-msgstr "გამოყოფილი ბლოკის ტიპი"
-
-msgid "Ordered list"
-msgstr "დანომრილი სია"
-
-msgid "Callout title (Georgian)"
-msgstr "გამოყოფილი ბლოკის სათაური (ქართულად)"
-
-msgid "Callout title (English)"
-msgstr "გამოყოფილი ბლოკის სათაური (ინგლისურად)"
-
-msgid "Text (Georgian)"
-msgstr "ტექსტი (ქართულად)"
-
-msgid "Text (English)"
-msgstr "ტექსტი (ინგლისურად)"
-
-msgid "List items (Georgian, one per line)"
-msgstr "სიის ელემენტები (ქართულად, თითო ხაზზე)"
-
-msgid "List items (English, one per line)"
-msgstr "სიის ელემენტები (ინგლისურად, თითო ხაზზე)"
-
-msgid "Callout paragraphs (Georgian, one per line)"
-msgstr "გამოყოფილი ბლოკის აბზაცები (ქართულად, თითო ხაზზე)"
-
-msgid "Callout paragraphs (English, one per line)"
-msgstr "გამოყოფილი ბლოკის აბზაცები (ინგლისურად, თითო ხაზზე)"
-
-msgid "Save block"
-msgstr "ბლოკის შენახვა"
-
 msgid "Emergency contact"
 msgstr "საგანგებო კონტაქტი"
 
@@ -773,6 +674,12 @@ msgstr "დადასტურებული (კონტაქტები 
 
 msgid "Active"
 msgstr "აქტიური"
+
+msgid "Title (Georgian)"
+msgstr "სათაური (ქართულად)"
+
+msgid "Title (English)"
+msgstr "სათაური (ინგლისურად)"
 
 msgid "Summary (Georgian)"
 msgstr "მოკლე აღწერა (ქართულად)"
@@ -821,6 +728,12 @@ msgstr "რჩევის შენახვა"
 
 msgid "Moment"
 msgstr "მომენტი"
+
+msgid "Text (Georgian)"
+msgstr "ტექსტი (ქართულად)"
+
+msgid "Text (English)"
+msgstr "ტექსტი (ინგლისურად)"
 
 msgid "Section (Georgian)"
 msgstr "განყოფილება (ქართულად)"
@@ -2037,43 +1950,6 @@ msgstr "მომხმარებელი"
 msgid "locked"
 msgstr "დაბლოკილი"
 
-msgid "Article"
-msgstr "სტატია"
-
-msgid "Articles"
-msgstr "სტატიები"
-
-msgid "New article"
-msgstr "ახალი სტატია"
-
-msgid "Body blocks"
-msgstr "ტექსტის ბლოკები"
-
-msgid "Move up"
-msgstr "ზემოთ ატანა"
-
-msgid "Move down"
-msgstr "ქვემოთ ჩატანა"
-
-msgid "Delete block?"
-msgstr "წავშალოთ ბლოკი?"
-
-msgid "No blocks yet."
-msgstr "ბლოკები ჯერ არ არის."
-
-msgid "Edit block"
-msgstr "ბლოკის რედაქტირება"
-
-msgid "New block"
-msgstr "ახალი ბლოკი"
-
-msgid ""
-"Headings and paragraphs use Text; lists use Items; callouts use Title, "
-"Paragraphs and Items."
-msgstr ""
-"სათაურები და აბზაცები იყენებს ველს „ტექსტი“; სიები — „ელემენტები“; "
-"გამოყოფილი ბლოკები — „სათაური“, „აბზაცები“ და „ელემენტები“."
-
 msgid "Conversation node"
 msgstr "საუბრის კვანძი"
 
@@ -2134,9 +2010,6 @@ msgstr "CyberHero-ს გახსნა"
 msgid "Age tracks"
 msgstr "ასაკობრივი მიმართულებები"
 
-msgid "Parent/teacher articles"
-msgstr "სტატიები მშობლებისა და მასწავლებლებისთვის"
-
 msgid "hidden"
 msgstr "დამალული"
 
@@ -2160,15 +2033,6 @@ msgstr "საგანგაშო ნიშნები"
 
 msgid "pts"
 msgstr "ქ."
-
-msgid "Parent & teacher articles"
-msgstr "სტატიები მშობლებისა და მასწავლებლებისთვის"
-
-msgid "Code"
-msgstr "კოდი"
-
-msgid "Blocks"
-msgstr "ბლოკები"
 
 msgid "Safety resources"
 msgstr "უსაფრთხოების რესურსები"
@@ -2261,6 +2125,12 @@ msgstr "რეაქციის დამატება"
 
 msgid "New mission"
 msgstr "ახალი მისია"
+
+msgid "Move up"
+msgstr "ზემოთ ატანა"
+
+msgid "Move down"
+msgstr "ქვემოთ ჩატანა"
 
 msgid "Delete this round?"
 msgstr "წავშალოთ ეს რაუნდი?"

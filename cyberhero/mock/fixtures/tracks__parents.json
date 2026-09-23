@@ -3,7 +3,40 @@
  "audience": "parents",
  "certificate": false,
  "color": "amber",
- "courses": [],
+ "courses": [
+  {
+   "age_max": null,
+   "age_min": null,
+   "audience": {
+    "en": "For the adults who help",
+    "ka": "უფროსებისთვის, ვინც გვერდში დგას"
+   },
+   "color": "amber",
+   "difficulty": "beginner",
+   "emoji": "🧭",
+   "estimated_minutes": 98,
+   "is_featured": true,
+   "lesson_count": 16,
+   "mission_count": 0,
+   "short_description": {
+    "en": "Calm, practical guidance for the adults in a child's life. No tech jargon, no blame - just what the risks look like and what to do about them.",
+    "ka": "მშვიდი, პრაქტიკული გზამკვლევი უფროსებისთვის. ტექნიკური ჟარგონისა და დადანაშაულების გარეშე - მხოლოდ ის, თუ როგორ გამოიყურება რისკები და რა უნდა გააკეთოთ."
+   },
+   "slug": "teachers-parents",
+   "tags": [
+    "parents",
+    "teachers",
+    "wellbeing",
+    "scams",
+    "school"
+   ],
+   "title": {
+    "en": "Teachers & Parents",
+    "ka": "მასწავლებლები და მშობლები"
+   },
+   "track": "parents"
+  }
+ ],
  "desc": {
   "en": "Understand the risks, act with confidence, and bring it to the classroom - calm, practical, no jargon.",
   "ka": "გაიგეთ რისკები, იმოქმედეთ თავდაჯერებულად და წაიღეთ საკლასო ოთახში - მშვიდად, პრაქტიკულად, ჟარგონის გარეშე."
@@ -20,7 +53,7 @@
   "en": "Teachers & Parents",
   "ka": "მასწავლებლები და მშობლები"
  },
- "route": "/parents",
+ "route": "/course/teachers-parents",
  "tag": {
   "en": "For the adults who help",
   "ka": "უფროსებისთვის, ვინც გვერდში დგას"
