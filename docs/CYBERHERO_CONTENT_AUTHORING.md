@@ -9,6 +9,12 @@ entrypoint runs `flask seed-cyberhero --if-empty` on every start: it loads
 the content once, on a database with no tracks, and never touches it again.
 `flask validate-content seeds` checks the files in CI.
 
+Tracks can be taken offline in two ways from `/admin/cyberhero/tracks/<id>`:
+**Hidden** keeps the track (missions, learner progress, certificates) but
+removes it from the public API and the CyberHero app; **Delete track** is
+only allowed once nothing depends on the track, so learner data is never
+cascaded away by accident.
+
 Every human-readable field is bilingual: `{"ka": "...", "en": "..."}`.
 Georgian is the primary language; English must be a real translation, never
 a placeholder. Rich text fields (`body`, `description`, `content`, `intro`)

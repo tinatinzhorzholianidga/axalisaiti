@@ -1,5 +1,7 @@
 {% extends "layouts/panel.html" %}
 {% from "components/forms.html" import field, error_summary %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import csrf %}
 {% block title %}{{ _('Track') }} · {{ site_name }}{% endblock %}
 {% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
 {% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.cyberhero') }}">CyberHero</a></div>{% endblock %}
@@ -9,7 +11,20 @@
   {{ form.hidden_tag() }}{{ error_summary(form) }}
   <div class="form-grid-3">{{ field(form.slug) }}{{ field(form.sort_order) }}{{ field(form.emoji) }}{{ field(form.color) }}{{ field(form.audience) }}{{ field(form.route, help=_('e.g. /guardians')) }}</div>
   <div class="form-grid-3">{{ field(form.is_active) }}{{ field(form.is_featured) }}{{ field(form.certificate_enabled) }}</div>
+  {{ field(form.is_hidden, help=_('A hidden track disappears from CyberHero but keeps its missions, learner progress and certificates. Use it instead of deleting a track that is in use.')) }}
   {% with pairs=[('tag_ka','tag_en'), ('name_ka','name_en'), ('desc_ka','desc_en'), ('intro_ka','intro_en'), ('topics_ka','topics_en')], rows=3 %}{% include "admin/cyberhero/_bilingual.html" %}{% endwith %}
   <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save track') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.cyberhero') }}">{{ _('Cancel') }}</a></div>
 </form>
+{% if track %}
+<form class="panel mt-4" method="post" action="{{ url_for('admin.cyber_track_delete', track_id=track.id) }}" data-confirm="{{ _('Delete this track? This cannot be undone.') }}">
+  {{ csrf() }}
+  <h2 class="h6">{{ _('Delete track') }}</h2>
+  {% if usage.missions or usage.courses or usage.certificates %}
+  <p class="small text-muted mb-2">{{ _('This track is still in use: %(missions)d missions, %(courses)d courses, %(certificates)d certificates. Delete or move them first, or tick “Hidden” above to take the track offline without losing anything.', missions=usage.missions, courses=usage.courses, certificates=usage.certificates) }}</p>
+  {% else %}
+  <p class="small text-muted mb-2">{{ _('Nothing depends on this track yet, so it can be removed for good.') }}</p>
+  {% endif %}
+  <button class="btn btn-danger btn-sm" type="submit">{{ icon('trash') }} {{ _('Delete track') }}</button>
+</form>
+{% endif %}
 {% endblock %}

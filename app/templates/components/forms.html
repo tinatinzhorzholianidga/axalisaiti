@@ -4,22 +4,29 @@
   {% set describedby = [] %}
   {% if help %}{% set _ = describedby.append(f.id ~ '-help') %}{% endif %}
   {% if has_error %}{% set _ = describedby.append(f.id ~ '-error') %}{% endif %}
+  {# WTForms writes a None attribute out as the text "None" (placeholder="None"), so only attributes with a value are passed on #}
+  {% set a = {} %}
+  {% if describedby %}{% set _ = a.update({'aria-describedby': describedby|join(' ')}) %}{% endif %}
+  {% if has_error %}{% set _ = a.update({'aria-invalid': 'true'}) %}{% endif %}
+  {% if autocomplete %}{% set _ = a.update({'autocomplete': autocomplete}) %}{% endif %}
+  {% if placeholder %}{% set _ = a.update({'placeholder': placeholder}) %}{% endif %}
+  {% if autofocus %}{% set _ = a.update({'autofocus': True}) %}{% endif %}
+  {% for k, v in (attrs or {}).items() if v is not none %}{% set _ = a.update({k: v}) %}{% endfor %}
+  {% set invalid = " is-invalid" if has_error else "" %}
   <div class="form-field {{ extra_class }}{% if has_error %} has-error{% endif %}">
     {% if f.type == 'BooleanField' %}
       <div class="form-check">
-        {{ f(class_="form-check-input" ~ (" is-invalid" if has_error else ""), **{'aria-describedby': describedby|join(' ') or None}) }}
+        {{ f(class_="form-check-input" ~ invalid, **a) }}
         <label class="form-check-label" for="{{ f.id }}">{{ f.label.text }}</label>
       </div>
     {% else %}
       <label class="form-label" for="{{ f.id }}">{{ f.label.text }}{% if f.flags.required %} <span class="req" aria-hidden="true">*</span>{% endif %}</label>
       {% if f.type == 'TextAreaField' %}
-        {{ f(class_="form-control" ~ (" is-invalid" if has_error else ""), rows=rows, placeholder=placeholder, **{'aria-describedby': describedby|join(' ') or None, 'aria-invalid': 'true' if has_error else None}) }}
+        {{ f(class_="form-control" ~ invalid, rows=rows, **a) }}
       {% elif f.type in ('SelectField', 'SelectMultipleField') %}
-        {{ f(class_="form-select" ~ (" is-invalid" if has_error else ""), **dict({'aria-describedby': describedby|join(' ') or None, 'aria-invalid': 'true' if has_error else None}, **(attrs or {}))) }}
-      {% elif f.type == 'FileField' %}
-        {{ f(class_="form-control" ~ (" is-invalid" if has_error else ""), **{'aria-describedby': describedby|join(' ') or None}) }}
+        {{ f(class_="form-select" ~ invalid, **a) }}
       {% else %}
-        {{ f(class_="form-control" ~ (" is-invalid" if has_error else ""), autocomplete=autocomplete, placeholder=placeholder, autofocus=autofocus or None, **{'aria-describedby': describedby|join(' ') or None, 'aria-invalid': 'true' if has_error else None}) }}
+        {{ f(class_="form-control" ~ invalid, **a) }}
       {% endif %}
     {% endif %}
     {% if help %}<div id="{{ f.id }}-help" class="form-text">{{ help }}</div>{% endif %}

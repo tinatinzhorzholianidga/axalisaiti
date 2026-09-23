@@ -282,6 +282,9 @@ def test_admin_course_create_feature_and_archive(client, logged_in_admin, instru
     response = post(client, "/admin/courses/new", data)
     assert response.status_code == 302, response.data[:600]
     course = db.session.query(Course).order_by(Course.id.desc()).first()
+    # a new course lands straight in the builder, where modules and lessons are added
+    assert response.headers["Location"].endswith(f"/instructor/courses/{course.id}/builder")
+    assert client.get(response.headers["Location"]).status_code == 200
     assert course.instructor_id == instructor.id and course.is_featured
     assert course.platform.value == "both"
     response = post(client, f"/admin/courses/{course.id}/feature")
@@ -569,3 +572,80 @@ def test_audit_log_lists_actor(client, logged_in_admin):  # type: ignore[no-unty
     assert client.get("/admin/audit/?action=flag").status_code == 200
     assert client.get("/admin/analytics/").status_code == 200
     assert client.get("/admin/localization/").status_code == 200
+
+
+def test_track_can_be_hidden_and_deleted(client, logged_in_admin, seeded):  # type: ignore[no-untyped-def]
+    form = {
+        "slug": "retirees",
+        "sort_order": "9",
+        "emoji": "🎀",
+        "color": "pink",
+        "audience": "adults",
+        "route": "",
+        "name_ka": "პენსიონერები",
+        "name_en": "Retirees",
+        "is_hidden": "y",
+    }
+    assert post(client, "/admin/cyberhero/tracks/new", form).status_code == 302
+    track = db.session.query(CyberTrack).filter_by(slug="retirees").one()
+    assert track.is_hidden
+
+    # hidden: listed for admins, invisible to the CyberHero app
+    assert "retirees" in client.get("/admin/cyberhero/").get_data(as_text=True)
+    public = {t["id"] for t in client.get("/api/v1/cyberhero/tracks").get_json()["items"]}
+    assert "retirees" not in public and "guardians" in public
+    tiers = {t["id"] for t in client.get("/api/v1/cyberhero/bootstrap").get_json()["tiers"]}
+    assert "retirees" not in tiers
+    assert client.get("/api/v1/cyberhero/tracks/retirees").status_code == 404
+
+    # un-hide through the form and it is back
+    form.pop("is_hidden")
+    assert post(client, f"/admin/cyberhero/tracks/{track.id}", form).status_code == 302
+    assert client.get("/api/v1/cyberhero/tracks/retirees").status_code == 200
+
+    # hiding a track with missions takes the missions off the API too
+    guardians = db.session.query(CyberTrack).filter_by(slug="guardians").one()
+    guardians.is_hidden = True
+    db.session.commit()
+    assert client.get("/api/v1/cyberhero/missions?track=guardians").get_json()["items"] == []
+    assert client.get("/api/v1/cyberhero/missions/g1").status_code == 404
+    guardians.is_hidden = False
+    db.session.commit()
+    assert client.get("/api/v1/cyberhero/missions/g1").status_code == 200
+
+    # a track that is in use cannot be deleted (missions, progress and certificates survive)
+    response = post(client, f"/admin/cyberhero/tracks/{guardians.id}/delete", follow_redirects=True)
+    assert response.status_code == 200
+    assert guardians.name("ka") in response.get_data(as_text=True)
+    assert db.session.get(CyberTrack, guardians.id) is not None
+    assert db.session.query(CyberMission).filter_by(track_id=guardians.id).count() > 0
+
+    # an unused track can
+    assert client.get(f"/admin/cyberhero/tracks/{track.id}/delete").status_code == 405
+    response = post(client, f"/admin/cyberhero/tracks/{track.id}/delete")
+    assert response.status_code == 302 and response.headers["Location"].endswith(
+        "/admin/cyberhero/"
+    )
+    assert db.session.query(CyberTrack).filter_by(slug="retirees").count() == 0
+    assert client.get("/api/v1/cyberhero/tracks/retirees").status_code == 404
+
+
+def test_track_delete_requires_permission(client, logged_in_student, seeded):  # type: ignore[no-untyped-def]
+    track = db.session.query(CyberTrack).filter_by(slug="guardians").one()
+    assert post(client, f"/admin/cyberhero/tracks/{track.id}/delete").status_code == 403
+    assert db.session.get(CyberTrack, track.id) is not None
+
+
+def test_admin_forms_never_render_none_attributes(client, logged_in_admin, seeded):  # type: ignore[no-untyped-def]
+    from app.models import Course as CourseModel
+
+    course = db.session.query(CourseModel).first()
+    for url in (
+        "/admin/courses/new",
+        f"/instructor/courses/{course.id}/builder",
+        "/admin/cyberhero/tracks/new",
+        "/admin/cyberhero/missions/new",
+        "/admin/settings/",
+    ):
+        html = client.get(url).get_data(as_text=True)
+        assert '="None"' not in html, url

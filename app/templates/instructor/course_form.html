@@ -3,7 +3,7 @@
 {% block title %}{{ _('Course settings') if course else _('Create course') }} · {{ site_name }}{% endblock %}
 {% block sidebar %}{% include "instructor/_sidebar.html" %}{% endblock %}
 {% block panel_title %}{{ course.title(locale) if course else _('Create course') }}{% endblock %}
-{% block panel_actions %}{% if course %}<a class="btn btn-outline" href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ icon('layers') }} {{ _('Curriculum') }}</a>{% endif %}{% endblock %}
+{% block panel_actions %}{% if course %}<a class="btn btn-primary" href="{{ url_for('instructor.builder', course_id=course.id) }}">{{ icon('layers') }} {{ _('Modules & lessons') }}</a>{% endif %}{% endblock %}
 {% block panel_content %}
 <form method="post" enctype="multipart/form-data" class="panel" novalidate>
   {% with show_platform=False, show_instructor=False %}{% include "instructor/_course_fields.html" %}{% endwith %}

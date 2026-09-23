@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-21 07:31+0000\n"
+"POT-Creation-Date: 2026-09-23 09:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Announcement sent to %(n)d users."
 msgstr ""
 
-msgid "Course created."
+msgid "Course created. Now add modules and lessons."
 msgstr ""
 
 msgid "Course saved."
@@ -77,6 +77,16 @@ msgid "Seed content reloaded: %(summary)s"
 msgstr ""
 
 msgid "Track saved."
+msgstr ""
+
+#, python-format
+msgid ""
+"“%(name)s” still has %(missions)d missions, %(courses)d courses and "
+"%(certificates)d certificates. Delete or move them first, or hide the "
+"track instead."
+msgstr ""
+
+msgid "Track deleted."
 msgstr ""
 
 msgid "Mission saved."
@@ -231,9 +241,6 @@ msgid "Please give a reason."
 msgstr ""
 
 msgid "Thank you. A moderator will review the post."
-msgstr ""
-
-msgid "Course created. Now add modules and lessons."
 msgstr ""
 
 msgid "Add at least one lesson before publishing."
@@ -457,6 +464,9 @@ msgid "Active (otherwise 'coming soon')"
 msgstr ""
 
 msgid "Featured"
+msgstr ""
+
+msgid "Hidden (not shown to visitors)"
 msgstr ""
 
 msgid "Certificate"
@@ -1707,7 +1717,7 @@ msgstr ""
 msgid "New course"
 msgstr ""
 
-msgid "Curriculum builder"
+msgid "Modules & lessons"
 msgstr ""
 
 msgid "Preview"
@@ -2121,10 +2131,16 @@ msgstr ""
 msgid "Parent/teacher articles"
 msgstr ""
 
+msgid "hidden"
+msgstr ""
+
 msgid "active"
 msgstr ""
 
 msgid "coming soon"
+msgstr ""
+
+msgid "Delete this track? This cannot be undone."
 msgstr ""
 
 msgid "Mission"
@@ -2346,6 +2362,25 @@ msgid "New track"
 msgstr ""
 
 msgid "e.g. /guardians"
+msgstr ""
+
+msgid ""
+"A hidden track disappears from CyberHero but keeps its missions, learner "
+"progress and certificates. Use it instead of deleting a track that is in "
+"use."
+msgstr ""
+
+msgid "Delete track"
+msgstr ""
+
+#, python-format
+msgid ""
+"This track is still in use: %(missions)d missions, %(courses)d courses, "
+"%(certificates)d certificates. Delete or move them first, or tick "
+"“Hidden” above to take the track offline without losing anything."
+msgstr ""
+
+msgid "Nothing depends on this track yet, so it can be removed for good."
 msgstr ""
 
 msgid "Due"
@@ -2910,6 +2945,12 @@ msgstr ""
 msgid "Leave empty to generate from the title."
 msgstr ""
 
+msgid "No categories exist yet."
+msgstr ""
+
+msgid "Create categories in the admin panel."
+msgstr ""
+
 msgid "PNG, JPG or WebP up to 8 MB."
 msgstr ""
 
@@ -2964,9 +3005,6 @@ msgstr ""
 msgid "Reviewer note"
 msgstr ""
 
-msgid "hidden"
-msgstr ""
-
 msgid "Lesson"
 msgstr ""
 
@@ -2994,7 +3032,9 @@ msgstr ""
 msgid "Delete lesson"
 msgstr ""
 
-msgid "No modules yet. Add the first module on the right."
+msgid ""
+"No modules yet. Lessons live inside modules: add the first module on the "
+"right, then press “+ Lesson” on it."
 msgstr ""
 
 msgid "Assessments"
@@ -3474,6 +3514,15 @@ msgid ""
 "for families and schools."
 msgstr ""
 
+msgid "IO, the cybersecurity guide robot — press to hear more"
+msgstr ""
+
+msgid "Hide IO"
+msgstr ""
+
+msgid "Show IO"
+msgstr ""
+
 msgid "Downloadable materials and references from published courses."
 msgstr ""
 
@@ -3507,13 +3556,3 @@ msgstr ""
 msgid "Go to dashboard"
 msgstr ""
 
-# --- home page: IO, the welcome host (templates/main/home.html) ---
-
-msgid "IO, the cybersecurity guide robot — press to hear more"
-msgstr ""
-
-msgid "Hide IO"
-msgstr ""
-
-msgid "Show IO"
-msgstr ""

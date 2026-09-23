@@ -126,3 +126,15 @@ def test_review_requires_enrollment_and_is_moderated(client, demo, student):  # 
     # a second submission updates instead of duplicating
     post(client, f"/courses/{demo.slug}/review", {"rating": 4, "body": "Good"})
     assert db.session.query(Review).count() == 1
+
+
+def test_form_fields_never_render_none_attributes(client, demo, student):  # type: ignore[no-untyped-def]
+    # WTForms writes a None attribute out literally (placeholder="None"); the field
+    # macro must only pass attributes that have a value
+    for url in ("/auth/login", "/auth/register", "/courses/", "/auth/forgot-password"):
+        html = client.get(url).get_data(as_text=True)
+        assert '="None"' not in html, url
+    login(client, student)
+    for url in ("/profile/", "/courses/"):
+        html = client.get(url).get_data(as_text=True)
+        assert '="None"' not in html, url
