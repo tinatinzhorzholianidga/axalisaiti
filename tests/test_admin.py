@@ -626,9 +626,10 @@ def test_admin_can_add_a_track_hint_reaction(client, logged_in_admin, seeded):  
     )
     assert response.status_code == 302, response.data[:400]
     api = client.get("/api/v1/cyberhero/mascot").get_json()
-    assert api["reactions"]["tracks"]["kids"] == [
-        {"en": "Fufu the puppy is already in training.", "ka": "ლეკვი ფუფუ უკვე ვარჯიშობს."}
-    ]
+    # the seed already ships hints for this track; the new one joins the pool
+    assert {"en": "Fufu the puppy is already in training.", "ka": "ლეკვი ფუფუ უკვე ვარჯიშობს."} in (
+        api["reactions"]["tracks"]["kids"]
+    )
     # an unknown key is refused by the select
     response = post(
         client,

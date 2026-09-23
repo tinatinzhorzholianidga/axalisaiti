@@ -189,7 +189,105 @@
     "building": {
       "en": "Hold up - this area is still under construction! I'm working on it. 🚧",
       "ka": "მოიცადე - აქ ჯერ მშენებლობაა! უკვე ვმუშაობ. 🚧"
-    }
+    },
+    "track.guardians": [
+      {
+        "en": "First mission, Phishing Hunter: six messages land on your phone and some are traps. You're the hunter. 🎣",
+        "ka": "პირველი მისიაა „ფიშინგზე მონადირე“: ტელეფონზე ექვსი შეტყობინება მოგივა, ზოგი ხაფანგია. მონადირე შენ ხარ. 🎣"
+      },
+      {
+        "en": "In Fort Knox a machine guesses passwords billions of times a second. How long does yours hold? Come and see.",
+        "ka": "„ფორტ ნოქსში“ მანქანა წამში მილიარდობით პაროლს ცდის. შენი კი რამდენ ხანს გაუძლებს? მოდი, გავარკვიოთ."
+      },
+      {
+        "en": "Last comes the Guardian Exam: ten questions, 25 seconds each. Hit 80% and the certificate is yours.",
+        "ka": "„დამცველის გამოცდა“ გელოდება: ათი კითხვა, თითოზე 25 წამი. 80% — და სერტიფიკატი შენია. წინასწარ ვამაყობ."
+      }
+    ],
+    "track.parents": [
+      {
+        "en": "Sixteen calm lessons, no jargon. Start with the map of your teen's online world — no visa required. 🧭",
+        "ka": "თექვსმეტი მშვიდი გაკვეთილი, ჟარგონის გარეშე. დაიწყეთ მოზარდის ონლაინ სამყაროს რუკით — ვიზა არ დაგჭირდებათ. 🧭"
+      },
+      {
+        "en": "Home setup in 30 minutes: private profiles, a charging spot outside the bedrooms — seven steps, one evening.",
+        "ka": "„სახლის მოწყობა 30 წუთში“: დახურული პროფილები, დასატენი ადგილი საძინებლის გარეთ — შვიდი ნაბიჯი, ერთი საღამო."
+      },
+      {
+        "en": "A teacher? In Classroom mode you run any mission on one projector and the class votes on every choice.",
+        "ka": "მასწავლებელი ხართ? „საკლასო რეჟიმში“ ნებისმიერ მისიას ერთი პროექტორით ჩაატარებთ, კლასი კი კენჭს უყრის."
+      }
+    ],
+    "track.kids": [
+      {
+        "en": "Fufu the puppy is waiting: together you'll learn what stays secret online. Still building it — hang on. 🐣",
+        "ka": "ლეკვი ფუფუ გელოდება: მასთან ერთად ისწავლი, რა რჩება საიდუმლოდ ინტერნეტში. ჯერ ვაშენებ — ცოტაც მოიცადე. 🐣"
+      },
+      {
+        "en": "A pop-up says you won a prize? Here you'll learn to close tricky pop-ups. I'm still tightening the screws.",
+        "ka": "ფანჯარა გეუბნება, პრიზი მოიგეო? აქ ისწავლი, როგორ დახურო მატყუარა ფანჯრები. ჯერ ხრახნებს ვამაგრებ."
+      },
+      {
+        "en": "A stranger messaged you? Here you'll learn the right move: don't reply, tell a trusted adult. Opening soon.",
+        "ka": "უცნობმა მოგწერა? აქ ისწავლი სწორ სვლას: არ უპასუხო და სანდო უფროსს უთხარი. კარი მალე გაიღება."
+      }
+    ],
+    "track.cadets": [
+      {
+        "en": "Got your first phone? I'm building this course for exactly that: first accounts, first strong passwords. 🎮",
+        "ka": "პირველი ტელეფონი გაქვს? ამ კურსს სწორედ ამისთვის ვაწყობ: პირველი ანგარიშები, პირველი ძლიერი პაროლები. 🎮"
+      },
+      {
+        "en": "Not open yet, but here's the kind of scenario: a stranger in a game chat, a too-public profile. You decide.",
+        "ka": "ჯერ არ გახსნილა, სცენარები კი ასეთი იქნება: თამაშის ჩატში უცნობი, ზედმეტად ღია პროფილი. შენ წყვეტ."
+      },
+      {
+        "en": "Points, challenges, and the skill I care about most: spotting bullying and reporting it. Coming soon.",
+        "ka": "ქულები, გამოწვევები და ჩემთვის მთავარი უნარი: ბულინგის ამოცნობა და დაფიქსირება. მალე დაემატება — ვმუშაობ."
+      }
+    ],
+    "track.campus": [
+      {
+        "en": "Still in the works: the full student toolkit — a password manager, 2FA everywhere, public Wi-Fi rules. 🎓",
+        "ka": "სტუდენტების სრულ კურსს ჯერ ვაწყობ: პაროლების მენეჯერი, 2FA ყველა ანგარიშზე, საჯარო Wi-Fi-ის წესები. 🎓"
+      },
+      {
+        "en": "\"Won a scholarship, pay the fee first\"? Here you'll learn to spot job and scholarship scams. Opening soon.",
+        "ka": "„სტიპენდია მოიგე, ჯერ საფასური გადაიხადე“? სამსახურისა და სტიპენდიის თაღლითობას აქ ამოიცნობ. მალე გაიხსნება."
+      },
+      {
+        "en": "A deepfake in your feed, fake news in the chat? Here you'll learn to check before believing. Hang on a bit.",
+        "ka": "დიპფეიქი ლენტაში, ყალბი ამბავი ჩატში — აქ ისწავლი გადამოწმებას, სანამ დაიჯერებ. ჯერ ვმუშაობ, ცოტაც მოიცადე."
+      }
+    ],
+    "track.work": [
+      {
+        "en": "An invoice from 'the boss' asking for an urgent transfer? Here you'll learn to spot it. Still building it. 💼",
+        "ka": "„უფროსისგან“ მოსული ინვოისი სასწრაფო გადარიცხვის თხოვნით? აქ ისწავლი მის ამოცნობას. ჯერ ვაწყობ. 💼"
+      },
+      {
+        "en": "Phishing turns up at work too. Here you'll learn to spot it before anyone clicks. Not open yet — I'm on it.",
+        "ka": "ფიშინგი სამსახურშიც მოდის — აქ ისწავლი, როგორ ამოიცნო, სანამ ვინმე დააწკაპუნებს. ჯერ არ გახსნილა."
+      },
+      {
+        "en": "After work, home: you'll learn to secure your home network and protect your family online. Coming soon.",
+        "ka": "სამსახურის შემდეგ სახლიც: ისწავლი, როგორ დაიცვა სახლის ქსელი და ოჯახი ონლაინში. მალე დაემატება, გპირდები."
+      }
+    ],
+    "track.seniors": [
+      {
+        "en": "A call \"from the bank\" wants a code? Here you'll learn to spot scam calls, in large print. Still building. 🏡",
+        "ka": "„ბანკიდან“ გირეკავენ და კოდს გთხოვენ? აქ თაღლითური ზარის ამოცნობას ისწავლი, მსხვილი შრიფტით. ჯერ ვმუშაობ. 🏡"
+      },
+      {
+        "en": "This course's one rule: stop and verify first. While I'm still building it, that rule already works.",
+        "ka": "ამ კურსის მთავარი წესი: გაჩერდი და ჯერ გადაამოწმე. სანამ ვაშენებ, ეს წესი უკვე გამოგადგება."
+      },
+      {
+        "en": "An online friend swears love, then asks for money? Here you'll learn to see that trick coming. Opening soon.",
+        "ka": "ონლაინ ნაცნობი სიყვარულს გეფიცება და მერე ფულსაც გთხოვს? ამ ხრიკის ამოცნობას აქ ისწავლი. მალე გაიხსნება."
+      }
+    ]
   },
   "checklist": [
     {

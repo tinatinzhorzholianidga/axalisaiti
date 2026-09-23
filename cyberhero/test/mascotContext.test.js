@@ -43,11 +43,21 @@ describe('track hints', () => {
     expect(trackHint(withHints, tier, 2)).toEqual(lines[0]);
   });
 
-  it('falls back to the track intro, then its description, then nothing', () => {
-    expect(trackHint(mascot, tier, 0)).toEqual(tier.intro);
+  it('serves the seeded hints for every track', () => {
+    for (const id of ['guardians', 'parents', 'kids', 'cadets', 'campus', 'work', 'seniors']) {
+      const first = trackHint(mascot, { id }, 0);
+      expect(first?.en, id).toBeTruthy();
+      expect(first?.ka, id).toBeTruthy();
+      expect(trackHint(mascot, { id }, 3)).toEqual(first); // the pool wraps around
+    }
+  });
+
+  it('falls back to the track intro, then its description, then nothing (admin-created tracks)', () => {
+    const fresh = { ...tier, id: 'admin-made' }; // no hints in the mascot payload
+    expect(trackHint(mascot, fresh, 0)).toEqual(tier.intro);
     expect(trackHint(mascot, { id: 'x', desc: tier.desc }, 3)).toEqual(tier.desc);
     expect(trackHint(mascot, { id: 'x' }, 0)).toBeNull();
-    expect(trackHint(undefined, tier, 0)).toEqual(tier.intro);
+    expect(trackHint(undefined, fresh, 0)).toEqual(tier.intro);
     expect(trackHint(mascot, null, 0)).toBeNull();
   });
 
