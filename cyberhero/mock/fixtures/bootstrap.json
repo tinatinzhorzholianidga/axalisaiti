@@ -507,7 +507,7 @@
     "en": "Teachers & Parents",
     "ka": "მასწავლებლები და მშობლები"
    },
-   "route": "/parents",
+   "route": "/course/teachers-parents",
    "tag": {
     "en": "For the adults who help",
     "ka": "უფროსებისთვის, ვინც გვერდში დგას"

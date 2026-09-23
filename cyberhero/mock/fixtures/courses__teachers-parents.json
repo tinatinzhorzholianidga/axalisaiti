@@ -1,0 +1,298 @@
+{
+ "age_max": null,
+ "age_min": null,
+ "audience": {
+  "en": "For the adults who help",
+  "ka": "უფროსებისთვის, ვინც გვერდში დგას"
+ },
+ "color": "amber",
+ "description_html": {
+  "en": "<p>Sixteen short reads in three parts: understand the risks, act at home, and bring it to school. Each one ends with the matching Cyber Guardians mission your teen can play, so you see the same situation from both seats.</p>",
+  "ka": "<p>თექვსმეტი მოკლე საკითხავი სამ ნაწილად: გაიგეთ რისკები, იმოქმედეთ სახლში და წაიღეთ სკოლაში. თითოეულს თან ახლავს „კიბერ დამცველების“ შესაბამისი მისია, რომელსაც თქვენი მოზარდი ითამაშებს - ასე ერთსა და იმავე სიტუაციას ორივე მხრიდან დაინახავთ.</p>"
+ },
+ "difficulty": "beginner",
+ "emoji": "🧭",
+ "estimated_minutes": 98,
+ "is_featured": true,
+ "lesson_count": 16,
+ "mission_count": 0,
+ "missions": [],
+ "modules": [
+  {
+   "description": {
+    "en": "5-minute explainers: what each risk actually looks like and the warning signs.",
+    "ka": "5-წუთიანი განმარტებები: როგორ გამოიყურება თითოეული რისკი და რა ნიშნებს უნდა მიაქციოთ ყურადღება."
+   },
+   "lessons": [
+    {
+     "minutes": 6,
+     "slug": "a1",
+     "summary": {
+      "en": "Apps, group chats, gaming voice chats and algorithms - a calm map of the territory, and why being a guide beats being a gatekeeper.",
+      "ka": "აპლიკაციები, ჯგუფური ჩატები, თამაშების ხმოვანი ჩატები და ალგორითმები - ამ ტერიტორიის მშვიდი რუკა და იმის ახსნა, რატომ ჯობია იყოთ გზამკვლევი და არა დარაჯი."
+     },
+     "title": {
+      "en": "What your teen’s online world actually looks like",
+      "ka": "როგორ გამოიყურება სინამდვილეში თქვენი მოზარდის ონლაინ სამყარო"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 5,
+     "slug": "a2",
+     "summary": {
+      "en": "Free V-Bucks, fake giveaways, \"your card is blocked\" SMS - how scams reach kids, and the three rules that stop them.",
+      "ka": "უფასო V-Bucks, ყალბი გათამაშებები, SMS „თქვენი ბარათი დაიბლოკა“ - როგორ წვდება თაღლითობა ბავშვებს და სამი წესი, რომელიც მას აჩერებს."
+     },
+     "title": {
+      "en": "Phishing & scams that target kids",
+      "ka": "ფიშინგი და თაღლითობები, რომლებიც ბავშვებს ემიზნება"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 7,
+     "slug": "a3",
+     "summary": {
+      "en": "The fastest-growing threat to teens - and the script that saves lives: never pay, don’t delete, it’s not their fault.",
+      "ka": "ყველაზე სწრაფად მზარდი საფრთხე მოზარდებისთვის - და სიტყვები, რომლებიც შველის: არასოდეს გადაიხადო, არ წაშალო, ეს მისი ბრალი არ არის."
+     },
+     "title": {
+      "en": "Sextortion & blackmail: what every parent must know",
+      "ka": "სექსტორცია და შანტაჟი: რა უნდა იცოდეს ყველა მშობელმა"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 6,
+     "slug": "a4",
+     "summary": {
+      "en": "Group-chat pile-ons, fake accounts, spreading screenshots - how to tell drama from bullying, and the four steps that actually help.",
+      "ka": "ერთობლივი დაცინვა ჯგუფურ ჩატში, ყალბი ანგარიშები, სქრინშოტების გავრცელება - როგორ განვასხვავოთ დრამა ბულინგისგან და ოთხი ნაბიჯი, რომელიც ნამდვილად შველის."
+     },
+     "title": {
+      "en": "Cyberbullying & digital drama: a parent’s guide",
+      "ka": "კიბერბულინგი და ციფრული დრამა: გზამკვლევი მშობლებისთვის"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 6,
+     "slug": "a5",
+     "summary": {
+      "en": "Groomers don’t look like strangers - they look like the friend who finally understands. Learn the pattern, the red-flag phrases, and the calm response that keeps your child talking to you.",
+      "ka": "გრუმერები უცნობებს არ ჰგვანან - ისინი ჰგვანან მეგობარს, რომელიც ბოლოს და ბოლოს გაგიგებს. გაეცანით სქემას, საგანგაშო ფრაზებს და მშვიდ რეაქციას, რომლის წყალობითაც შვილი საუბარს არ შეწყვეტს თქვენთან."
+     },
+     "title": {
+      "en": "Grooming & online strangers: how trust is used as a weapon",
+      "ka": "გრუმინგი და ონლაინ უცნობები: როგორ იქცევა ნდობა იარაღად"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 7,
+     "slug": "a6",
+     "summary": {
+      "en": "Stop hunting for the magic hour limit. What matters is what the phone displaces - sleep, movement, real friends - and what your teen is actually watching.",
+      "ka": "ნუღარ ეძებთ ჯადოსნურ საათობრივ ლიმიტს. მნიშვნელოვანია, რას ანაცვლებს ტელეფონი - ძილს, მოძრაობას, ნამდვილ მეგობრებს - და რას უყურებს რეალურად თქვენი შვილი."
+     },
+     "title": {
+      "en": "Screen time, sleep & mental health: what actually matters",
+      "ka": "ეკრანთან გატარებული დრო, ძილი და ფსიქიკური ჯანმრთელობა: რა არის სინამდვილეში მნიშვნელოვანი"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 6,
+     "slug": "a7",
+     "summary": {
+      "en": "The feed is built to hold attention, not to tell the truth. Here’s how to raise a teen who checks before believing - without a single lecture.",
+      "ka": "ლენტა ყურადღების შესაკავებლად არის აწყობილი და არა სიმართლის სათქმელად. აი, როგორ გაზარდოთ მოზარდი, რომელიც დაჯერებამდე ამოწმებს - ერთი დარიგების გარეშეც."
+     },
+     "title": {
+      "en": "Fake news, deepfakes & dangerous trends: a parent’s guide",
+      "ka": "ყალბი ამბები, დიპფეიკები და საშიში ტრენდები: გზამკვლევი მშობლებისთვის"
+     },
+     "type": "reading"
+    }
+   ],
+   "slug": "m1",
+   "title": {
+    "en": "Understand the risks",
+    "ka": "გაიგეთ რისკები"
+   }
+  },
+  {
+   "description": {
+    "en": "Conversation scripts, checklists and home setup - tools you can use today.",
+    "ka": "საუბრის სცენარები, ჩეკლისტები და სახლის მოწყობა - ხელსაწყოები, რომლებსაც დღესვე გამოიყენებთ."
+   },
+   "lessons": [
+    {
+     "minutes": 7,
+     "slug": "b1",
+     "summary": {
+      "en": "Interrogation closes the door; empathy opens it. Word-for-word openers for ages 8-12 and 13-18 - and the phrases that guarantee silence.",
+      "ka": "დაკითხვა კარს კეტავს, თანაგრძნობა კი აღებს. სიტყვასიტყვითი ფრაზები 8-12 და 13-18 წლის შვილებთან სასაუბროდ - და ის ფრაზები, რომლებიც დუმილის გარანტიაა."
+     },
+     "title": {
+      "en": "How to talk so teens listen",
+      "ka": "როგორ ისაუბროთ ისე, რომ მოზარდმა მოგისმინოთ"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 6,
+     "slug": "b2",
+     "summary": {
+      "en": "Monitoring is scaffolding, not surveillance: strong support early, less as they grow - and rules you agree on together, not impose.",
+      "ka": "მონიტორინგი ხარაჩოა და არა თვალთვალი: მეტი მხარდაჭერა ადრეულ ასაკში, ნაკლები - ზრდასთან ერთად, წესები კი ერთად შეთანხმებული და არა თავსმოხვეული."
+     },
+     "title": {
+      "en": "Monitor or trust? Finding the balance",
+      "ka": "კონტროლი თუ ნდობა? ბალანსის პოვნა"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 7,
+     "slug": "b3",
+     "summary": {
+      "en": "Seven concrete steps - private profiles, 2FA, purchase approvals, router basics, and a charging spot outside the bedrooms - all done in one evening.",
+      "ka": "შვიდი კონკრეტული ნაბიჯი - დახურული პროფილები, 2FA, შესყიდვების დადასტურება, როუტერის საფუძვლები და დასატენი ადგილი საძინებლების გარეთ - ყველაფერი ერთ საღამოში."
+     },
+     "title": {
+      "en": "Home setup in 30 minutes",
+      "ka": "სახლის მოწყობა 30 წუთში"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 5,
+     "slug": "b4",
+     "summary": {
+      "en": "One sign is usually just being a teenager. A cluster of signs is a conversation. What to watch for - and how to open it calmly.",
+      "ka": "ერთი ნიშანი, როგორც წესი, უბრალოდ მოზარდობაა. ნიშნების ერთობლიობა კი - საუბრის მიზეზი. რას მიაქციოთ ყურადღება - და როგორ დაიწყოთ საუბარი მშვიდად."
+     },
+     "title": {
+      "en": "Warning signs checklist",
+      "ka": "გამაფრთხილებელი ნიშნების ჩამონათვალი"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 8,
+     "slug": "b5",
+     "summary": {
+      "en": "Numbered steps for the five worst moments - bullying, blackmail, a hacked account, a stranger - with the exact contacts in Georgia.",
+      "ka": "ნაბიჯ-ნაბიჯ გეგმა ხუთი ყველაზე მძიმე სიტუაციისთვის - ბულინგი, შანტაჟი, გატეხილი ანგარიში, უცნობი - საქართველოს ზუსტი საკონტაქტო ინფორმაციით."
+     },
+     "title": {
+      "en": "Emergency playbook: \"It already happened\"",
+      "ka": "საგანგებო გეგმა: „უკვე მოხდა“"
+     },
+     "type": "reading"
+    }
+   ],
+   "slug": "m2",
+   "title": {
+    "en": "Act",
+    "ka": "იმოქმედეთ"
+   }
+  },
+  {
+   "description": {
+    "en": "Classroom guides, lesson plans and materials for teachers.",
+    "ka": "საკლასო გზამკვლევები, გაკვეთილის გეგმები და მასალები მასწავლებლებისთვის."
+   },
+   "lessons": [
+    {
+     "minutes": 5,
+     "slug": "c1",
+     "summary": {
+      "en": "One computer, one projector, one class that votes on every choice. No lab, no student accounts, no grading - just fifteen well-spent minutes.",
+      "ka": "ერთი კომპიუტერი, ერთი პროექტორი და კლასი, რომელიც ყველა არჩევანზე კენჭს უყრის. არც კომპიუტერული ლაბორატორია, არც მოსწავლეთა ანგარიშები, არც ნიშნები - მხოლოდ თხუთმეტი კარგად დახარჯული წუთი."
+     },
+     "title": {
+      "en": "Classroom mode: run any mission on a projector",
+      "ka": "საკლასო რეჟიმი: ჩაატარეთ ნებისმიერი მისია პროექტორით"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 6,
+     "slug": "c2",
+     "summary": {
+      "en": "One 45-minute skeleton that works for every mission, plus printable worksheets and ways to assess without testing fear.",
+      "ka": "ერთი 45-წუთიანი კარკასი, რომელიც ყველა მისიას ერგება, ამის გარდა - დასაბეჭდი სამუშაო ფურცლები და შეფასების გზები, რომლებიც შიშს არ ამოწმებს."
+     },
+     "title": {
+      "en": "Lesson plans & worksheets",
+      "ka": "გაკვეთილის გეგმები და სამუშაო ფურცლები"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 7,
+     "slug": "c3",
+     "summary": {
+      "en": "After any online-safety lesson, expect a student at your desk. The first sixty seconds decide everything - here is exactly what to say and do.",
+      "ka": "ონლაინ უსაფრთხოების ნებისმიერი გაკვეთილის შემდეგ ელოდეთ მოსწავლეს თქვენს მაგიდასთან. პირველი სამოცი წამი ყველაფერს წყვეტს - აქ ზუსტად წერია, რა თქვათ და რა გააკეთოთ."
+     },
+     "title": {
+      "en": "Handling a disclosure: when a student tells you something happened",
+      "ka": "როგორ მივიღოთ განდობა: როცა მოსწავლე გეუბნებათ, რომ რაღაც მოხდა"
+     },
+     "type": "reading"
+    },
+    {
+     "minutes": 4,
+     "slug": "c4",
+     "summary": {
+      "en": "The Guardian Certificate as a class goal, the Family Media Agreement for parent evenings, and why a student-made poster beats anything you can buy.",
+      "ka": "დამცველის სერტიფიკატი კლასის მიზნად, ოჯახის მედია-შეთანხმება მშობელთა კრებისთვის და რატომ სჯობს მოსწავლის გაკეთებული პლაკატი ყველაფერს, რისი ყიდვაც შეიძლება."
+     },
+     "title": {
+      "en": "Posters & certificates: what to print and what to make",
+      "ka": "პლაკატები და სერტიფიკატები: რა დაბეჭდოთ და რა შექმნათ"
+     },
+     "type": "reading"
+    }
+   ],
+   "slug": "m3",
+   "title": {
+    "en": "For school",
+    "ka": "სკოლისთვის"
+   }
+  }
+ ],
+ "objectives": {
+  "en": [
+   "5-minute explainers: what each risk actually looks like and the warning signs.",
+   "Conversation scripts, checklists and home setup - tools you can use today.",
+   "Classroom guides, lesson plans and materials for teachers."
+  ],
+  "ka": [
+   "5-წუთიანი განმარტებები: როგორ გამოიყურება თითოეული რისკი და რა ნიშნებს უნდა მიაქციოთ ყურადღება.",
+   "საუბრის სცენარები, ჩეკლისტები და სახლის მოწყობა - ხელსაწყოები, რომლებსაც დღესვე გამოიყენებთ.",
+   "საკლასო გზამკვლევები, გაკვეთილის გეგმები და მასალები მასწავლებლებისთვის."
+  ]
+ },
+ "short_description": {
+  "en": "Calm, practical guidance for the adults in a child's life. No tech jargon, no blame - just what the risks look like and what to do about them.",
+  "ka": "მშვიდი, პრაქტიკული გზამკვლევი უფროსებისთვის. ტექნიკური ჟარგონისა და დადანაშაულების გარეშე - მხოლოდ ის, თუ როგორ გამოიყურება რისკები და რა უნდა გააკეთოთ."
+ },
+ "slug": "teachers-parents",
+ "tags": [
+  "parents",
+  "teachers",
+  "wellbeing",
+  "scams",
+  "school"
+ ],
+ "title": {
+  "en": "Teachers & Parents",
+  "ka": "მასწავლებლები და მშობლები"
+ },
+ "track": "parents"
+}

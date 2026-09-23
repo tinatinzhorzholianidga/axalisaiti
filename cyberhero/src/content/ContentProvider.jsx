@@ -1,4 +1,4 @@
-// All CyberHero content (tracks, missions, articles, agreement, mascot,
+// All CyberHero content (tracks, missions, courses, agreement, mascot,
 // courses…) comes from the Flask API. This provider loads the bootstrap
 // payload once and gives pages a small cached fetch helper.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
@@ -118,8 +118,6 @@ export function useResource(path, params, { enabled = true } = {}) {
 /* Convenience hooks that mirror the original content modules */
 export const useMissions = (track = 'guardians') => useResource('/missions', { track })
 export const useMission = (slug) => useResource(slug ? `/missions/${encodeURIComponent(slug)}` : null)
-export const useArticles = () => useResource('/articles')
-export const useArticle = (slug) => useResource(slug ? `/articles/${encodeURIComponent(slug)}` : null)
 export const useAgreement = () => useResource('/agreement')
 export const useResources = (kind) => useResource(`/resources/${kind}`)
 export const useCourses = (track) => useResource('/courses', track ? { track } : undefined)
@@ -139,8 +137,4 @@ export function missionMax(mission) {
     if (round.type === 'branch') return sum + (round.max || 0)
     return sum
   }, 0)
-}
-
-export function articlesInShelf(articles, shelf) {
-  return (articles || []).filter((a) => a.shelf === shelf).sort((x, y) => x.order - y.order)
 }

@@ -232,7 +232,7 @@
       "color": "amber",
       "emoji": "🧭",
       "active": true,
-      "route": "/parents",
+      "route": "/course/teachers-parents",
       "tag": {
         "en": "For the adults who help",
         "ka": "უფროსებისთვის, ვინც გვერდში დგას"

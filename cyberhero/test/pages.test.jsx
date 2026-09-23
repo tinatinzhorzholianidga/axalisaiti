@@ -88,10 +88,21 @@ describe('pages', () => {
     await waitFor(() => expect(document.querySelector('.play-card')).not.toBeNull());
   });
 
-  it('renders an article with its blocks', async () => {
+  it('renders a parent/teacher read as a lesson of the Teachers & Parents course', async () => {
+    renderApp('/learn/teachers-parents/a1', { locale: 'en' });
+    const lesson = fixture('courses/teachers-parents/lessons/a1');
+    await waitFor(() => expect(screen.getByRole('heading', { level: 1, name: lesson.title.en })).toBeInTheDocument());
+    expect(document.querySelector('.article-body .callout')).not.toBeNull();
+    expect(screen.getByRole('button', { name: /Print this page/ })).toBeInTheDocument();
+  });
+
+  it('sends the old article links to the course', async () => {
     renderApp('/parents/a1', { locale: 'en' });
-    const article = fixture('articles/a1');
-    await waitFor(() => expect(screen.getByRole('heading', { level: 1, name: article.title.en })).toBeInTheDocument());
+    const lesson = fixture('courses/teachers-parents/lessons/a1');
+    await waitFor(() => expect(screen.getByRole('heading', { level: 1, name: lesson.title.en })).toBeInTheDocument());
+    renderApp('/parents', { locale: 'en' });
+    const course = fixture('courses/teachers-parents');
+    await waitFor(() => expect(screen.getByRole('heading', { level: 2, name: course.title.en })).toBeInTheDocument());
   });
 
   it('shows the emergency page with the configured number', async () => {

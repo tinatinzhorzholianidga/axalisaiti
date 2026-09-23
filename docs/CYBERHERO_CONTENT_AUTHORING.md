@@ -100,20 +100,18 @@ Mission types: `quiz` (question rounds only), `branching` (conversation only), `
 Every branching mission must have exactly one `is_start` node, every `next_key`
 must exist, and every path must reach an ending.
 
-### `articles.json` (parent / teacher knowledge base)
-Sections and codes: **understand** A1–A7 · **act** B1–B5 · **school** C1–C4.
-```json
-[{
-  "slug": "how-children-use-the-internet", "code": "A1", "section": "understand",
-  "audience": "both", "sort_order": 1, "reading_minutes": 6, "icon": "eye", "color": "sky",
-  "is_sensitive": false,
-  "title": {"ka": "…", "en": "…"}, "summary": {"ka": "…", "en": "…"},
-  "body": {"ka": "<p>…</p>", "en": "<p>…</p>"},
-  "key_takeaways": {"ka": ["…"], "en": ["…"]},
-  "sources": [{"title": "…", "publisher": "UNICEF", "url": "https://www.unicef.org/", "year": 2023}],
-  "related_missions": ["phishing-hunter"]
-}]
-```
+### Parent / teacher reads (part of `courses.json`)
+The sixteen parent/teacher reads are **lessons of the `teachers-parents`
+course** (track `parents`), not a separate content type: three modules that
+mirror the former shelves (*Understand the risks* A1–A7 · *Act* B1–B5 · *For
+school* C1–C4) with one reading lesson per article, `slug` = the old code
+(`a1` … `c4`). Each lesson's `content` is limited HTML: the lead paragraph,
+`h3` headings, paragraphs, lists, callouts as
+`<div class="callout callout-<note|script|do|dont|emergency>">…</div>` and a
+closing *Sources* list. Admins edit them like any other lesson in the
+course builder (`/instructor/courses/<id>/builder`); the Teachers & Parents
+card on the CyberHero home opens the course (`route` of the `parents` tier),
+and the old `/cyberhero/parents/<code>` links redirect to the lessons.
 
 ### `resources.json`
 `kind` ∈ `emergency_contact | playbook | family_agreement | guide`.

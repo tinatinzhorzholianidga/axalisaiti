@@ -9,8 +9,9 @@ const ROUTES = [
   ['/track/kids', 'coming-soon track'],
   ['/guardians', 'guardians map'],
   ['/guardians/mission/g1', 'mission'],
-  ['/parents', 'parents hub'],
-  ['/parents/a1', 'article'],
+  ['/course/teachers-parents', 'teachers & parents course'],
+  ['/learn/teachers-parents/a1', 'parent read'],
+  ['/parents', 'legacy parents link'],
   ['/parents/agreement', 'family agreement'],
   ['/courses', 'courses'],
   ['/course/cyber-guardians', 'course'],
@@ -21,8 +22,8 @@ const ROUTES = [
 ];
 
 const TITLES = {
-  ka: { '/': 'ისწავლე უსაფრთხოება', '/guardians': 'კიბერ დამცველები', '/parents': 'მასწავლებლები და მშობლები', '/emergency': 'გადაუდებელი დახმარება', '/does-not-exist': 'გვერდი ვერ მოიძებნა' },
-  en: { '/': 'Learn to stay safe', '/guardians': 'Cyber Guardians', '/parents': 'Teachers & Parents', '/emergency': 'Emergency help', '/does-not-exist': 'Page not found' },
+  ka: { '/': 'ისწავლე უსაფრთხოება', '/guardians': 'კიბერ დამცველები', '/course/teachers-parents': 'მასწავლებლები და მშობლები', '/parents': 'მასწავლებლები და მშობლები', '/emergency': 'გადაუდებელი დახმარება', '/does-not-exist': 'გვერდი ვერ მოიძებნა' },
+  en: { '/': 'Learn to stay safe', '/guardians': 'Cyber Guardians', '/course/teachers-parents': 'Teachers & Parents', '/parents': 'Teachers & Parents', '/emergency': 'Emergency help', '/does-not-exist': 'Page not found' },
 };
 
 function watchErrors(page) {

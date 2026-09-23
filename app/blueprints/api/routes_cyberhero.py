@@ -94,20 +94,6 @@ def cyberhero_mission(slug: str):  # type: ignore[no-untyped-def]
     return jsonify(ch.serialize_mission(mission))
 
 
-@bp.get(f"{PREFIX}/articles")
-def cyberhero_articles():  # type: ignore[no-untyped-def]
-    shelf = request.args.get("shelf") or None
-    return jsonify({"items": [ch.serialize_article_meta(a) for a in ch.articles(shelf)]})
-
-
-@bp.get(f"{PREFIX}/articles/<slug>")
-def cyberhero_article(slug: str):  # type: ignore[no-untyped-def]
-    article = ch.article_by_slug(slug)
-    if article is None or not article.is_published:
-        return api_error(404, "Article not found")
-    return jsonify(ch.serialize_article(article))
-
-
 @bp.get(f"{PREFIX}/agreement")
 def cyberhero_agreement():  # type: ignore[no-untyped-def]
     data = ch.agreement()

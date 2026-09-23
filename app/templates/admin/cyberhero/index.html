@@ -13,7 +13,6 @@
 <div class="metric-grid">
   <div class="stats-card"><div class="value">{{ tracks|length }}</div><div class="label">{{ _('Age tracks') }}</div></div>
   <div class="stats-card"><div class="value">{{ missions|length }}</div><div class="label">{{ _('Missions') }}</div></div>
-  <div class="stats-card"><div class="value">{{ articles|length }}</div><div class="label">{{ _('Parent/teacher articles') }}</div></div>
   <div class="stats-card"><div class="value">{{ stats.certificates }}</div><div class="label">{{ _('Certificates issued') }}</div></div>
 </div>
 <div class="two-col">
@@ -30,11 +29,6 @@
         {% for m in missions %}<tr><td>{{ m.sort_order }}</td><td>{{ m.emoji }} {{ m.name('ka') }} <span class="text-muted">/ {{ m.name('en') }}</span><br><code class="small">{{ m.slug }}</code></td><td>{{ m.track.slug }}</td><td>{{ m.rounds|length }} ({{ m.max_points }} {{ _('pts') }})</td><td>{% if m.is_final %}<span class="chip chip-purple">final</span>{% endif %}{% if m.is_sensitive %}<span class="chip chip-warning">sensitive</span>{% endif %}{% if not m.is_published %}<span class="chip chip-danger">hidden</span>{% endif %}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.cyber_mission', mission_id=m.id) }}">{{ _('Edit') }}</a></td></tr>{% endfor %}
       </tbody></table></div>
     </div>
-    <div class="panel">
-      <div class="panel-title"><h2>{{ _('Parent & teacher articles') }}</h2><a class="btn btn-outline btn-sm" href="{{ url_for('admin.cyber_article') }}">{{ icon('plus') }} {{ _('Article') }}</a></div>
-      <div class="table-wrap"><table class="table"><thead><tr><th>{{ _('Code') }}</th><th>{{ _('Title') }}</th><th>{{ _('Shelf') }}</th><th>{{ _('Blocks') }}</th><th></th></tr></thead><tbody>
-        {% for a in articles %}<tr><td><code>{{ a.code }}</code></td><td>{{ a.emoji }} {{ a.title('ka') }}<br><span class="text-muted small">{{ a.title('en') }}</span></td><td>{{ a.shelf }}</td><td>{{ a.blocks|length }}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.cyber_article', article_id=a.id) }}">{{ _('Edit') }}</a></td></tr>{% endfor %}
-      </tbody></table></div>
     </div>
   </div>
   <aside>

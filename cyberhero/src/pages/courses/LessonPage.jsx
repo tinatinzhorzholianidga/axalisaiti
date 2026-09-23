@@ -42,6 +42,9 @@ export default function LessonPage() {
         <div className="article-body" dangerouslySetInnerHTML={{ __html: html }} />
 
         <div className="article-actions lesson-actions">
+          <button type="button" className="btn-ghost" onClick={() => window.print()}>
+            🖨️ {t('parents.printThis')}
+          </button>
           {done ? (
             <span className="feedback ok lesson-done" role="status">
               ✅ {t('courses.done')}

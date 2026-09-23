@@ -3,8 +3,9 @@
 The youth/family product of the platform: a React 18 + Vite 5 single-page app
 served by Flask at `/cyberhero/`. It keeps the original "Candy Clay" design
 (lavender claymorphism, IO the robot mascot) and reads **all content from the
-platform API** (`/api/v1/cyberhero/*`), so tracks, missions, articles, the
-family agreement, mascot tips and courses are edited in the admin panel.
+platform API** (`/api/v1/cyberhero/*`), so tracks, missions, courses (including
+the Teachers & Parents reads), the family agreement and mascot tips are edited
+in the admin panel.
 
 ```
 cyberhero/
@@ -100,6 +101,6 @@ python scripts/dump_cyberhero_fixtures.py     # from the repository root
 
 The API keeps the shape of the original content modules: every text leaf is
 `{ "en": "...", "ka": "..." }`, missions carry `rounds[]` of type
-`choice | flags | builder | branch`, articles are `body[]` blocks of type
-`h2 | p | list | callout`. See `docs/CYBERHERO_API.md` and
+`choice | flags | builder | branch`, and lessons carry sanitised HTML
+`content` (the parent/teacher reads are lessons of the `teachers-parents` course). See `docs/CYBERHERO_API.md` and
 `docs/CYBERHERO_CONTENT_AUTHORING.md` at the repository root.

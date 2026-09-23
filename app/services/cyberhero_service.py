@@ -24,9 +24,6 @@ from app.models import (
     CourseTranslation,
     CyberAgreementClause,
     CyberAgreementSection,
-    CyberArticle,
-    CyberArticleBlock,
-    CyberArticleSource,
     CyberBranch,
     CyberBranchChoice,
     CyberBranchMessage,
@@ -250,41 +247,6 @@ def seed_missions(data: list[dict]) -> int:
     return created
 
 
-def seed_articles(data: list[dict]) -> int:
-    created = 0
-    for a in data:
-        article, is_new = _upsert(CyberArticle, slug=a["id"])
-        created += int(is_new)
-        article.shelf = a["shelf"]
-        article.sort_order = int(a.get("order") or 0)
-        article.emoji = a.get("emoji", "📖")
-        article.color = a.get("color", "blue")
-        article.minutes = int(a.get("minutes") or 5)
-        article.mission_slug = a.get("mission")
-        article.is_priority = bool(a.get("priority"))
-        for field in ("title", "teaser", "lead"):
-            _set_bilingual(article, field, a.get(field))
-        db.session.flush()
-        article.blocks.clear()
-        article.sources.clear()
-        for i, block in enumerate(a.get("body", []), start=1):
-            row = CyberArticleBlock(
-                sort_order=i,
-                block_type=block["type"],
-                variant=block.get("variant"),
-                ordered=bool(block.get("ordered")),
-                items=[_pair(_ka(x), _en(x)) for x in block.get("items", [])],
-                paragraphs=[_pair(_ka(x), _en(x)) for x in block.get("ps", [])],
-            )
-            _set_bilingual(row, "title", block.get("title"))
-            _set_bilingual(row, "text", block.get("text"))
-            article.blocks.append(row)
-        for i, src in enumerate(a.get("sources", []), start=1):
-            article.sources.append(CyberArticleSource(sort_order=i, citation=str(src)[:500]))
-    db.session.flush()
-    return created
-
-
 def seed_agreement(data: dict) -> int:
     resource, is_new = _upsert(CyberSafetyResource, slug="family-media-agreement")
     resource.kind = "family_agreement"
@@ -459,7 +421,6 @@ def seed_all(seed_dir: Path | None = None, actor: User | None = None) -> dict[st
     summary = {
         "tracks": seed_tracks(load_seed("tiers.json", seed_dir)),
         "missions": seed_missions(load_seed("missions.json", seed_dir)),
-        "articles": seed_articles(load_seed("articles.json", seed_dir)),
         "agreement": seed_agreement(load_seed("agreement.json", seed_dir)),
         "resources": seed_resources(load_seed("resources.json", seed_dir)),
         "mascot_entries": seed_mascot(load_seed("mascot.json", seed_dir)),
@@ -649,67 +610,6 @@ def serialize_mission(m: CyberMission) -> dict:
     help_strip = _pair_or_none(m.help_strip_ka, m.help_strip_en)
     if help_strip:
         data["helpStrip"] = help_strip
-    return data
-
-
-def articles(shelf: str | None = None) -> list[CyberArticle]:
-    stmt = (
-        select(CyberArticle)
-        .where(CyberArticle.is_published.is_(True))
-        .order_by(CyberArticle.shelf, CyberArticle.sort_order)
-    )
-    if shelf:
-        stmt = stmt.where(CyberArticle.shelf == shelf.upper())
-    return list(db.session.execute(stmt).scalars())
-
-
-def article_by_slug(slug: str) -> CyberArticle | None:
-    return db.session.execute(
-        select(CyberArticle).where(CyberArticle.slug == slug)
-    ).scalar_one_or_none()
-
-
-def serialize_article_meta(a: CyberArticle) -> dict:
-    data = {
-        "id": a.slug,
-        "shelf": a.shelf,
-        "order": a.sort_order,
-        "emoji": a.emoji,
-        "color": a.color,
-        "minutes": a.minutes,
-        "mission": a.mission_slug,
-        "title": a.pair("title"),
-        "teaser": a.pair("teaser"),
-    }
-    if a.is_priority:
-        data["priority"] = True
-    return data
-
-
-def serialize_article(a: CyberArticle) -> dict:
-    data = serialize_article_meta(a)
-    blocks = []
-    for b in a.blocks:
-        block: dict[str, Any] = {"type": b.block_type}
-        if b.block_type in {"h2", "p"}:
-            block["text"] = b.pair("text")
-        if b.block_type == "list":
-            block["items"] = b.items
-            if b.ordered:
-                block["ordered"] = True
-        if b.block_type == "callout":
-            block["variant"] = b.variant or "note"
-            block["title"] = b.pair("title")
-            if b.paragraphs:
-                block["ps"] = b.paragraphs
-            if b.items:
-                block["items"] = b.items
-            if b.ordered:
-                block["ordered"] = True
-        blocks.append(block)
-    data["lead"] = a.pair("lead")
-    data["body"] = blocks
-    data["sources"] = [s.citation for s in a.sources]
     return data
 
 

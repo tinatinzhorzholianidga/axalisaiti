@@ -11,7 +11,6 @@ from app.extensions import db
 from app.models import (
     AuditLog,
     Category,
-    CyberArticle,
     CyberMission,
     CyberTrack,
     FeatureFlag,
@@ -43,7 +42,6 @@ ADMIN_PAGES = [
     "/admin/cyberhero/",
     "/admin/cyberhero/tracks/new",
     "/admin/cyberhero/missions/new",
-    "/admin/cyberhero/articles/new",
     "/admin/cyberhero/resources/new",
     "/admin/cyberhero/mascot/",
     "/admin/cyberhero/knowledge/",
@@ -90,7 +88,6 @@ def test_all_admin_pages_render(client, logged_in_admin, seeded, lang):  # type:
     # detail pages for seeded content
     track = db.session.query(CyberTrack).first()
     mission = db.session.query(CyberMission).first()
-    article = db.session.query(CyberArticle).first()
     user = db.session.query(User).first()
     category = db.session.query(Category).first()
     from app.models import Course
@@ -101,9 +98,6 @@ def test_all_admin_pages_render(client, logged_in_admin, seeded, lang):  # type:
         f"/admin/cyberhero/missions/{mission.id}",
         f"/admin/cyberhero/missions/{mission.id}/rounds/{mission.rounds[0].id}",
         f"/admin/cyberhero/missions/{mission.id}/rounds/new",
-        f"/admin/cyberhero/articles/{article.id}",
-        f"/admin/cyberhero/articles/{article.id}/blocks/{article.blocks[0].id}",
-        f"/admin/cyberhero/articles/{article.id}/blocks/new",
         f"/admin/users/{user.id}",
         f"/admin/categories/{category.id}",
         f"/admin/courses/{course.id}",
@@ -487,43 +481,6 @@ def test_cyberhero_content_editing(client, logged_in_admin, seeded):  # type: ig
     assert response.status_code == 302
     assert client.get("/api/v1/cyberhero/missions/new-mission").status_code == 404
 
-    # article + block
-    response = post(
-        client,
-        "/admin/cyberhero/articles/new",
-        {
-            "slug": "new-article",
-            "shelf": "A",
-            "sort_order": "1",
-            "emoji": "📘",
-            "color": "blue",
-            "minutes": "4",
-            "is_published": "y",
-            "title_ka": "სტატია",
-            "title_en": "Article",
-            "teaser_ka": "თიზერი",
-            "teaser_en": "Teaser",
-            "sources": "https://example.org/a",
-        },
-    )
-    assert response.status_code == 302, response.data[:500]
-    article = db.session.query(CyberArticle).filter_by(slug="new-article").one()
-    response = post(
-        client,
-        f"/admin/cyberhero/articles/{article.id}/blocks/new",
-        {
-            "block_type": "list",
-            "variant": "note",
-            "ordered": "y",
-            "items_ka": "ერთი\nორი",
-            "items_en": "One\nTwo",
-        },
-    )
-    assert response.status_code == 302, response.data[:500]
-    api = client.get("/api/v1/cyberhero/articles/new-article").get_json()
-    assert api["body"][0]["type"] == "list" and api["body"][0]["ordered"] is True
-    assert api["body"][0]["items"][1]["en"] == "Two"
-    assert api["sources"] == ["https://example.org/a"]
     assert mission is not None
 
 

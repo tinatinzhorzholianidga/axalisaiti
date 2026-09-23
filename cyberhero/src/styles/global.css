@@ -1107,7 +1107,16 @@ a {
   margin-bottom: 0;
 }
 
-.callout.script {
+/* Lesson HTML from the course builder keeps only `callout*` classes, so the
+   variants also exist as `callout-<variant>` (see sanitize.py). */
+.callout.note,
+.callout-note {
+  background: #fbfaff;
+  border-color: #e4e0f7;
+}
+
+.callout.script,
+.callout-script {
   background: #f3f2ff;
   border-color: #dcd7f8;
 }
@@ -1116,12 +1125,14 @@ a {
   color: #4d3fd1;
 }
 
-.callout.script p {
+.callout.script p,
+.callout-script p {
   font-style: italic;
   color: var(--ink);
 }
 
-.callout.do {
+.callout.do,
+.callout-do {
   background: #e9fcf3;
   border-color: #b9ecd4;
 }
@@ -1130,7 +1141,8 @@ a {
   color: var(--good-ink);
 }
 
-.callout.dont {
+.callout.dont,
+.callout-dont {
   background: #ffedf2;
   border-color: #f8c9d7;
 }
@@ -1148,7 +1160,8 @@ a {
   color: #8a5a00;
 }
 
-.callout.emergency {
+.callout.emergency,
+.callout-emergency {
   background: #fff2ef;
   border-color: #f7bcb1;
 }
@@ -1157,7 +1170,8 @@ a {
   color: #b3261e;
 }
 
-.callout.emergency ol {
+.callout.emergency ol,
+.callout-emergency ol {
   font-weight: 600;
   color: var(--ink);
 }

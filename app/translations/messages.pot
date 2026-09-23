@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-23 09:27+0000\n"
+"POT-Creation-Date: 2026-09-23 09:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,12 +99,6 @@ msgid "Round saved."
 msgstr ""
 
 msgid "Node saved."
-msgstr ""
-
-msgid "Article saved."
-msgstr ""
-
-msgid "Block saved."
 msgstr ""
 
 msgid "Saved."
@@ -658,99 +652,6 @@ msgstr ""
 msgid "Save node"
 msgstr ""
 
-msgid "Code / slug (a1 … c4)"
-msgstr ""
-
-msgid "Shelf"
-msgstr ""
-
-msgid "A · Understand the risks"
-msgstr ""
-
-msgid "B · Act"
-msgstr ""
-
-msgid "C · For school"
-msgstr ""
-
-msgid "Reading minutes"
-msgstr ""
-
-msgid "Related mission slug"
-msgstr ""
-
-msgid "Title (Georgian)"
-msgstr ""
-
-msgid "Title (English)"
-msgstr ""
-
-msgid "Teaser (Georgian)"
-msgstr ""
-
-msgid "Teaser (English)"
-msgstr ""
-
-msgid "Lead (Georgian)"
-msgstr ""
-
-msgid "Lead (English)"
-msgstr ""
-
-msgid "Sources (one per line)"
-msgstr ""
-
-msgid "Save article"
-msgstr ""
-
-msgid "Block"
-msgstr ""
-
-msgid "Heading"
-msgstr ""
-
-msgid "Paragraph"
-msgstr ""
-
-msgid "List"
-msgstr ""
-
-msgid "Callout"
-msgstr ""
-
-msgid "Callout variant"
-msgstr ""
-
-msgid "Ordered list"
-msgstr ""
-
-msgid "Callout title (Georgian)"
-msgstr ""
-
-msgid "Callout title (English)"
-msgstr ""
-
-msgid "Text (Georgian)"
-msgstr ""
-
-msgid "Text (English)"
-msgstr ""
-
-msgid "List items (Georgian, one per line)"
-msgstr ""
-
-msgid "List items (English, one per line)"
-msgstr ""
-
-msgid "Callout paragraphs (Georgian, one per line)"
-msgstr ""
-
-msgid "Callout paragraphs (English, one per line)"
-msgstr ""
-
-msgid "Save block"
-msgstr ""
-
 msgid "Emergency contact"
 msgstr ""
 
@@ -770,6 +671,12 @@ msgid "Verified (contacts are only shown when verified)"
 msgstr ""
 
 msgid "Active"
+msgstr ""
+
+msgid "Title (Georgian)"
+msgstr ""
+
+msgid "Title (English)"
 msgstr ""
 
 msgid "Summary (Georgian)"
@@ -818,6 +725,12 @@ msgid "Save tip"
 msgstr ""
 
 msgid "Moment"
+msgstr ""
+
+msgid "Text (Georgian)"
+msgstr ""
+
+msgid "Text (English)"
 msgstr ""
 
 msgid "Section (Georgian)"
@@ -2033,41 +1946,6 @@ msgstr ""
 msgid "locked"
 msgstr ""
 
-msgid "Article"
-msgstr ""
-
-msgid "Articles"
-msgstr ""
-
-msgid "New article"
-msgstr ""
-
-msgid "Body blocks"
-msgstr ""
-
-msgid "Move up"
-msgstr ""
-
-msgid "Move down"
-msgstr ""
-
-msgid "Delete block?"
-msgstr ""
-
-msgid "No blocks yet."
-msgstr ""
-
-msgid "Edit block"
-msgstr ""
-
-msgid "New block"
-msgstr ""
-
-msgid ""
-"Headings and paragraphs use Text; lists use Items; callouts use Title, "
-"Paragraphs and Items."
-msgstr ""
-
 msgid "Conversation node"
 msgstr ""
 
@@ -2128,9 +2006,6 @@ msgstr ""
 msgid "Age tracks"
 msgstr ""
 
-msgid "Parent/teacher articles"
-msgstr ""
-
 msgid "hidden"
 msgstr ""
 
@@ -2153,15 +2028,6 @@ msgid "Flags"
 msgstr ""
 
 msgid "pts"
-msgstr ""
-
-msgid "Parent & teacher articles"
-msgstr ""
-
-msgid "Code"
-msgstr ""
-
-msgid "Blocks"
 msgstr ""
 
 msgid "Safety resources"
@@ -2245,6 +2111,12 @@ msgid "Add reaction"
 msgstr ""
 
 msgid "New mission"
+msgstr ""
+
+msgid "Move up"
+msgstr ""
+
+msgid "Move down"
 msgstr ""
 
 msgid "Delete this round?"

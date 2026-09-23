@@ -11,7 +11,6 @@ from app.config import BASE_DIR
 from app.extensions import db
 from app.models import (
     Course,
-    CyberArticle,
     CyberMission,
     Lesson,
     LessonTranslation,
@@ -40,7 +39,6 @@ def stats() -> dict[str, Any]:
         .count()
     )
     missions = list(db.session.execute(select(CyberMission)).scalars())
-    articles = list(db.session.execute(select(CyberArticle)).scalars())
     return {
         "ui": {"ka": _catalog_stats("ka"), "en": _catalog_stats("en")},
         "courses": {"total": len(courses), "en": course_en},
@@ -49,7 +47,6 @@ def stats() -> dict[str, Any]:
             "total": len(missions),
             "en": sum(1 for m in missions if m.name_en and m.brief_en),
         },
-        "articles": {"total": len(articles), "en": sum(1 for a in articles if a.title_en)},
         "course_rows": [
             (
                 c,

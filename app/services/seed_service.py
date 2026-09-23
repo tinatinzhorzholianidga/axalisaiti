@@ -392,7 +392,6 @@ def validate_seed_files(path: str) -> list[str]:
     for name in (
         "tiers",
         "missions",
-        "articles",
         "agreement",
         "mascot",
         "knowledge",
@@ -412,7 +411,7 @@ def validate_seed_files(path: str) -> list[str]:
         return errors
 
     # bilingual completeness
-    for name in ("tiers", "missions", "articles", "agreement", "courses", "resources"):
+    for name in ("tiers", "missions", "agreement", "courses", "resources"):
         leaves: list[tuple[str, Any]] = []
         _leaves(data[name], name, leaves)
         for leaf_path, leaf in leaves:
@@ -462,19 +461,28 @@ def validate_seed_files(path: str) -> list[str]:
                 if not any(nodes[k].get("end") for k in reachable if k in nodes):
                     errors.append(f"{label}: no ending reachable from start")
 
-    codes = {a["id"] for a in data["articles"]}
+    # the 16 parent/teacher reads are lessons of the Teachers & Parents course
+    parents = next((c for c in data["courses"] if c.get("track") == "parents"), None)
+    lessons = (
+        [les for mod in parents.get("modules", []) for les in mod.get("lessons", [])]
+        if parents
+        else []
+    )
+    codes = {les["slug"] for les in lessons}
     expected = (
         {f"a{i}" for i in range(1, 8)}
         | {f"b{i}" for i in range(1, 6)}
         | {f"c{i}" for i in range(1, 5)}
     )
-    if codes != expected:
-        errors.append(f"articles: expected {sorted(expected)} got {sorted(codes)}")
+    if parents is None:
+        errors.append("courses: no course on the parents track")
+    elif codes != expected:
+        errors.append(f"parents course: expected lessons {sorted(expected)} got {sorted(codes)}")
     mission_ids = {m["id"] for m in data["missions"]}
-    for article in data["articles"]:
-        if article.get("mission") and article["mission"] not in mission_ids:
-            errors.append(f"article {article['id']}: unknown mission {article['mission']}")
+    for les in lessons:
+        if les.get("mission") and les["mission"] not in mission_ids:
+            errors.append(f"lesson {les['slug']}: unknown mission {les['mission']}")
     for mission in data["missions"]:
         if mission.get("article") and mission["article"] not in codes:
-            errors.append(f"mission {mission['id']}: unknown article {mission['article']}")
+            errors.append(f"mission {mission['id']}: unknown parent lesson {mission['article']}")
     return errors

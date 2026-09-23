@@ -1,6 +1,38 @@
 {
  "items": [
   {
+   "age_max": null,
+   "age_min": null,
+   "audience": {
+    "en": "For the adults who help",
+    "ka": "უფროსებისთვის, ვინც გვერდში დგას"
+   },
+   "color": "amber",
+   "difficulty": "beginner",
+   "emoji": "🧭",
+   "estimated_minutes": 98,
+   "is_featured": true,
+   "lesson_count": 16,
+   "mission_count": 0,
+   "short_description": {
+    "en": "Calm, practical guidance for the adults in a child's life. No tech jargon, no blame - just what the risks look like and what to do about them.",
+    "ka": "მშვიდი, პრაქტიკული გზამკვლევი უფროსებისთვის. ტექნიკური ჟარგონისა და დადანაშაულების გარეშე - მხოლოდ ის, თუ როგორ გამოიყურება რისკები და რა უნდა გააკეთოთ."
+   },
+   "slug": "teachers-parents",
+   "tags": [
+    "parents",
+    "teachers",
+    "wellbeing",
+    "scams",
+    "school"
+   ],
+   "title": {
+    "en": "Teachers & Parents",
+    "ka": "მასწავლებლები და მშობლები"
+   },
+   "track": "parents"
+  },
+  {
    "age_max": 18,
    "age_min": 13,
    "audience": {

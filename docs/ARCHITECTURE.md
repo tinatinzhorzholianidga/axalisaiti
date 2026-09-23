@@ -59,9 +59,9 @@ axalisaiti/
 │       ├── admin/             # shared admin panel (eLearning + CyberHero)
 │       ├── api/               # /api/v1 JSON API
 │       └── cyberhero/         # Vite shell + CyberHero page routes
-├── cyberhero/                 # React 18 + Vite 5 app (IO mascot, missions, articles)
+├── cyberhero/                 # React 18 + Vite 5 app (IO mascot, missions, courses)
 ├── migrations/                # Alembic (Flask-Migrate) revisions
-├── seeds/                     # JSON content: demo courses, CyberHero tracks/missions/articles
+├── seeds/                     # JSON content: demo courses, CyberHero tracks/missions/courses
 ├── tests/                     # pytest suite
 ├── docker/                    # nginx config, entrypoint, gunicorn config
 ├── docs/                      # this file + setup, deployment, admin, authoring, security
@@ -112,8 +112,8 @@ cyber_tracks ──< courses (platform = cyberhero, track_id)
 courses ──< cyber_missions ──< cyber_mission_translations
 cyber_missions ──< cyber_mission_rounds ──< cyber_mission_questions ──< cyber_question_options
 cyber_missions ──< cyber_branches ──< cyber_branch_choices  (branching conversations)
-cyber_articles ──< cyber_article_translations, cyber_article_sources
-cyber_articles ──< cyber_article_missions >── cyber_missions  (related teen missions)
+cyber_articles ──< cyber_article_blocks, cyber_article_sources   (legacy; the parent/teacher
+                                                  reads are lessons of the teachers-parents course)
 cyber_mascot_tips (context key, ka/en text, mood)
 cyber_safety_resources (emergency info, family agreement, playbook entries; ka/en)
 cyber_progress (user_id, mission_id, status, score)   # sync target for signed-in users
@@ -145,7 +145,7 @@ Instructor: `/instructor/`, `/instructor/courses/new`, `/instructor/courses/<id>
 `/instructor/grading/`, `/instructor/courses/<id>/students`, `/instructor/courses/<id>/analytics`.
 
 Admin: `/admin/` (dashboard), `/admin/users/`, `/admin/courses/`, `/admin/categories/`,
-`/admin/cyberhero/{tracks,missions,articles,tips,resources,certificates}/`,
+`/admin/cyberhero/{tracks,missions,tips,resources,certificates}/`,
 `/admin/quizzes/`, `/admin/assignments/`, `/admin/certificates/`, `/admin/discussions/`,
 `/admin/reviews/`, `/admin/notifications/`, `/admin/media/`, `/admin/analytics/`,
 `/admin/audit/`, `/admin/settings/`, `/admin/localization/`, `/admin/flags/`.
@@ -153,15 +153,15 @@ Admin: `/admin/` (dashboard), `/admin/users/`, `/admin/courses/`, `/admin/catego
 API v1 (`/api/v1/`): `auth/session`, `courses`, `courses/<slug>`, `search`,
 `progress/lessons/<id>` (POST), `notifications`, `notifications/<id>/read`,
 `bookmarks`, `cyberhero/bootstrap`, `cyberhero/tracks`, `cyberhero/courses`,
-`cyberhero/courses/<slug>`, `cyberhero/missions/<slug>`, `cyberhero/articles`,
-`cyberhero/articles/<slug>`, `cyberhero/resources/<kind>`, `cyberhero/tips`,
+`cyberhero/courses/<slug>`, `cyberhero/courses/<slug>/lessons/<slug>`,
+`cyberhero/missions/<slug>`, `cyberhero/resources/<kind>`, `cyberhero/tips`,
 `cyberhero/progress` (GET/PUT, signed-in sync), `cyberhero/certificates` (POST).
 Admin-only API endpoints require the same permission checks as the admin UI.
 
 CyberHero (React, served by Flask shell): `/cyberhero/`, `/cyberhero/courses/`,
 `/cyberhero/course/<slug>/`, `/cyberhero/learn/<course>/<lesson>/`,
-`/cyberhero/mission/<slug>/`, `/cyberhero/tracks/`, `/cyberhero/articles/`,
-`/cyberhero/articles/<slug>/`, `/cyberhero/parents/`, `/cyberhero/teachers/`,
+`/cyberhero/mission/<slug>/`, `/cyberhero/tracks/`, `/cyberhero/course/teachers-parents/`
+(the parent/teacher reads; `/cyberhero/parents/…` redirects there), `/cyberhero/teachers/`,
 `/cyberhero/emergency/`, `/cyberhero/family-agreement/`, `/cyberhero/certificate/`,
 `/cyberhero/tutor/` (only when `CYBERHERO_IO_CHAT_ENABLED`).
 
@@ -266,7 +266,7 @@ in a volume outside the static tree and are served through authorised routes.
 5. Quizzes, assignments, grading, certificates, notifications, discussions, reviews, bookmarks, achievements.
 6. Instructor panel and course builder.
 7. Admin panel (both products), media library, settings, flags, audit, analytics.
-8. CyberHero React app: home, tracks, catalog, course, missions, articles, parents/teachers, certificate, mascot.
+8. CyberHero React app: home, tracks, catalog, course (incl. the Teachers & Parents reads), missions, certificate, mascot.
 9. CyberHero ↔ Flask integration: manifest, locale, flags, namespace, CSP.
 10. Security review and tests.
 11. Static analysis, builds, smoke tests.

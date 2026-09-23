@@ -4,6 +4,18 @@
 
 const EMPTY = { tips: [], reactions: {}, missionTopics: {} }
 
+// The Teachers & Parents track is a course now (`/course/teachers-parents`);
+// the legacy hub paths still redirect there.
+export function isParentsPath(pathname) {
+  return (
+    pathname.startsWith('/parents') ||
+    pathname.startsWith('/articles') ||
+    pathname.startsWith('/family-agreement') ||
+    pathname.startsWith('/course/teachers-parents') ||
+    pathname.startsWith('/learn/teachers-parents')
+  )
+}
+
 export function splitTips(mascot = EMPTY) {
   const tips = mascot.tips || []
   return {
@@ -32,7 +44,7 @@ export function getMascotContext(pathname = '/', mascot = EMPTY) {
   if (pathname.startsWith('/guardians')) {
     return { tips: kid, opener: reactions.guardians }
   }
-  if (pathname.startsWith('/parents') || pathname.startsWith('/articles') || pathname.startsWith('/family-agreement')) {
+  if (isParentsPath(pathname)) {
     return { tips: [...parent, ...kid.filter((tip) => (tip.topics || []).includes('help'))] }
   }
   if (pathname.startsWith('/emergency')) {

@@ -102,6 +102,35 @@ export default function CoursePage() {
         </section>
       ))}
 
+      {course.track === 'parents' && (
+        <>
+          <div className="hub-cta">
+            <span className="emoji" aria-hidden="true">
+              📝
+            </span>
+            <div className="body">
+              <h2>{t('parents.agreementCta')}</h2>
+              <p>{t('parents.agreementCtaText')}</p>
+            </div>
+            <Link to="/parents/agreement" className="btn-solid amber">
+              {t('parents.openAgreement')}
+            </Link>
+          </div>
+          <div className="hub-cta">
+            <span className="emoji" aria-hidden="true">
+              🆘
+            </span>
+            <div className="body">
+              <h2>{t('emergency.title')}</h2>
+              <p>{t('emergency.intro')}</p>
+            </div>
+            <Link to="/emergency" className="btn-solid">
+              {t('emergency.open')}
+            </Link>
+          </div>
+        </>
+      )}
+
       {course.missions.length > 0 && (
         <section className="module-box" aria-labelledby="course-missions">
           <h3 id="course-missions">🎯 {t('courses.practice')}</h3>
