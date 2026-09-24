@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-24 09:16+0000\n"
+"POT-Creation-Date: 2026-09-24 10:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3599,6 +3599,29 @@ msgstr ""
 msgid "ongoing threats"
 msgstr ""
 
+msgid "For children, teens, parents and teachers"
+msgstr ""
+
+msgid "for kids and for everyone"
+msgstr ""
+
+msgid ""
+"This section is for everyone: interactive missions and games for kids, "
+"calm practical guides for parents and teachers, and plain-language "
+"courses for the older generation."
+msgstr ""
+
+msgid "Ongoing threats"
+msgstr ""
+
+msgid "No ongoing threats published"
+msgstr ""
+
+msgid ""
+"New case studies in this category appear here as soon as they are "
+"published."
+msgstr ""
+
 msgid "Why this platform"
 msgstr ""
 
@@ -3632,31 +3655,6 @@ msgstr ""
 msgid ""
 "Real phishing samples, log excerpts and configurations - the material "
 "analysts see every day."
-msgstr ""
-
-msgid "Ongoing threats"
-msgstr ""
-
-msgid "No ongoing threats published"
-msgstr ""
-
-msgid ""
-"New case studies in this category appear here as soon as they are "
-"published."
-msgstr ""
-
-msgid "Directions"
-msgstr ""
-
-msgid "Choose a direction"
-msgstr ""
-
-msgid "Cybersecurity for children, teens, parents and teachers"
-msgstr ""
-
-msgid ""
-"Interactive missions, a printable certificate and calm, practical guides "
-"for families and schools."
 msgstr ""
 
 msgid "IO, the cybersecurity guide robot — press to hear more"

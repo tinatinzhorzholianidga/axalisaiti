@@ -29,6 +29,7 @@
           <span class="order-btns">
             <form method="post" action="{{ url_for('instructor.module_move', course_id=course.id, module_id=module.id, direction='up') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move up') }}" {% if loop.first %}disabled{% endif %}>{{ icon('chevron-up') }}</button></form>
             <form method="post" action="{{ url_for('instructor.module_move', course_id=course.id, module_id=module.id, direction='down') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move down') }}" {% if loop.last %}disabled{% endif %}>{{ icon('chevron-down') }}</button></form>
+            <a class="btn btn-ghost btn-sm" href="{{ url_for('instructor.module_edit', course_id=course.id, module_id=module.id) }}">{{ icon('edit') }} {{ _('Edit') }}</a>
             <a class="btn btn-ghost btn-sm" href="{{ url_for('instructor.lesson_new', course_id=course.id, module_id=module.id) }}">{{ icon('plus') }} {{ _('Lesson') }}</a>
             <form method="post" action="{{ url_for('instructor.module_delete', course_id=course.id, module_id=module.id) }}" data-confirm="{{ _('Delete this module and its lessons?') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Delete module') }}">{{ icon('trash') }}</button></form>
           </span>
@@ -42,6 +43,7 @@
             <span class="type text-muted">{{ lesson_type_icon(lesson.lesson_type.value) }}</span>
             <span class="title"><a href="{{ url_for('instructor.lesson_edit', course_id=course.id, lesson_id=lesson.id) }}">{{ lesson.title(locale) }}</a>{% if not lesson.is_published %} <span class="chip">{{ _('hidden') }}</span>{% endif %}{% if lesson.is_free_preview %} <span class="chip chip-cyan">{{ _('preview') }}</span>{% endif %}<span class="sub">{{ lesson.estimated_minutes }} {{ _('min') }}{% if lesson.quiz %} · {{ _('quiz') }}{% endif %}{% if lesson.assignment %} · {{ _('assignment') }}{% endif %}</span></span>
             <span class="order-btns">
+              <a class="btn btn-outline btn-sm" href="{{ url_for('instructor.lesson_edit', course_id=course.id, lesson_id=lesson.id) }}">{{ icon('edit') }} {{ _('Edit') }}</a>
               <form method="post" action="{{ url_for('instructor.lesson_move', course_id=course.id, lesson_id=lesson.id, direction='up') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move up') }}" {% if loop.first %}disabled{% endif %}>{{ icon('chevron-up') }}</button></form>
               <form method="post" action="{{ url_for('instructor.lesson_move', course_id=course.id, lesson_id=lesson.id, direction='down') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move down') }}" {% if loop.last %}disabled{% endif %}>{{ icon('chevron-down') }}</button></form>
               <form method="post" action="{{ url_for('instructor.lesson_delete', course_id=course.id, lesson_id=lesson.id) }}" data-confirm="{{ _('Delete this lesson?') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Delete lesson') }}">{{ icon('trash') }}</button></form>

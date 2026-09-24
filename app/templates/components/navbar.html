@@ -5,7 +5,6 @@
   ('cases.index', _('Case studies')),
   ('learning.dashboard', _('My learning')),
   ('main.resources', _('Resources')),
-  ('main.about', _('About')),
 ] %}
 <header class="site-header">
   <div class="container">
@@ -18,7 +17,7 @@
         {% for endpoint, label in nav_items %}
         <a href="{{ url_for(endpoint) }}"{% if request.endpoint == endpoint or (endpoint == 'courses.catalog' and request.blueprint == 'courses') or (endpoint == 'cases.index' and request.blueprint == 'cases') or (endpoint == 'learning.dashboard' and request.blueprint == 'learning') %} aria-current="page"{% endif %}>{{ label }}</a>
         {% endfor %}
-        {% if cyberhero_enabled %}<a href="{{ url_for('cyberhero.shell', path='') }}">CyberHero →</a>{% endif %}
+        {% if cyberhero_enabled %}<a href="{{ url_for('cyberhero.shell', path='') }}"><span class="cyberhero-brand">CyberHero →</span></a>{% endif %}
       </nav>
       <div class="nav-actions">
         <button type="button" class="icon-btn" data-search-open aria-label="{{ _('Search') }}" title="{{ _('Search (Ctrl+K)') }}">{{ icon('search') }}</button>
@@ -72,7 +71,7 @@
     </div>
     <nav id="mobile-nav" class="mobile-nav" data-mobile-nav aria-label="{{ _('Mobile navigation') }}">
       {% for endpoint, label in nav_items %}<a href="{{ url_for(endpoint) }}">{{ label }}</a>{% endfor %}
-      {% if cyberhero_enabled %}<a href="{{ url_for('cyberhero.shell', path='') }}">CyberHero →</a>{% endif %}
+      {% if cyberhero_enabled %}<a href="{{ url_for('cyberhero.shell', path='') }}"><span class="cyberhero-brand">CyberHero →</span></a>{% endif %}
       <div class="row-actions">
         <div class="lang-switch" role="group" aria-label="{{ _('Language') }}">
           <a href="{{ url_with_args(lang='ka') }}" {% if current_locale == 'ka' %}aria-current="true"{% endif %}>ქარ</a>

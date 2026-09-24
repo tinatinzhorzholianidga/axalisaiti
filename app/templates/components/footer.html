@@ -5,7 +5,7 @@
       <div>
         <a class="brand" href="{{ url_for('main.home') }}">{% include "components/logo.html" %}<span>{{ site_name }}</span></a>
         <p class="mt-3">{{ _('A national platform for cybersecurity education: structured courses, practical scenarios and verifiable certificates.') }}</p>
-        {% if cyberhero_enabled %}<a class="cross-product" href="{{ url_for('cyberhero.shell', path='') }}">🛡️ CyberHero → <span class="text-muted">{{ _('for children, teens, parents and teachers') }}</span></a>{% endif %}
+        {% if cyberhero_enabled %}<a class="cross-product" href="{{ url_for('cyberhero.shell', path='') }}">🛡️ <span class="cyberhero-brand">CyberHero →</span> <span class="text-muted">{{ _('for children, teens, parents and teachers') }}</span></a>{% endif %}
       </div>
       <div>
         <h4>{{ _('Learn') }}</h4>

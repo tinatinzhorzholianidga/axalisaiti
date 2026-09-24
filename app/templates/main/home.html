@@ -52,17 +52,18 @@
   </div>
 </section>
 
-<section class="section" id="how-it-works">
+{% if cyberhero_enabled %}
+<section class="section cyberhero-intro" id="cyberhero">
   <div class="container">
-    <div class="section-head"><div><span class="eyebrow">{{ _('Why this platform') }}</span><h2>{{ _('Learning that transfers to real work') }}</h2></div></div>
-    <div class="feature-grid">
-      <div class="feature"><span class="feature-icon">{{ icon('layers') }}</span><h3>{{ _('Structured learning') }}</h3><p>{{ _('Modules and lessons build on each other, from fundamentals to incident response.') }}</p></div>
-      <div class="feature"><span class="feature-icon">{{ icon('target') }}</span><h3>{{ _('Interactive exercises') }}</h3><p>{{ _('Quizzes with six question types, labs and scenario-based assignments with instructor feedback.') }}</p></div>
-      <div class="feature"><span class="feature-icon">{{ icon('award') }}</span><h3>{{ _('Certificates') }}</h3><p>{{ _('Verifiable certificates with a public verification link for every completed course.') }}</p></div>
-      <div class="feature"><span class="feature-icon">{{ icon('terminal') }}</span><h3>{{ _('Practical experience') }}</h3><p>{{ _('Real phishing samples, log excerpts and configurations - the material analysts see every day.') }}</p></div>
-    </div>
+    <span class="eyebrow">{{ _('For children, teens, parents and teachers') }}</span>
+    <h2 class="cyberhero-title"><span class="cyberhero-brand">CyberHero</span> {{ _('for kids and for everyone') }}</h2>
+    <p class="cyberhero-lead">{{ _('This section is for everyone: interactive missions and games for kids, calm practical guides for parents and teachers, and plain-language courses for the older generation.') }}</p>
+    {# data-io-path: IO, floating in the corner, reacts when this door is hovered or focused #}
+    <a class="btn btn-lg btn-cyberhero" href="{{ url_for('cyberhero.shell', path='') }}" data-io-path="kids"><span class="cyberhero-brand">CyberHero →</span></a>
   </div>
 </section>
+{% endif %}
+
 
 <section class="section pt-0" id="ongoing-threats">
   <div class="container">
@@ -80,38 +81,24 @@
   </div>
 </section>
 
-{% if categories %}
-<section class="section pt-0">
+<section class="section pt-0" id="how-it-works">
   <div class="container">
-    <div class="section-head"><div><span class="eyebrow">{{ _('Directions') }}</span><h2>{{ _('Choose a direction') }}</h2></div></div>
-    <div class="category-chips">
-      {% for category in categories %}
-      <a class="chip" href="{{ url_for('courses.catalog', category=category.slug) }}">{{ icon(category.icon) }} {{ category.name(locale) }}</a>
-      {% endfor %}
+    <div class="section-head"><div><span class="eyebrow">{{ _('Why this platform') }}</span><h2>{{ _('Learning that transfers to real work') }}</h2></div></div>
+    <div class="feature-grid">
+      <div class="feature"><span class="feature-icon">{{ icon('layers') }}</span><h3>{{ _('Structured learning') }}</h3><p>{{ _('Modules and lessons build on each other, from fundamentals to incident response.') }}</p></div>
+      <div class="feature"><span class="feature-icon">{{ icon('target') }}</span><h3>{{ _('Interactive exercises') }}</h3><p>{{ _('Quizzes with six question types, labs and scenario-based assignments with instructor feedback.') }}</p></div>
+      <div class="feature"><span class="feature-icon">{{ icon('award') }}</span><h3>{{ _('Certificates') }}</h3><p>{{ _('Verifiable certificates with a public verification link for every completed course.') }}</p></div>
+      <div class="feature"><span class="feature-icon">{{ icon('terminal') }}</span><h3>{{ _('Practical experience') }}</h3><p>{{ _('Real phishing samples, log excerpts and configurations - the material analysts see every day.') }}</p></div>
     </div>
   </div>
 </section>
-{% endif %}
 
-{% if cyberhero_enabled %}
-<section class="section pt-0">
-  <div class="container">
-    <div class="panel d-flex flex-wrap align-items-center justify-content-between gap-4">
-      <div>
-        <span class="eyebrow">CyberHero</span>
-        <h2 class="h4 mb-1">{{ _('Cybersecurity for children, teens, parents and teachers') }}</h2>
-        <p class="text-muted mb-0">{{ _('Interactive missions, a printable certificate and calm, practical guides for families and schools.') }}</p>
-      </div>
-      <a class="btn btn-outline" href="{{ url_for('cyberhero.shell', path='') }}" data-io-path="kids">{{ _('Open CyberHero') }} {{ icon('arrow-right') }}</a>
-    </div>
-  </div>
-</section>
-{% endif %}
+
 
 {# IO, the welcome host: a floating corner widget (cyberhero/src/io-host.jsx)
    that reads its configuration from data-*, follows the visitor down the
    page and can be hidden. His two "doors" are the buttons tagged
-   data-io-path above (Browse courses, Open CyberHero). Only rendered when
+   data-io-path above (Browse courses, the CyberHero button). Only rendered when
    the bundle is built. #}
 {% if io_host.assets.js %}
 <div id="io-host-root" class="io-host-root"

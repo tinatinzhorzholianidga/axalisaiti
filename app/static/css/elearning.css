@@ -677,3 +677,13 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
 .resource-list--docs .chip { margin-left: var(--space-2); font-size: var(--text-xs); }
 @media (max-width: 991px) { .filter-bar--cases { grid-template-columns: 1fr 1fr; } .case-article { padding: var(--space-5); } }
 @media (max-width: 575px) { .filter-bar--cases { grid-template-columns: 1fr; } }
+
+/* ---- CyberHero brand colour (the "online" gradient of the CyberHero hero) -- */
+.cyberhero-brand { background: linear-gradient(115deg, #6c5ce7 10%, #ff6f9c 55%, #ff8c42 95%); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; }
+.cyberhero-intro { text-align: center; padding-top: var(--space-12); }
+.cyberhero-intro .eyebrow { display: block; }
+.cyberhero-title { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 800; letter-spacing: -0.02em; margin: var(--space-3) 0 var(--space-4); }
+.cyberhero-title .cyberhero-brand { font-weight: 800; }
+.cyberhero-lead { max-width: 760px; margin: 0 auto var(--space-6); color: var(--text-muted); font-size: var(--text-md); line-height: var(--leading-relaxed); }
+.btn-cyberhero { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding-inline: var(--space-8); font-size: var(--text-lg); box-shadow: var(--shadow-sm); }
+.btn-cyberhero:hover { border-color: #ff6f9c; box-shadow: var(--shadow-md); transform: translateY(-2px); }
