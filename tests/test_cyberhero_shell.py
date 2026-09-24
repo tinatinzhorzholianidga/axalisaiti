@@ -110,3 +110,31 @@ def test_tutor_csp_exception_is_scoped(client, built):  # type: ignore[no-untype
     assert "wasm" not in client.get("/").headers["Content-Security-Policy"]
     attrs = _attrs(client.get("/cyberhero/").get_data(as_text=True))
     assert attrs["tutor-model-url"] == "/static/models/io/"
+
+
+def test_static_stamp_follows_file_contents(tmp_path, upload_dir):  # type: ignore[no-untyped-def]
+    """A rebuilt image with the same APP_VERSION must still bust the caches."""
+    import shutil
+
+    from app import create_app
+
+    static_dir = tmp_path / "static"
+    static_dir.mkdir()
+    (static_dir / "site.css").write_text("body { color: navy }")
+
+    def stamp() -> str:
+        app = create_app("testing", overrides={"APP_VERSION": "dev", "UPLOAD_PATH": upload_dir})
+        app.static_folder = str(static_dir)
+        return _static_version_of(app)
+
+    first = stamp()
+    (static_dir / "site.css").write_text("body { color: white }")
+    second = stamp()
+    assert first.startswith("dev-") and second.startswith("dev-") and first != second
+    shutil.rmtree(static_dir)
+
+
+def _static_version_of(app):  # type: ignore[no-untyped-def]
+    from app import _static_version
+
+    return _static_version(app)

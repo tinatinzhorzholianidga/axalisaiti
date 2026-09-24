@@ -22,18 +22,23 @@ log = logging.getLogger(__name__)
 
 
 def _static_version(app: Flask) -> str:
-    """Cache-busting stamp for /static URLs. nginx serves static files with a
-    long immutable cache, so every deploy must change the URL: the stamp is the
-    build's APP_VERSION when set, otherwise a hash of the static files' mtimes."""
-    explicit = (app.config.get("APP_VERSION") or "").strip()
-    if explicit:
-        return explicit[:16]
+    """Cache-busting stamp for /static URLs.
+
+    nginx serves static files with a long immutable cache, so every deploy
+    must change the URL. The stamp is a hash of the static files' contents
+    (the hashed CyberHero bundle excluded), prefixed with APP_VERSION when the
+    build sets one; a fixed version alone (the Docker default "dev") would let
+    browsers keep a stale stylesheet after a rebuild.
+    """
     digest = hashlib.sha256()
     static_root = Path(app.static_folder or "")
     for path in sorted(static_root.rglob("*")):
         if path.is_file() and "cyberhero" not in path.parts:
-            digest.update(f"{path.relative_to(static_root)}:{int(path.stat().st_mtime)}".encode())
-    return digest.hexdigest()[:10]
+            digest.update(str(path.relative_to(static_root)).encode())
+            digest.update(path.read_bytes())
+    stamp = digest.hexdigest()[:10]
+    explicit = (app.config.get("APP_VERSION") or "").strip()
+    return f"{explicit[:16]}-{stamp}" if explicit else stamp
 
 
 def _check_translations(app: Flask) -> list[str]:
