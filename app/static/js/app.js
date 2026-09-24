@@ -90,7 +90,7 @@ function applyTheme(pref) {
   const root = document.documentElement;
   let dark = pref === "dark";
   if (pref === "system") {
-    dark = !window.matchMedia("(prefers-color-scheme: light)").matches;
+    dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
   root.setAttribute("data-theme", dark ? "dark" : "light");
   root.setAttribute("data-theme-pref", pref);
@@ -100,7 +100,7 @@ function applyTheme(pref) {
 }
 
 function initTheme() {
-  const pref = document.documentElement.getAttribute("data-theme-pref") || "dark";
+  const pref = document.documentElement.getAttribute("data-theme-pref") || "light";
   applyTheme(pref);
   document.querySelectorAll("[data-theme-set]").forEach((el) => {
     el.addEventListener("click", (event) => {
@@ -110,7 +110,7 @@ function initTheme() {
       applyTheme(value);
     });
   });
-  const media = window.matchMedia("(prefers-color-scheme: light)");
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
   media.addEventListener("change", () => {
     if ((document.documentElement.getAttribute("data-theme-pref") || "system") === "system") applyTheme("system");
   });

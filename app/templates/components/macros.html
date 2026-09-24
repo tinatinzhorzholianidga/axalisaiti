@@ -25,6 +25,24 @@
 </article>
 {% endmacro %}
 
+{% macro case_card(case, locale) %}
+<article class="course-card case-card">
+  {% if case.cover %}<div class="case-card-cover"><img src="{{ url_for('media.public_file', media_id=case.cover.id) }}" alt="" loading="lazy"></div>{% endif %}
+  <div class="card-top">
+    <span class="course-icon {{ case.category.color if case.category else 'purple' }}">{{ icon(case.category.icon if case.category else 'alert-triangle') }}</span>
+    {% if case.category %}<span class="chip">{{ case.category.name(locale) }}</span>{% endif %}
+  </div>
+  <h3><a href="{{ url_for('cases.detail', slug=case.slug) }}">{{ case.title(locale) }}</a></h3>
+  <p class="summary">{{ case.excerpt(locale) }}</p>
+  <div class="meta">
+    {% if case.published_at %}<span>{{ icon('calendar') }} {{ case.published_at|date_only }}</span>{% endif %}
+    {% if case.visible_sections %}<span>{{ icon('list') }} {{ case.visible_sections|length + 2 }} {{ _('sections') }}</span>{% endif %}
+    {% if case.images %}<span>{{ icon('image') }} {{ case.images|length }}</span>{% endif %}
+  </div>
+  <div class="card-foot"><span>{{ _('Read the case study') }}</span>{{ icon('arrow-right') }}</div>
+</article>
+{% endmacro %}
+
 {% macro difficulty_label(value) -%}
 {%- if value == 'beginner' %}{{ _('Beginner') }}{% elif value == 'intermediate' %}{{ _('Intermediate') }}{% else %}{{ _('Advanced') }}{% endif -%}
 {%- endmacro %}

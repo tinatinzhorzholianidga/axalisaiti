@@ -149,6 +149,7 @@ def _register_blueprints(app: Flask) -> None:
     from app.blueprints.api import bp as api_bp
     from app.blueprints.assessments import bp as assessments_bp
     from app.blueprints.auth import bp as auth_bp
+    from app.blueprints.cases import bp as cases_bp
     from app.blueprints.certificates import bp as certificates_bp
     from app.blueprints.courses import bp as courses_bp
     from app.blueprints.cyberhero import bp as cyberhero_bp
@@ -162,6 +163,7 @@ def _register_blueprints(app: Flask) -> None:
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(courses_bp, url_prefix="/courses")
+    app.register_blueprint(cases_bp, url_prefix="/case-studies")
     app.register_blueprint(learning_bp)
     app.register_blueprint(assessments_bp)
     app.register_blueprint(certificates_bp, url_prefix="/certificates")

@@ -1,0 +1,13 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ title.name(locale) }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.case_section_titles') }}">{{ _('Section titles') }}</a></div>{% endblock %}
+{% block panel_title %}{{ title.name(locale) }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  {{ field(form.name_ka) }}{{ field(form.name_en) }}{{ field(form.sort_order) }}{{ field(form.is_active) }}
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save section title') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.case_section_titles') }}">{{ _('Cancel') }}</a></div>
+</form>
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 {% from "components/icons.html" import icon %}
-{% from "components/macros.html" import course_card %}
+{% from "components/macros.html" import case_card %}
 {% block title %}{{ site_name }} · {{ _('Cybersecurity learning platform') }}{% endblock %}
 {# IO, the welcome host, ships in the CyberHero bundle (entry src/io-host.jsx);
    hashed files come from the Vite manifest, so nothing here is inline. #}
@@ -23,8 +23,8 @@
         </div>
         <div class="hero-stats" aria-label="{{ _('Platform statistics') }}">
           <div class="stat"><span class="value">{{ stats.courses }}</span><span class="label">{{ _('courses') }}</span></div>
-          <div class="stat"><span class="value">{% if stats.students >= 1000 %}{{ (stats.students // 1000) }}K+{% else %}{{ stats.students }}{% endif %}</span><span class="label">{{ _('learners') }}</span></div>
-          <div class="stat"><span class="value">{{ stats.completion }}%</span><span class="label">{{ _('completion') }}</span></div>
+          <div class="stat"><span class="value">{{ stats.case_studies }}</span><span class="label">{{ _('case studies') }}</span></div>
+          <div class="stat"><span class="value">{{ stats.threats }}</span><span class="label">{{ _('ongoing threats') }}</span></div>
         </div>
       </div>
       <div class="hero-art" aria-hidden="true">
@@ -64,18 +64,18 @@
   </div>
 </section>
 
-<section class="section pt-0">
+<section class="section pt-0" id="ongoing-threats">
   <div class="container">
     <div class="section-head">
-      <div><span class="eyebrow">{{ _('Featured') }}</span><h2>{{ _('Featured courses') }}</h2></div>
-      <a class="btn btn-outline" href="{{ url_for('courses.catalog') }}">{{ _('All courses') }} {{ icon('arrow-right') }}</a>
+      <div><span class="eyebrow">{{ _('Case studies') }}</span><h2>{{ threats_category.name(locale) if threats_category else _('Ongoing threats') }}</h2></div>
+      <a class="btn btn-outline" href="{{ url_for('cases.index', category=threats_category.slug) if threats_category else url_for('cases.index') }}">{{ _('All case studies') }} {{ icon('arrow-right') }}</a>
     </div>
-    {% if featured %}
-    <div class="course-grid">
-      {% for course in featured %}{{ course_card(course, locale) }}{% endfor %}
+    {% if threats %}
+    <div class="course-grid four">
+      {% for case in threats %}{{ case_card(case, locale) }}{% endfor %}
     </div>
     {% else %}
-    <div class="empty-state">{{ icon('book') }}<h3>{{ _('Courses are being prepared') }}</h3><p>{{ _('The first courses will appear here as soon as they are published.') }}</p></div>
+    <div class="empty-state">{{ icon('alert-triangle') }}<h3>{{ _('No ongoing threats published') }}</h3><p>{{ _('New case studies in this category appear here as soon as they are published.') }}</p></div>
     {% endif %}
   </div>
 </section>

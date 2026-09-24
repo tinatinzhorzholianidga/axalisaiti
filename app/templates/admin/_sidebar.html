@@ -5,6 +5,8 @@
 <a href="{{ url_for('admin.users') }}" {% if ep.startswith('admin.user') %}aria-current="page"{% endif %}>{{ icon('users') }} {{ _('Users') }}</a>
 <a href="{{ url_for('admin.courses') }}" {% if ep.startswith('admin.course') %}aria-current="page"{% endif %}>{{ icon('book') }} {{ _('Courses') }}</a>
 <a href="{{ url_for('admin.categories') }}" {% if ep.startswith('admin.categor') %}aria-current="page"{% endif %}>{{ icon('layers') }} {{ _('Categories') }}</a>
+<a href="{{ url_for('admin.case_studies') }}" {% if ep.startswith('admin.case_') %}aria-current="page"{% endif %}>{{ icon('alert-triangle') }} {{ _('Case studies') }}</a>
+<a href="{{ url_for('admin.resources') }}" {% if ep.startswith('admin.resource') %}aria-current="page"{% endif %}>{{ icon('file-text') }} {{ _('Resources') }}</a>
 <a href="{{ url_for('admin.cyberhero') }}" {% if ep.startswith('admin.cyber') %}aria-current="page"{% endif %}>{{ icon('shield') }} CyberHero</a>
 <div class="group">{{ _('Learning') }}</div>
 <a href="{{ url_for('admin.quizzes') }}" {% if ep == 'admin.quizzes' %}aria-current="page"{% endif %}>{{ icon('help-circle') }} {{ _('Quizzes') }}</a>

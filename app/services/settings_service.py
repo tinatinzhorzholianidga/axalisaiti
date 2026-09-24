@@ -37,6 +37,22 @@ DEFAULT_SETTINGS: dict[str, tuple[Any, str, str, str, str, bool]] = {
         True,
     ),
     "site.home_featured_limit": (6, "int", "general", "Featured courses on home page", "", True),
+    "site.home_threats_category": (
+        "ongoing-threats",
+        "string",
+        "general",
+        "Home page case study category",
+        "Slug of the case study category shown on the home page (newest first)",
+        True,
+    ),
+    "site.home_threats_limit": (
+        4,
+        "int",
+        "general",
+        "Case studies on home page",
+        "How many of that category's newest case studies the home page shows",
+        True,
+    ),
     "auth.registration_enabled": (True, "bool", "auth", "Allow self-registration", "", True),
     "auth.email_verification_required": (
         False,

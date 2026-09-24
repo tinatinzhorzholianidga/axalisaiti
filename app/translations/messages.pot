@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-23 09:45+0000\n"
+"POT-Creation-Date: 2026-09-24 09:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,51 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
+
+msgid "Case study created. Add sections and pictures below."
+msgstr ""
+
+msgid "Case study saved."
+msgstr ""
+
+msgid "Case study deleted."
+msgstr ""
+
+msgid "Section added."
+msgstr ""
+
+msgid "Choose a section title."
+msgstr ""
+
+msgid "Section saved."
+msgstr ""
+
+msgid "Section deleted."
+msgstr ""
+
+msgid "Image added."
+msgstr ""
+
+msgid "Image removed."
+msgstr ""
+
+msgid "Category created."
+msgstr ""
+
+msgid "Category saved."
+msgstr ""
+
+msgid "Category deleted."
+msgstr ""
+
+msgid "Section title created."
+msgstr ""
+
+msgid "Section title saved."
+msgstr ""
+
+msgid "Section title deleted."
+msgstr ""
 
 msgid "User or course not found."
 msgstr ""
@@ -63,15 +108,6 @@ msgstr ""
 msgid "Course deleted."
 msgstr ""
 
-msgid "Category created."
-msgstr ""
-
-msgid "Category saved."
-msgstr ""
-
-msgid "Category deleted."
-msgstr ""
-
 #, python-format
 msgid "Seed content reloaded: %(summary)s"
 msgstr ""
@@ -104,9 +140,6 @@ msgstr ""
 msgid "Saved."
 msgstr ""
 
-msgid "Section saved."
-msgstr ""
-
 msgid "Tip added."
 msgstr ""
 
@@ -120,6 +153,21 @@ msgid "File uploaded."
 msgstr ""
 
 msgid "File deleted."
+msgstr ""
+
+msgid "Resource published."
+msgstr ""
+
+msgid "Resource saved."
+msgstr ""
+
+msgid "Resource is now shown."
+msgstr ""
+
+msgid "Resource is now hidden."
+msgstr ""
+
+msgid "Resource deleted."
 msgstr ""
 
 msgid "Settings saved."
@@ -1244,6 +1292,63 @@ msgstr ""
 msgid "File must be at most {size} bytes."
 msgstr ""
 
+msgid "Save section title"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "About (Georgian, HTML)"
+msgstr ""
+
+msgid "About (English, HTML)"
+msgstr ""
+
+msgid "Save case study"
+msgstr ""
+
+msgid "Section title"
+msgstr ""
+
+msgid "Text (Georgian, HTML)"
+msgstr ""
+
+msgid "Text (English, HTML)"
+msgstr ""
+
+msgid "Add section"
+msgstr ""
+
+msgid "Caption (Georgian)"
+msgstr ""
+
+msgid "Caption (English)"
+msgstr ""
+
+msgid "Add image"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Newest first"
+msgstr ""
+
+msgid "Oldest first"
+msgstr ""
+
+msgid "PDF file"
+msgstr ""
+
+msgid "Shown on the resources page"
+msgstr ""
+
+msgid "Save resource"
+msgstr ""
+
 msgid "Rating"
 msgstr ""
 
@@ -1251,12 +1356,6 @@ msgid "Your review"
 msgstr ""
 
 msgid "Submit review"
-msgstr ""
-
-msgid "Search"
-msgstr ""
-
-msgid "Category"
 msgstr ""
 
 msgid "Any"
@@ -1272,9 +1371,6 @@ msgid "2–6 hours"
 msgstr ""
 
 msgid "Over 6 hours"
-msgstr ""
-
-msgid "Sort"
 msgstr ""
 
 msgid "Newest"
@@ -1376,6 +1472,9 @@ msgstr ""
 msgid "Links must start with http:// or https://."
 msgstr ""
 
+msgid "No file selected."
+msgstr ""
+
 msgid "Please enter the name to print on the certificate."
 msgstr ""
 
@@ -1412,9 +1511,6 @@ msgstr ""
 msgid "Enrolment for this course has closed."
 msgstr ""
 
-msgid "No file selected."
-msgstr ""
-
 #, python-format
 msgid "File type .%(ext)s is not allowed."
 msgstr ""
@@ -1447,6 +1543,9 @@ msgstr ""
 msgid "This attempt was already submitted."
 msgstr ""
 
+msgid "Choose a PDF file."
+msgstr ""
+
 msgid "You need to be enrolled to review this course."
 msgstr ""
 
@@ -1463,6 +1562,12 @@ msgid "Users"
 msgstr ""
 
 msgid "Courses"
+msgstr ""
+
+msgid "Case studies"
+msgstr ""
+
+msgid "Resources"
 msgstr ""
 
 msgid "Learning"
@@ -1859,6 +1964,48 @@ msgstr ""
 msgid "No quizzes yet."
 msgstr ""
 
+msgid "Current file"
+msgstr ""
+
+msgid "Upload a PDF to replace the current file, or leave empty."
+msgstr ""
+
+msgid "Open the resources page"
+msgstr ""
+
+msgid ""
+"PDF documents published on the resources page. Hidden documents stay here"
+" but are not listed or served. Files attached to lessons are shown to "
+"learners of that course automatically, under “From courses”."
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "shown"
+msgstr ""
+
+msgid "hidden"
+msgstr ""
+
+msgid "Hide"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Delete this document?"
+msgstr ""
+
+msgid "No documents yet."
+msgstr ""
+
+msgid "Upload a document"
+msgstr ""
+
+msgid "PDF only."
+msgstr ""
+
 msgid "Learner"
 msgstr ""
 
@@ -1946,6 +2093,113 @@ msgstr ""
 msgid "locked"
 msgstr ""
 
+msgid "Case study categories"
+msgstr ""
+
+msgid "Delete this category? Its case studies stay, without a category."
+msgstr ""
+
+msgid "New case study"
+msgstr ""
+
+msgid ""
+"The “Description” section. Allowed HTML: headings, paragraphs, lists, "
+"tables, images, links. Scripts are removed."
+msgstr ""
+
+msgid ""
+"The “About” section. Pictures added below are shown under this text; you "
+"can also place <img> tags inside it."
+msgstr ""
+
+msgid "Leave empty to generate from the title."
+msgstr ""
+
+msgid "PNG, JPG or WebP. Shown on the card and at the top of the article."
+msgstr ""
+
+msgid "Current cover"
+msgstr ""
+
+msgid "Unpublished case studies are only visible to administrators."
+msgstr ""
+
+msgid "Extra sections"
+msgstr ""
+
+msgid ""
+"“Description” and “About” are always there. Add more sections with a "
+"heading from the list (manage the list under “Section titles”)."
+msgstr ""
+
+msgid "(title removed)"
+msgstr ""
+
+msgid "Move up"
+msgstr ""
+
+msgid "Move down"
+msgstr ""
+
+msgid "Delete this section?"
+msgstr ""
+
+msgid "No extra sections yet."
+msgstr ""
+
+msgid "No suitable heading? Add one under “Section titles”."
+msgstr ""
+
+msgid "Pictures in “About”"
+msgstr ""
+
+msgid "Remove this picture?"
+msgstr ""
+
+msgid "No pictures yet."
+msgstr ""
+
+msgid "published"
+msgstr ""
+
+msgid "draft"
+msgstr ""
+
+msgid "Delete this case study?"
+msgstr ""
+
+msgid "Delete case study"
+msgstr ""
+
+msgid "Section titles"
+msgstr ""
+
+msgid "Case study"
+msgstr ""
+
+msgid "Sections"
+msgstr ""
+
+msgid "pictures"
+msgstr ""
+
+msgid "No case studies yet. Create the first one."
+msgstr ""
+
+msgid "Section"
+msgstr ""
+
+msgid ""
+"The headings an editor can pick for the extra sections of a case study, "
+"e.g. “Be careful of” or “How to identify”."
+msgstr ""
+
+msgid "Delete this section title? Sections using it lose their heading."
+msgstr ""
+
+msgid "New section title"
+msgstr ""
+
 msgid "Conversation node"
 msgstr ""
 
@@ -2006,9 +2260,6 @@ msgstr ""
 msgid "Age tracks"
 msgstr ""
 
-msgid "hidden"
-msgstr ""
-
 msgid "active"
 msgstr ""
 
@@ -2053,9 +2304,6 @@ msgid "Reload seeds"
 msgstr ""
 
 msgid "IO tutor knowledge base"
-msgstr ""
-
-msgid "Section"
 msgstr ""
 
 msgid ""
@@ -2113,12 +2361,6 @@ msgstr ""
 msgid "New mission"
 msgstr ""
 
-msgid "Move up"
-msgstr ""
-
-msgid "Move down"
-msgstr ""
-
 msgid "Delete this round?"
 msgstr ""
 
@@ -2147,9 +2389,6 @@ msgid "write lines"
 msgstr ""
 
 msgid "Delete section?"
-msgstr ""
-
-msgid "Add section"
 msgstr ""
 
 msgid "Message card (optional)"
@@ -2431,6 +2670,59 @@ msgstr ""
 msgid "Choose a new password"
 msgstr ""
 
+msgid "Breadcrumb"
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "More"
+msgstr ""
+
+msgid "Related case studies"
+msgstr ""
+
+msgid "All case studies"
+msgstr ""
+
+msgid ""
+"Real incidents and current threats, explained: what happened, how to "
+"recognise it and what to watch out for."
+msgstr ""
+
+msgid "Filter case studies"
+msgstr ""
+
+msgid "Search by title"
+msgstr ""
+
+msgid "Apply"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+#, python-format
+msgid "%(num)d case study"
+msgid_plural "%(num)d case studies"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Clear filters"
+msgstr ""
+
+msgid "No case studies match"
+msgstr ""
+
+msgid "Try another category or clear the filters."
+msgstr ""
+
 msgid "My certificates"
 msgstr ""
 
@@ -2508,16 +2800,10 @@ msgstr ""
 msgid "All courses"
 msgstr ""
 
-msgid "Resources"
-msgstr ""
-
 msgid "My learning"
 msgstr ""
 
 msgid "Verify a certificate"
-msgstr ""
-
-msgid "About"
 msgstr ""
 
 msgid "Privacy"
@@ -2553,6 +2839,12 @@ msgstr ""
 msgid "Open course"
 msgstr ""
 
+msgid "sections"
+msgstr ""
+
+msgid "Read the case study"
+msgstr ""
+
 msgid "Progress"
 msgstr ""
 
@@ -2572,9 +2864,6 @@ msgid "Pending review"
 msgstr ""
 
 msgid "Archived"
-msgstr ""
-
-msgid "Home"
 msgstr ""
 
 msgid "Main navigation"
@@ -2631,25 +2920,13 @@ msgstr ""
 msgid "Search by title or tag"
 msgstr ""
 
-msgid "Apply"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
 #, python-format
 msgid "%(num)d course"
 msgid_plural "%(num)d courses"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Clear filters"
-msgstr ""
-
 msgid "No courses match"
-msgstr ""
-
-msgid "Try another category or clear the filters."
 msgstr ""
 
 msgid "enrolled"
@@ -2787,9 +3064,6 @@ msgstr ""
 msgid "Unhide"
 msgstr ""
 
-msgid "Hide"
-msgstr ""
-
 msgid "This post was deleted."
 msgstr ""
 
@@ -2812,9 +3086,6 @@ msgid "Back to home"
 msgstr ""
 
 msgid "Classification"
-msgstr ""
-
-msgid "Leave empty to generate from the title."
 msgstr ""
 
 msgid "No categories exist yet."
@@ -3322,10 +3593,10 @@ msgstr ""
 msgid "courses"
 msgstr ""
 
-msgid "learners"
+msgid "case studies"
 msgstr ""
 
-msgid "completion"
+msgid "ongoing threats"
 msgstr ""
 
 msgid "Why this platform"
@@ -3363,13 +3634,15 @@ msgid ""
 "analysts see every day."
 msgstr ""
 
-msgid "Featured courses"
+msgid "Ongoing threats"
 msgstr ""
 
-msgid "Courses are being prepared"
+msgid "No ongoing threats published"
 msgstr ""
 
-msgid "The first courses will appear here as soon as they are published."
+msgid ""
+"New case studies in this category appear here as soon as they are "
+"published."
 msgstr ""
 
 msgid "Directions"
@@ -3395,13 +3668,29 @@ msgstr ""
 msgid "Show IO"
 msgstr ""
 
-msgid "Downloadable materials and references from published courses."
+msgid ""
+"Documents to download, and the materials attached to the courses you have"
+" taken."
 msgstr ""
 
-msgid "No resources yet"
+msgid "No documents yet"
 msgstr ""
 
-msgid "Resources attached to lessons will be listed here."
+msgid "Documents published by the platform will be listed here."
+msgstr ""
+
+msgid "Your courses"
+msgstr ""
+
+msgid "From courses"
+msgstr ""
+
+msgid ""
+"Sign in and enrol in a course: the files attached to its lessons appear "
+"here."
+msgstr ""
+
+msgid "The files attached to the lessons of a course you enrol in appear here."
 msgstr ""
 
 msgid "Nothing found"

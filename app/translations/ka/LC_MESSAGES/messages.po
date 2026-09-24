@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-23 09:45+0000\n"
+"POT-Creation-Date: 2026-09-24 09:16+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -15,6 +15,51 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
+
+msgid "Case study created. Add sections and pictures below."
+msgstr "ქეისი შეიქმნა. ქვემოთ დაამატეთ განყოფილებები და სურათები."
+
+msgid "Case study saved."
+msgstr "ქეისი შენახულია."
+
+msgid "Case study deleted."
+msgstr "ქეისი წაიშალა."
+
+msgid "Section added."
+msgstr "განყოფილება დაემატა."
+
+msgid "Choose a section title."
+msgstr "აირჩიეთ განყოფილების სათაური."
+
+msgid "Section saved."
+msgstr "განყოფილება შენახულია."
+
+msgid "Section deleted."
+msgstr "განყოფილება წაიშალა."
+
+msgid "Image added."
+msgstr "სურათი დაემატა."
+
+msgid "Image removed."
+msgstr "სურათი წაიშალა."
+
+msgid "Category created."
+msgstr "კატეგორია შეიქმნა."
+
+msgid "Category saved."
+msgstr "კატეგორია შენახულია."
+
+msgid "Category deleted."
+msgstr "კატეგორია წაიშალა."
+
+msgid "Section title created."
+msgstr "განყოფილების სათაური შეიქმნა."
+
+msgid "Section title saved."
+msgstr "განყოფილების სათაური შენახულია."
+
+msgid "Section title deleted."
+msgstr "განყოფილების სათაური წაიშალა."
 
 msgid "User or course not found."
 msgstr "მომხმარებელი ან კურსი ვერ მოიძებნა."
@@ -62,15 +107,6 @@ msgstr "კურსის სტატუსი შეიცვალა"
 msgid "Course deleted."
 msgstr "კურსი წაიშალა."
 
-msgid "Category created."
-msgstr "კატეგორია შეიქმნა."
-
-msgid "Category saved."
-msgstr "კატეგორია შენახულია."
-
-msgid "Category deleted."
-msgstr "კატეგორია წაიშალა."
-
 #, python-format
 msgid "Seed content reloaded: %(summary)s"
 msgstr "საწყისი შინაარსი ხელახლა ჩაიტვირთა: %(summary)s"
@@ -106,9 +142,6 @@ msgstr "კვანძი შენახულია."
 msgid "Saved."
 msgstr "შენახულია."
 
-msgid "Section saved."
-msgstr "განყოფილება შენახულია."
-
 msgid "Tip added."
 msgstr "რჩევა დაემატა."
 
@@ -123,6 +156,21 @@ msgstr "ფაილი აიტვირთა."
 
 msgid "File deleted."
 msgstr "ფაილი წაიშალა."
+
+msgid "Resource published."
+msgstr "რესურსი გამოქვეყნდა."
+
+msgid "Resource saved."
+msgstr "რესურსი შენახულია."
+
+msgid "Resource is now shown."
+msgstr "რესურსი ახლა ნაჩვენებია."
+
+msgid "Resource is now hidden."
+msgstr "რესურსი ახლა დამალულია."
+
+msgid "Resource deleted."
+msgstr "რესურსი წაიშალა."
 
 msgid "Settings saved."
 msgstr "პარამეტრები შენახულია."
@@ -1242,6 +1290,63 @@ msgstr "ფაილი უნდა იყოს სულ მცირე {siz
 msgid "File must be at most {size} bytes."
 msgstr "ფაილი უნდა იყოს არაუმეტეს {size} ბაიტისა."
 
+msgid "Save section title"
+msgstr "სათაურის შენახვა"
+
+msgid "Category"
+msgstr "კატეგორია"
+
+msgid "About (Georgian, HTML)"
+msgstr "დეტალურად (ქართულად, HTML)"
+
+msgid "About (English, HTML)"
+msgstr "დეტალურად (ინგლისურად, HTML)"
+
+msgid "Save case study"
+msgstr "ქეისის შენახვა"
+
+msgid "Section title"
+msgstr "განყოფილების სათაური"
+
+msgid "Text (Georgian, HTML)"
+msgstr "ტექსტი (ქართულად, HTML)"
+
+msgid "Text (English, HTML)"
+msgstr "ტექსტი (ინგლისურად, HTML)"
+
+msgid "Add section"
+msgstr "განყოფილების დამატება"
+
+msgid "Caption (Georgian)"
+msgstr "წარწერა (ქართულად)"
+
+msgid "Caption (English)"
+msgstr "წარწერა (ინგლისურად)"
+
+msgid "Add image"
+msgstr "სურათის დამატება"
+
+msgid "Search"
+msgstr "ძიება"
+
+msgid "Sort"
+msgstr "დალაგება"
+
+msgid "Newest first"
+msgstr "ჯერ უახლესი"
+
+msgid "Oldest first"
+msgstr "ჯერ ყველაზე ძველი"
+
+msgid "PDF file"
+msgstr "PDF ფაილი"
+
+msgid "Shown on the resources page"
+msgstr "ნაჩვენებია რესურსების გვერდზე"
+
+msgid "Save resource"
+msgstr "რესურსის შენახვა"
+
 msgid "Rating"
 msgstr "შეფასება"
 
@@ -1250,12 +1355,6 @@ msgstr "თქვენი მიმოხილვა"
 
 msgid "Submit review"
 msgstr "მიმოხილვის გაგზავნა"
-
-msgid "Search"
-msgstr "ძიება"
-
-msgid "Category"
-msgstr "კატეგორია"
 
 msgid "Any"
 msgstr "ნებისმიერი"
@@ -1271,9 +1370,6 @@ msgstr "2–6 საათი"
 
 msgid "Over 6 hours"
 msgstr "6 საათზე მეტი"
-
-msgid "Sort"
-msgstr "დალაგება"
 
 msgid "Newest"
 msgstr "უახლესი"
@@ -1374,6 +1470,9 @@ msgstr "მიუთითეთ ბმული ან ფაილი."
 msgid "Links must start with http:// or https://."
 msgstr "ბმულები უნდა იწყებოდეს http:// ან https://-ით."
 
+msgid "No file selected."
+msgstr "ფაილი არ არის არჩეული."
+
 msgid "Please enter the name to print on the certificate."
 msgstr "გთხოვთ, შეიყვანოთ სერტიფიკატზე დასაბეჭდი სახელი."
 
@@ -1410,9 +1509,6 @@ msgstr "ეს კურსი ჯერ არ დაწყებულა."
 msgid "Enrolment for this course has closed."
 msgstr "ამ კურსზე რეგისტრაცია დასრულდა."
 
-msgid "No file selected."
-msgstr "ფაილი არ არის არჩეული."
-
 #, python-format
 msgid "File type .%(ext)s is not allowed."
 msgstr "ფაილის ტიპი .%(ext)s დაუშვებელია."
@@ -1445,6 +1541,9 @@ msgstr "ამ ქვიზისთვის ყველა ცდა გა�
 msgid "This attempt was already submitted."
 msgstr "ეს ცდა უკვე გაგზავნილია."
 
+msgid "Choose a PDF file."
+msgstr "აირჩიეთ PDF ფაილი."
+
 msgid "You need to be enrolled to review this course."
 msgstr "მიმოხილვის დასაწერად კურსზე დარეგისტრირებული უნდა იყოთ."
 
@@ -1462,6 +1561,12 @@ msgstr "მომხმარებლები"
 
 msgid "Courses"
 msgstr "კურსები"
+
+msgid "Case studies"
+msgstr "ქეისები"
+
+msgid "Resources"
+msgstr "რესურსები"
 
 msgid "Learning"
 msgstr "სწავლა"
@@ -1863,6 +1968,48 @@ msgstr "საბოლოო"
 msgid "No quizzes yet."
 msgstr "ქვიზები ჯერ არ არის."
 
+msgid "Current file"
+msgstr "მიმდინარე ფაილი"
+
+msgid "Upload a PDF to replace the current file, or leave empty."
+msgstr "ატვირთეთ PDF მიმდინარე ფაილის ჩასანაცვლებლად, ან დატოვეთ ცარიელი."
+
+msgid "Open the resources page"
+msgstr "რესურსების გვერდის გახსნა"
+
+msgid ""
+"PDF documents published on the resources page. Hidden documents stay here"
+" but are not listed or served. Files attached to lessons are shown to "
+"learners of that course automatically, under “From courses”."
+msgstr "რესურსების გვერდზე გამოქვეყნებული PDF დოკუმენტები. დამალული დოკუმენტები აქ რჩება, თუმცა არც ჩამონათვალში ჩანს და არც გაიცემა. გაკვეთილებზე მიმაგრებული ფაილები ამ კურსის მსმენელებს ავტომატურად ეჩვენებათ განყოფილებაში „კურსებიდან“."
+
+msgid "Size"
+msgstr "ზომა"
+
+msgid "shown"
+msgstr "ნაჩვენები"
+
+msgid "hidden"
+msgstr "დამალული"
+
+msgid "Hide"
+msgstr "დამალვა"
+
+msgid "Show"
+msgstr "ჩვენება"
+
+msgid "Delete this document?"
+msgstr "წავშალოთ ეს დოკუმენტი?"
+
+msgid "No documents yet."
+msgstr "დოკუმენტები ჯერ არ არის."
+
+msgid "Upload a document"
+msgstr "დოკუმენტის ატვირთვა"
+
+msgid "PDF only."
+msgstr "მხოლოდ PDF."
+
 msgid "Learner"
 msgstr "მსმენელი"
 
@@ -1950,6 +2097,113 @@ msgstr "მომხმარებელი"
 msgid "locked"
 msgstr "დაბლოკილი"
 
+msgid "Case study categories"
+msgstr "ქეისების კატეგორიები"
+
+msgid "Delete this category? Its case studies stay, without a category."
+msgstr "წავშალოთ ეს კატეგორია? მისი ქეისები კატეგორიის გარეშე დარჩება."
+
+msgid "New case study"
+msgstr "ახალი ქეისი"
+
+msgid ""
+"The “Description” section. Allowed HTML: headings, paragraphs, lists, "
+"tables, images, links. Scripts are removed."
+msgstr "განყოფილება „აღწერა“. დასაშვები HTML: სათაურები, აბზაცები, სიები, ცხრილები, სურათები, ბმულები. სკრიპტები იშლება."
+
+msgid ""
+"The “About” section. Pictures added below are shown under this text; you "
+"can also place <img> tags inside it."
+msgstr "განყოფილება „დეტალურად“. ქვემოთ დამატებული სურათები ამ ტექსტის ქვეშ გამოჩნდება; შეგიძლიათ ტექსტშივე ჩასვათ <img> ტეგები."
+
+msgid "Leave empty to generate from the title."
+msgstr "დატოვეთ ცარიელი, რომ სათაურიდან შეიქმნას."
+
+msgid "PNG, JPG or WebP. Shown on the card and at the top of the article."
+msgstr "PNG, JPG ან WebP. ჩანს ბარათზე და სტატიის თავში."
+
+msgid "Current cover"
+msgstr "მიმდინარე გარეკანი"
+
+msgid "Unpublished case studies are only visible to administrators."
+msgstr "გამოუქვეყნებელი ქეისები მხოლოდ ადმინისტრატორებს უჩანთ."
+
+msgid "Extra sections"
+msgstr "დამატებითი განყოფილებები"
+
+msgid ""
+"“Description” and “About” are always there. Add more sections with a "
+"heading from the list (manage the list under “Section titles”)."
+msgstr "„აღწერა“ და „დეტალურად“ ყოველთვის არსებობს. დაამატეთ სხვა განყოფილებები სიიდან არჩეული სათაურით (სია იმართება განყოფილებაში „განყოფილებების სათაურები“)."
+
+msgid "(title removed)"
+msgstr "(სათაური წაშლილია)"
+
+msgid "Move up"
+msgstr "ზემოთ ატანა"
+
+msgid "Move down"
+msgstr "ქვემოთ ჩატანა"
+
+msgid "Delete this section?"
+msgstr "წავშალოთ ეს განყოფილება?"
+
+msgid "No extra sections yet."
+msgstr "დამატებითი განყოფილებები ჯერ არ არის."
+
+msgid "No suitable heading? Add one under “Section titles”."
+msgstr "შესაფერისი სათაური არ არის? დაამატეთ განყოფილებაში „განყოფილებების სათაურები“."
+
+msgid "Pictures in “About”"
+msgstr "სურათები განყოფილებაში „დეტალურად“"
+
+msgid "Remove this picture?"
+msgstr "წავშალოთ ეს სურათი?"
+
+msgid "No pictures yet."
+msgstr "სურათები ჯერ არ არის."
+
+msgid "published"
+msgstr "გამოქვეყნებული"
+
+msgid "draft"
+msgstr "მონახაზი"
+
+msgid "Delete this case study?"
+msgstr "წავშალოთ ეს ქეისი?"
+
+msgid "Delete case study"
+msgstr "ქეისის წაშლა"
+
+msgid "Section titles"
+msgstr "განყოფილებების სათაურები"
+
+msgid "Case study"
+msgstr "ქეისი"
+
+msgid "Sections"
+msgstr "განყოფილებები"
+
+msgid "pictures"
+msgstr "სურათი"
+
+msgid "No case studies yet. Create the first one."
+msgstr "ქეისები ჯერ არ არის. შექმენით პირველი."
+
+msgid "Section"
+msgstr "განყოფილება"
+
+msgid ""
+"The headings an editor can pick for the extra sections of a case study, "
+"e.g. “Be careful of” or “How to identify”."
+msgstr "სათაურები, რომლებსაც რედაქტორი ქეისის დამატებითი განყოფილებებისთვის აირჩევს, მაგ. „ფრთხილად იყავით“ ან „როგორ ამოვიცნოთ“."
+
+msgid "Delete this section title? Sections using it lose their heading."
+msgstr "წავშალოთ ეს სათაური? განყოფილებები, რომლებიც მას იყენებენ, სათაურის გარეშე დარჩება."
+
+msgid "New section title"
+msgstr "ახალი სათაური"
+
 msgid "Conversation node"
 msgstr "საუბრის კვანძი"
 
@@ -2010,9 +2264,6 @@ msgstr "CyberHero-ს გახსნა"
 msgid "Age tracks"
 msgstr "ასაკობრივი მიმართულებები"
 
-msgid "hidden"
-msgstr "დამალული"
-
 msgid "active"
 msgstr "აქტიური"
 
@@ -2062,9 +2313,6 @@ msgstr "საწყისი მონაცემების ხელახ�
 
 msgid "IO tutor knowledge base"
 msgstr "იო ტუტორის ცოდნის ბაზა"
-
-msgid "Section"
-msgstr "განყოფილება"
 
 msgid ""
 "The in-browser tutor answers only from this material. It is only "
@@ -2126,12 +2374,6 @@ msgstr "რეაქციის დამატება"
 msgid "New mission"
 msgstr "ახალი მისია"
 
-msgid "Move up"
-msgstr "ზემოთ ატანა"
-
-msgid "Move down"
-msgstr "ქვემოთ ჩატანა"
-
 msgid "Delete this round?"
 msgstr "წავშალოთ ეს რაუნდი?"
 
@@ -2161,9 +2403,6 @@ msgstr "ჩასაწერი ხაზი"
 
 msgid "Delete section?"
 msgstr "წავშალოთ განყოფილება?"
-
-msgid "Add section"
-msgstr "განყოფილების დამატება"
 
 msgid "Message card (optional)"
 msgstr "შეტყობინების ბარათი (არასავალდებულო)"
@@ -2459,6 +2698,58 @@ msgstr "დაადასტურეთ ელფოსტა"
 msgid "Choose a new password"
 msgstr "აირჩიეთ ახალი პაროლი"
 
+msgid "Breadcrumb"
+msgstr "ნავიგაციის ბილიკი"
+
+msgid "Home"
+msgstr "მთავარი"
+
+msgid "Description"
+msgstr "აღწერა"
+
+msgid "About"
+msgstr "შესახებ"
+
+msgid "More"
+msgstr "სხვა"
+
+msgid "Related case studies"
+msgstr "მსგავსი ქეისები"
+
+msgid "All case studies"
+msgstr "ყველა ქეისი"
+
+msgid ""
+"Real incidents and current threats, explained: what happened, how to "
+"recognise it and what to watch out for."
+msgstr "რეალური ინციდენტები და მიმდინარე საფრთხეები განმარტებებით: რა მოხდა, როგორ ამოვიცნოთ და რას მივაქციოთ ყურადღება."
+
+msgid "Filter case studies"
+msgstr "ქეისების გაფილტვრა"
+
+msgid "Search by title"
+msgstr "ძიება სათაურით"
+
+msgid "Apply"
+msgstr "გამოყენება"
+
+msgid "All"
+msgstr "ყველა"
+
+#, python-format
+msgid "%(num)d case study"
+msgid_plural "%(num)d case studies"
+msgstr[0] "%(num)d ქეისი"
+
+msgid "Clear filters"
+msgstr "ფილტრების გასუფთავება"
+
+msgid "No case studies match"
+msgstr "შესაბამისი ქეისი ვერ მოიძებნა"
+
+msgid "Try another category or clear the filters."
+msgstr "სცადეთ სხვა კატეგორია ან გაასუფთავეთ ფილტრები."
+
 msgid "My certificates"
 msgstr "ჩემი სერტიფიკატები"
 
@@ -2538,17 +2829,11 @@ msgstr "სწავლა"
 msgid "All courses"
 msgstr "ყველა კურსი"
 
-msgid "Resources"
-msgstr "რესურსები"
-
 msgid "My learning"
 msgstr "ჩემი სწავლა"
 
 msgid "Verify a certificate"
 msgstr "სერტიფიკატის გადამოწმება"
-
-msgid "About"
-msgstr "შესახებ"
 
 msgid "Privacy"
 msgstr "კონფიდენციალურობა"
@@ -2583,6 +2868,12 @@ msgstr "გაგრძელება"
 msgid "Open course"
 msgstr "კურსის გახსნა"
 
+msgid "sections"
+msgstr "განყოფილება"
+
+msgid "Read the case study"
+msgstr "ქეისის წაკითხვა"
+
 msgid "Progress"
 msgstr "პროგრესი"
 
@@ -2603,9 +2894,6 @@ msgstr "განხილვის მოლოდინში"
 
 msgid "Archived"
 msgstr "დაარქივებული"
-
-msgid "Home"
-msgstr "მთავარი"
 
 msgid "Main navigation"
 msgstr "მთავარი ნავიგაცია"
@@ -2661,25 +2949,13 @@ msgstr "კურსების ფილტრი"
 msgid "Search by title or tag"
 msgstr "ძიება სათაურით ან თეგით"
 
-msgid "Apply"
-msgstr "გამოყენება"
-
-msgid "All"
-msgstr "ყველა"
-
 #, python-format
 msgid "%(num)d course"
 msgid_plural "%(num)d courses"
 msgstr[0] "%(num)d კურსი"
 
-msgid "Clear filters"
-msgstr "ფილტრების გასუფთავება"
-
 msgid "No courses match"
 msgstr "შესაბამისი კურსები არ არის"
-
-msgid "Try another category or clear the filters."
-msgstr "სცადეთ სხვა კატეგორია ან გაასუფთავეთ ფილტრები."
 
 msgid "enrolled"
 msgstr "რეგისტრირებული"
@@ -2820,9 +3096,6 @@ msgstr "დაბლოკვა"
 msgid "Unhide"
 msgstr "ჩვენება"
 
-msgid "Hide"
-msgstr "დამალვა"
-
 msgid "This post was deleted."
 msgstr "ეს პოსტი წაშლილია."
 
@@ -2846,9 +3119,6 @@ msgstr "მთავარზე დაბრუნება"
 
 msgid "Classification"
 msgstr "კლასიფიკაცია"
-
-msgid "Leave empty to generate from the title."
-msgstr "დატოვეთ ცარიელი, რომ სათაურიდან შეიქმნას."
 
 msgid "No categories exist yet."
 msgstr "კატეგორიები ჯერ არ არსებობს."
@@ -3384,11 +3654,11 @@ msgstr "პლატფორმის სტატისტიკა"
 msgid "courses"
 msgstr "კურსი"
 
-msgid "learners"
-msgstr "მსმენელი"
+msgid "case studies"
+msgstr "ქეისი"
 
-msgid "completion"
-msgstr "დასრულება"
+msgid "ongoing threats"
+msgstr "მიმდინარე საფრთხე"
 
 msgid "Why this platform"
 msgstr "რატომ ეს პლატფორმა"
@@ -3433,14 +3703,16 @@ msgstr ""
 "რეალური ფიშინგის ნიმუშები, ლოგების ამონარიდები და კონფიგურაციები — "
 "მასალა, რომელსაც ანალიტიკოსები ყოველდღე ხედავენ."
 
-msgid "Featured courses"
-msgstr "რჩეული კურსები"
+msgid "Ongoing threats"
+msgstr "მიმდინარე საფრთხეები"
 
-msgid "Courses are being prepared"
-msgstr "კურსები მზადდება"
+msgid "No ongoing threats published"
+msgstr "მიმდინარე საფრთხეები გამოქვეყნებული არ არის"
 
-msgid "The first courses will appear here as soon as they are published."
-msgstr "პირველი კურსები აქ გამოქვეყნებისთანავე გამოჩნდება."
+msgid ""
+"New case studies in this category appear here as soon as they are "
+"published."
+msgstr "ამ კატეგორიის ახალი ქეისები აქ გამოქვეყნებისთანავე გამოჩნდება."
 
 msgid "Directions"
 msgstr "მიმართულებები"
@@ -3470,14 +3742,30 @@ msgstr "იოს დამალვა"
 msgid "Show IO"
 msgstr "იოს ჩვენება"
 
-msgid "Downloadable materials and references from published courses."
-msgstr "ჩამოსატვირთი მასალები და წყაროები გამოქვეყნებული კურსებიდან."
+msgid ""
+"Documents to download, and the materials attached to the courses you have"
+" taken."
+msgstr "ჩამოსატვირთი დოკუმენტები და თქვენ მიერ გავლილი კურსების მასალები."
 
-msgid "No resources yet"
-msgstr "რესურსები ჯერ არ არის"
+msgid "No documents yet"
+msgstr "დოკუმენტები ჯერ არ არის"
 
-msgid "Resources attached to lessons will be listed here."
-msgstr "გაკვეთილებზე მიბმული რესურსები აქ გამოჩნდება."
+msgid "Documents published by the platform will be listed here."
+msgstr "პლატფორმის მიერ გამოქვეყნებული დოკუმენტები აქ გამოჩნდება."
+
+msgid "Your courses"
+msgstr "თქვენი კურსები"
+
+msgid "From courses"
+msgstr "კურსებიდან"
+
+msgid ""
+"Sign in and enrol in a course: the files attached to its lessons appear "
+"here."
+msgstr "შედით სისტემაში და დარეგისტრირდით კურსზე: მისი გაკვეთილების ფაილები აქ გამოჩნდება."
+
+msgid "The files attached to the lessons of a course you enrol in appear here."
+msgstr "კურსზე რეგისტრაციის შემდეგ მისი გაკვეთილების ფაილები აქ გამოჩნდება."
 
 msgid "Nothing found"
 msgstr "ვერაფერი მოიძებნა"

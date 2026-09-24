@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field %}
+{% from "components/macros.html" import case_card, paginate, empty_state %}
+{% block title %}{{ _('Case studies') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head">
+    <h1 class="page-title">{{ _('Case studies') }}</h1>
+    <p class="page-subtitle">{{ _('Real incidents and current threats, explained: what happened, how to recognise it and what to watch out for.') }}</p>
+  </div>
+  <form class="filter-bar filter-bar--cases" method="get" role="search" aria-label="{{ _('Filter case studies') }}">
+    {{ field(form.q, placeholder=_('Search by title')) }}
+    {{ field(form.category, attrs={'data-fancy-select': '', 'data-auto-submit': ''}) }}
+    {{ field(form.sort, attrs={'data-fancy-select': '', 'data-auto-submit': ''}) }}
+    <button class="btn btn-primary" type="submit">{{ icon('sliders') }} {{ _('Apply') }}</button>
+  </form>
+  <div class="category-chips" aria-label="{{ _('Categories') }}">
+    <a class="chip" href="{{ url_with_args(category=None, page=None) }}" {% if not filters.category %}aria-current="true"{% endif %}>{{ _('All') }}</a>
+    {% for category in categories %}
+    <a class="chip" href="{{ url_with_args(category=category.slug, page=None) }}" {% if filters.category == category.slug %}aria-current="true"{% endif %}>{{ icon(category.icon) }} {{ category.name(locale) }}</a>
+    {% endfor %}
+  </div>
+  <div class="filter-summary" aria-live="polite">
+    <span>{{ ngettext('%(num)d case study', '%(num)d case studies', pagination.total) }}{% if filters.query %} · “{{ filters.query }}”{% endif %}</span>
+    {% if filters.query or filters.category %}<a href="{{ url_for('cases.index') }}">{{ _('Clear filters') }}</a>{% endif %}
+  </div>
+  {% if pagination.items %}
+  <div class="course-grid four">
+    {% for case in pagination.items %}{{ case_card(case, locale) }}{% endfor %}
+  </div>
+  {{ paginate(pagination) }}
+  {% else %}
+  {{ empty_state(_('No case studies match'), _('Try another category or clear the filters.'), 'search', _('Clear filters'), url_for('cases.index')) }}
+  {% endif %}
+</div>
+{% endblock %}

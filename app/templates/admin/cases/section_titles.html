@@ -1,0 +1,22 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Section titles') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.case_studies') }}">{{ _('Case studies') }}</a></div>{% endblock %}
+{% block panel_title %}{{ _('Section titles') }}{% endblock %}
+{% block panel_content %}
+<p class="text-muted">{{ _('The headings an editor can pick for the extra sections of a case study, e.g. “Be careful of” or “How to identify”.') }}</p>
+<div class="two-col">
+  <div class="table-wrap"><table class="table table-hover"><thead><tr><th>#</th><th>{{ _('Title') }}</th><th>{{ _('Active') }}</th><th></th></tr></thead><tbody>
+    {% for t in items %}<tr><td>{{ t.sort_order }}</td><td>{{ t.name_ka }} <span class="text-muted">/ {{ t.name_en }}</span></td><td>{{ _('Yes') if t.is_active else _('No') }}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('admin.case_section_title_edit', title_id=t.id) }}">{{ _('Edit') }}</a><form method="post" action="{{ url_for('admin.case_section_title_delete', title_id=t.id) }}" data-confirm="{{ _('Delete this section title? Sections using it lose their heading.') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit" aria-label="{{ _('Delete') }}">{{ icon('trash') }}</button></form></td></tr>{% endfor %}
+  </tbody></table></div>
+  <form class="panel" method="post" novalidate>
+    {{ form.hidden_tag() }}{{ error_summary(form) }}
+    <h2 class="h6 mb-3">{{ _('New section title') }}</h2>
+    {{ field(form.name_ka) }}{{ field(form.name_en) }}{{ field(form.sort_order) }}{{ field(form.is_active) }}
+    <button class="btn btn-primary" type="submit">{{ _('Save section title') }}</button>
+  </form>
+</div>
+{% endblock %}

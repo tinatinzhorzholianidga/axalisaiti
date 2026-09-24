@@ -1,0 +1,14 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ _('Section') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.case_studies') }}">{{ _('Case studies') }}</a> / <a href="{{ url_for('admin.case_study_edit', case_id=section.case_study_id) }}">{{ section.case_study.title(locale) }}</a></div>{% endblock %}
+{% block panel_title %}{{ section.heading(locale) or _('Section') }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  {{ field(form.title_id, attrs={'data-fancy-select': ''}) }}
+  {{ field(form.body_ka, rows=8) }}{{ field(form.body_en, rows=8) }}
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save section') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.case_study_edit', case_id=section.case_study_id) }}#sections">{{ _('Cancel') }}</a></div>
+</form>
+{% endblock %}

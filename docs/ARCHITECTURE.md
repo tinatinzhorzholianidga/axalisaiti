@@ -112,6 +112,10 @@ cyber_tracks ──< courses (platform = cyberhero, track_id)
 courses ──< cyber_missions ──< cyber_mission_translations
 cyber_missions ──< cyber_mission_rounds ──< cyber_mission_questions ──< cyber_question_options
 cyber_missions ──< cyber_branches ──< cyber_branch_choices  (branching conversations)
+case_categories ──< case_category_translations
+case_categories ──< case_studies ──< case_study_translations, case_study_sections (heading from
+                                     case_section_titles), case_study_images (media_files)
+resources ── media_files          (admin-published PDFs; hidden ones are not served)
 cyber_articles ──< cyber_article_blocks, cyber_article_sources   (legacy; the parent/teacher
                                                   reads are lessons of the teachers-parents course)
 cyber_mascot_tips (context key, ka/en text, mood)
@@ -145,6 +149,7 @@ Instructor: `/instructor/`, `/instructor/courses/new`, `/instructor/courses/<id>
 `/instructor/grading/`, `/instructor/courses/<id>/students`, `/instructor/courses/<id>/analytics`.
 
 Admin: `/admin/` (dashboard), `/admin/users/`, `/admin/courses/`, `/admin/categories/`,
+`/admin/case-studies/` (+ `categories/`, `section-titles/`), `/admin/resources/`,
 `/admin/cyberhero/{tracks,missions,tips,resources,certificates}/`,
 `/admin/quizzes/`, `/admin/assignments/`, `/admin/certificates/`, `/admin/discussions/`,
 `/admin/reviews/`, `/admin/notifications/`, `/admin/media/`, `/admin/analytics/`,

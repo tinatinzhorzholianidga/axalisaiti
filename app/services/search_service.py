@@ -1,4 +1,4 @@
-"""Global search over courses, lessons and resources (published only)."""
+"""Global search over courses, lessons, case studies and resources (published only)."""
 
 from __future__ import annotations
 
@@ -8,12 +8,13 @@ from app.extensions import db
 from app.models import Course, CourseStatus, Lesson, LessonResource, Module
 from app.repositories import course_repository as repo
 from app.repositories.course_repository import CatalogFilters
+from app.services import case_study_service
 
 
 def search_all(query: str, locale: str = "ka", limit: int = 10) -> dict:
     query = query.strip()
     if len(query) < 2:
-        return {"courses": [], "lessons": [], "resources": [], "categories": []}
+        return {"courses": [], "lessons": [], "cases": [], "resources": [], "categories": []}
     courses = repo.catalog(CatalogFilters(query=query, per_page=limit), locale).items
     lessons = repo.search_lessons(query, locale, limit)
     like = f"%{query.lower()}%"
@@ -37,6 +38,7 @@ def search_all(query: str, locale: str = "ka", limit: int = 10) -> dict:
     return {
         "courses": courses,
         "lessons": lessons,
+        "cases": case_study_service.search(query, locale, limit),
         "resources": resources,
         "categories": categories,
     }

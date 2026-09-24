@@ -1,0 +1,14 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Case studies') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Case studies') }}{% endblock %}
+{% block panel_actions %}<a class="btn btn-outline" href="{{ url_for('admin.case_categories') }}">{{ icon('layers') }} {{ _('Categories') }}</a><a class="btn btn-outline" href="{{ url_for('admin.case_section_titles') }}">{{ icon('list') }} {{ _('Section titles') }}</a><a class="btn btn-primary" href="{{ url_for('admin.case_study_new') }}">{{ icon('plus') }} {{ _('New case study') }}</a>{% endblock %}
+{% block panel_content %}
+<div class="toolbar"><form method="get" role="search"><input class="form-control" type="search" name="q" value="{{ q }}" placeholder="{{ _('Search title or slug') }}" aria-label="{{ _('Search') }}"><button class="btn btn-outline" type="submit">{{ _('Filter') }}</button></form></div>
+<div class="table-wrap"><table class="table table-hover"><thead><tr><th>{{ _('Case study') }}</th><th>{{ _('Category') }}</th><th>{{ _('Status') }}</th><th>{{ _('Sections') }}</th><th>{{ _('Updated') }}</th><th></th></tr></thead><tbody>
+{% for c in items %}<tr><td><a href="{{ url_for('admin.case_study_edit', case_id=c.id) }}">{{ c.title(locale) }}</a><br><small class="text-muted">{{ c.slug }}</small></td><td>{{ c.category.name(locale) if c.category else '—' }}</td><td>{% if c.is_published %}<span class="chip chip-success">{{ _('published') }}</span>{% else %}<span class="chip chip-warning">{{ _('draft') }}</span>{% endif %}</td><td>{{ c.sections|length }} · {{ c.images|length }} {{ _('pictures') }}</td><td>{{ c.updated_at|humanize_dt }}</td><td class="actions"><a class="btn btn-ghost btn-sm" href="{{ url_for('cases.detail', slug=c.slug) }}">{{ icon('eye') }}</a><form method="post" action="{{ url_for('admin.case_study_delete', case_id=c.id) }}" data-confirm="{{ _('Delete this case study?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit" aria-label="{{ _('Delete') }}">{{ icon('trash') }}</button></form></td></tr>
+{% else %}<tr><td colspan="6" class="text-muted">{{ _('No case studies yet. Create the first one.') }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

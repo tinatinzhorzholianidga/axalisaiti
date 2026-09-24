@@ -1,13 +1,14 @@
 /* Runs synchronously in <head> before first paint so the chosen theme never
-   flashes. Stored preference: localStorage "elearning.theme" = light|dark|system. */
+   flashes. Stored preference: localStorage "elearning.theme" = light|dark|system.
+   Light is the default; "dark" and "system" are explicit choices. */
 (function () {
   var KEY = "elearning.theme";
-  var pref = "dark"; /* dark is the primary identity; "system" is an explicit choice */
-  try { pref = localStorage.getItem(KEY) || "dark"; } catch (e) { /* storage blocked */ }
-  if (pref !== "light" && pref !== "system") { pref = "dark"; }
-  var dark = true;
+  var pref = "light";
+  try { pref = localStorage.getItem(KEY) || "light"; } catch (e) { /* storage blocked */ }
+  if (pref !== "dark" && pref !== "system") { pref = "light"; }
+  var dark = false;
   if (pref === "system") {
-    try { dark = !window.matchMedia("(prefers-color-scheme: light)").matches; } catch (e) { dark = true; }
+    try { dark = window.matchMedia("(prefers-color-scheme: dark)").matches; } catch (e) { dark = false; }
   } else {
     dark = pref === "dark";
   }

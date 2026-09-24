@@ -1,0 +1,67 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/forms.html" import field, error_summary %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ case.title(locale) if case else _('New case study') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.case_studies') }}">{{ _('Case studies') }}</a></div>{% endblock %}
+{% block panel_title %}{{ case.title(locale) if case else _('New case study') }}{% endblock %}
+{% block panel_actions %}{% if case %}<a class="btn btn-outline" href="{{ url_for('cases.detail', slug=case.slug) }}">{{ icon('eye') }} {{ _('Preview') }}</a>{% endif %}{% endblock %}
+{% block panel_content %}
+<div class="two-col">
+  <div>
+    <form method="post" enctype="multipart/form-data" class="panel" novalidate>
+      {{ form.hidden_tag() }}{{ error_summary(form) }}
+      <ul class="nav locale-tabs mb-3" role="tablist" data-tabs>
+        <li class="nav-item"><button class="nav-link active" type="button" role="tab" data-tab="ka" aria-selected="true">ქართული</button></li>
+        <li class="nav-item"><button class="nav-link" type="button" role="tab" data-tab="en" aria-selected="false">English</button></li>
+      </ul>
+      <div data-tab-panel="ka">{{ field(form.title_ka) }}{{ field(form.description_ka, rows=6, help=_('The “Description” section. Allowed HTML: headings, paragraphs, lists, tables, images, links. Scripts are removed.')) }}{{ field(form.about_ka, rows=10, help=_('The “About” section. Pictures added below are shown under this text; you can also place <img> tags inside it.')) }}</div>
+      <div data-tab-panel="en" hidden>{{ field(form.title_en) }}{{ field(form.description_en, rows=6) }}{{ field(form.about_en, rows=10) }}</div>
+      <div class="form-section"><div class="form-grid-3">{{ field(form.category_id, attrs={'data-fancy-select': ''}) }}{{ field(form.slug, help=_('Leave empty to generate from the title.')) }}{{ field(form.sort_order) }}</div>
+        {{ field(form.cover, help=_('PNG, JPG or WebP. Shown on the card and at the top of the article.')) }}
+        {% if case and case.cover %}<p class="small text-muted"><img class="thumb-sm" src="{{ url_for('media.public_file', media_id=case.cover.id) }}" alt=""> {{ _('Current cover') }}</p>{% endif %}
+        {{ field(form.is_published, help=_('Unpublished case studies are only visible to administrators.')) }}
+      </div>
+      <div class="form-actions"><button class="btn btn-primary" type="submit" name="submit" value="1">{{ _('Save case study') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.case_studies') }}">{{ _('Cancel') }}</a></div>
+    </form>
+
+    {% if case %}
+    <section class="panel" id="sections">
+      <h2 class="h6 mb-2">{{ _('Extra sections') }}</h2>
+      <p class="small text-muted">{{ _('“Description” and “About” are always there. Add more sections with a heading from the list (manage the list under “Section titles”).') }}</p>
+      <ul class="sortable-static mb-3">
+        {% for s in case.sections %}<li class="d-flex align-items-center gap-2"><span class="text-muted">{{ s.sort_order }}</span><span class="title"><a href="{{ url_for('admin.case_section_edit', case_id=case.id, section_id=s.id) }}">{{ s.heading(locale) or _('(title removed)') }}</a><span class="sub">{{ s.body(locale)|striptags|truncate(90) }}</span></span><span class="order-btns ms-auto"><form method="post" action="{{ url_for('admin.case_section_action', case_id=case.id, section_id=s.id, action='up') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" aria-label="{{ _('Move up') }}">{{ icon('chevron-up') }}</button></form><form method="post" action="{{ url_for('admin.case_section_action', case_id=case.id, section_id=s.id, action='down') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" aria-label="{{ _('Move down') }}">{{ icon('chevron-down') }}</button></form><form method="post" action="{{ url_for('admin.case_section_action', case_id=case.id, section_id=s.id, action='delete') }}" data-confirm="{{ _('Delete this section?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" aria-label="{{ _('Delete') }}">{{ icon('trash') }}</button></form></span></li>
+        {% else %}<li class="text-muted small">{{ _('No extra sections yet.') }}</li>{% endfor %}
+      </ul>
+      <form method="post" action="{{ url_for('admin.case_section_add', case_id=case.id) }}" novalidate>
+        {{ section_form.hidden_tag() }}
+        {{ field(section_form.title_id, attrs={'data-fancy-select': ''}, help=_('No suitable heading? Add one under “Section titles”.')) }}
+        {{ field(section_form.body_ka, rows=5) }}{{ field(section_form.body_en, rows=5) }}
+        <button class="btn btn-outline btn-sm" type="submit">{{ icon('plus') }} {{ _('Add section') }}</button>
+      </form>
+    </section>
+
+    <section class="panel" id="images">
+      <h2 class="h6 mb-2">{{ _('Pictures in “About”') }}</h2>
+      {% if case.images %}
+      <div class="media-grid mb-3">
+        {% for img in case.images %}<figure class="media-tile"><div class="thumb"><img src="{{ url_for('media.public_file', media_id=img.media.id) }}" alt="{{ img.caption(locale) }}"></div><figcaption class="small">{{ img.caption(locale) or img.media.original_name }}</figcaption><form method="post" action="{{ url_for('admin.case_image_delete', case_id=case.id, image_id=img.id) }}" data-confirm="{{ _('Remove this picture?') }}">{{ csrf() }}<button class="btn btn-ghost btn-sm" type="submit" aria-label="{{ _('Delete') }}">{{ icon('trash') }}</button></form></figure>{% endfor %}
+      </div>
+      {% else %}<p class="text-muted small">{{ _('No pictures yet.') }}</p>{% endif %}
+      <form method="post" enctype="multipart/form-data" action="{{ url_for('admin.case_image_add', case_id=case.id) }}" novalidate>
+        {{ image_form.hidden_tag() }}
+        {{ field(image_form.file) }}<div class="form-grid-2">{{ field(image_form.caption_ka) }}{{ field(image_form.caption_en) }}</div>
+        <button class="btn btn-outline btn-sm" type="submit">{{ icon('plus') }} {{ _('Add image') }}</button>
+      </form>
+    </section>
+    {% endif %}
+  </div>
+  {% if case %}
+  <aside>
+    <div class="panel"><h2 class="h6 mb-2">{{ _('Facts') }}</h2><dl class="kv"><dt>{{ _('Status') }}</dt><dd>{% if case.is_published %}<span class="chip chip-success">{{ _('published') }}</span>{% else %}<span class="chip chip-warning">{{ _('draft') }}</span>{% endif %}</dd><dt>{{ _('Category') }}</dt><dd>{{ case.category.name(locale) if case.category else '—' }}</dd><dt>{{ _('Published') }}</dt><dd>{{ case.published_at|date_only if case.published_at else '—' }}</dd><dt>{{ _('Created') }}</dt><dd>{{ case.created_at|date_only }}</dd></dl></div>
+    <form class="panel" method="post" action="{{ url_for('admin.case_study_delete', case_id=case.id) }}" data-confirm="{{ _('Delete this case study?') }}">{{ csrf() }}<button class="btn btn-danger btn-sm" type="submit">{{ icon('trash') }} {{ _('Delete case study') }}</button></form>
+  </aside>
+  {% endif %}
+</div>
+{% endblock %}

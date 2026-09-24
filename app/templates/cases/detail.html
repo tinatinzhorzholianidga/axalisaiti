@@ -1,0 +1,48 @@
+{% extends "layouts/base.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import case_card %}
+{% block title %}{{ case.title(locale) }} · {{ _('Case studies') }} · {{ site_name }}{% endblock %}
+{% block content %}
+<div class="container narrow">
+  <nav class="breadcrumbs" aria-label="{{ _('Breadcrumb') }}"><a href="{{ url_for('main.home') }}">{{ _('Home') }}</a> / <a href="{{ url_for('cases.index') }}">{{ _('Case studies') }}</a>{% if case.category %} / <a href="{{ url_for('cases.index', category=case.category.slug) }}">{{ case.category.name(locale) }}</a>{% endif %}</nav>
+  <article class="case-article">
+    <header class="case-head">
+      {% if case.category %}<a class="chip chip-{{ case.category.color }}" href="{{ url_for('cases.index', category=case.category.slug) }}">{{ icon(case.category.icon) }} {{ case.category.name(locale) }}</a>{% endif %}
+      {% if not case.is_published %}<span class="chip chip-warning">{{ _('draft') }}</span>{% endif %}
+      <h1 class="page-title">{{ case.title(locale) }}</h1>
+      <p class="text-muted small">{% if case.published_at %}{{ icon('calendar') }} {{ case.published_at|date_only }}{% endif %}</p>
+      {% if case.cover %}<div class="case-cover"><img src="{{ url_for('media.public_file', media_id=case.cover.id) }}" alt=""></div>{% endif %}
+    </header>
+
+    <section class="case-section" id="description">
+      <h2>{{ _('Description') }}</h2>
+      {# sanitised server-side (nh3 allow-list) #}
+      <div class="rich-text">{{ case.text('description', locale)|safe }}</div>
+    </section>
+
+    <section class="case-section" id="about">
+      <h2>{{ _('About') }}</h2>
+      <div class="rich-text">{{ case.text('about', locale)|safe }}</div>
+      {% if case.images %}
+      <div class="case-gallery">
+        {% for img in case.images %}<figure><a href="{{ url_for('media.public_file', media_id=img.media.id) }}" target="_blank" rel="noopener"><img src="{{ url_for('media.public_file', media_id=img.media.id) }}" alt="{{ img.caption(locale) }}" loading="lazy"></a>{% if img.caption(locale) %}<figcaption>{{ img.caption(locale) }}</figcaption>{% endif %}</figure>{% endfor %}
+      </div>
+      {% endif %}
+    </section>
+
+    {% for s in case.visible_sections %}
+    <section class="case-section" id="section-{{ s.id }}">
+      <h2>{{ s.heading(locale) }}</h2>
+      <div class="rich-text">{{ s.body(locale)|safe }}</div>
+    </section>
+    {% endfor %}
+  </article>
+
+  {% if related %}
+  <section class="section pt-0">
+    <div class="section-head"><div><span class="eyebrow">{{ _('More') }}</span><h2>{{ _('Related case studies') }}</h2></div><a class="btn btn-outline" href="{{ url_for('cases.index') }}">{{ _('All case studies') }} {{ icon('arrow-right') }}</a></div>
+    <div class="course-grid">{% for c in related %}{{ case_card(c, locale) }}{% endfor %}</div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

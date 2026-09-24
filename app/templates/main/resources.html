@@ -4,18 +4,39 @@
 {% block title %}{{ _('Resources') }} · {{ site_name }}{% endblock %}
 {% block content %}
 <div class="container narrow">
-  <div class="page-head"><h1 class="page-title">{{ _('Resources') }}</h1><p class="page-subtitle">{{ _('Downloadable materials and references from published courses.') }}</p></div>
+  <div class="page-head"><h1 class="page-title">{{ _('Resources') }}</h1><p class="page-subtitle">{{ _('Documents to download, and the materials attached to the courses you have taken.') }}</p></div>
   {% if resources %}
-  <ul class="resource-list">
+  <ul class="resource-list resource-list--docs">
     {% for r in resources %}
-    <li>{{ icon('link' if r.kind == 'link' else 'file-text') }}
-      <div><a href="{{ r.url if r.url else url_for('learning.lesson', course_slug=r.lesson.course.slug, lesson_slug=r.lesson.slug) }}"{% if r.url %} rel="noopener"{% endif %}>{{ r.title(current_locale) }}</a>
-        <small class="d-block text-muted">{{ r.lesson.course.title(current_locale) }} · {{ r.lesson.title(current_locale) }}</small></div>
+    <li>{{ icon('file-text') }}
+      <div><a href="{{ url_for('media.public_file', media_id=r.media.id) }}" target="_blank" rel="noopener">{{ r.title(current_locale) }}</a> <span class="chip">PDF · {{ (r.media.size_bytes / 1024)|round|int }} KB</span>
+        {% if r.description(current_locale) %}<small class="d-block text-muted">{{ r.description(current_locale) }}</small>{% endif %}</div>
     </li>
     {% endfor %}
   </ul>
   {% else %}
-  {{ empty_state(_('No resources yet'), _('Resources attached to lessons will be listed here.'), 'file-text', _('Browse courses'), url_for('courses.catalog')) }}
+  {{ empty_state(_('No documents yet'), _('Documents published by the platform will be listed here.'), 'file-text') }}
   {% endif %}
+
+  <section class="mt-5" id="from-courses">
+    <div class="section-head mb-3"><div><span class="eyebrow">{{ _('Your courses') }}</span><h2 class="h3">{{ _('From courses') }}</h2></div></div>
+    {% if not current_user.is_authenticated %}
+    <p class="text-muted">{{ _('Sign in and enrol in a course: the files attached to its lessons appear here.') }} <a href="{{ url_for('auth.login', next=request.path) }}">{{ _('Sign in') }}</a></p>
+    {% elif course_resources %}
+    {% for course, items in course_resources %}
+    <h3 class="h5 mt-4 mb-2"><a href="{{ url_for('courses.detail', slug=course.slug) }}">{{ course.title(current_locale) }}</a></h3>
+    <ul class="resource-list">
+      {% for r in items %}
+      <li>{{ icon('link' if r.kind == 'link' else 'file-text') }}
+        <div><a href="{{ r.url if r.url else url_for('media.protected_file', media_id=r.media_id) }}"{% if r.url %} rel="noopener"{% endif %}>{{ r.title(current_locale) }}</a>
+          <small class="d-block text-muted">{{ r.lesson.title(current_locale) }}</small></div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+    {% else %}
+    <p class="text-muted">{{ _('The files attached to the lessons of a course you enrol in appear here.') }} <a href="{{ url_for('courses.catalog') }}">{{ _('Browse courses') }}</a></p>
+    {% endif %}
+  </section>
 </div>
 {% endblock %}

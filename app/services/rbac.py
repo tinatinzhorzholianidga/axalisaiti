@@ -33,6 +33,8 @@ PERMISSIONS: dict[str, str] = {
     "users.manage": "Manage user accounts",
     "roles.manage": "Assign roles",
     "categories.manage": "Manage categories",
+    "case_studies.manage": "Manage case studies and their categories",
+    "resources.manage": "Publish platform resources (documents)",
     "cyberhero.manage": "Manage CyberHero content",
     "certificates.manage": "Issue / revoke certificates",
     "media.manage": "Upload and manage media",

@@ -23,6 +23,15 @@ from app.models.base import (
     UserStatus,
     utcnow,
 )
+from app.models.case_study import (
+    CaseCategory,
+    CaseCategoryTranslation,
+    CaseSectionTitle,
+    CaseStudy,
+    CaseStudyImage,
+    CaseStudySection,
+    CaseStudyTranslation,
+)
 from app.models.certificate import Certificate
 from app.models.course import (
     Category,
@@ -61,6 +70,7 @@ from app.models.cyberhero import (
 from app.models.enrollment import Bookmark, CourseProgress, Enrollment, LessonProgress
 from app.models.media import MediaFile
 from app.models.notification import Notification
+from app.models.resource import Resource
 from app.models.settings import FeatureFlag, SiteSetting
 from app.models.social import Discussion, DiscussionPost, DiscussionReport, Review
 from app.models.user import AuthToken, Permission, Role, User, role_permissions, user_roles
@@ -74,6 +84,13 @@ __all__ = [
     "AuthToken",
     "Bookmark",
     "BookmarkType",
+    "CaseCategory",
+    "CaseCategoryTranslation",
+    "CaseSectionTitle",
+    "CaseStudy",
+    "CaseStudyImage",
+    "CaseStudySection",
+    "CaseStudyTranslation",
     "Category",
     "CategoryTranslation",
     "Certificate",
@@ -130,6 +147,7 @@ __all__ = [
     "Quiz",
     "QuizAnswer",
     "QuizAttempt",
+    "Resource",
     "Review",
     "ReviewStatus",
     "Role",

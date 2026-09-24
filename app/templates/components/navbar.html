@@ -2,6 +2,7 @@
 {% set nav_items = [
   ('main.home', _('Home')),
   ('courses.catalog', _('Courses')),
+  ('cases.index', _('Case studies')),
   ('learning.dashboard', _('My learning')),
   ('main.resources', _('Resources')),
   ('main.about', _('About')),
@@ -15,7 +16,7 @@
       </a>
       <nav class="main-nav" aria-label="{{ _('Main navigation') }}">
         {% for endpoint, label in nav_items %}
-        <a href="{{ url_for(endpoint) }}"{% if request.endpoint == endpoint or (endpoint == 'courses.catalog' and request.blueprint == 'courses') or (endpoint == 'learning.dashboard' and request.blueprint == 'learning') %} aria-current="page"{% endif %}>{{ label }}</a>
+        <a href="{{ url_for(endpoint) }}"{% if request.endpoint == endpoint or (endpoint == 'courses.catalog' and request.blueprint == 'courses') or (endpoint == 'cases.index' and request.blueprint == 'cases') or (endpoint == 'learning.dashboard' and request.blueprint == 'learning') %} aria-current="page"{% endif %}>{{ label }}</a>
         {% endfor %}
         {% if cyberhero_enabled %}<a href="{{ url_for('cyberhero.shell', path='') }}">CyberHero →</a>{% endif %}
       </nav>

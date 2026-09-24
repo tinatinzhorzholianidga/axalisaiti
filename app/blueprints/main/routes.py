@@ -6,12 +6,19 @@ from typing import Any
 
 from flask import current_app, jsonify, render_template, request
 from flask_babel import get_locale
+from flask_login import current_user
 from sqlalchemy import text
 
 from app.blueprints.cyberhero import routes as cyberhero_routes
 from app.blueprints.main import bp
 from app.extensions import csrf, db, limiter
-from app.services import course_service, feature_flags, search_service
+from app.services import (
+    case_study_service,
+    course_service,
+    feature_flags,
+    resource_service,
+    search_service,
+)
 
 
 @bp.route("/health")
@@ -70,12 +77,17 @@ def io_host_context() -> dict[str, Any]:
 @bp.route("/")
 def home():  # type: ignore[no-untyped-def]
     locale = str(get_locale())
-    featured = course_service.featured_courses(limit=6)
     categories = course_service.active_categories()
     stats = course_service.public_stats()
+    threats_slug = case_study_service.home_category_slug()
+    stats["case_studies"] = case_study_service.count_published()
+    stats["threats"] = case_study_service.count_in_category(threats_slug) if threats_slug else 0
     return render_template(
         "main/home.html",
-        featured=featured,
+        threats=case_study_service.home_picks(),
+        threats_category=(
+            case_study_service.category_by_slug(threats_slug) if threats_slug else None
+        ),
         categories=categories,
         stats=stats,
         locale=locale,
@@ -90,8 +102,11 @@ def about():  # type: ignore[no-untyped-def]
 
 @bp.route("/resources/")
 def resources():  # type: ignore[no-untyped-def]
-    resources = course_service.public_resources(limit=60)
-    return render_template("main/resources.html", resources=resources)
+    return render_template(
+        "main/resources.html",
+        resources=resource_service.visible(),
+        course_resources=resource_service.course_resources_for(current_user),
+    )
 
 
 @bp.route("/search/")

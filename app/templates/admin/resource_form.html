@@ -1,0 +1,16 @@
+{% extends "layouts/panel.html" %}
+{% from "components/forms.html" import field, error_summary %}
+{% block title %}{{ resource.title(locale) }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block breadcrumbs %}<div class="small text-muted mb-1"><a href="{{ url_for('admin.resources') }}">{{ _('Resources') }}</a></div>{% endblock %}
+{% block panel_title %}{{ resource.title(locale) }}{% endblock %}
+{% block panel_content %}
+<form class="panel" method="post" enctype="multipart/form-data" novalidate>
+  {{ form.hidden_tag() }}{{ error_summary(form) }}
+  <p class="small text-muted">{{ _('Current file') }}: {{ resource.media.original_name }} ({{ (resource.media.size_bytes / 1024)|round|int }} KB)</p>
+  {{ field(form.file, help=_('Upload a PDF to replace the current file, or leave empty.')) }}
+  {{ field(form.title_ka) }}{{ field(form.title_en) }}{{ field(form.description_ka, rows=2) }}{{ field(form.description_en, rows=2) }}
+  <div class="form-grid-2">{{ field(form.sort_order) }}</div>{{ field(form.is_visible) }}
+  <div class="form-actions"><button class="btn btn-primary" type="submit">{{ _('Save resource') }}</button><a class="btn btn-ghost" href="{{ url_for('admin.resources') }}">{{ _('Cancel') }}</a></div>
+</form>
+{% endblock %}
