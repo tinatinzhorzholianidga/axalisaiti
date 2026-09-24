@@ -82,11 +82,6 @@
         {% if achievements %}<div class="d-flex flex-wrap gap-2">{% for ua in achievements %}<span class="achievement" title="{{ ua.achievement.description(locale) }}">{{ icon(ua.achievement.icon) }} {{ ua.achievement.name(locale) }}</span>{% endfor %}</div>
         {% else %}<p class="text-muted small mb-0">{{ _('Achievements are awarded for completed courses, certificates and quiz streaks.') }}</p>{% endif %}
       </div>
-      <div class="panel">
-        <div class="panel-title"><h2>{{ _('Notifications') }}</h2><a class="small" href="{{ url_for('notifications.inbox') }}">{{ _('All') }}</a></div>
-        {% for n in notifications %}<div class="notif {{ 'read' if n.is_read else 'unread' }}"><span class="dot"></span><div><div class="title">{% if n.link %}<a href="{{ n.link }}">{{ n.title }}</a>{% else %}{{ n.title }}{% endif %}</div><div class="body small">{{ n.body }}</div></div></div>
-        {% else %}<p class="text-muted small mb-0">{{ _('No notifications.') }}</p>{% endfor %}
-      </div>
     </aside>
   </div>
 </div>

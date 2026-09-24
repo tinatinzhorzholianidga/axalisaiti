@@ -89,11 +89,6 @@ def admin(app: Flask) -> User:
     return make_user("admin@example.org", roles=("admin",), first_name="Ana", last_name="Admin")
 
 
-@pytest.fixture
-def moderator(app: Flask) -> User:
-    return make_user("moderator@example.org", roles=("moderator", "student"))
-
-
 def get_csrf(client: FlaskClient) -> str:
     response = client.get("/api/v1/auth/csrf")
     return response.get_json()["csrf_token"]

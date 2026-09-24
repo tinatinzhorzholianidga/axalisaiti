@@ -8,7 +8,6 @@ from app.blueprints.admin import bp
 from app.blueprints.admin.helpers import locale
 from app.extensions import db
 from app.models import (
-    AssignmentSubmission,
     AuditLog,
     Certificate,
     Course,
@@ -16,10 +15,7 @@ from app.models import (
     Enrollment,
     EnrollmentStatus,
     QuizAttempt,
-    Review,
-    ReviewStatus,
     Role,
-    SubmissionStatus,
     User,
     UserStatus,
 )
@@ -67,14 +63,8 @@ def dashboard():  # type: ignore[no-untyped-def]
         "quiz_attempts": _count(
             select(QuizAttempt.id).where(QuizAttempt.submitted_at.is_not(None))
         ),
-        "pending_reviews": _count(select(Review.id).where(Review.status == ReviewStatus.PENDING)),
         "pending_courses": _count(
             select(Course.id).where(Course.status == CourseStatus.PENDING_REVIEW)
-        ),
-        "submissions_to_grade": _count(
-            select(AssignmentSubmission.id).where(
-                AssignmentSubmission.status == SubmissionStatus.SUBMITTED
-            )
         ),
     }
     cyber = cyberhero_service.stats()

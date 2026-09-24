@@ -1,4 +1,4 @@
-"""Quizzes and assignments for learners."""
+"""Quizzes for learners."""
 
 from __future__ import annotations
 
@@ -9,10 +9,8 @@ from flask_login import current_user, login_required
 
 from app.blueprints.assessments import bp
 from app.extensions import db
-from app.forms.assessments import SubmissionForm
-from app.models import Assignment, Quiz, QuizAttempt
-from app.services import assignment_service, enrollment_service, quiz_service
-from app.services.assignment_service import AssignmentError
+from app.models import Quiz, QuizAttempt
+from app.services import enrollment_service, quiz_service
 from app.services.quiz_service import QuizError
 from app.services.rbac import can_manage_course, require_permission
 
@@ -119,39 +117,5 @@ def quiz_result(attempt_id: int):  # type: ignore[no-untyped-def]
         answers=answers,
         show_details=quiz_service.show_details(current_user, attempt),
         attempts_left=quiz_service.attempts_left(current_user, attempt.quiz),
-        locale=str(get_locale()),
-    )
-
-
-@bp.route("/assignment/<int:assignment_id>/", methods=["GET", "POST"])
-@login_required
-@require_permission("assignments.submit")
-def assignment_view(assignment_id: int):  # type: ignore[no-untyped-def]
-    assignment = db.session.get(Assignment, assignment_id)
-    if assignment is None or (
-        not assignment.is_published and not can_manage_course(current_user, assignment.course)
-    ):
-        abort(404)
-    _require_access(assignment.course)
-    form = SubmissionForm()
-    if form.validate_on_submit():
-        try:
-            assignment_service.submit(
-                current_user, assignment, text=form.text_content.data, file=form.file.data
-            )
-        except AssignmentError as exc:
-            flash(str(exc), "error")
-        else:
-            flash(_("Your work was submitted."), "success")
-            return redirect(url_for("assessments.assignment_view", assignment_id=assignment.id))
-    can_submit, reason = assignment_service.can_submit(current_user, assignment)
-    return render_template(
-        "assessments/assignment.html",
-        assignment=assignment,
-        course=assignment.course,
-        form=form,
-        submissions=assignment_service.submissions(current_user, assignment),
-        can_submit=can_submit,
-        reason=reason,
         locale=str(get_locale()),
     )

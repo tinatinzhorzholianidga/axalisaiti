@@ -35,11 +35,6 @@
           </div>
         </div>
         {% if current_user.is_authenticated %}
-        {% set unread = unread_notifications() %}
-        <a class="icon-btn" href="{{ url_for('notifications.inbox') }}" aria-label="{{ _('Notifications') }}{% if unread %} ({{ unread }} {{ _('unread') }}){% endif %}">
-          {{ icon('bell') }}
-          <span class="badge-dot" data-unread-badge data-endpoint="{{ url_for('api.notifications') }}" {% if not unread %}hidden{% endif %}>{{ unread or '' }}</span>
-        </a>
         <div class="dropdown">
           <button type="button" class="icon-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{{ _('Account menu') }}"><span class="avatar">{{ current_user.initials }}</span></button>
           <div class="dropdown-menu dropdown-menu-end">

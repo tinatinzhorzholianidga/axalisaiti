@@ -9,7 +9,7 @@ from PIL import Image
 from app import create_app
 from app.extensions import db
 from app.models import Course, Lesson, MediaFile, User
-from app.services import certificate_service, discussion_service, progress_service, seed_service
+from app.services import certificate_service, progress_service, seed_service
 from app.services.enrollment_service import enroll
 from tests.conftest import get_csrf, login, logout, make_user, post, post_json
 
@@ -22,17 +22,17 @@ def _demo() -> Course:
 
 
 # ---- authorisation ---------------------------------------------------------
-def test_role_boundaries(client, student, instructor, moderator, admin):  # type: ignore[no-untyped-def]
+def test_role_boundaries(client, student, instructor, admin):  # type: ignore[no-untyped-def]
     course = _demo()
     protected = {
-        "/admin/": ("admin", "moderator"),
+        "/admin/": ("admin",),
         "/admin/users/": ("admin",),
         "/admin/settings/": ("admin",),
         "/admin/cyberhero/": ("admin",),
         "/instructor/": ("instructor", "admin"),
         f"/instructor/courses/{course.id}/builder": ("admin",),  # not this instructor's course
     }
-    users = {"student": student, "instructor": instructor, "moderator": moderator, "admin": admin}
+    users = {"student": student, "instructor": instructor, "admin": admin}
     for role, user in users.items():
         login(client, user)
         for url, allowed in protected.items():
@@ -49,7 +49,6 @@ def test_role_boundaries(client, student, instructor, moderator, admin):  # type
 
 
 def test_admin_api_rejects_students(client, logged_in_student):  # type: ignore[no-untyped-def]
-    assert post_json(client, "/api/v1/notifications/read-all").status_code == 200
     # admin-only write paths behind the HTML panel
     assert post(client, "/admin/flags/", {"flag-CYBERHERO_ENABLED": "on"}).status_code == 403
     assert post(client, "/admin/users/new", {"email": "x@example.org"}).status_code == 403
@@ -63,9 +62,8 @@ def test_users_cannot_read_each_others_data(client, student, admin):  # type: ig
     export = client.get("/profile/export").get_data(as_text=True)
     assert student.email in export
     assert "other@example.org" not in export
-    # a student cannot open another user's admin page or notifications
+    # a student cannot open another user's admin page
     assert client.get(f"/admin/users/{other.id}").status_code == 403
-    assert client.get("/api/v1/notifications").status_code == 200
 
 
 # ---- CSRF -----------------------------------------------------------------
@@ -184,23 +182,7 @@ def test_uploads_are_validated_and_served_only_through_authorised_endpoints(
 
 # ---- XSS ------------------------------------------------------------------
 def test_user_content_is_sanitised(client, student, instructor):  # type: ignore[no-untyped-def]
-    course = _demo()
-    enroll(student, course)
-    payload = "Hello <script>alert(1)</script><img src=x onerror=alert(2)><a href='javascript:evil()'>x</a>"
-    thread = discussion_service.create_thread(student, course, title=f"T {payload}", body=payload)
-    discussion_service.reply(student, thread, body=payload)
     login(client, student)
-    rule = next(
-        r
-        for r in client.application.url_map.iter_rules()
-        if r.rule.endswith("/<slug>/<int:thread_id>/")
-    )
-    url = rule.rule.replace("<slug>", course.slug).replace("<int:thread_id>", str(thread.id))
-    html = client.get(url).get_data(as_text=True)
-    # payload survives only as escaped text: no executable tags or handlers remain
-    assert "<script>" not in html
-    assert "<img src=x onerror" not in html
-    assert "href='javascript:" not in html and 'href="javascript:' not in html
     # profile fields are escaped by Jinja autoescape
     post(
         client,

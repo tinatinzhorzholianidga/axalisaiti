@@ -245,6 +245,9 @@ def test_track_hints_ride_the_mascot_payload(client, seeded):  # type: ignore[no
     from app.models import CyberMascotReaction
     from app.services import cyberhero_service
 
+    # the seed ships its own guardians hints; the test wants only its two
+    for seeded_hint in db.session.query(CyberMascotReaction).filter_by(key="track.guardians"):
+        db.session.delete(seeded_hint)
     db.session.add_all(
         [
             CyberMascotReaction(

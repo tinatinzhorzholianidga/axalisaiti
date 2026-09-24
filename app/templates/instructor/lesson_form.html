@@ -28,8 +28,6 @@
       <h2 class="h6 mb-3">{{ _('Attached assessment') }}</h2>
       {% if lesson.quiz %}<p class="small">{{ icon('help-circle') }} <a href="{{ url_for('instructor.quiz_edit', course_id=course.id, quiz_id=lesson.quiz.id) }}">{{ lesson.quiz.title(locale) }}</a> ({{ lesson.quiz.questions|length }} {{ _('questions') }})</p>
       {% else %}<a class="btn btn-outline btn-sm mb-2" href="{{ url_for('instructor.quiz_new', course_id=course.id, lesson=lesson.id) }}">{{ icon('plus') }} {{ _('Add quiz') }}</a>{% endif %}
-      {% if lesson.assignment %}<p class="small">{{ icon('edit') }} <a href="{{ url_for('instructor.assignment_edit', course_id=course.id, assignment_id=lesson.assignment.id) }}">{{ lesson.assignment.title(locale) }}</a></p>
-      {% else %}<a class="btn btn-outline btn-sm" href="{{ url_for('instructor.assignment_new', course_id=course.id, lesson=lesson.id) }}">{{ icon('plus') }} {{ _('Add assignment') }}</a>{% endif %}
     </div>
     <div class="panel">
       <h2 class="h6 mb-3">{{ _('Resources') }}</h2>

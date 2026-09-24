@@ -18,7 +18,7 @@ from app.models import (
     User,
     utcnow,
 )
-from app.services import achievement_service, certificate_service, notification_service
+from app.services import achievement_service, certificate_service
 
 
 def get_course_progress(user: User, course: Course) -> CourseProgress | None:
@@ -150,13 +150,6 @@ def recalculate(user: User, course: Course) -> CourseProgress:
     db.session.commit()
 
     if newly_complete:
-        notification_service.notify(
-            user.id,
-            kind="course_update",
-            title="Course completed",
-            body=f"You completed {course.title('en') or course.slug}. Well done!",
-            link=f"/courses/{course.slug}/",
-        )
         achievement_service.check_course_completion(user)
         if course.certificate_enabled:
             certificate_service.issue_for_completion(user, course, course_progress)

@@ -1,21 +1,10 @@
 from __future__ import annotations
 
 from flask_babel import lazy_gettext as _l
-from wtforms import IntegerField, SelectField, StringField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Length, NumberRange, Optional
+from wtforms import IntegerField, SelectField, StringField
+from wtforms.validators import Length, NumberRange, Optional
 
 from app.forms.base import BaseForm
-
-
-class ReviewForm(BaseForm):
-    rating = SelectField(
-        _l("Rating"),
-        choices=[(5, "5"), (4, "4"), (3, "3"), (2, "2"), (1, "1")],
-        coerce=int,
-        validators=[DataRequired()],
-    )
-    body = TextAreaField(_l("Your review"), validators=[Optional(), Length(max=2000)])
-    submit = SubmitField(_l("Submit review"))
 
 
 class CatalogFilterForm(BaseForm):

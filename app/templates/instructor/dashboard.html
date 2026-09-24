@@ -10,7 +10,6 @@
   <div class="stats-card"><div class="value">{{ stats.courses }}</div><div class="label">{{ _('My courses') }}</div></div>
   <div class="stats-card"><div class="value">{{ stats.published }}</div><div class="label">{{ _('Published') }}</div></div>
   <div class="stats-card"><div class="value">{{ stats.students }}</div><div class="label">{{ _('Enrolments') }}</div></div>
-  <div class="stats-card"><div class="value">{{ stats.to_grade }}</div><div class="label">{{ _('To grade') }}</div></div>
 </div>
 <div class="two-col">
   <div class="panel">
@@ -18,12 +17,6 @@
     {% for c in courses[:6] %}
     <div class="d-flex align-items-center gap-3 py-2 border-top small"><a class="fw-semibold" href="{{ url_for('instructor.builder', course_id=c.id) }}">{{ c.title(locale) }}</a>{{ status_chip(c.status) }}<span class="text-muted ms-auto">{{ c.enrollment_count }} {{ _('enrolled') }}</span></div>
     {% else %}{{ empty_state(_('No courses yet'), _('Create your first course and build its curriculum.'), 'book', _('Create course'), url_for('instructor.course_new')) }}{% endfor %}
-  </div>
-  <div class="panel">
-    <div class="panel-title"><h2>{{ _('Assignments to grade') }}</h2><a class="small" href="{{ url_for('instructor.grading') }}">{{ _('All') }}</a></div>
-    {% for s in pending %}
-    <div class="d-flex align-items-center gap-3 py-2 border-top small"><a href="{{ url_for('instructor.grade_submission', submission_id=s.id) }}">{{ s.user.name }}</a><span class="text-muted">{{ s.assignment.title(locale) }}</span><span class="text-muted ms-auto">{{ s.submitted_at|humanize_dt }}</span></div>
-    {% else %}<p class="text-muted small mb-0">{{ _('Nothing waiting for grading.') }}</p>{% endfor %}
   </div>
 </div>
 {% endblock %}

@@ -14,8 +14,6 @@ DEFAULT_FLAGS: dict[str, tuple[str, str]] = {
         "CYBERHERO_IO_CHAT_ENABLED",
         "Experimental in-browser IO tutor (WebLLM)",
     ),
-    "COURSE_REVIEWS_ENABLED": ("true", "Learners can review courses"),
-    "DISCUSSIONS_ENABLED": ("true", "Course discussions"),
     "REGISTRATIONS_ENABLED": ("REGISTRATION_ENABLED", "Self-service account registration"),
     "ACHIEVEMENTS_ENABLED": ("true", "Award achievements"),
     "BOOKMARKS_ENABLED": ("true", "Bookmarks"),

@@ -1,4 +1,4 @@
-"""JSON API v1: session, courses, search, progress, notifications, bookmarks."""
+"""JSON API v1: session, courses, search, progress, bookmarks."""
 
 from __future__ import annotations
 
@@ -16,7 +16,6 @@ from app.services import (
     bookmark_service,
     course_service,
     enrollment_service,
-    notification_service,
     progress_service,
     search_service,
 )
@@ -48,7 +47,6 @@ def session_info():  # type: ignore[no-untyped-def]
                 "roles": sorted(current_user.role_names),
                 "permissions": sorted(current_user.permission_codes),
             },
-            "unread_notifications": notification_service.unread_count(current_user),
         }
     )
 
@@ -198,43 +196,6 @@ def lesson_heartbeat(lesson_id: int):  # type: ignore[no-untyped-def]
         state.seconds_spent = (state.seconds_spent or 0) + seconds
         db.session.commit()
     return jsonify({"ok": True})
-
-
-@bp.get("/notifications")
-@login_required_json
-def notifications():  # type: ignore[no-untyped-def]
-    items = notification_service.recent(current_user, limit=10)
-    return jsonify(
-        {
-            "unread": notification_service.unread_count(current_user),
-            "items": [
-                {
-                    "id": n.id,
-                    "kind": n.kind,
-                    "title": n.title,
-                    "body": n.body,
-                    "link": n.link,
-                    "is_read": n.is_read,
-                    "created_at": n.created_at.isoformat(),
-                }
-                for n in items
-            ],
-        }
-    )
-
-
-@bp.post("/notifications/<int:notification_id>/read")
-@login_required_json
-def notification_read(notification_id: int):  # type: ignore[no-untyped-def]
-    if not notification_service.mark_read(current_user, notification_id):
-        return api_error(404, "Notification not found")
-    return jsonify({"ok": True, "unread": notification_service.unread_count(current_user)})
-
-
-@bp.post("/notifications/read-all")
-@login_required_json
-def notifications_read_all():  # type: ignore[no-untyped-def]
-    return jsonify({"ok": True, "marked": notification_service.mark_all_read(current_user)})
 
 
 @bp.post("/bookmarks")

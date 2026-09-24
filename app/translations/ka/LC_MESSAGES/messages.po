@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-24 10:57+0000\n"
+"POT-Creation-Date: 2026-09-24 11:08+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -72,13 +72,6 @@ msgstr "სერტიფიკატი გაიცა."
 
 msgid "Certificate revoked."
 msgstr "სერტიფიკატი გაუქმდა."
-
-msgid "Report resolved."
-msgstr "საჩივარი განხილულია."
-
-#, python-format
-msgid "Announcement sent to %(n)d users."
-msgstr "განცხადება გაეგზავნა %(n)d მომხმარებელს."
 
 msgid "Course created. Now add modules and lessons."
 msgstr "კურსი შეიქმნა. ახლა დაამატეთ მოდულები და გაკვეთილები."
@@ -213,9 +206,6 @@ msgstr "ჯერ დარეგისტრირდით კურსზე.
 msgid "Time is up for this attempt."
 msgstr "ამ ცდისთვის დრო ამოიწურა."
 
-msgid "Your work was submitted."
-msgstr "თქვენი ნამუშევარი გაიგზავნა."
-
 #, python-format
 msgid "Welcome back, %(name)s."
 msgstr "კეთილი იყოს თქვენი დაბრუნება, %(name)s."
@@ -272,21 +262,6 @@ msgstr "სანიშნეებში დაემატა."
 msgid "Bookmark removed."
 msgstr "სანიშნე წაიშალა."
 
-msgid "Please choose a rating."
-msgstr "გთხოვთ, აირჩიოთ შეფასება."
-
-msgid "Thank you! Your review will appear after moderation."
-msgstr "გმადლობთ! თქვენი მიმოხილვა მოდერაციის შემდეგ გამოჩნდება."
-
-msgid "Thread updated."
-msgstr "თემა განახლდა."
-
-msgid "Please give a reason."
-msgstr "გთხოვთ, მიუთითოთ მიზეზი."
-
-msgid "Thank you. A moderator will review the post."
-msgstr "გმადლობთ. პოსტს მოდერატორი განიხილავს."
-
 msgid "Add at least one lesson before publishing."
 msgstr "გამოქვეყნებამდე დაამატეთ სულ მცირე ერთი გაკვეთილი."
 
@@ -338,21 +313,6 @@ msgstr "ქვიზი წაიშალა."
 msgid "Question saved."
 msgstr "კითხვა შენახულია."
 
-msgid "Assignment created."
-msgstr "დავალება შეიქმნა."
-
-msgid "Assignment saved."
-msgstr "დავალება შენახულია."
-
-msgid "Enrolment approved."
-msgstr "რეგისტრაცია დადასტურდა."
-
-msgid "Returned to the learner for revision."
-msgstr "მსმენელს დაუბრუნდა გადასამუშავებლად."
-
-msgid "Grade saved and the learner was notified."
-msgstr "შეფასება შენახულია და მსმენელს ეცნობა."
-
 msgid "Enrol in the course to open this lesson."
 msgstr "ამ გაკვეთილის გასახსნელად დარეგისტრირდით კურსზე."
 
@@ -365,18 +325,11 @@ msgstr "გაკვეთილი დასრულებულად მო�
 msgid "Profile saved."
 msgstr "პროფილი შენახულია."
 
-msgid "Notification preferences saved."
-msgstr "შეტყობინებების პარამეტრები შენახულია."
-
 msgid "Password confirmation failed."
 msgstr "პაროლის დადასტურება ვერ მოხერხდა."
 
 msgid "Your account has been deactivated. Contact support to restore it."
 msgstr "თქვენი ანგარიში დეაქტივირებულია. აღსადგენად დაუკავშირდით მხარდაჭერას."
-
-#, python-format
-msgid "%(n)d notifications marked as read."
-msgstr "%(n)d შეტყობინება წაკითხულად მოინიშნა."
 
 msgid "Use lowercase letters, digits and hyphens."
 msgstr "გამოიყენეთ ლათინური პატარა ასოები, ციფრები და დეფისი."
@@ -407,33 +360,6 @@ msgstr "ელფოსტა დადასტურებულია"
 
 msgid "Save user"
 msgstr "მომხმარებლის შენახვა"
-
-msgid "Title"
-msgstr "სათაური"
-
-msgid "Message"
-msgstr "შეტყობინება"
-
-msgid "Link (optional)"
-msgstr "ბმული (არასავალდებულო)"
-
-msgid "Audience"
-msgstr "აუდიტორია"
-
-msgid "All users"
-msgstr "ყველა მომხმარებელი"
-
-msgid "Students"
-msgstr "სტუდენტები"
-
-msgid "Instructors"
-msgstr "ინსტრუქტორები"
-
-msgid "Also send by email"
-msgstr "ელფოსტითაც გაგზავნა"
-
-msgid "Send announcement"
-msgstr "განცხადების გაგზავნა"
 
 msgid "Reason"
 msgstr "მიზეზი"
@@ -500,6 +426,9 @@ msgstr "ემოჯი"
 
 msgid "Colour"
 msgstr "ფერი"
+
+msgid "Audience"
+msgstr "აუდიტორია"
 
 msgid "Route (when active)"
 msgstr "მარშრუტი (აქტიურობისას)"
@@ -792,33 +721,6 @@ msgstr "განყოფილება (ინგლისურად)"
 msgid "Text chunks (separate with a blank line)"
 msgstr "ტექსტის ფრაგმენტები (გამოყავით ცარიელი ხაზით)"
 
-msgid "Your answer"
-msgstr "თქვენი პასუხი"
-
-msgid "Submit"
-msgstr "გაგზავნა"
-
-msgid "Points"
-msgstr "ქულები"
-
-msgid "Feedback"
-msgstr "უკუკავშირი"
-
-msgid "Save grade"
-msgstr "შეფასების შენახვა"
-
-msgid "Return for revision"
-msgstr "გადასამუშავებლად დაბრუნება"
-
-msgid "Post thread"
-msgstr "თემის გამოქვეყნება"
-
-msgid "Reply"
-msgstr "პასუხი"
-
-msgid "Report"
-msgstr "საჩივარი"
-
 msgid "Password"
 msgstr "პაროლი"
 
@@ -966,12 +868,6 @@ msgstr "საჭიროებს დადასტურებას"
 msgid "Invitation only"
 msgstr "მხოლოდ მოწვევით"
 
-msgid "Discussions"
-msgstr "დისკუსიები"
-
-msgid "Reviews"
-msgstr "მიმოხილვები"
-
 msgid "Starts"
 msgstr "იწყება"
 
@@ -1001,9 +897,6 @@ msgstr "ქვიზი"
 
 msgid "Lab"
 msgstr "პრაქტიკული"
-
-msgid "Assignment"
-msgstr "დავალება"
 
 msgid "Duration (minutes)"
 msgstr "ხანგრძლივობა (წუთი)"
@@ -1047,6 +940,9 @@ msgstr "კითხვების არევა"
 msgid "Shuffle options"
 msgstr "ვარიანტების არევა"
 
+msgid "Feedback"
+msgstr "უკუკავშირი"
+
 msgid "Instant"
 msgstr "მყისიერი"
 
@@ -1086,47 +982,14 @@ msgstr "კითხვა (ქართულად)"
 msgid "Question (English)"
 msgstr "კითხვა (ინგლისურად)"
 
+msgid "Points"
+msgstr "ქულები"
+
 msgid "Accepted answers (short answer, one per line)"
 msgstr "მისაღები პასუხები (მოკლე პასუხისთვის, თითო ხაზზე)"
 
 msgid "Save question"
 msgstr "კითხვის შენახვა"
-
-msgid "Instructions (Georgian, HTML)"
-msgstr "ინსტრუქცია (ქართულად, HTML)"
-
-msgid "Instructions (English, HTML)"
-msgstr "ინსტრუქცია (ინგლისურად, HTML)"
-
-msgid "Submission"
-msgstr "ჩაბარების ფორმა"
-
-msgid "Text"
-msgstr "ტექსტი"
-
-msgid "Text and file"
-msgstr "ტექსტი და ფაილი"
-
-msgid "Maximum points"
-msgstr "მაქსიმალური ქულა"
-
-msgid "Deadline"
-msgstr "ბოლო ვადა"
-
-msgid "Allow late submissions"
-msgstr "დაგვიანებული ჩაბარების დაშვება"
-
-msgid "Late penalty (%)"
-msgstr "დაგვიანების ჯარიმა (%)"
-
-msgid "Resubmissions allowed"
-msgstr "ხელახლა ჩაბარების რაოდენობა"
-
-msgid "Allowed file extensions"
-msgstr "დაშვებული ფაილის გაფართოებები"
-
-msgid "Save assignment"
-msgstr "დავალების შენახვა"
 
 msgid "Save category"
 msgstr "კატეგორიის შენახვა"
@@ -1338,6 +1201,9 @@ msgstr "ჯერ უახლესი"
 msgid "Oldest first"
 msgstr "ჯერ ყველაზე ძველი"
 
+msgid "Title"
+msgstr "სათაური"
+
 msgid "PDF file"
 msgstr "PDF ფაილი"
 
@@ -1346,15 +1212,6 @@ msgstr "ნაჩვენებია რესურსების გვე�
 
 msgid "Save resource"
 msgstr "რესურსის შენახვა"
-
-msgid "Rating"
-msgstr "შეფასება"
-
-msgid "Your review"
-msgstr "თქვენი მიმოხილვა"
-
-msgid "Submit review"
-msgstr "მიმოხილვის გაგზავნა"
 
 msgid "Any"
 msgstr "ნებისმიერი"
@@ -1407,24 +1264,6 @@ msgstr "ღია"
 msgid "Save changes"
 msgstr "ცვლილებების შენახვა"
 
-msgid "Email me assignment feedback"
-msgstr "მომწერეთ დავალების უკუკავშირი ელფოსტით"
-
-msgid "Email me quiz results"
-msgstr "მომწერეთ ქვიზის შედეგები ელფოსტით"
-
-msgid "Email me when a certificate is issued"
-msgstr "მომწერეთ სერტიფიკატის გაცემისას"
-
-msgid "Email me platform announcements"
-msgstr "მომწერეთ პლატფორმის განცხადებები"
-
-msgid "Email me discussion replies"
-msgstr "მომწერეთ დისკუსიის პასუხები"
-
-msgid "Save preferences"
-msgstr "პარამეტრების შენახვა"
-
 msgid "Confirm with your password"
 msgstr "დაადასტურეთ პაროლით"
 
@@ -1433,15 +1272,6 @@ msgstr "ვაცნობიერებ, რომ ჩემი ანგა�
 
 msgid "Deactivate account"
 msgstr "ანგარიშის დეაქტივაცია"
-
-msgid "Please write your answer."
-msgstr "გთხოვთ, დაწერეთ პასუხი."
-
-msgid "Please attach a file."
-msgstr "გთხოვთ, მიამაგრეთ ფაილი."
-
-msgid "This assignment accepts text only."
-msgstr "ეს დავალება მხოლოდ ტექსტს იღებს."
 
 msgid "Too many failed attempts. Try again later."
 msgstr "ძალიან ბევრი წარუმატებელი ცდა. სცადეთ მოგვიანებით."
@@ -1481,21 +1311,6 @@ msgstr "ამ მიმართულებისთვის სერტი�
 
 msgid "Finish every mission of the track first."
 msgstr "ჯერ დაასრულეთ მიმართულების ყველა მისია."
-
-msgid "You cannot post in this course."
-msgstr "ამ კურსში პოსტის გამოქვეყნება არ შეგიძლიათ."
-
-msgid "Title is too short."
-msgstr "სათაური ძალიან მოკლეა."
-
-msgid "This thread is locked."
-msgstr "ეს თემა დაბლოკილია."
-
-msgid "Reply is empty."
-msgstr "პასუხი ცარიელია."
-
-msgid "You cannot delete this post."
-msgstr "ამ პოსტის წაშლა არ შეგიძლიათ."
 
 msgid "This course is not open for enrolment."
 msgstr "ამ კურსზე რეგისტრაცია ღია არ არის."
@@ -1544,12 +1359,6 @@ msgstr "ეს ცდა უკვე გაგზავნილია."
 msgid "Choose a PDF file."
 msgstr "აირჩიეთ PDF ფაილი."
 
-msgid "You need to be enrolled to review this course."
-msgstr "მიმოხილვის დასაწერად კურსზე დარეგისტრირებული უნდა იყოთ."
-
-msgid "Rating must be between 1 and 5."
-msgstr "შეფასება 1-დან 5-მდე უნდა იყოს."
-
 msgid "Administration"
 msgstr "ადმინისტრირება"
 
@@ -1574,14 +1383,8 @@ msgstr "სწავლა"
 msgid "Quizzes"
 msgstr "ქვიზები"
 
-msgid "Assignments"
-msgstr "დავალებები"
-
 msgid "Certificates"
 msgstr "სერტიფიკატები"
-
-msgid "Notifications"
-msgstr "შეტყობინებები"
 
 msgid "Media"
 msgstr "მედია"
@@ -1627,18 +1430,6 @@ msgstr "CyberHero-ს დასრულებული მისიები (�
 
 msgid "Anonymous CyberHero progress stays in the browser and is not tracked."
 msgstr "ანონიმური CyberHero-პროგრესი ბრაუზერში რჩება და არ აღირიცხება."
-
-msgid "Grading queue"
-msgstr "შესაფასებელი ნამუშევრები"
-
-msgid "Max points"
-msgstr "მაქს. ქულა"
-
-msgid "Submissions"
-msgstr "ჩაბარებული ნამუშევრები"
-
-msgid "No assignments yet."
-msgstr "დავალებები ჯერ არ არის."
 
 msgid "Action prefix, e.g. auth."
 msgstr "მოქმედების პრეფიქსი, მაგ. auth."
@@ -1796,9 +1587,6 @@ msgstr "შესაბამისი კურსები ვერ მოი
 msgid "Admin"
 msgstr "ადმინი"
 
-msgid "Announcement"
-msgstr "განცხადება"
-
 msgid "Active students"
 msgstr "აქტიური სტუდენტები"
 
@@ -1826,12 +1614,6 @@ msgstr "ყურადღებას საჭიროებს"
 msgid "Courses awaiting review"
 msgstr "განსახილველი კურსები"
 
-msgid "Reviews to moderate"
-msgstr "მოდერაციისთვის მიმოხილვები"
-
-msgid "Submissions waiting for grading"
-msgstr "შესაფასებელი ნამუშევრები"
-
 msgid "Manage"
 msgstr "მართვა"
 
@@ -1849,33 +1631,6 @@ msgstr "ბოლო აქტივობა"
 
 msgid "No activity yet."
 msgstr "აქტივობა ჯერ არ არის."
-
-msgid "Open reports"
-msgstr "ღია საჩივრები"
-
-msgid "Hide post"
-msgstr "პოსტის დამალვა"
-
-msgid "Dismiss"
-msgstr "უარყოფა"
-
-msgid "No open reports."
-msgstr "ღია საჩივრები არ არის."
-
-msgid "Thread"
-msgstr "თემა"
-
-msgid "Posts"
-msgstr "პოსტები"
-
-msgid "State"
-msgstr "მდგომარეობა"
-
-msgid "Last post"
-msgstr "ბოლო პოსტი"
-
-msgid "No threads yet."
-msgstr "თემები ჯერ არ არის."
 
 msgid "Last changed by"
 msgstr "ბოლოს შეცვალა"
@@ -1944,15 +1699,6 @@ msgstr "ფაილები ჯერ არ არის."
 msgid "Public files can be embedded in lessons and course covers."
 msgstr "საჯარო ფაილები შეიძლება ჩაისვას გაკვეთილებსა და კურსის გარეკანებში."
 
-msgid "Announcements"
-msgstr "განცხადებები"
-
-msgid "Send an announcement"
-msgstr "განცხადების გაგზავნა"
-
-msgid "Internal path such as /courses/…"
-msgstr "შიდა მისამართი, მაგ. /courses/…"
-
 msgid "Questions"
 msgstr "კითხვები"
 
@@ -1990,6 +1736,9 @@ msgstr ""
 msgid "Size"
 msgstr "ზომა"
 
+msgid "State"
+msgstr "მდგომარეობა"
+
 msgid "shown"
 msgstr "ნაჩვენები"
 
@@ -2013,21 +1762,6 @@ msgstr "დოკუმენტის ატვირთვა"
 
 msgid "PDF only."
 msgstr "მხოლოდ PDF."
-
-msgid "Learner"
-msgstr "მსმენელი"
-
-msgid "Review"
-msgstr "მიმოხილვა"
-
-msgid "Approve"
-msgstr "დადასტურება"
-
-msgid "Reject"
-msgstr "უარყოფა"
-
-msgid "Nothing here."
-msgstr "აქ არაფერია."
 
 msgid "Save settings"
 msgstr "პარამეტრების შენახვა"
@@ -2537,28 +2271,6 @@ msgstr ""
 "ამ მიმართულებაზე ჯერ არაფერია დამოკიდებული, ამიტომ მისი სამუდამოდ წაშლა "
 "შესაძლებელია."
 
-msgid "Due"
-msgstr "ვადა"
-
-msgid "Late penalty"
-msgstr "დაგვიანების ჯარიმა"
-
-msgid "late"
-msgstr "დაგვიანებული"
-
-msgid "Grade"
-msgstr "შეფასება"
-
-msgid "New submission"
-msgstr "ახალი ჩაბარება"
-
-msgid "Your submission"
-msgstr "თქვენი ნამუშევარი"
-
-#, python-format
-msgid "Allowed: %(ext)s"
-msgstr "დაშვებულია: %(ext)s"
-
 msgid "Attempt"
 msgstr "ცდა"
 
@@ -2567,6 +2279,9 @@ msgstr "კითხვა"
 
 msgid "Select every correct answer."
 msgstr "მონიშნეთ ყველა სწორი პასუხი."
+
+msgid "Your answer"
+msgstr "თქვენი პასუხი"
 
 msgid "Number the items in the correct order (1 = first)."
 msgstr "დანომრეთ ელემენტები სწორი თანმიმდევრობით (1 = პირველი)."
@@ -2624,6 +2339,9 @@ msgstr "ქულა"
 
 msgid "Passed"
 msgstr "ჩაბარებულია"
+
+msgid "Review"
+msgstr "მიმოხილვა"
 
 msgid "Result"
 msgstr "შედეგი"
@@ -2893,6 +2611,9 @@ msgstr "განყოფილება"
 msgid "Read the case study"
 msgstr "ქეისის წაკითხვა"
 
+msgid "Assignment"
+msgstr "დავალება"
+
 msgid "Progress"
 msgstr "პროგრესი"
 
@@ -2919,9 +2640,6 @@ msgstr "მთავარი ნავიგაცია"
 
 msgid "Search (Ctrl+K)"
 msgstr "ძიება (Ctrl+K)"
-
-msgid "unread"
-msgstr "წაუკითხავი"
 
 msgid "Account menu"
 msgstr "ანგარიშის მენიუ"
@@ -3050,12 +2768,6 @@ msgstr "საბოლოო შეფასება · ჩაბარებ�
 msgid "No downloadable resources for this course yet."
 msgstr "ამ კურსს ჩამოსატვირთი რესურსები ჯერ არ აქვს."
 
-msgid "No reviews yet. Be the first after you have started the course."
-msgstr "მიმოხილვები ჯერ არ არის. კურსის დაწყების შემდეგ იყავით პირველი."
-
-msgid "Enrol in the course to leave a review."
-msgstr "მიმოხილვის დასატოვებლად დარეგისტრირდით კურსზე."
-
 msgid ""
 "The CyberHero interface has not been built yet. Run \"npm run build\" in "
 "the cyberhero/ directory."
@@ -3068,61 +2780,6 @@ msgstr "eLearning-ზე დაბრუნება"
 
 msgid "CyberHero needs JavaScript to run."
 msgstr "CyberHero-ს სამუშაოდ JavaScript სჭირდება."
-
-msgid "Pinned"
-msgstr "მიმაგრებული"
-
-msgid "Locked"
-msgstr "დაბლოკილი"
-
-msgid "Hidden"
-msgstr "დამალული"
-
-msgid "Deleted user"
-msgstr "წაშლილი მომხმარებელი"
-
-msgid "posts"
-msgstr "პოსტი"
-
-msgid "No discussions yet"
-msgstr "დისკუსიები ჯერ არ არის"
-
-msgid ""
-"Ask a question or share what you learned - your instructor and fellow "
-"learners will see it."
-msgstr ""
-"დასვით კითხვა ან გაუზიარეთ ნასწავლი — მას თქვენი ინსტრუქტორი და "
-"თანამსმენელები დაინახავენ."
-
-msgid "New thread"
-msgstr "ახალი თემა"
-
-msgid "Enrol in the course to join the discussion."
-msgstr "დისკუსიაში ჩასართავად დარეგისტრირდით კურსზე."
-
-msgid "Unpin"
-msgstr "მიმაგრების მოხსნა"
-
-msgid "Pin"
-msgstr "მიმაგრება"
-
-msgid "Unlock"
-msgstr "განბლოკვა"
-
-msgid "Lock"
-msgstr "დაბლოკვა"
-
-msgid "Unhide"
-msgstr "ჩვენება"
-
-msgid "This post was deleted."
-msgstr "ეს პოსტი წაშლილია."
-
-msgid "Inappropriate content"
-msgstr "შეუფერებელი შინაარსი"
-
-msgid "Delete this post?"
-msgstr "წავშალოთ ეს პოსტი?"
 
 msgid "Error"
 msgstr "შეცდომა"
@@ -3154,35 +2811,11 @@ msgstr "მიწოდება"
 msgid "My courses"
 msgstr "ჩემი კურსები"
 
-msgid "Grading"
-msgstr "შეფასება"
-
 msgid "Curriculum"
 msgstr "სასწავლო გეგმა"
 
 msgid "Settings"
 msgstr "პარამეტრები"
-
-msgid "Average progress"
-msgstr "საშუალო პროგრესი"
-
-msgid "Lesson completion (drop-off)"
-msgstr "გაკვეთილების დასრულება (გადინება)"
-
-msgid "No lessons yet."
-msgstr "გაკვეთილები ჯერ არ არის."
-
-msgid "Pass rate"
-msgstr "ჩაბარების მაჩვენებელი"
-
-msgid "Average"
-msgstr "საშუალო"
-
-msgid "New assignment"
-msgstr "ახალი დავალება"
-
-msgid "No submissions yet."
-msgstr "ჩაბარებული ნამუშევრები ჯერ არ არის."
 
 msgid "Unpublish"
 msgstr "გამოქვეყნების მოხსნა"
@@ -3217,9 +2850,6 @@ msgstr "წთ"
 msgid "quiz"
 msgstr "ქვიზი"
 
-msgid "assignment"
-msgstr "დავალება"
-
 msgid "Delete this lesson?"
 msgstr "წავშალოთ ეს გაკვეთილი?"
 
@@ -3235,12 +2865,6 @@ msgstr ""
 
 msgid "Assessments"
 msgstr "შეფასებები"
-
-msgid "submissions"
-msgstr "ჩაბარება"
-
-msgid "No quizzes or assignments yet."
-msgstr "ქვიზები და დავალებები ჯერ არ არის."
 
 msgid "Add module"
 msgstr "მოდულის დამატება"
@@ -3281,49 +2905,6 @@ msgstr "შექმენით პირველი კურსი და �
 msgid "Instructor overview"
 msgstr "ინსტრუქტორის მიმოხილვა"
 
-msgid "To grade"
-msgstr "შესაფასებელი"
-
-msgid "Assignments to grade"
-msgstr "შესაფასებელი დავალებები"
-
-msgid "Nothing waiting for grading."
-msgstr "შესაფასებელი არაფერია."
-
-msgid "Open forum"
-msgstr "ფორუმის გახსნა"
-
-msgid "open reports"
-msgstr "ღია საჩივარი"
-
-msgid "Author"
-msgstr "ავტორი"
-
-msgid "pinned"
-msgstr "მიმაგრებული"
-
-msgid "Grade submission"
-msgstr "ნამუშევრის შეფასება"
-
-msgid "Instructions"
-msgstr "ინსტრუქცია"
-
-#, python-format
-msgid "Maximum %(max)s. Late penalty %(p)d%% is applied automatically."
-msgstr "მაქსიმუმ %(max)s. დაგვიანების ჯარიმა %(p)d%% ავტომატურად გამოიყენება."
-
-msgid "History"
-msgstr "ისტორია"
-
-msgid "Submitted"
-msgstr "ჩაბარებულია"
-
-msgid "Nothing to grade"
-msgstr "შესაფასებელი არაფერია"
-
-msgid "New submissions will appear here."
-msgstr "ახალი ნამუშევრები აქ გამოჩნდება."
-
 msgid "New lesson"
 msgstr "ახალი გაკვეთილი"
 
@@ -3345,9 +2926,6 @@ msgstr "მიბმული შეფასება"
 
 msgid "Add quiz"
 msgstr "ქვიზის დამატება"
-
-msgid "Add assignment"
-msgstr "დავალების დამატება"
 
 msgid "Remove"
 msgstr "წაშლა"
@@ -3426,23 +3004,17 @@ msgstr "კითხვები ჯერ არ არის."
 msgid "Statistics"
 msgstr "სტატისტიკა"
 
+msgid "Pass rate"
+msgstr "ჩაბარების მაჩვენებელი"
+
+msgid "Average"
+msgstr "საშუალო"
+
 msgid "Delete this quiz and all attempts?"
 msgstr "წავშალოთ ეს ქვიზი და ყველა ცდა?"
 
 msgid "Delete quiz"
 msgstr "ქვიზის წაშლა"
-
-msgid "No reviews yet."
-msgstr "მიმოხილვები ჯერ არ არის."
-
-msgid "Last activity"
-msgstr "ბოლო აქტივობა"
-
-msgid "No students yet"
-msgstr "სტუდენტები ჯერ არ არიან"
-
-msgid "Learners appear here as soon as they enrol."
-msgstr "მსმენელები აქ რეგისტრაციისთანავე გამოჩნდებიან."
 
 msgid "Learn / Practice / Stay secure"
 msgstr "ისწავლე / ივარჯიშე / დარჩი უსაფრთხოდ"
@@ -3519,9 +3091,6 @@ msgstr ""
 "მიღწევები გაიცემა დასრულებული კურსების, სერტიფიკატებისა და ქვიზების "
 "სერიებისთვის."
 
-msgid "No notifications."
-msgstr "შეტყობინებები არ არის."
-
 msgid "Course navigation"
 msgstr "კურსის ნავიგაცია"
 
@@ -3533,12 +3102,6 @@ msgstr "დროის ლიმიტი"
 
 msgid "Start quiz"
 msgstr "ქვიზის დაწყება"
-
-msgid "Graded"
-msgstr "შეფასებულია"
-
-msgid "Open assignment"
-msgstr "დავალების გახსნა"
 
 msgid "Lesson navigation"
 msgstr "გაკვეთილების ნავიგაცია"
@@ -3569,9 +3132,6 @@ msgstr "სათაურის ზოლში თემის გადამ
 
 msgid "Last password change"
 msgstr "პაროლის ბოლო შეცვლა"
-
-msgid "Email notifications"
-msgstr "ელფოსტის შეტყობინებები"
 
 msgid "You have not enrolled in any course yet."
 msgstr "ჯერ არცერთ კურსზე არ დარეგისტრირებულხართ."
@@ -3689,7 +3249,10 @@ msgid ""
 "This section is for everyone: interactive missions and games for kids, "
 "calm practical guides for parents and teachers, and plain-language "
 "courses for the older generation."
-msgstr "ეს განყოფილება ყველასთვისაა: ბავშვებისთვის - ინტერაქტიული მისიები და თამაშები, მშობლებისა და მასწავლებლებისთვის - მშვიდი, პრაქტიკული გზამკვლევები, უფროსი თაობისთვის - მარტივ ენაზე დაწერილი კურსები."
+msgstr ""
+"ეს განყოფილება ყველასთვისაა: ბავშვებისთვის - ინტერაქტიული მისიები და "
+"თამაშები, მშობლებისა და მასწავლებლებისთვის - მშვიდი, პრაქტიკული "
+"გზამკვლევები, უფროსი თაობისთვის - მარტივ ენაზე დაწერილი კურსები."
 
 msgid "Ongoing threats"
 msgstr "მიმდინარე საფრთხეები"
@@ -3721,12 +3284,8 @@ msgstr ""
 msgid "Interactive exercises"
 msgstr "ინტერაქტიული სავარჯიშოები"
 
-msgid ""
-"Quizzes with six question types, labs and scenario-based assignments with"
-" instructor feedback."
-msgstr ""
-"ქვიზები ექვსი ტიპის კითხვით, პრაქტიკული სამუშაოები და სცენარებზე "
-"დაფუძნებული დავალებები ინსტრუქტორის უკუკავშირით."
+msgid "Quizzes with six question types, labs and scenario-based exercises."
+msgstr "ქვიზები ექვსი ტიპის კითხვით, პრაქტიკული სამუშაოები და სცენარებზე დაფუძნებული სავარჯიშოები."
 
 msgid ""
 "Verifiable certificates with a public verification link for every "
@@ -3792,19 +3351,4 @@ msgstr "სცადეთ სხვა სიტყვა ან დაათ�
 
 msgid "Enter at least two characters."
 msgstr "შეიყვანეთ სულ მცირე ორი სიმბოლო."
-
-msgid "Mark all as read"
-msgstr "ყველას წაკითხულად მონიშვნა"
-
-msgid "Mark as read"
-msgstr "წაკითხულად მონიშვნა"
-
-msgid "No notifications"
-msgstr "შეტყობინებები არ არის"
-
-msgid "Course updates, quiz results and feedback will appear here."
-msgstr "კურსის განახლებები, ქვიზის შედეგები და უკუკავშირი აქ გამოჩნდება."
-
-msgid "Go to dashboard"
-msgstr "სამართავ პანელზე გადასვლა"
 

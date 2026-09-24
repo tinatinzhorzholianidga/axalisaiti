@@ -41,7 +41,7 @@
             <span class="handle" aria-hidden="true">{{ icon('grip') }}</span>
             <span class="text-muted" data-order-label>{{ lesson.sort_order }}</span>
             <span class="type text-muted">{{ lesson_type_icon(lesson.lesson_type.value) }}</span>
-            <span class="title"><a href="{{ url_for('instructor.lesson_edit', course_id=course.id, lesson_id=lesson.id) }}">{{ lesson.title(locale) }}</a>{% if not lesson.is_published %} <span class="chip">{{ _('hidden') }}</span>{% endif %}{% if lesson.is_free_preview %} <span class="chip chip-cyan">{{ _('preview') }}</span>{% endif %}<span class="sub">{{ lesson.estimated_minutes }} {{ _('min') }}{% if lesson.quiz %} · {{ _('quiz') }}{% endif %}{% if lesson.assignment %} · {{ _('assignment') }}{% endif %}</span></span>
+            <span class="title"><a href="{{ url_for('instructor.lesson_edit', course_id=course.id, lesson_id=lesson.id) }}">{{ lesson.title(locale) }}</a>{% if not lesson.is_published %} <span class="chip">{{ _('hidden') }}</span>{% endif %}{% if lesson.is_free_preview %} <span class="chip chip-cyan">{{ _('preview') }}</span>{% endif %}<span class="sub">{{ lesson.estimated_minutes }} {{ _('min') }}{% if lesson.quiz %} · {{ _('quiz') }}{% endif %}</span></span>
             <span class="order-btns">
               <a class="btn btn-outline btn-sm" href="{{ url_for('instructor.lesson_edit', course_id=course.id, lesson_id=lesson.id) }}">{{ icon('edit') }} {{ _('Edit') }}</a>
               <form method="post" action="{{ url_for('instructor.lesson_move', course_id=course.id, lesson_id=lesson.id, direction='up') }}">{{ csrf() }}<button class="btn btn-ghost" type="submit" aria-label="{{ _('Move up') }}" {% if loop.first %}disabled{% endif %}>{{ icon('chevron-up') }}</button></form>
@@ -58,11 +58,10 @@
       {% endfor %}
     </ul>
     <div class="panel mt-4">
-      <div class="panel-title"><h2>{{ _('Assessments') }}</h2><div class="d-flex gap-2"><a class="btn btn-outline btn-sm" href="{{ url_for('instructor.quiz_new', course_id=course.id) }}">{{ icon('plus') }} {{ _('Quiz') }}</a><a class="btn btn-outline btn-sm" href="{{ url_for('instructor.assignment_new', course_id=course.id) }}">{{ icon('plus') }} {{ _('Assignment') }}</a></div></div>
+      <div class="panel-title"><h2>{{ _('Assessments') }}</h2><div class="d-flex gap-2"><a class="btn btn-outline btn-sm" href="{{ url_for('instructor.quiz_new', course_id=course.id) }}">{{ icon('plus') }} {{ _('Quiz') }}</a></div></div>
       <ul class="list-plain">
         {% for q in course.quizzes %}<li>{{ icon('help-circle') }}<a href="{{ url_for('instructor.quiz_edit', course_id=course.id, quiz_id=q.id) }}">{{ q.title(locale) }}</a>{% if q.is_final %}<span class="chip chip-purple">{{ _('Final') }}</span>{% endif %}<span class="when">{{ q.questions|length }} {{ _('questions') }}{% if q.lesson %} · {{ q.lesson.title(locale) }}{% endif %}</span></li>{% endfor %}
-        {% for a in course.assignments %}<li>{{ icon('edit') }}<a href="{{ url_for('instructor.assignment_edit', course_id=course.id, assignment_id=a.id) }}">{{ a.title(locale) }}</a><span class="when">{{ a.submissions|length }} {{ _('submissions') }}{% if a.lesson %} · {{ a.lesson.title(locale) }}{% endif %}</span></li>{% endfor %}
-        {% if not course.quizzes and not course.assignments %}<li class="text-muted">{{ _('No quizzes or assignments yet.') }}</li>{% endif %}
+        {% if not course.quizzes %}<li class="text-muted">{{ _('No quizzes yet.') }}</li>{% endif %}
       </ul>
     </div>
   </div>

@@ -1,24 +1,20 @@
-"""Quizzes (six question types, timing, attempts, feedback modes), assignments, grading, certificates."""
+"""Quizzes (six question types, timing, attempts, feedback modes) and certificates."""
 
 from __future__ import annotations
 
-import io
 from datetime import timedelta
 
 import pytest
 
 from app.extensions import db
 from app.models import (
-    AssignmentSubmission,
     Certificate,
     Course,
-    Notification,
     QuestionType,
     QuizAttempt,
     utcnow,
 )
 from app.services import (
-    assignment_service,
     enrollment_service,
     progress_service,
     quiz_service,
@@ -107,11 +103,10 @@ def test_quiz_flow_via_http(client, demo, student):  # type: ignore[no-untyped-d
     db.session.refresh(attempt)
     assert attempt.status.value == "submitted" and f"{attempt.percent:.0f}%" in result
     assert "არასწორი" in result and result.count("სწორი") > result.count("არასწორი")  # review shown
-    # passing marks the lesson complete and creates a notification
+    # passing marks the lesson complete
     if attempt.passed:
         lp = progress_service.lesson_progress_map(student, demo)[lesson.id]
         assert lp.status.value == "completed"
-    assert db.session.query(Notification).filter_by(kind="quiz_result").count() == 1
 
 
 def test_attempt_limits_and_expiry(app, demo, student):  # type: ignore[no-untyped-def]
@@ -150,82 +145,6 @@ def test_delayed_feedback_hides_details(app, demo, student):  # type: ignore[no-
     assert quiz_service.show_details(student, attempt) is False
 
 
-def test_assignment_submission_and_grading(client, demo, student, instructor):  # type: ignore[no-untyped-def]
-    demo.instructor_id = instructor.id
-    db.session.commit()
-    login(client, student)
-    post(client, f"/courses/{demo.slug}/enroll")
-    assignment = demo.modules[1].lessons[1].assignment
-    page = client.get(f"/assignment/{assignment.id}/")
-    assert page.status_code == 200
-    response = post(
-        client, f"/assignment/{assignment.id}/", {"text_content": ""}, follow_redirects=True
-    )
-    assert "დაწერეთ პასუხი" in response.data.decode()
-    response = post(
-        client,
-        f"/assignment/{assignment.id}/",
-        {"text_content": "My incident report " * 20},
-        follow_redirects=True,
-    )
-    assert "ნამუშევარი გაიგზავნა" in response.data.decode()
-    submission = db.session.query(AssignmentSubmission).one()
-    assert submission.attempt_number == 1 and not submission.is_late
-    # file upload is rejected for text-only assignments
-    response = post(
-        client,
-        f"/assignment/{assignment.id}/",
-        {"text_content": "again", "file": (io.BytesIO(b"%PDF-1.4 test"), "report.pdf")},
-        content_type="multipart/form-data",
-        follow_redirects=True,
-    )
-    assert "მხოლოდ ტექსტს" in response.data.decode()
-    # instructor grades: late penalty not applied, lesson completed, notification sent
-    grade = assignment_service.grade(
-        submission, grader=instructor, points=18, feedback="<b>Good</b><script>x</script>"
-    )
-    assert (
-        grade.points == 18 and "<script>" not in grade.feedback and "<b>Good</b>" in grade.feedback
-    )
-    assert submission.status.value == "graded"
-    lp = progress_service.lesson_progress_map(student, demo)[assignment.lesson_id]
-    assert lp.status.value == "completed"
-    assert (
-        db.session.query(Notification)
-        .filter_by(kind="assignment_feedback", user_id=student.id)
-        .count()
-        == 1
-    )
-    # resubmission limit: max_resubmissions=2 -> three submissions total
-    for _ in range(2):
-        assignment_service.submit(student, assignment, text="more", file=None)
-    ok, reason = assignment_service.can_submit(student, assignment)
-    assert not ok and "attempts" in reason
-
-
-def test_file_assignment_upload_validation(app, demo, student, upload_dir):  # type: ignore[no-untyped-def]
-    from werkzeug.datastructures import FileStorage
-
-    from app.services.assignment_service import AssignmentError
-
-    soc = db.session.query(Course).filter_by(slug="soc-fundamentals").one()
-    enrollment_service.enroll(student, soc)
-    assignment = soc.modules[1].lessons[1].assignment
-    fake_pdf = FileStorage(stream=io.BytesIO(b"MZ\x90\x00 not a pdf"), filename="ticket.pdf")
-    with pytest.raises(AssignmentError, match=r"არ შეესაბამება|სიგნატურა"):
-        assignment_service.submit(student, assignment, text="", file=fake_pdf)
-    exe = FileStorage(stream=io.BytesIO(b"MZ\x90\x00"), filename="ticket.exe")
-    with pytest.raises(AssignmentError, match="დაუშვებელია"):
-        assignment_service.submit(student, assignment, text="", file=exe)
-    real_txt = FileStorage(
-        stream=io.BytesIO(b"Priority P1: brute force with success\n"), filename="ticket.txt"
-    )
-    submission = assignment_service.submit(student, assignment, text="see file", file=real_txt)
-    assert submission.file is not None and submission.file.stored_name.endswith(".txt")
-    assert submission.file.stored_name != "ticket.txt"
-    assert app.config["UPLOAD_PATH"] + "/assignments/" + submission.file.stored_name
-
-
 def test_course_completion_issues_certificate(app, demo, student):  # type: ignore[no-untyped-def]
     enrollment_service.enroll(student, demo)
     demo.certificate_enabled = True
@@ -253,7 +172,6 @@ def test_course_completion_issues_certificate(app, demo, student):  # type: igno
     assert (
         certificate.public_id.startswith("EL-") and certificate.recipient_name == student.full_name
     )
-    assert db.session.query(Notification).filter_by(kind="certificate").count() == 1
     # verification page works publicly and the achievement was awarded
     from app.models import UserAchievement
 

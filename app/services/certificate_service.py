@@ -12,7 +12,7 @@ from sqlalchemy import select
 
 from app.extensions import db
 from app.models import Certificate, Course, CourseProgress, User
-from app.services import audit_service, notification_service, settings_service
+from app.services import audit_service, settings_service
 
 ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"  # no ambiguous characters
 
@@ -85,13 +85,6 @@ def issue(
         meta={"user_id": user.id, "course": course.slug},
     )
     db.session.commit()
-    notification_service.notify(
-        user.id,
-        kind="certificate",
-        title="Certificate issued",
-        body=f"Your certificate for {course.title('en') or course.slug} is ready.",
-        link=f"/certificates/{certificate.public_id}/",
-    )
     from app.services import achievement_service
 
     achievement_service.check_certificates(user)

@@ -11,7 +11,7 @@ from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
 from app.blueprints.learning import bp
-from app.forms.profile import DeactivateForm, NotificationPrefsForm, ProfileForm
+from app.forms.profile import DeactivateForm, ProfileForm
 from app.models import BookmarkType, EnrollmentStatus, LessonType, ProgressStatus
 from app.repositories import course_repository as repo
 from app.services import (
@@ -20,7 +20,6 @@ from app.services import (
     certificate_service,
     course_service,
     enrollment_service,
-    notification_service,
     progress_service,
     user_service,
 )
@@ -84,7 +83,6 @@ def dashboard():  # type: ignore[no-untyped-def]
         certificates=certificate_service.user_certificates(current_user)[:4],
         achievements=achievement_service.user_achievements(current_user)[:6],
         stats=progress_service.dashboard_summary(current_user),
-        notifications=notification_service.recent(current_user, limit=5),
         recommended=recommended,
     )
 
@@ -120,11 +118,6 @@ def lesson(course_slug: str, lesson_slug: str):  # type: ignore[no-untyped-def]
         from app.services import quiz_service
 
         quiz_attempts = quiz_service.user_attempts(current_user, lesson.quiz)
-    submission = None
-    if lesson.assignment and current_user.is_authenticated:
-        from app.services import assignment_service
-
-        submission = assignment_service.latest_submission(current_user, lesson.assignment)
     return render_template(
         "learning/lesson.html",
         course=course,
@@ -141,7 +134,6 @@ def lesson(course_slug: str, lesson_slug: str):  # type: ignore[no-untyped-def]
         is_completed=bool(state and state.status == ProgressStatus.COMPLETED),
         is_bookmarked=bookmark_service.is_bookmarked(current_user, BookmarkType.LESSON, lesson.id),
         quiz_attempts=quiz_attempts,
-        submission=submission,
         LessonType=LessonType,
     )
 
@@ -199,13 +191,6 @@ def bookmarks():  # type: ignore[no-untyped-def]
 @login_required
 def profile():  # type: ignore[no-untyped-def]
     form = ProfileForm(obj=current_user)
-    prefs_form = NotificationPrefsForm(prefix="prefs")
-    if request.method == "GET":
-        prefs = current_user.notification_prefs or {}
-        for field in prefs_form:
-            if field.name.startswith("prefs-email_"):
-                key = field.name.replace("prefs-", "")
-                field.data = prefs.get(key, field.default)
     if form.submit.data and form.validate_on_submit():
         user_service.update_profile(
             current_user,
@@ -219,22 +204,10 @@ def profile():  # type: ignore[no-untyped-def]
         )
         flash(_("Profile saved."), "success")
         return redirect(url_for("learning.profile", lang=form.locale.data))
-    if prefs_form.submit.data and prefs_form.validate_on_submit():
-        user_service.update_notification_prefs(
-            current_user,
-            {
-                f.name.replace("prefs-", ""): f.data
-                for f in prefs_form
-                if f.name.startswith("prefs-email_")
-            },
-        )
-        flash(_("Notification preferences saved."), "success")
-        return redirect(url_for("learning.profile") + "#notifications")
     enrollments = enrollment_service.user_enrollments(current_user)
     return render_template(
         "learning/profile.html",
         form=form,
-        prefs_form=prefs_form,
         deactivate_form=DeactivateForm(prefix="deact"),
         enrollments=enrollments,
         certificates=certificate_service.user_certificates(current_user),

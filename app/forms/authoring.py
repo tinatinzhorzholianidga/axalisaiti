@@ -127,8 +127,6 @@ class CourseForm(BaseForm):
             ("invite", _l("Invitation only")),
         ],
     )
-    discussions_enabled = BooleanField(_l("Discussions"), default=True)
-    reviews_enabled = BooleanField(_l("Reviews"), default=True)
     starts_at = DateTimeLocalField(_l("Starts"), validators=[Optional()], format="%Y-%m-%dT%H:%M")
     ends_at = DateTimeLocalField(_l("Ends"), validators=[Optional()], format="%Y-%m-%dT%H:%M")
     cyber_track_id = SelectField(
@@ -161,7 +159,6 @@ class LessonForm(BaseForm):
             ("video", _l("Video")),
             ("quiz", _l("Quiz")),
             ("lab", _l("Lab")),
-            ("assignment", _l("Assignment")),
         ],
     )
     estimated_minutes = IntegerField(
@@ -254,39 +251,6 @@ class QuestionForm(BaseForm):
     # Options are posted as parallel arrays (opt_text_ka, opt_text_en, opt_correct,
     # opt_match_ka, opt_match_en, opt_position); see authoring_service.save_question.
     submit = SubmitField(_l("Save question"))
-
-
-class AssignmentForm(BaseForm):
-    title_ka = StringField(_l("Title (Georgian)"), validators=[DataRequired(), Length(max=200)])
-    title_en = StringField(_l("Title (English)"), validators=[Optional(), Length(max=200)])
-    instructions_ka = TextAreaField(
-        _l("Instructions (Georgian, HTML)"), validators=[Optional(), Length(max=50000)]
-    )
-    instructions_en = TextAreaField(
-        _l("Instructions (English, HTML)"), validators=[Optional(), Length(max=50000)]
-    )
-    submission_type = SelectField(
-        _l("Submission"),
-        choices=[("text", _l("Text")), ("file", _l("File")), ("both", _l("Text and file"))],
-    )
-    max_points = DecimalField(
-        _l("Maximum points"), validators=[NumberRange(min=1, max=1000)], default=100, places=1
-    )
-    due_at = DateTimeLocalField(_l("Deadline"), validators=[Optional()], format="%Y-%m-%dT%H:%M")
-    allow_late = BooleanField(_l("Allow late submissions"), default=True)
-    late_penalty_percent = IntegerField(
-        _l("Late penalty (%)"), validators=[NumberRange(min=0, max=100)], default=0
-    )
-    max_resubmissions = IntegerField(
-        _l("Resubmissions allowed"), validators=[NumberRange(min=0, max=20)], default=2
-    )
-    allowed_extensions = StringField(
-        _l("Allowed file extensions"),
-        validators=[Optional(), Length(max=200)],
-        default="pdf,docx,txt,zip,png,jpg",
-    )
-    is_published = BooleanField(_l("Published"), default=True)
-    submit = SubmitField(_l("Save assignment"))
 
 
 class CategoryForm(BaseForm):

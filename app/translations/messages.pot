@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-24 10:57+0000\n"
+"POT-Creation-Date: 2026-09-24 11:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,13 +72,6 @@ msgid "Certificate issued."
 msgstr ""
 
 msgid "Certificate revoked."
-msgstr ""
-
-msgid "Report resolved."
-msgstr ""
-
-#, python-format
-msgid "Announcement sent to %(n)d users."
 msgstr ""
 
 msgid "Course created. Now add modules and lessons."
@@ -211,9 +204,6 @@ msgstr ""
 msgid "Time is up for this attempt."
 msgstr ""
 
-msgid "Your work was submitted."
-msgstr ""
-
 #, python-format
 msgid "Welcome back, %(name)s."
 msgstr ""
@@ -270,21 +260,6 @@ msgstr ""
 msgid "Bookmark removed."
 msgstr ""
 
-msgid "Please choose a rating."
-msgstr ""
-
-msgid "Thank you! Your review will appear after moderation."
-msgstr ""
-
-msgid "Thread updated."
-msgstr ""
-
-msgid "Please give a reason."
-msgstr ""
-
-msgid "Thank you. A moderator will review the post."
-msgstr ""
-
 msgid "Add at least one lesson before publishing."
 msgstr ""
 
@@ -336,21 +311,6 @@ msgstr ""
 msgid "Question saved."
 msgstr ""
 
-msgid "Assignment created."
-msgstr ""
-
-msgid "Assignment saved."
-msgstr ""
-
-msgid "Enrolment approved."
-msgstr ""
-
-msgid "Returned to the learner for revision."
-msgstr ""
-
-msgid "Grade saved and the learner was notified."
-msgstr ""
-
 msgid "Enrol in the course to open this lesson."
 msgstr ""
 
@@ -363,17 +323,10 @@ msgstr ""
 msgid "Profile saved."
 msgstr ""
 
-msgid "Notification preferences saved."
-msgstr ""
-
 msgid "Password confirmation failed."
 msgstr ""
 
 msgid "Your account has been deactivated. Contact support to restore it."
-msgstr ""
-
-#, python-format
-msgid "%(n)d notifications marked as read."
 msgstr ""
 
 msgid "Use lowercase letters, digits and hyphens."
@@ -404,33 +357,6 @@ msgid "Email verified"
 msgstr ""
 
 msgid "Save user"
-msgstr ""
-
-msgid "Title"
-msgstr ""
-
-msgid "Message"
-msgstr ""
-
-msgid "Link (optional)"
-msgstr ""
-
-msgid "Audience"
-msgstr ""
-
-msgid "All users"
-msgstr ""
-
-msgid "Students"
-msgstr ""
-
-msgid "Instructors"
-msgstr ""
-
-msgid "Also send by email"
-msgstr ""
-
-msgid "Send announcement"
 msgstr ""
 
 msgid "Reason"
@@ -497,6 +423,9 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Colour"
+msgstr ""
+
+msgid "Audience"
 msgstr ""
 
 msgid "Route (when active)"
@@ -790,33 +719,6 @@ msgstr ""
 msgid "Text chunks (separate with a blank line)"
 msgstr ""
 
-msgid "Your answer"
-msgstr ""
-
-msgid "Submit"
-msgstr ""
-
-msgid "Points"
-msgstr ""
-
-msgid "Feedback"
-msgstr ""
-
-msgid "Save grade"
-msgstr ""
-
-msgid "Return for revision"
-msgstr ""
-
-msgid "Post thread"
-msgstr ""
-
-msgid "Reply"
-msgstr ""
-
-msgid "Report"
-msgstr ""
-
 msgid "Password"
 msgstr ""
 
@@ -964,12 +866,6 @@ msgstr ""
 msgid "Invitation only"
 msgstr ""
 
-msgid "Discussions"
-msgstr ""
-
-msgid "Reviews"
-msgstr ""
-
 msgid "Starts"
 msgstr ""
 
@@ -998,9 +894,6 @@ msgid "Quiz"
 msgstr ""
 
 msgid "Lab"
-msgstr ""
-
-msgid "Assignment"
 msgstr ""
 
 msgid "Duration (minutes)"
@@ -1045,6 +938,9 @@ msgstr ""
 msgid "Shuffle options"
 msgstr ""
 
+msgid "Feedback"
+msgstr ""
+
 msgid "Instant"
 msgstr ""
 
@@ -1084,46 +980,13 @@ msgstr ""
 msgid "Question (English)"
 msgstr ""
 
+msgid "Points"
+msgstr ""
+
 msgid "Accepted answers (short answer, one per line)"
 msgstr ""
 
 msgid "Save question"
-msgstr ""
-
-msgid "Instructions (Georgian, HTML)"
-msgstr ""
-
-msgid "Instructions (English, HTML)"
-msgstr ""
-
-msgid "Submission"
-msgstr ""
-
-msgid "Text"
-msgstr ""
-
-msgid "Text and file"
-msgstr ""
-
-msgid "Maximum points"
-msgstr ""
-
-msgid "Deadline"
-msgstr ""
-
-msgid "Allow late submissions"
-msgstr ""
-
-msgid "Late penalty (%)"
-msgstr ""
-
-msgid "Resubmissions allowed"
-msgstr ""
-
-msgid "Allowed file extensions"
-msgstr ""
-
-msgid "Save assignment"
 msgstr ""
 
 msgid "Save category"
@@ -1340,6 +1203,9 @@ msgstr ""
 msgid "Oldest first"
 msgstr ""
 
+msgid "Title"
+msgstr ""
+
 msgid "PDF file"
 msgstr ""
 
@@ -1347,15 +1213,6 @@ msgid "Shown on the resources page"
 msgstr ""
 
 msgid "Save resource"
-msgstr ""
-
-msgid "Rating"
-msgstr ""
-
-msgid "Your review"
-msgstr ""
-
-msgid "Submit review"
 msgstr ""
 
 msgid "Any"
@@ -1409,24 +1266,6 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-msgid "Email me assignment feedback"
-msgstr ""
-
-msgid "Email me quiz results"
-msgstr ""
-
-msgid "Email me when a certificate is issued"
-msgstr ""
-
-msgid "Email me platform announcements"
-msgstr ""
-
-msgid "Email me discussion replies"
-msgstr ""
-
-msgid "Save preferences"
-msgstr ""
-
 msgid "Confirm with your password"
 msgstr ""
 
@@ -1434,15 +1273,6 @@ msgid "I understand my account will be deactivated"
 msgstr ""
 
 msgid "Deactivate account"
-msgstr ""
-
-msgid "Please write your answer."
-msgstr ""
-
-msgid "Please attach a file."
-msgstr ""
-
-msgid "This assignment accepts text only."
 msgstr ""
 
 msgid "Too many failed attempts. Try again later."
@@ -1482,21 +1312,6 @@ msgid "No certificate is available for this track."
 msgstr ""
 
 msgid "Finish every mission of the track first."
-msgstr ""
-
-msgid "You cannot post in this course."
-msgstr ""
-
-msgid "Title is too short."
-msgstr ""
-
-msgid "This thread is locked."
-msgstr ""
-
-msgid "Reply is empty."
-msgstr ""
-
-msgid "You cannot delete this post."
 msgstr ""
 
 msgid "This course is not open for enrolment."
@@ -1546,12 +1361,6 @@ msgstr ""
 msgid "Choose a PDF file."
 msgstr ""
 
-msgid "You need to be enrolled to review this course."
-msgstr ""
-
-msgid "Rating must be between 1 and 5."
-msgstr ""
-
 msgid "Administration"
 msgstr ""
 
@@ -1576,13 +1385,7 @@ msgstr ""
 msgid "Quizzes"
 msgstr ""
 
-msgid "Assignments"
-msgstr ""
-
 msgid "Certificates"
-msgstr ""
-
-msgid "Notifications"
 msgstr ""
 
 msgid "Media"
@@ -1628,18 +1431,6 @@ msgid "CyberHero mission completions (signed-in learners)"
 msgstr ""
 
 msgid "Anonymous CyberHero progress stays in the browser and is not tracked."
-msgstr ""
-
-msgid "Grading queue"
-msgstr ""
-
-msgid "Max points"
-msgstr ""
-
-msgid "Submissions"
-msgstr ""
-
-msgid "No assignments yet."
 msgstr ""
 
 msgid "Action prefix, e.g. auth."
@@ -1798,9 +1589,6 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-msgid "Announcement"
-msgstr ""
-
 msgid "Active students"
 msgstr ""
 
@@ -1828,12 +1616,6 @@ msgstr ""
 msgid "Courses awaiting review"
 msgstr ""
 
-msgid "Reviews to moderate"
-msgstr ""
-
-msgid "Submissions waiting for grading"
-msgstr ""
-
 msgid "Manage"
 msgstr ""
 
@@ -1850,33 +1632,6 @@ msgid "Recent activity"
 msgstr ""
 
 msgid "No activity yet."
-msgstr ""
-
-msgid "Open reports"
-msgstr ""
-
-msgid "Hide post"
-msgstr ""
-
-msgid "Dismiss"
-msgstr ""
-
-msgid "No open reports."
-msgstr ""
-
-msgid "Thread"
-msgstr ""
-
-msgid "Posts"
-msgstr ""
-
-msgid "State"
-msgstr ""
-
-msgid "Last post"
-msgstr ""
-
-msgid "No threads yet."
 msgstr ""
 
 msgid "Last changed by"
@@ -1940,15 +1695,6 @@ msgstr ""
 msgid "Public files can be embedded in lessons and course covers."
 msgstr ""
 
-msgid "Announcements"
-msgstr ""
-
-msgid "Send an announcement"
-msgstr ""
-
-msgid "Internal path such as /courses/…"
-msgstr ""
-
 msgid "Questions"
 msgstr ""
 
@@ -1982,6 +1728,9 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+msgid "State"
+msgstr ""
+
 msgid "shown"
 msgstr ""
 
@@ -2004,21 +1753,6 @@ msgid "Upload a document"
 msgstr ""
 
 msgid "PDF only."
-msgstr ""
-
-msgid "Learner"
-msgstr ""
-
-msgid "Review"
-msgstr ""
-
-msgid "Approve"
-msgstr ""
-
-msgid "Reject"
-msgstr ""
-
-msgid "Nothing here."
 msgstr ""
 
 msgid "Save settings"
@@ -2494,28 +2228,6 @@ msgstr ""
 msgid "Nothing depends on this track yet, so it can be removed for good."
 msgstr ""
 
-msgid "Due"
-msgstr ""
-
-msgid "Late penalty"
-msgstr ""
-
-msgid "late"
-msgstr ""
-
-msgid "Grade"
-msgstr ""
-
-msgid "New submission"
-msgstr ""
-
-msgid "Your submission"
-msgstr ""
-
-#, python-format
-msgid "Allowed: %(ext)s"
-msgstr ""
-
 msgid "Attempt"
 msgstr ""
 
@@ -2523,6 +2235,9 @@ msgid "Question"
 msgstr ""
 
 msgid "Select every correct answer."
+msgstr ""
+
+msgid "Your answer"
 msgstr ""
 
 msgid "Number the items in the correct order (1 = first)."
@@ -2580,6 +2295,9 @@ msgid "Score"
 msgstr ""
 
 msgid "Passed"
+msgstr ""
+
+msgid "Review"
 msgstr ""
 
 msgid "Result"
@@ -2845,6 +2563,9 @@ msgstr ""
 msgid "Read the case study"
 msgstr ""
 
+msgid "Assignment"
+msgstr ""
+
 msgid "Progress"
 msgstr ""
 
@@ -2870,9 +2591,6 @@ msgid "Main navigation"
 msgstr ""
 
 msgid "Search (Ctrl+K)"
-msgstr ""
-
-msgid "unread"
 msgstr ""
 
 msgid "Account menu"
@@ -3003,12 +2721,6 @@ msgstr ""
 msgid "No downloadable resources for this course yet."
 msgstr ""
 
-msgid "No reviews yet. Be the first after you have started the course."
-msgstr ""
-
-msgid "Enrol in the course to leave a review."
-msgstr ""
-
 msgid ""
 "The CyberHero interface has not been built yet. Run \"npm run build\" in "
 "the cyberhero/ directory."
@@ -3018,59 +2730,6 @@ msgid "Back to eLearning"
 msgstr ""
 
 msgid "CyberHero needs JavaScript to run."
-msgstr ""
-
-msgid "Pinned"
-msgstr ""
-
-msgid "Locked"
-msgstr ""
-
-msgid "Hidden"
-msgstr ""
-
-msgid "Deleted user"
-msgstr ""
-
-msgid "posts"
-msgstr ""
-
-msgid "No discussions yet"
-msgstr ""
-
-msgid ""
-"Ask a question or share what you learned - your instructor and fellow "
-"learners will see it."
-msgstr ""
-
-msgid "New thread"
-msgstr ""
-
-msgid "Enrol in the course to join the discussion."
-msgstr ""
-
-msgid "Unpin"
-msgstr ""
-
-msgid "Pin"
-msgstr ""
-
-msgid "Unlock"
-msgstr ""
-
-msgid "Lock"
-msgstr ""
-
-msgid "Unhide"
-msgstr ""
-
-msgid "This post was deleted."
-msgstr ""
-
-msgid "Inappropriate content"
-msgstr ""
-
-msgid "Delete this post?"
 msgstr ""
 
 msgid "Error"
@@ -3103,34 +2762,10 @@ msgstr ""
 msgid "My courses"
 msgstr ""
 
-msgid "Grading"
-msgstr ""
-
 msgid "Curriculum"
 msgstr ""
 
 msgid "Settings"
-msgstr ""
-
-msgid "Average progress"
-msgstr ""
-
-msgid "Lesson completion (drop-off)"
-msgstr ""
-
-msgid "No lessons yet."
-msgstr ""
-
-msgid "Pass rate"
-msgstr ""
-
-msgid "Average"
-msgstr ""
-
-msgid "New assignment"
-msgstr ""
-
-msgid "No submissions yet."
 msgstr ""
 
 msgid "Unpublish"
@@ -3166,9 +2801,6 @@ msgstr ""
 msgid "quiz"
 msgstr ""
 
-msgid "assignment"
-msgstr ""
-
 msgid "Delete this lesson?"
 msgstr ""
 
@@ -3181,12 +2813,6 @@ msgid ""
 msgstr ""
 
 msgid "Assessments"
-msgstr ""
-
-msgid "submissions"
-msgstr ""
-
-msgid "No quizzes or assignments yet."
 msgstr ""
 
 msgid "Add module"
@@ -3228,49 +2854,6 @@ msgstr ""
 msgid "Instructor overview"
 msgstr ""
 
-msgid "To grade"
-msgstr ""
-
-msgid "Assignments to grade"
-msgstr ""
-
-msgid "Nothing waiting for grading."
-msgstr ""
-
-msgid "Open forum"
-msgstr ""
-
-msgid "open reports"
-msgstr ""
-
-msgid "Author"
-msgstr ""
-
-msgid "pinned"
-msgstr ""
-
-msgid "Grade submission"
-msgstr ""
-
-msgid "Instructions"
-msgstr ""
-
-#, python-format
-msgid "Maximum %(max)s. Late penalty %(p)d%% is applied automatically."
-msgstr ""
-
-msgid "History"
-msgstr ""
-
-msgid "Submitted"
-msgstr ""
-
-msgid "Nothing to grade"
-msgstr ""
-
-msgid "New submissions will appear here."
-msgstr ""
-
 msgid "New lesson"
 msgstr ""
 
@@ -3289,9 +2872,6 @@ msgid "Attached assessment"
 msgstr ""
 
 msgid "Add quiz"
-msgstr ""
-
-msgid "Add assignment"
 msgstr ""
 
 msgid "Remove"
@@ -3369,22 +2949,16 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
+msgid "Pass rate"
+msgstr ""
+
+msgid "Average"
+msgstr ""
+
 msgid "Delete this quiz and all attempts?"
 msgstr ""
 
 msgid "Delete quiz"
-msgstr ""
-
-msgid "No reviews yet."
-msgstr ""
-
-msgid "Last activity"
-msgstr ""
-
-msgid "No students yet"
-msgstr ""
-
-msgid "Learners appear here as soon as they enrol."
 msgstr ""
 
 msgid "Learn / Practice / Stay secure"
@@ -3458,9 +3032,6 @@ msgid ""
 "streaks."
 msgstr ""
 
-msgid "No notifications."
-msgstr ""
-
 msgid "Course navigation"
 msgstr ""
 
@@ -3471,12 +3042,6 @@ msgid "Time limit"
 msgstr ""
 
 msgid "Start quiz"
-msgstr ""
-
-msgid "Graded"
-msgstr ""
-
-msgid "Open assignment"
 msgstr ""
 
 msgid "Lesson navigation"
@@ -3507,9 +3072,6 @@ msgid "The theme switch in the header changes it instantly on this device."
 msgstr ""
 
 msgid "Last password change"
-msgstr ""
-
-msgid "Email notifications"
 msgstr ""
 
 msgid "You have not enrolled in any course yet."
@@ -3639,9 +3201,7 @@ msgstr ""
 msgid "Interactive exercises"
 msgstr ""
 
-msgid ""
-"Quizzes with six question types, labs and scenario-based assignments with"
-" instructor feedback."
+msgid "Quizzes with six question types, labs and scenario-based exercises."
 msgstr ""
 
 msgid ""
@@ -3698,20 +3258,5 @@ msgid "Try a different word or browse the catalogue."
 msgstr ""
 
 msgid "Enter at least two characters."
-msgstr ""
-
-msgid "Mark all as read"
-msgstr ""
-
-msgid "Mark as read"
-msgstr ""
-
-msgid "No notifications"
-msgstr ""
-
-msgid "Course updates, quiz results and feedback will appear here."
-msgstr ""
-
-msgid "Go to dashboard"
 msgstr ""
 

@@ -1,4 +1,4 @@
-"""Instructor panel: own courses, builder, quizzes, assignments, grading, analytics."""
+"""Instructor panel: own courses, builder and quizzes."""
 
 from __future__ import annotations
 
@@ -9,9 +9,7 @@ from flask_login import current_user, login_required
 
 from app.blueprints.instructor import bp
 from app.extensions import db
-from app.forms.assessments import GradeForm
 from app.forms.authoring import (
-    AssignmentForm,
     CourseForm,
     LessonForm,
     ModuleForm,
@@ -20,11 +18,8 @@ from app.forms.authoring import (
     ResourceForm,
 )
 from app.models import (
-    Assignment,
-    AssignmentSubmission,
     Course,
     CourseStatus,
-    EnrollmentStatus,
     Lesson,
     LessonResource,
     Module,
@@ -32,13 +27,9 @@ from app.models import (
     Quiz,
 )
 from app.services import (
-    assignment_service,
     authoring_service,
     course_service,
-    discussion_service,
-    enrollment_service,
     quiz_service,
-    review_service,
 )
 from app.services.media_service import UploadError
 from app.services.rbac import can_manage_course, require_permission
@@ -76,7 +67,6 @@ def _guard():  # type: ignore[no-untyped-def]
 @bp.route("/")
 def dashboard():  # type: ignore[no-untyped-def]
     courses = course_service.instructor_courses(current_user)
-    pending = assignment_service.pending_for_instructor(current_user)
     stats = {
         "courses": len(courses),
         "published": sum(1 for c in courses if c.status == CourseStatus.PUBLISHED),
@@ -84,12 +74,10 @@ def dashboard():  # type: ignore[no-untyped-def]
             1 for c in courses if c.status in {CourseStatus.DRAFT, CourseStatus.PENDING_REVIEW}
         ),
         "students": sum(c.enrollment_count for c in courses),
-        "to_grade": len(pending),
     }
     return render_template(
         "instructor/dashboard.html",
         courses=courses,
-        pending=pending[:8],
         stats=stats,
         locale=LOCALE(),
     )
@@ -487,190 +475,4 @@ def question_move(course_id: int, quiz_id: int, question_id: int, direction: str
     return redirect(url_for("instructor.quiz_edit", course_id=course.id, quiz_id=quiz.id))
 
 
-# ---- assignments ------------------------------------------------------------
-@bp.route("/courses/<int:course_id>/assignments/new", methods=["GET", "POST"])
-def assignment_new(course_id: int):  # type: ignore[no-untyped-def]
-    course = _course(course_id)
-    lesson = None
-    lesson_id = request.args.get("lesson", type=int)
-    if lesson_id:
-        lesson = _child(course, Lesson, lesson_id, via="module")
-        if lesson.assignment:
-            return redirect(
-                url_for(
-                    "instructor.assignment_edit",
-                    course_id=course.id,
-                    assignment_id=lesson.assignment.id,
-                )
-            )
-    form = AssignmentForm()
-    if form.validate_on_submit():
-        assignment = authoring_service.save_assignment(course, form, current_user, lesson=lesson)
-        flash(_("Assignment created."), "success")
-        return redirect(
-            url_for("instructor.assignment_edit", course_id=course.id, assignment_id=assignment.id)
-        )
-    return render_template(
-        "instructor/assignment_form.html",
-        form=form,
-        course=course,
-        assignment=None,
-        lesson=lesson,
-        locale=LOCALE(),
-    )
-
-
-@bp.route("/courses/<int:course_id>/assignments/<int:assignment_id>", methods=["GET", "POST"])
-def assignment_edit(course_id: int, assignment_id: int):  # type: ignore[no-untyped-def]
-    course = _course(course_id)
-    assignment = _child(course, Assignment, assignment_id, via="course")
-    form = AssignmentForm()
-    if request.method == "GET":
-        authoring_service.fill_assignment_form(form, assignment)
-    if form.validate_on_submit():
-        authoring_service.save_assignment(course, form, current_user, assignment=assignment)
-        flash(_("Assignment saved."), "success")
-        return redirect(
-            url_for("instructor.assignment_edit", course_id=course.id, assignment_id=assignment.id)
-        )
-    return render_template(
-        "instructor/assignment_form.html",
-        form=form,
-        course=course,
-        assignment=assignment,
-        lesson=assignment.lesson,
-        submissions=assignment.submissions,
-        locale=LOCALE(),
-    )
-
-
 # ---- students / grading / analytics ----------------------------------------
-@bp.route("/courses/<int:course_id>/students")
-def students(course_id: int):  # type: ignore[no-untyped-def]
-    course = _course(course_id)
-    from app.services import progress_service
-
-    rows = []
-    for enrollment in enrollment_service.course_enrollments(course):
-        rows.append((enrollment, progress_service.get_course_progress(enrollment.user, course)))
-    return render_template(
-        "instructor/students.html",
-        course=course,
-        rows=rows,
-        locale=LOCALE(),
-        EnrollmentStatus=EnrollmentStatus,
-    )
-
-
-@bp.route("/courses/<int:course_id>/students/<int:user_id>/approve", methods=["POST"])
-def approve_student(course_id: int, user_id: int):  # type: ignore[no-untyped-def]
-    course = _course(course_id)
-    enrollment = next(
-        (e for e in enrollment_service.course_enrollments(course) if e.user_id == user_id), None
-    )
-    if enrollment is None:
-        abort(404)
-    enrollment_service.approve(enrollment, current_user)
-    flash(_("Enrolment approved."), "success")
-    return redirect(url_for("instructor.students", course_id=course.id))
-
-
-@bp.route("/grading/")
-def grading():  # type: ignore[no-untyped-def]
-    pending = assignment_service.pending_for_instructor(
-        current_user, all_courses=current_user.has_permission("courses.manage_all")
-    )
-    return render_template("instructor/grading.html", pending=pending, locale=LOCALE())
-
-
-@bp.route("/grading/<int:submission_id>", methods=["GET", "POST"])
-def grade_submission(submission_id: int):  # type: ignore[no-untyped-def]
-    submission = db.session.get(AssignmentSubmission, submission_id)
-    if submission is None:
-        abort(404)
-    course = submission.assignment.course
-    if not can_manage_course(current_user, course):
-        abort(403)
-    form = GradeForm()
-    if request.method == "GET" and submission.grade:
-        form.points.data = submission.grade.points
-        form.feedback.data = submission.grade.feedback
-    if form.validate_on_submit():
-        if form.return_for_revision.data:
-            assignment_service.return_for_revision(
-                submission, grader=current_user, feedback=form.feedback.data or ""
-            )
-            flash(_("Returned to the learner for revision."), "info")
-        else:
-            assignment_service.grade(
-                submission,
-                grader=current_user,
-                points=float(form.points.data),
-                feedback=form.feedback.data or "",
-            )
-            flash(_("Grade saved and the learner was notified."), "success")
-        return redirect(url_for("instructor.grading"))
-    history = assignment_service.submissions(submission.user, submission.assignment)
-    return render_template(
-        "instructor/grade.html",
-        submission=submission,
-        form=form,
-        course=course,
-        history=history,
-        locale=LOCALE(),
-    )
-
-
-@bp.route("/courses/<int:course_id>/analytics")
-@require_permission("analytics.view_own", "analytics.view_all")
-def analytics(course_id: int):  # type: ignore[no-untyped-def]
-    course = _course(course_id)
-    return render_template(
-        "instructor/analytics.html",
-        course=course,
-        data=authoring_service.course_analytics(course),
-        locale=LOCALE(),
-    )
-
-
-@bp.route("/courses/<int:course_id>/discussions")
-def course_discussions(course_id: int):  # type: ignore[no-untyped-def]
-    course = _course(course_id)
-    return render_template(
-        "instructor/discussions.html",
-        course=course,
-        threads=discussion_service.threads(course, include_hidden=True),
-        reports=[
-            r for r in discussion_service.open_reports() if r.post.discussion.course_id == course.id
-        ],
-        locale=LOCALE(),
-    )
-
-
-@bp.route("/courses/<int:course_id>/reviews")
-def course_reviews(course_id: int):  # type: ignore[no-untyped-def]
-    course = _course(course_id)
-    from app.models import Review
-
-    reviews = (
-        db.session.query(Review)
-        .filter_by(course_id=course.id)
-        .order_by(Review.created_at.desc())
-        .all()
-    )
-    return render_template(
-        "instructor/reviews.html", course=course, reviews=reviews, locale=LOCALE()
-    )
-
-
-@bp.route("/courses/<int:course_id>/reviews/<int:review_id>/<decision>", methods=["POST"])
-def review_decide(course_id: int, review_id: int, decision: str):  # type: ignore[no-untyped-def]
-    course = _course(course_id)
-    from app.models import Review, ReviewStatus
-
-    review = db.session.get(Review, review_id)
-    if review is None or review.course_id != course.id:
-        abort(404)
-    status = ReviewStatus.APPROVED if decision == "approve" else ReviewStatus.REJECTED
-    review_service.moderate(review, status, current_user)
-    return redirect(url_for("instructor.course_reviews", course_id=course.id))

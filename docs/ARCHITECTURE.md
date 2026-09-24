@@ -49,12 +49,10 @@ axalisaiti/
 │   └── blueprints/
 │       ├── main/              # home, about, resources, search, health
 │       ├── auth/              # login, logout, register, verify, reset, change password
-│       ├── courses/           # catalog, course detail, enrol, bookmark, reviews
+│       ├── courses/           # catalog, course detail, enrol, bookmark
 │       ├── learning/          # lesson view, progress, dashboard, profile
-│       ├── assessments/       # quizzes, assignments
+│       ├── assessments/       # quizzes
 │       ├── certificates/      # my certificates, public verification
-│       ├── discussions/       # threads, replies, moderation
-│       ├── notifications/     # inbox, mark read
 │       ├── instructor/        # instructor panel + course builder
 │       ├── admin/             # shared admin panel (eLearning + CyberHero)
 │       ├── api/               # /api/v1 JSON API
@@ -85,11 +83,9 @@ users ──< enrollments >── courses
 users ──< lesson_progress >── lessons
 users ──< course_progress >── courses
 users ──< quiz_attempts ──< quiz_answers >── questions ──< question_options
-users ──< assignment_submissions ──< grades
-users ──< discussion_posts >── discussions >── courses
-users ──< reviews >── courses
+(legacy, no UI since the feature removal: assignments, assignment_submissions, grades,
+ discussions, discussion_posts, discussion_reports, reviews, notifications)
 users ──< bookmarks (course | lesson | resource)
-users ──< notifications
 users ──< user_achievements >── achievements
 users ──< certificates >── courses
 users ──< audit_logs
@@ -101,7 +97,6 @@ courses ──< modules ──< module_translations
 modules ──< lessons ──< lesson_translations
 lessons ──< lesson_resources
 lessons ──1 quizzes ──< questions
-lessons ──1 assignments
 courses ──1 final quiz (quizzes.is_final)
 
 site_settings (key/value, typed)     feature_flags (key, enabled, description)
@@ -126,7 +121,7 @@ cyber_certificates (public_id, display_name, track, issued_at)
 
 Key enums: `Platform{elearning, cyberhero, both}`, `CourseStatus{draft,
 pending_review, published, archived}`, `Difficulty{beginner, intermediate,
-advanced}`, `LessonType{reading, video, quiz, lab, assignment}`,
+advanced}`, `LessonType{reading, video, quiz, lab}`,
 `QuestionType{single, multiple, true_false, short_answer, ordering, matching}`,
 `EnrollmentMode{open, approval, invite}`.
 
@@ -140,23 +135,20 @@ Auth: `/auth/login`, `/auth/logout`, `/auth/register`, `/auth/verify/<token>`,
 
 Learner: `/dashboard/`, `/profile/`, `/bookmarks/`, `/learn/<course>/<lesson>/`,
 `/learn/<course>/<lesson>/complete` (POST), `/quiz/<id>/start`,
-`/quiz/attempt/<id>/`, `/assignment/<id>/`, `/certificates/`,
-`/discussions/<course>/`, `/discussions/<course>/<thread>/`, `/notifications/`.
+`/quiz/attempt/<id>/`, `/certificates/`, `/case-studies/`, `/case-studies/<slug>/`, `/resources/`.
 
 Instructor: `/instructor/`, `/instructor/courses/new`, `/instructor/courses/<id>/`,
 `/instructor/courses/<id>/modules`, `/instructor/courses/<id>/lessons/<lid>`,
-`/instructor/courses/<id>/quizzes/<qid>`, `/instructor/courses/<id>/assignments/<aid>`,
-`/instructor/grading/`, `/instructor/courses/<id>/students`, `/instructor/courses/<id>/analytics`.
+`/instructor/courses/<id>/quizzes/<qid>`.
 
 Admin: `/admin/` (dashboard), `/admin/users/`, `/admin/courses/`, `/admin/categories/`,
 `/admin/case-studies/` (+ `categories/`, `section-titles/`), `/admin/resources/`,
 `/admin/cyberhero/{tracks,missions,tips,resources,certificates}/`,
-`/admin/quizzes/`, `/admin/assignments/`, `/admin/certificates/`, `/admin/discussions/`,
-`/admin/reviews/`, `/admin/notifications/`, `/admin/media/`, `/admin/analytics/`,
+`/admin/quizzes/`, `/admin/certificates/`, `/admin/media/`, `/admin/analytics/`,
 `/admin/audit/`, `/admin/settings/`, `/admin/localization/`, `/admin/flags/`.
 
 API v1 (`/api/v1/`): `auth/session`, `courses`, `courses/<slug>`, `search`,
-`progress/lessons/<id>` (POST), `notifications`, `notifications/<id>/read`,
+`progress/lessons/<id>` (POST),
 `bookmarks`, `cyberhero/bootstrap`, `cyberhero/tracks`, `cyberhero/courses`,
 `cyberhero/courses/<slug>`, `cyberhero/courses/<slug>/lessons/<slug>`,
 `cyberhero/missions/<slug>`, `cyberhero/resources/<kind>`, `cyberhero/tips`,
@@ -177,36 +169,29 @@ Route protection uses `@require_permission("code")`; object-level ownership is
 checked in services (an instructor may only edit their own course unless they
 hold `courses.manage_all`).
 
-| Permission                 | student | instructor | moderator | admin |
-|----------------------------|:-------:|:----------:|:---------:|:-----:|
-| courses.enroll             | ✓ | ✓ | ✓ | ✓ |
-| learning.access            | ✓ | ✓ | ✓ | ✓ |
-| quizzes.attempt            | ✓ | ✓ | ✓ | ✓ |
-| assignments.submit         | ✓ | ✓ | ✓ | ✓ |
-| discussions.participate    | ✓ | ✓ | ✓ | ✓ |
-| reviews.write              | ✓ | ✓ | ✓ | ✓ |
-| courses.create             |   | ✓ |   | ✓ |
-| courses.manage_own         |   | ✓ |   | ✓ |
-| courses.manage_all         |   |   |   | ✓ |
-| courses.publish            |   |   |   | ✓ |
-| assignments.grade          |   | ✓ |   | ✓ |
-| analytics.view_own         |   | ✓ |   | ✓ |
-| analytics.view_all         |   |   |   | ✓ |
-| discussions.moderate_own   |   | ✓ | ✓ | ✓ |
-| discussions.moderate_all   |   |   | ✓ | ✓ |
-| reviews.moderate           |   |   | ✓ | ✓ |
-| users.manage               |   |   |   | ✓ |
-| roles.manage               |   |   |   | ✓ |
-| categories.manage          |   |   |   | ✓ |
-| cyberhero.manage           |   |   |   | ✓ |
-| certificates.manage        |   |   |   | ✓ |
-| media.manage               |   | ✓ |   | ✓ |
-| notifications.broadcast    |   |   |   | ✓ |
-| settings.manage            |   |   |   | ✓ |
-| flags.manage               |   |   |   | ✓ |
-| audit.view                 |   |   |   | ✓ |
-| admin.access               |   |   | ✓ | ✓ |
-| instructor.access          |   | ✓ |   | ✓ |
+| Permission                 | student | instructor | admin |
+|----------------------------|:-------:|:----------:|:-----:|
+| courses.enroll             | ✓ | ✓ | ✓ |
+| learning.access            | ✓ | ✓ | ✓ |
+| quizzes.attempt            | ✓ | ✓ | ✓ |
+| courses.create             |   | ✓ | ✓ |
+| courses.manage_own         |   | ✓ | ✓ |
+| courses.manage_all         |   |   | ✓ |
+| courses.publish            |   |   | ✓ |
+| analytics.view_own         |   | ✓ | ✓ |
+| analytics.view_all         |   |   | ✓ |
+| users.manage               |   |   | ✓ |
+| roles.manage               |   |   | ✓ |
+| categories.manage          |   |   | ✓ |
+| cyberhero.manage           |   |   | ✓ |
+| certificates.manage        |   |   | ✓ |
+| media.manage               |   | ✓ | ✓ |
+| notifications.broadcast    |   |   | ✓ |
+| settings.manage            |   |   | ✓ |
+| flags.manage               |   |   | ✓ |
+| audit.view                 |   |   | ✓ |
+| admin.access               |   |   | ✓ |
+| instructor.access          |   | ✓ | ✓ |
 
 ## 5. Authentication and sessions
 

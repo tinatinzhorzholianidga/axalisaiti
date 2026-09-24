@@ -17,19 +17,12 @@ PERMISSIONS: dict[str, str] = {
     "courses.enroll": "Enrol in published courses",
     "learning.access": "Access enrolled course content",
     "quizzes.attempt": "Attempt quizzes",
-    "assignments.submit": "Submit assignments",
-    "discussions.participate": "Create threads and replies",
-    "reviews.write": "Review courses",
     "courses.create": "Create courses",
     "courses.manage_own": "Manage own courses",
     "courses.manage_all": "Manage every course",
     "courses.publish": "Publish / archive courses",
-    "assignments.grade": "Grade assignment submissions",
     "analytics.view_own": "View analytics for own courses",
     "analytics.view_all": "View platform analytics",
-    "discussions.moderate_own": "Moderate discussions in own courses",
-    "discussions.moderate_all": "Moderate every discussion",
-    "reviews.moderate": "Approve / reject reviews",
     "users.manage": "Manage user accounts",
     "roles.manage": "Assign roles",
     "categories.manage": "Manage categories",
@@ -38,7 +31,6 @@ PERMISSIONS: dict[str, str] = {
     "cyberhero.manage": "Manage CyberHero content",
     "certificates.manage": "Issue / revoke certificates",
     "media.manage": "Upload and manage media",
-    "notifications.broadcast": "Send announcements",
     "settings.manage": "Change site settings",
     "flags.manage": "Toggle feature flags",
     "audit.view": "View the audit log",
@@ -50,31 +42,19 @@ STUDENT_PERMISSIONS = {
     "courses.enroll",
     "learning.access",
     "quizzes.attempt",
-    "assignments.submit",
-    "discussions.participate",
-    "reviews.write",
 }
 INSTRUCTOR_PERMISSIONS = STUDENT_PERMISSIONS | {
     "courses.create",
     "courses.manage_own",
-    "assignments.grade",
     "analytics.view_own",
-    "discussions.moderate_own",
     "media.manage",
     "instructor.access",
-}
-MODERATOR_PERMISSIONS = STUDENT_PERMISSIONS | {
-    "discussions.moderate_own",
-    "discussions.moderate_all",
-    "reviews.moderate",
-    "admin.access",
 }
 ADMIN_PERMISSIONS = set(PERMISSIONS)
 
 ROLE_DEFINITIONS: dict[str, tuple[str, set[str]]] = {
     "student": ("Learner with access to enrolled content", STUDENT_PERMISSIONS),
     "instructor": ("Creates and manages their own courses", INSTRUCTOR_PERMISSIONS),
-    "moderator": ("Moderates discussions and reviews", MODERATOR_PERMISSIONS),
     "admin": ("Full platform administration", ADMIN_PERMISSIONS),
 }
 

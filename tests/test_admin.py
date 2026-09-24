@@ -28,11 +28,7 @@ ADMIN_PAGES = [
     "/admin/courses/new",
     "/admin/categories/",
     "/admin/quizzes/",
-    "/admin/assignments/",
     "/admin/certificates/",
-    "/admin/discussions/",
-    "/admin/reviews/",
-    "/admin/notifications/",
     "/admin/media/",
     "/admin/analytics/",
     "/admin/settings/",
@@ -64,16 +60,6 @@ def test_admin_requires_permission(client, logged_in_student):  # type: ignore[n
 def test_instructor_is_not_admin(client, logged_in_instructor):  # type: ignore[no-untyped-def]
     assert client.get("/admin/").status_code == 403
     assert client.get("/admin/users/").status_code == 403
-
-
-def test_moderator_scope(client, moderator, seeded):  # type: ignore[no-untyped-def]
-    login(client, moderator)
-    assert client.get("/admin/").status_code == 200
-    assert client.get("/admin/discussions/").status_code == 200
-    assert client.get("/admin/reviews/").status_code == 200
-    assert client.get("/admin/users/").status_code == 403
-    assert client.get("/admin/settings/").status_code == 403
-    assert client.get("/admin/cyberhero/").status_code == 403
 
 
 @pytest.mark.parametrize("lang", ["ka", "en"])
@@ -335,28 +321,6 @@ def test_media_library_upload_and_delete(client, logged_in_admin, upload_dir):  
     assert db.session.query(MediaFile).count() == 1
     assert post(client, f"/admin/media/{media.id}/delete").status_code == 302
     assert db.session.get(MediaFile, media.id) is None
-
-
-def test_broadcast_notification(client, logged_in_admin, student, instructor):  # type: ignore[no-untyped-def]
-    response = post(
-        client,
-        "/admin/notifications/",
-        {
-            "title": "Maintenance",
-            "body": "Tonight 22:00",
-            "audience": "students",
-            "link": "/about",
-        },
-    )
-    assert response.status_code == 302
-    from app.models import Notification
-
-    def titles(user_id: int) -> set[str]:
-        return {n.title for n in db.session.query(Notification).filter_by(user_id=user_id)}
-
-    assert "Maintenance" in titles(student.id)
-    assert "Maintenance" in titles(instructor.id)
-    assert "Maintenance" not in titles(logged_in_admin.id)
 
 
 def test_cyberhero_content_editing(client, logged_in_admin, seeded):  # type: ignore[no-untyped-def]

@@ -70,22 +70,6 @@ class UserEditForm(BaseForm):
     submit = SubmitField(_l("Save user"))
 
 
-class BroadcastForm(BaseForm):
-    title = StringField(_l("Title"), validators=[DataRequired(), Length(max=200)])
-    body = TextAreaField(_l("Message"), validators=[DataRequired(), Length(max=2000)])
-    link = StringField(_l("Link (optional)"), validators=[Optional(), Length(max=500)])
-    audience = SelectField(
-        _l("Audience"),
-        choices=[
-            ("all", _l("All users")),
-            ("students", _l("Students")),
-            ("instructors", _l("Instructors")),
-        ],
-    )
-    send_email = BooleanField(_l("Also send by email"))
-    submit = SubmitField(_l("Send announcement"))
-
-
 class RevokeForm(BaseForm):
     reason = StringField(_l("Reason"), validators=[DataRequired(), Length(min=3, max=300)])
     submit = SubmitField(_l("Revoke"))

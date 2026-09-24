@@ -22,7 +22,7 @@ from app.models import (
     User,
     utcnow,
 )
-from app.services import achievement_service, audit_service, notification_service
+from app.services import achievement_service, audit_service
 
 GRACE_SECONDS = 30
 
@@ -217,15 +217,6 @@ def submit_attempt(attempt: QuizAttempt, form: Any) -> QuizAttempt:
     else:
         progress_service.recalculate(attempt.user, course)
     achievement_service.check_quiz(attempt.user, attempt)
-    verdict = "passed" if attempt.passed else "not passed"
-    quiz_title = attempt.quiz.title("en") or attempt.quiz.title_ka
-    notification_service.notify(
-        attempt.user_id,
-        kind="quiz_result",
-        title=f"Quiz result: {attempt.percent:.0f}% - {verdict}",
-        body=f"{quiz_title} ({course.title('en') or course.slug})",
-        link=f"/quiz/attempt/{attempt.id}/",
-    )
     return attempt
 
 

@@ -30,15 +30,6 @@ class ProfileForm(BaseForm):
     submit = SubmitField(_l("Save changes"))
 
 
-class NotificationPrefsForm(BaseForm):
-    email_assignment_feedback = BooleanField(_l("Email me assignment feedback"), default=True)
-    email_quiz_result = BooleanField(_l("Email me quiz results"), default=True)
-    email_certificate = BooleanField(_l("Email me when a certificate is issued"), default=True)
-    email_announcement = BooleanField(_l("Email me platform announcements"), default=True)
-    email_discussion_reply = BooleanField(_l("Email me discussion replies"), default=False)
-    submit = SubmitField(_l("Save preferences"))
-
-
 class DeactivateForm(BaseForm):
     password = PasswordField(_l("Confirm with your password"), validators=[DataRequired()])
     confirm = BooleanField(

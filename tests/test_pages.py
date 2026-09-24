@@ -77,7 +77,6 @@ def test_learner_pages_render(client, demo, student):  # type: ignore[no-untyped
         "/dashboard/",
         "/profile/",
         "/bookmarks/",
-        "/notifications/",
         "/certificates/",
         f"/courses/{demo.slug}/",
         f"/learn/{demo.slug}/{lesson.slug}/",
@@ -100,32 +99,6 @@ def test_learner_pages_render(client, demo, student):  # type: ignore[no-untyped
     # data export
     data = client.get("/profile/export").get_json()
     assert data["enrollments"][0]["course"] == demo.slug
-
-
-def test_review_requires_enrollment_and_is_moderated(client, demo, student):  # type: ignore[no-untyped-def]
-    login(client, student)
-    response = post(
-        client,
-        f"/courses/{demo.slug}/review",
-        {"rating": 5, "body": "Great"},
-        follow_redirects=True,
-    )
-    assert "დარეგისტრირდით კურსზე" in response.data.decode()
-    post(client, f"/courses/{demo.slug}/enroll")
-    response = post(
-        client,
-        f"/courses/{demo.slug}/review",
-        {"rating": 5, "body": "Great"},
-        follow_redirects=True,
-    )
-    assert "მოდერაციის შემდეგ" in response.data.decode()
-    from app.models import Review, ReviewStatus
-
-    review = db.session.query(Review).one()
-    assert review.status == ReviewStatus.PENDING
-    # a second submission updates instead of duplicating
-    post(client, f"/courses/{demo.slug}/review", {"rating": 4, "body": "Good"})
-    assert db.session.query(Review).count() == 1
 
 
 def test_form_fields_never_render_none_attributes(client, demo, student):  # type: ignore[no-untyped-def]

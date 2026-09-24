@@ -11,7 +11,6 @@ from werkzeug.datastructures import FileStorage
 
 from app.extensions import db
 from app.models import (
-    Assignment,
     Course,
     CourseStatus,
     Lesson,
@@ -25,9 +24,8 @@ from app.models import (
     Quiz,
     User,
 )
-from app.services import audit_service, course_service, media_service, notification_service
+from app.services import audit_service, course_service, media_service
 from app.services.media_service import UploadError
-from app.services.sanitize import sanitize_html
 
 
 def _translations_from_form(form: Any, fields: tuple[str, ...]) -> dict[str, dict[str, str]]:
@@ -65,8 +63,6 @@ def course_fields_from_form(form: Any) -> dict[str, Any]:
         "certificate_enabled": bool(form.certificate_enabled.data),
         "certificate_pass_percent": form.certificate_pass_percent.data or 70,
         "enrollment_mode": form.enrollment_mode.data,
-        "discussions_enabled": bool(form.discussions_enabled.data),
-        "reviews_enabled": bool(form.reviews_enabled.data),
         "starts_at": form.starts_at.data,
         "ends_at": form.ends_at.data,
         "category_ids": list(form.categories.data or []),
@@ -144,8 +140,6 @@ def fill_course_form(form: Any, course: Course) -> None:
     form.certificate_enabled.data = course.certificate_enabled
     form.certificate_pass_percent.data = course.certificate_pass_percent
     form.enrollment_mode.data = course.enrollment_mode.value
-    form.discussions_enabled.data = course.discussions_enabled
-    form.reviews_enabled.data = course.reviews_enabled
     form.starts_at.data = course.starts_at
     form.ends_at.data = course.ends_at
     form.cyber_track_id.data = course.cyber_track_id
@@ -356,81 +350,12 @@ def delete_question(question: Question, actor: User) -> None:
     db.session.commit()
 
 
-# ---- assignments ------------------------------------------------------------
-def save_assignment(
-    course: Course,
-    form: Any,
-    actor: User,
-    assignment: Assignment | None = None,
-    lesson: Lesson | None = None,
-) -> Assignment:
-    if assignment is None:
-        assignment = Assignment(
-            course_id=course.id, lesson_id=lesson.id if lesson else None, title_ka="", title_en=""
-        )
-        db.session.add(assignment)
-        db.session.flush()
-        audit_service.record(
-            "assignment.created", target=assignment, actor=actor, meta={"course": course.slug}
-        )
-    assignment.title_ka = form.title_ka.data
-    assignment.title_en = form.title_en.data or ""
-    assignment.instructions_ka = sanitize_html(form.instructions_ka.data or "")
-    assignment.instructions_en = sanitize_html(form.instructions_en.data or "")
-    assignment.submission_type = form.submission_type.data
-    assignment.max_points = float(form.max_points.data or Decimal(100))
-    assignment.due_at = form.due_at.data
-    assignment.allow_late = bool(form.allow_late.data)
-    assignment.late_penalty_percent = form.late_penalty_percent.data or 0
-    assignment.max_resubmissions = form.max_resubmissions.data or 0
-    assignment.allowed_extensions = form.allowed_extensions.data or "pdf,docx,txt"
-    assignment.is_published = bool(form.is_published.data)
-    audit_service.record("assignment.updated", target=assignment, actor=actor)
-    db.session.commit()
-    return assignment
-
-
-def fill_assignment_form(form: Any, assignment: Assignment) -> None:
-    for name in (
-        "title_ka",
-        "title_en",
-        "instructions_ka",
-        "instructions_en",
-        "max_points",
-        "due_at",
-        "allow_late",
-        "late_penalty_percent",
-        "max_resubmissions",
-        "allowed_extensions",
-        "is_published",
-    ):
-        form[name].data = getattr(assignment, name)
-    form.submission_type.data = assignment.submission_type.value
-
-
 # ---- workflow ---------------------------------------------------------------
 def submit_for_review(course: Course, actor: User) -> Course:
     from app.services.rbac import instructor_approval_required
 
     if instructor_approval_required() and not actor.has_permission("courses.publish"):
         course_service.set_status(course, CourseStatus.PENDING_REVIEW, actor=actor)
-        from sqlalchemy import select
-
-        from app.models import Role
-
-        admins = (
-            db.session.execute(select(User).join(User.roles).where(Role.name == "admin"))
-            .scalars()
-            .unique()
-        )
-        for admin in admins:
-            notification_service.notify(
-                admin.id,
-                kind="review_request",
-                title=f"Course awaiting review: {course.title('en') or course.slug}",
-                body=f"Submitted by {actor.name}.",
-                link=f"/admin/courses/{course.id}",
-            )
     else:
         course_service.set_status(course, CourseStatus.PUBLISHED, actor=actor)
     return course
@@ -528,7 +453,6 @@ def course_analytics(course: Course) -> dict[str, Any]:
         "lessons": lessons,
         "quizzes": quizzes,
         "max_lesson_started": max((int(str(item["started"])) for item in lessons), default=0),
-        "reviews": course.rating_count,
         "rating": course.rating_avg,
     }
 

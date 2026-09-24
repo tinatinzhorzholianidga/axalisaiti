@@ -14,7 +14,7 @@ from app.models import (
     User,
     UserAchievement,
 )
-from app.services import feature_flags, notification_service
+from app.services import feature_flags
 
 DEFAULT_ACHIEVEMENTS: list[dict] = [
     {
@@ -97,13 +97,6 @@ def _award(user: User, code: str) -> bool:
         return False
     db.session.add(UserAchievement(user_id=user.id, achievement_id=achievement.id))
     db.session.commit()
-    notification_service.notify(
-        user.id,
-        kind="achievement",
-        title=f"Achievement unlocked: {achievement.name_en}",
-        body=achievement.description_en,
-        link="/profile/#achievements",
-    )
     return True
 
 

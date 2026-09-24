@@ -70,8 +70,6 @@ DEFAULT_SETTINGS: dict[str, tuple[Any, str, str, str, str, bool]] = {
         "",
         False,
     ),
-    "courses.reviews_enabled": (True, "bool", "courses", "Course reviews", "", True),
-    "courses.discussions_enabled": (True, "bool", "courses", "Course discussions", "", True),
     "certificates.organization": (
         "Digital Governance Agency of Georgia",
         "string",

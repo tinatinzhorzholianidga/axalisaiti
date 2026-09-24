@@ -10,11 +10,7 @@
 <a href="{{ url_for('admin.cyberhero') }}" {% if ep.startswith('admin.cyber') %}aria-current="page"{% endif %}>{{ icon('shield') }} CyberHero</a>
 <div class="group">{{ _('Learning') }}</div>
 <a href="{{ url_for('admin.quizzes') }}" {% if ep == 'admin.quizzes' %}aria-current="page"{% endif %}>{{ icon('help-circle') }} {{ _('Quizzes') }}</a>
-<a href="{{ url_for('admin.assignments') }}" {% if ep == 'admin.assignments' %}aria-current="page"{% endif %}>{{ icon('edit') }} {{ _('Assignments') }}</a>
 <a href="{{ url_for('admin.certificates') }}" {% if ep.startswith('admin.certificate') %}aria-current="page"{% endif %}>{{ icon('award') }} {{ _('Certificates') }}</a>
-<a href="{{ url_for('admin.discussions') }}" {% if ep.startswith('admin.discussion') or ep == 'admin.report_action' %}aria-current="page"{% endif %}>{{ icon('message') }} {{ _('Discussions') }}</a>
-<a href="{{ url_for('admin.reviews') }}" {% if ep.startswith('admin.review') %}aria-current="page"{% endif %}>{{ icon('star') }} {{ _('Reviews') }}</a>
-<a href="{{ url_for('admin.notifications') }}" {% if ep == 'admin.notifications' %}aria-current="page"{% endif %}>{{ icon('bell') }} {{ _('Notifications') }}</a>
 <a href="{{ url_for('admin.media') }}" {% if ep.startswith('admin.media') %}aria-current="page"{% endif %}>{{ icon('image') }} {{ _('Media') }}</a>
 <div class="group">{{ _('Platform') }}</div>
 <a href="{{ url_for('admin.analytics') }}" {% if ep == 'admin.analytics' %}aria-current="page"{% endif %}>{{ icon('bar-chart') }} {{ _('Analytics') }}</a>

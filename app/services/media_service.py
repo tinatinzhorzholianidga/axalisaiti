@@ -22,7 +22,6 @@ from werkzeug.datastructures import FileStorage
 
 from app.extensions import db
 from app.models import (
-    AssignmentSubmission,
     Course,
     Enrollment,
     EnrollmentStatus,
@@ -315,14 +314,7 @@ def can_access(user: User, media: MediaFile) -> bool:
         )
         if reachable & set(db.session.execute(lesson_courses).scalars()):
             return True
-    # assignment submissions: owner or instructor of the course
-    submission = db.session.execute(
-        select(AssignmentSubmission).where(AssignmentSubmission.file_media_id == media.id)
-    ).scalar_one_or_none()
-    return bool(
-        submission
-        and (submission.user_id == user.id or submission.assignment.course.instructor_id == user.id)
-    )
+    return False
 
 
 def list_media(kind: str | None = None, query: str | None = None):  # type: ignore[no-untyped-def]

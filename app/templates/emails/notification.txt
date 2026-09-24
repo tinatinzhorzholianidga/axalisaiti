@@ -1,8 +1,0 @@
-{{ _('Hello %(name)s,', name=user.first_name) }}
-
-{{ title }}
-
-{{ body }}
-{% if link %}
-{{ config.SITE_URL }}{{ link }}
-{% endif %}

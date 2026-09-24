@@ -22,7 +22,6 @@
           {% if course.estimated_minutes %}<span>{{ icon('clock') }} {{ course.estimated_minutes|duration }}</span>{% endif %}
           <span>{{ icon('layers') }} {{ course.lesson_count }} {{ _('lessons') }}</span>
           {% if course.certificate_enabled %}<span>{{ icon('award') }} {{ _('Certificate') }}</span>{% endif %}
-          {% if course.rating_count %}<span>{{ stars(course.rating_avg|round|int) }} {{ course.rating_avg }} ({{ course.rating_count }})</span>{% endif %}
           <span>{{ icon('users') }} {{ course.enrollment_count }} {{ _('enrolled') }}</span>
         </div>
         {% if progress and enrollment %}<div class="mt-4" aria-label="{{ _('Course progress') }}">{{ progress_bar(progress.percent) }}</div>{% endif %}
@@ -40,7 +39,6 @@
           {% else %}
             <a class="btn btn-primary btn-lg" href="{{ url_for('auth.login', next=request.path) }}">{{ _('Sign in to enrol') }}</a>
           {% endif %}
-          {% if course.discussions_enabled and current_user.is_authenticated %}<a class="btn btn-outline btn-block" href="{{ url_for('discussions.list_threads', slug=course.slug) }}">{{ icon('message') }} {{ _('Discussions') }}</a>{% endif %}
           {% if current_user.is_authenticated %}
           <form method="post" action="{{ url_for('courses.bookmark', slug=course.slug) }}">{{ csrf() }}<button class="btn btn-outline btn-block" type="submit" aria-pressed="{{ 'true' if is_bookmarked else 'false' }}">{{ icon('bookmark') }} {{ _('Bookmarked') if is_bookmarked else _('Bookmark') }}</button></form>
           {% endif %}
@@ -65,7 +63,6 @@
     <a role="tab" href="?tab=overview" data-tab="overview" aria-selected="{{ 'true' if active_tab == 'overview' else 'false' }}">{{ _('Overview') }}</a>
     <a role="tab" href="?tab=syllabus" data-tab="syllabus" aria-selected="{{ 'true' if active_tab == 'syllabus' else 'false' }}">{{ _('Syllabus') }}</a>
     <a role="tab" href="?tab=resources" data-tab="resources" aria-selected="{{ 'true' if active_tab == 'resources' else 'false' }}">{{ _('Resources') }}</a>
-    {% if reviews_enabled %}<a role="tab" href="?tab=reviews" data-tab="reviews" aria-selected="{{ 'true' if active_tab == 'reviews' else 'false' }}">{{ _('Reviews') }}</a>{% endif %}
   </div>
 
   <section class="tab-panel" data-tab-panel="overview" role="tabpanel" {% if active_tab != 'overview' %}hidden{% endif %}>
@@ -119,27 +116,5 @@
     {% else %}<p class="text-muted">{{ _('No downloadable resources for this course yet.') }}</p>{% endif %}
   </section>
 
-  {% if reviews_enabled %}
-  <section class="tab-panel" data-tab-panel="reviews" role="tabpanel" {% if active_tab != 'reviews' %}hidden{% endif %}>
-    <div class="overview-grid">
-      <div>
-        {% for review in reviews %}
-        <article class="review"><div class="review-head"><span><strong>{{ review.user.name }}</strong> {{ stars(review.rating) }}</span><time datetime="{{ review.created_at.isoformat() }}">{{ review.created_at|date_only }}</time></div><p class="mb-0">{{ review.body }}</p></article>
-        {% else %}<p class="text-muted">{{ _('No reviews yet. Be the first after you have started the course.') }}</p>{% endfor %}
-      </div>
-      <div>
-        {% if can_review %}
-        <form class="panel" method="post" action="{{ url_for('courses.review', slug=course.slug) }}" novalidate>
-          {{ review_form.hidden_tag() }}
-          <h2 class="h5 mb-3">{{ _('Your review') }}</h2>
-          {{ field(review_form.rating) }}
-          {{ field(review_form.body, rows=4) }}
-          <button class="btn btn-primary" type="submit">{{ _('Submit review') }}</button>
-        </form>
-        {% elif current_user.is_authenticated %}<p class="text-muted">{{ _('Enrol in the course to leave a review.') }}</p>{% endif %}
-      </div>
-    </div>
-  </section>
-  {% endif %}
 </div>
 {% endblock %}

@@ -40,11 +40,6 @@ def update_profile(user: User, **fields: Any) -> None:
     db.session.commit()
 
 
-def update_notification_prefs(user: User, prefs: dict[str, bool]) -> None:
-    user.notification_prefs = {k: bool(v) for k, v in prefs.items()}
-    db.session.commit()
-
-
 def set_roles(user: User, role_names: list[str], actor: User | None = None) -> None:
     current = user.role_names
     wanted = set(role_names)
@@ -91,13 +86,12 @@ def request_deletion(user: User) -> None:
 
 def export_data(user: User) -> dict[str, Any]:
     """Portable snapshot of a user's data (GDPR-style export)."""
-    from app.models import Certificate, CourseProgress, Enrollment, QuizAttempt, Review
+    from app.models import Certificate, CourseProgress, Enrollment, QuizAttempt
 
     enrollments = db.session.query(Enrollment).filter_by(user_id=user.id).all()
     progress = db.session.query(CourseProgress).filter_by(user_id=user.id).all()
     attempts = db.session.query(QuizAttempt).filter_by(user_id=user.id).all()
     certificates = db.session.query(Certificate).filter_by(user_id=user.id).all()
-    reviews = db.session.query(Review).filter_by(user_id=user.id).all()
     return {
         "profile": {
             "email": user.email,
@@ -138,7 +132,6 @@ def export_data(user: User) -> dict[str, Any]:
             }
             for c in certificates
         ],
-        "reviews": [{"course": r.course.slug, "rating": r.rating, "body": r.body} for r in reviews],
     }
 
 

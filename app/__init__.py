@@ -153,12 +153,10 @@ def _register_blueprints(app: Flask) -> None:
     from app.blueprints.certificates import bp as certificates_bp
     from app.blueprints.courses import bp as courses_bp
     from app.blueprints.cyberhero import bp as cyberhero_bp
-    from app.blueprints.discussions import bp as discussions_bp
     from app.blueprints.instructor import bp as instructor_bp
     from app.blueprints.learning import bp as learning_bp
     from app.blueprints.main import bp as main_bp
     from app.blueprints.media import bp as media_bp
-    from app.blueprints.notifications import bp as notifications_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix="/auth")
@@ -167,8 +165,6 @@ def _register_blueprints(app: Flask) -> None:
     app.register_blueprint(learning_bp)
     app.register_blueprint(assessments_bp)
     app.register_blueprint(certificates_bp, url_prefix="/certificates")
-    app.register_blueprint(discussions_bp, url_prefix="/discussions")
-    app.register_blueprint(notifications_bp, url_prefix="/notifications")
     app.register_blueprint(instructor_bp, url_prefix="/instructor")
     app.register_blueprint(admin_bp, url_prefix="/admin")
     app.register_blueprint(api_bp, url_prefix="/api/v1")
@@ -199,13 +195,8 @@ def _register_context(app: Flask) -> None:
 
     @app.context_processor
     def _inject_globals() -> dict:
-        from flask_login import current_user
-
-        from app.services import notification_service
-
         locale = str(get_locale() or app.config["BABEL_DEFAULT_LOCALE"])
         return {
-            "unread_notifications": lambda: notification_service.unread_count(current_user),
             "support_email": settings_service.get("site.support_email", ""),
             "current_locale": locale,
             "available_languages": app.config["LANGUAGES"],

@@ -9,7 +9,7 @@ from app.blueprints.admin.helpers import get_or_404, locale, page, per_page
 from app.extensions import db
 from app.forms.authoring import CategoryForm, CourseForm, ReviewDecisionForm
 from app.models import Category, Course, CourseStatus
-from app.services import authoring_service, course_service, notification_service
+from app.services import authoring_service, course_service
 from app.services.media_service import UploadError
 from app.services.rbac import require_permission
 
@@ -92,13 +92,13 @@ def course_status(course_id: int):  # type: ignore[no-untyped-def]
             course, CourseStatus.PUBLISHED, actor=current_user, note=form.note.data or ""
         )
         message = _("Course published.")
-        kind, title = "course_update", _("Your course was published")
+        _kind, _title = "course_update", _("Your course was published")
     elif form.reject.data:
         course_service.set_status(
             course, CourseStatus.DRAFT, actor=current_user, note=form.note.data or ""
         )
         message = _("Course sent back to draft.")
-        kind, title = "course_update", _("Your course needs changes")
+        _kind, _title = "course_update", _("Your course needs changes")
     else:
         status = request.form.get("status", "")
         try:
@@ -106,15 +106,7 @@ def course_status(course_id: int):  # type: ignore[no-untyped-def]
         except ValueError:
             abort(400)
         message = _("Status updated.")
-        kind, title = "course_update", _("Course status changed")
-    if course.instructor_id and course.instructor_id != current_user.id:
-        notification_service.notify(
-            course.instructor_id,
-            kind=kind,
-            title=f"{title}: {course.title('en') or course.slug}",
-            body=form.note.data or "",
-            link=f"/instructor/courses/{course.id}/builder",
-        )
+        _kind, _title = "course_update", _("Course status changed")
     flash(message, "success")
     return redirect(url_for("admin.course_detail", course_id=course.id))
 

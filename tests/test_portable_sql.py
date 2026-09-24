@@ -13,7 +13,7 @@ from flask import Flask
 from sqlalchemy import select
 from sqlalchemy.dialects import mysql, postgresql, sqlite
 
-from app.models import Discussion, Enrollment
+from app.models import Enrollment
 from app.repositories.ordering import newest_first
 from app.services import cyberhero_service
 
@@ -60,13 +60,6 @@ def test_newest_first_orders_rows_with_values_first(app: Flask, student, db) -> 
     # most recently opened first, never-opened courses last (not first, as
     # a plain DESC would put NULLs on SQLite/PostgreSQL)
     assert ordered == ["order-2", "order-1", "order-0"]
-
-
-def test_discussion_ordering_compiles_for_mariadb() -> None:
-    stmt = select(Discussion).order_by(
-        Discussion.is_pinned.desc(), *newest_first(Discussion.last_post_at)
-    )
-    assert "NULLS" not in str(stmt.compile(dialect=mysql.dialect())).upper()
 
 
 def test_no_nulls_ordering_in_source_tree() -> None:

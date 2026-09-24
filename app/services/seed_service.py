@@ -12,7 +12,6 @@ from sqlalchemy import select
 from app.config import BASE_DIR
 from app.extensions import db
 from app.models import (
-    Assignment,
     Category,
     Course,
     CourseStatus,
@@ -28,7 +27,6 @@ from app.models import (
     QuestionOption,
     QuestionType,
     Quiz,
-    SubmissionType,
     User,
     utcnow,
 )
@@ -235,25 +233,6 @@ def _upsert_quiz(course: Course, lesson: Lesson | None, data: dict) -> Quiz:
     return quiz
 
 
-def _upsert_assignment(course: Course, lesson: Lesson | None, data: dict) -> Assignment:
-    assignment = lesson.assignment if lesson is not None else None
-    if assignment is None:
-        assignment = Assignment(
-            course_id=course.id, lesson_id=lesson.id if lesson else None, title_ka="", title_en=""
-        )
-        db.session.add(assignment)
-    assignment.title_ka = data["title"]["ka"]
-    assignment.title_en = data["title"]["en"]
-    assignment.instructions_ka = sanitize_html(data.get("instructions", {}).get("ka", ""))
-    assignment.instructions_en = sanitize_html(data.get("instructions", {}).get("en", ""))
-    assignment.submission_type = SubmissionType(data.get("submission_type", "text"))
-    assignment.max_points = float(data.get("max_points") or 100)
-    assignment.max_resubmissions = int(data.get("max_resubmissions", 2))
-    assignment.allow_late = bool(data.get("allow_late", True))
-    assignment.late_penalty_percent = int(data.get("late_penalty_percent") or 0)
-    return assignment
-
-
 def upsert_course(data: dict, instructor: User) -> tuple[Course, bool]:
     course = db.session.execute(
         select(Course).where(Course.slug == data["slug"])
@@ -291,8 +270,6 @@ def upsert_course(data: dict, instructor: User) -> tuple[Course, bool]:
             lesson = _upsert_lesson(module, li, les)
             if les.get("quiz"):
                 _upsert_quiz(course, lesson, les["quiz"])
-            if les.get("assignment"):
-                _upsert_assignment(course, lesson, les["assignment"])
     if data.get("final_quiz"):
         _upsert_quiz(course, None, {**data["final_quiz"], "final": True})
     db.session.flush()

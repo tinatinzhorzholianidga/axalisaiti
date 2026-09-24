@@ -8,10 +8,10 @@ import pytest
 from werkzeug.datastructures import FileStorage
 
 from app.extensions import db
-from app.models import Course, Discussion, DiscussionReport, MediaKind
-from app.services import discussion_service, media_service, seed_service
+from app.models import Course, MediaKind
+from app.services import media_service, seed_service
 from app.services.media_service import UploadError
-from tests.conftest import login, post
+from tests.conftest import login
 
 
 def _png() -> bytes:
@@ -29,63 +29,6 @@ PNG = _png()
 def demo(app):  # type: ignore[no-untyped-def]
     seed_service.seed_demo_content()
     return db.session.query(Course).filter_by(slug="phishing-awareness").one()
-
-
-def test_discussion_thread_reply_moderation(client, demo, student, instructor):  # type: ignore[no-untyped-def]
-    demo.instructor_id = instructor.id
-    db.session.commit()
-    login(client, student)
-    # must be enrolled
-    response = post(client, f"/discussions/{demo.slug}/", {"title": "Question", "body": "Hello?"})
-    assert "პოსტის გამოქვეყნება არ შეგიძლიათ" in response.data.decode()
-    post(client, f"/courses/{demo.slug}/enroll")
-    response = post(
-        client,
-        f"/discussions/{demo.slug}/",
-        {"title": "Question", "body": "<p>Hello <script>x</script></p>"},
-    )
-    thread = db.session.query(Discussion).one()
-    assert response.status_code == 302 and "<script>" not in thread.posts[0].body
-    # reply + notification to thread author is not sent to self
-    response = post(client, f"/discussions/{demo.slug}/{thread.id}/", {"body": "Reply"})
-    assert response.status_code == 302 and thread.post_count == 2
-    # student cannot moderate
-    response = post(client, f"/discussions/{demo.slug}/{thread.id}/moderate", {"action": "pin"})
-    assert response.status_code == 403
-    # instructor pins, locks and hides
-    other = client.application.test_client()
-    login(other, instructor)
-    for action in ("pin", "lock"):
-        assert (
-            post(
-                other, f"/discussions/{demo.slug}/{thread.id}/moderate", {"action": action}
-            ).status_code
-            == 302
-        )
-    db.session.refresh(thread)
-    assert thread.is_pinned and thread.is_locked
-    response = post(client, f"/discussions/{demo.slug}/{thread.id}/", {"body": "locked?"})
-    assert "დაბლოკილია" in response.data.decode()
-    # report + resolve
-    post_id = thread.posts[0].id
-    assert (
-        post(
-            other, f"/discussions/{demo.slug}/post/{post_id}/report", {"reason": "spam"}
-        ).status_code
-        == 302
-    )
-    report = db.session.query(DiscussionReport).one()
-    assert report.status == "open"
-    discussion_service.resolve_report(report, instructor)
-    assert report.status == "resolved"
-    assert (
-        post(
-            other, f"/discussions/{demo.slug}/{thread.id}/moderate", {"action": "hide"}
-        ).status_code
-        == 302
-    )
-    assert client.get(f"/discussions/{demo.slug}/{thread.id}/").status_code == 404
-    assert other.get(f"/discussions/{demo.slug}/{thread.id}/").status_code == 200
 
 
 def test_media_validation_and_access(app, client, student, instructor, admin):  # type: ignore[no-untyped-def]

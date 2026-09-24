@@ -16,7 +16,7 @@ from app.models import (
     utcnow,
 )
 from app.repositories.ordering import newest_first
-from app.services import audit_service, notification_service
+from app.services import audit_service
 
 
 class EnrollmentError(Exception):
@@ -72,14 +72,6 @@ def enroll(user: User, course: Course) -> Enrollment:
         "enrollment.created", target=course, actor=user, meta={"status": status.value}
     )
     db.session.commit()
-    if status == EnrollmentStatus.PENDING and course.instructor_id:
-        notification_service.notify(
-            course.instructor_id,
-            kind="enrollment_request",
-            title=f"Enrolment request: {course.title('en') or course.slug}",
-            body=f"{user.name} requested access.",
-            link=f"/instructor/courses/{course.id}/students",
-        )
     return enrollment
 
 
@@ -92,13 +84,6 @@ def approve(enrollment: Enrollment, actor: User) -> None:
         meta={"user_id": enrollment.user_id},
     )
     db.session.commit()
-    notification_service.notify(
-        enrollment.user_id,
-        kind="course_update",
-        title="Enrolment approved",
-        body=f"You now have access to {enrollment.course.title('en') or enrollment.course.slug}.",
-        link=f"/courses/{enrollment.course.slug}/",
-    )
 
 
 def drop(user: User, course: Course) -> None:

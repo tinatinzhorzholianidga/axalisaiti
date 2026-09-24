@@ -25,8 +25,6 @@ COURSE_FORM = {
     "is_free": "y",
     "certificate_enabled": "y",
     "certificate_pass_percent": "70",
-    "discussions_enabled": "y",
-    "reviews_enabled": "y",
     "submit": "1",
 }
 
@@ -207,40 +205,12 @@ def test_course_builder_flow(client, app, logged_in_instructor, admin):  # type:
         == 200
     )
 
-    # Assignment
-    a_url = f"/instructor/courses/{course.id}/assignments/new"
-    assert client.get(a_url).status_code == 200
-    response = post(
-        client,
-        a_url,
-        {
-            "title_ka": "დავალება",
-            "title_en": "Assignment",
-            "instructions_ka": "<p>დაწერე</p>",
-            "instructions_en": "<p>Write</p>",
-            "submission_type": "text",
-            "max_points": "10",
-            "allow_late": "y",
-            "late_penalty_percent": "10",
-            "max_resubmissions": "1",
-            "is_published": "y",
-        },
-    )
-    assert response.status_code == 302, response.data[:500]
-    assert len(course.assignments) == 1
-
-    # Submit for review -> pending (approval required by default), admin notified
+    # Submit for review -> pending (approval required by default)
     response = post(client, f"/instructor/courses/{course.id}/submit")
     assert response.status_code == 302
     db.session.expire_all()
     course = db.session.get(Course, course.id)
     assert course.status == CourseStatus.PENDING_REVIEW
-    from app.models import Notification
-
-    def kinds(user_id: int) -> set[str]:
-        return {n.kind for n in db.session.query(Notification).filter_by(user_id=user_id)}
-
-    assert "review_request" in kinds(admin.id)
 
     # Course stays hidden from the public catalog while pending
     logout(client)
@@ -270,17 +240,15 @@ def test_course_builder_flow(client, app, logged_in_instructor, admin):  # type:
     course = db.session.get(Course, course.id)
     assert course.status == CourseStatus.PUBLISHED
     assert course.published_at is not None
-    assert "course_update" in kinds(instructor.id)
     logout(client)
     assert client.get(f"/courses/{course.slug}/").status_code == 200
 
-    # Instructor sees analytics/students/reviews pages and can unpublish
+    # Instructor sees the builder and settings pages and can unpublish
     login(client, instructor)
-    for path in ("analytics", "students", "reviews", "discussions", "builder", ""):
+    for path in ("builder", ""):
         url = f"/instructor/courses/{course.id}/{path}"
         assert client.get(url).status_code == 200, url
     assert client.get("/instructor/courses/").status_code == 200
-    assert client.get("/instructor/grading/").status_code == 200
     response = post(client, f"/instructor/courses/{course.id}/unpublish")
     assert response.status_code == 302
     db.session.expire_all()
