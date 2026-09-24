@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-24 11:08+0000\n"
+"POT-Creation-Date: 2026-09-24 11:14+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -1362,11 +1362,17 @@ msgstr "აირჩიეთ PDF ფაილი."
 msgid "Administration"
 msgstr "ადმინისტრირება"
 
-msgid "Dashboard"
-msgstr "სამართავი პანელი"
+msgid "Dashboard & analytics"
+msgstr "სამართავი პანელი და ანალიტიკა"
 
 msgid "Users"
 msgstr "მომხმარებლები"
+
+msgid "Certificates"
+msgstr "სერტიფიკატები"
+
+msgid "Learning"
+msgstr "სწავლა"
 
 msgid "Courses"
 msgstr "კურსები"
@@ -1377,20 +1383,17 @@ msgstr "ქეისები"
 msgid "Resources"
 msgstr "რესურსები"
 
-msgid "Learning"
-msgstr "სწავლა"
-
-msgid "Quizzes"
-msgstr "ქვიზები"
-
-msgid "Certificates"
-msgstr "სერტიფიკატები"
-
 msgid "Media"
 msgstr "მედია"
 
-msgid "Analytics"
-msgstr "ანალიტიკა"
+msgid "Overview"
+msgstr "მიმოხილვა"
+
+msgid "Tips & reactions"
+msgstr "რჩევები და რეაქციები"
+
+msgid "Knowledge base"
+msgstr "ცოდნის ბაზა"
 
 msgid "Audit log"
 msgstr "აუდიტის ჟურნალი"
@@ -1400,36 +1403,6 @@ msgstr "საიტის პარამეტრები"
 
 msgid "Localisation"
 msgstr "ლოკალიზაცია"
-
-msgid "Feature flags"
-msgstr "ფუნქციების გადამრთველები"
-
-msgid "Enrolments"
-msgstr "რეგისტრაციები"
-
-msgid "Completion rate"
-msgstr "დასრულების მაჩვენებელი"
-
-msgid "Active learners (30 days)"
-msgstr "აქტიური მსმენელები (30 დღე)"
-
-msgid "New users (30 days)"
-msgstr "ახალი მომხმარებლები (30 დღე)"
-
-msgid "Quiz pass rate"
-msgstr "ქვიზის ჩაბარების მაჩვენებელი"
-
-msgid "Course popularity"
-msgstr "კურსების პოპულარობა"
-
-msgid "No data yet."
-msgstr "მონაცემები ჯერ არ არის."
-
-msgid "CyberHero mission completions (signed-in learners)"
-msgstr "CyberHero-ს დასრულებული მისიები (შესული მსმენელები)"
-
-msgid "Anonymous CyberHero progress stays in the browser and is not tracked."
-msgstr "ანონიმური CyberHero-პროგრესი ბრაუზერში რჩება და არ აღირიცხება."
 
 msgid "Action prefix, e.g. auth."
 msgstr "მოქმედების პრეფიქსი, მაგ. auth."
@@ -1551,6 +1524,9 @@ msgstr "მოდულები"
 msgid "Lessons"
 msgstr "გაკვეთილები"
 
+msgid "Quizzes"
+msgstr "ქვიზები"
+
 msgid "Enrolled"
 msgstr "დარეგისტრირებული"
 
@@ -1599,6 +1575,9 @@ msgstr "მონახაზი / განხილვაში"
 msgid "Active instructors"
 msgstr "აქტიური ინსტრუქტორები"
 
+msgid "Enrolments"
+msgstr "რეგისტრაციები"
+
 msgid "Completed courses"
 msgstr "დასრულებული კურსები"
 
@@ -1632,16 +1611,70 @@ msgstr "ბოლო აქტივობა"
 msgid "No activity yet."
 msgstr "აქტივობა ჯერ არ არის."
 
-msgid "Last changed by"
-msgstr "ბოლოს შეცვალა"
+msgid "Last 30 days and totals"
+msgstr "ბოლო 30 დღე და ჯამური მაჩვენებლები"
+
+msgid "Analytics"
+msgstr "ანალიტიკა"
+
+msgid "Completion rate"
+msgstr "დასრულების მაჩვენებელი"
+
+msgid "Active learners (30 days)"
+msgstr "აქტიური მსმენელები (30 დღე)"
+
+msgid "New users (30 days)"
+msgstr "ახალი მომხმარებლები (30 დღე)"
+
+msgid "Quiz pass rate"
+msgstr "ქვიზის ჩაბარების მაჩვენებელი"
+
+msgid "Course popularity"
+msgstr "კურსების პოპულარობა"
+
+msgid "No data yet."
+msgstr "მონაცემები ჯერ არ არის."
+
+msgid "CyberHero mission completions (signed-in learners)"
+msgstr "CyberHero-ს დასრულებული მისიები (შესული მსმენელები)"
+
+msgid "Anonymous CyberHero progress stays in the browser and is not tracked."
+msgstr "ანონიმური CyberHero-პროგრესი ბრაუზერში რჩება და არ აღირიცხება."
 
 msgid ""
-"CYBERHERO_IO_CHAT_ENABLED keeps the experimental in-browser tutor hidden "
-"until switched on; it never sends conversations to an external service."
-msgstr ""
-"CYBERHERO_IO_CHAT_ENABLED ექსპერიმენტულ, ბრაუზერშივე მომუშავე ტუტორს "
-"დამალულს ინახავს, სანამ არ ჩაირთვება; ის საუბრებს გარე სერვისს არასდროს "
-"უგზავნის."
+"IO is the mascot and guide of CyberHero and the home page. Everything he "
+"says is data: the tips he offers on each page, the reactions to events, "
+"and the knowledge base the in-browser tutor answers from."
+msgstr "იო კიბერგმირისა და მთავარი გვერდის თილისმა და გზამკვლევია. ყველაფერი, რასაც ის ამბობს, მონაცემებია: რჩევები, რომლებსაც თითოეულ გვერდზე სთავაზობს, რეაქციები მოვლენებზე და ცოდნის ბაზა, საიდანაც ბრაუზერში მომუშავე დამრიგებელი პასუხობს."
+
+msgid "Tips"
+msgstr "რჩევები"
+
+msgid "Reactions"
+msgstr "რეაქციები"
+
+msgid "Knowledge sections"
+msgstr "ცოდნის განყოფილებები"
+
+msgid "Texts"
+msgstr "ტექსტები"
+
+msgid "what IO says on each page and after each event"
+msgstr "რას ამბობს იო თითოეულ გვერდზე და თითოეული მოვლენის შემდეგ"
+
+msgid "the only material the tutor answers from"
+msgstr "ერთადერთი მასალა, საიდანაც დამრიგებელი პასუხობს"
+
+msgid "Functions"
+msgstr "ფუნქციები"
+
+msgid "In-browser tutor (IO chat)"
+msgstr "ბრაუზერში მომუშავე დამრიგებელი (იო-ჩატი)"
+
+msgid ""
+"Experimental. Runs entirely in the visitor’s browser and answers only "
+"from the knowledge base; nothing is sent to an external service."
+msgstr "ექსპერიმენტული. მთლიანად ვიზიტორის ბრაუზერში მუშაობს და მხოლოდ ცოდნის ბაზიდან პასუხობს; გარე სერვისს არაფერი ეგზავნება."
 
 msgid "UI strings translated (Georgian)"
 msgstr "თარგმნილი ინტერფეისის სტრიქონები (ქართული)"
@@ -1762,6 +1795,20 @@ msgstr "დოკუმენტის ატვირთვა"
 
 msgid "PDF only."
 msgstr "მხოლოდ PDF."
+
+msgid "Feature flags"
+msgstr "ფუნქციების გადამრთველები"
+
+msgid "Last changed by"
+msgstr "ბოლოს შეცვალა"
+
+msgid ""
+"CYBERHERO_IO_CHAT_ENABLED keeps the experimental in-browser tutor hidden "
+"until switched on; it never sends conversations to an external service."
+msgstr ""
+"CYBERHERO_IO_CHAT_ENABLED ექსპერიმენტულ, ბრაუზერშივე მომუშავე ტუტორს "
+"დამალულს ინახავს, სანამ არ ჩაირთვება; ის საუბრებს გარე სერვისს არასდროს "
+"უგზავნის."
 
 msgid "Save settings"
 msgstr "პარამეტრების შენახვა"
@@ -2006,9 +2053,6 @@ msgstr "შინაარსი"
 msgid "Mascot"
 msgstr "მასკოტი"
 
-msgid "Knowledge base"
-msgstr "ცოდნის ბაზა"
-
 msgid "Open CyberHero"
 msgstr "CyberHero-ს გახსნა"
 
@@ -2088,9 +2132,6 @@ msgstr "ახალი განყოფილება"
 msgid "IO mascot tips and reactions"
 msgstr "იო მასკოტის რჩევები და რეაქციები"
 
-msgid "Tips"
-msgstr "რჩევები"
-
 msgid "Topics"
 msgstr "თემები"
 
@@ -2102,9 +2143,6 @@ msgstr "ინგლისური"
 
 msgid "Delete tip?"
 msgstr "წავშალოთ რჩევა?"
-
-msgid "Reactions"
-msgstr "რეაქციები"
 
 msgid "Delete reaction?"
 msgstr "წავშალოთ რეაქცია?"
@@ -2644,6 +2682,9 @@ msgstr "ძიება (Ctrl+K)"
 msgid "Account menu"
 msgstr "ანგარიშის მენიუ"
 
+msgid "Dashboard"
+msgstr "სამართავი პანელი"
+
 msgid "Bookmarks"
 msgstr "სანიშნეები"
 
@@ -2735,9 +2776,6 @@ msgstr "უფასო"
 
 msgid "Restricted"
 msgstr "შეზღუდული"
-
-msgid "Overview"
-msgstr "მიმოხილვა"
 
 msgid "Syllabus"
 msgstr "სილაბუსი"
@@ -3285,7 +3323,9 @@ msgid "Interactive exercises"
 msgstr "ინტერაქტიული სავარჯიშოები"
 
 msgid "Quizzes with six question types, labs and scenario-based exercises."
-msgstr "ქვიზები ექვსი ტიპის კითხვით, პრაქტიკული სამუშაოები და სცენარებზე დაფუძნებული სავარჯიშოები."
+msgstr ""
+"ქვიზები ექვსი ტიპის კითხვით, პრაქტიკული სამუშაოები და სცენარებზე "
+"დაფუძნებული სავარჯიშოები."
 
 msgid ""
 "Verifiable certificates with a public verification link for every "

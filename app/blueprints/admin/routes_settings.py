@@ -35,36 +35,81 @@ def settings():  # type: ignore[no-untyped-def]
                 changed.append(setting.key)
         if changed:
             audit_service.record("settings.changed", actor=current_user, meta={"keys": changed})
+        if current_user.has_permission("flags.manage"):
+            _apply_flags(request.form)
         db.session.commit()
         settings_service.invalidate()
+        feature_flags.invalidate()
         flash(_("Settings saved."), "success")
         return redirect(url_for("admin.settings"))
     items = settings_service.all_settings()
     groups: dict[str, list] = {}
     for item in items:
         groups.setdefault(item.group, []).append(item)
-    return render_template("admin/settings.html", groups=groups, locale=locale())
+    return render_template(
+        "admin/settings.html",
+        groups=groups,
+        flags=feature_flags.all_flags(),
+        locale=locale(),
+    )
+
+
+def _apply_flags(form) -> None:  # type: ignore[no-untyped-def]
+    """Checkbox form for feature flags.
+
+    Only the flags listed in the hidden ``flag-keys`` field are touched (an
+    unchecked box means "off"); without that field every flag is in scope, as
+    the original flags page worked.
+    """
+    scope = [k for k in (form.get("flag-keys") or "").split(",") if k]
+    for flag in feature_flags.all_flags():
+        if scope and flag.key not in scope:
+            continue
+        enabled = form.get(f"flag-{flag.key}") == "on"
+        if enabled != flag.enabled:
+            feature_flags.set_flag(flag.key, enabled, updated_by_id=current_user.id)
+            audit_service.record(
+                "flag.changed", actor=current_user, meta={"key": flag.key, "enabled": enabled}
+            )
 
 
 @bp.route("/flags/", methods=["GET", "POST"])
 @require_permission("flags.manage")
 def flags():  # type: ignore[no-untyped-def]
+    """Flags are edited on the settings page (and the IO page); POST still works."""
     if request.method == "POST":
         from flask_wtf.csrf import validate_csrf
 
         validate_csrf(request.form.get("csrf_token"))
-        for flag in feature_flags.all_flags():
-            enabled = request.form.get(f"flag-{flag.key}") == "on"
-            if enabled != flag.enabled:
-                feature_flags.set_flag(flag.key, enabled, updated_by_id=current_user.id)
-                audit_service.record(
-                    "flag.changed", actor=current_user, meta={"key": flag.key, "enabled": enabled}
-                )
+        _apply_flags(request.form)
         db.session.commit()
         feature_flags.invalidate()
         flash(_("Feature flags saved."), "success")
-        return redirect(url_for("admin.flags"))
-    return render_template("admin/flags.html", flags=feature_flags.all_flags(), locale=locale())
+        return redirect(request.form.get("next") or url_for("admin.settings") + "#flags")
+    return redirect(url_for("admin.settings") + "#flags")
+
+
+@bp.route("/io/")
+@require_permission("cyberhero.manage")
+def io():  # type: ignore[no-untyped-def]
+    """IO, the mascot: where his texts live and what he is allowed to do."""
+    from sqlalchemy import func, select
+
+    from app.models import CyberKnowledgeSection, CyberMascotReaction, CyberMascotTip
+
+    counts = {
+        "tips": int(
+            db.session.execute(select(func.count()).select_from(CyberMascotTip)).scalar_one()
+        ),
+        "reactions": int(
+            db.session.execute(select(func.count()).select_from(CyberMascotReaction)).scalar_one()
+        ),
+        "knowledge": int(
+            db.session.execute(select(func.count()).select_from(CyberKnowledgeSection)).scalar_one()
+        ),
+    }
+    io_flags = [f for f in feature_flags.all_flags() if f.key == "CYBERHERO_IO_CHAT_ENABLED"]
+    return render_template("admin/io.html", counts=counts, io_flags=io_flags, locale=locale())
 
 
 @bp.route("/audit/")

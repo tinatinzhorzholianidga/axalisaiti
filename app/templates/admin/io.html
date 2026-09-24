@@ -1,0 +1,35 @@
+{% extends "layouts/panel.html" %}
+{% from "components/icons.html" import icon %}
+{% from "components/macros.html" import csrf %}
+{% block title %}IO · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}IO{% endblock %}
+{% block panel_content %}
+<p class="text-muted">{{ _('IO is the mascot and guide of CyberHero and the home page. Everything he says is data: the tips he offers on each page, the reactions to events, and the knowledge base the in-browser tutor answers from.') }}</p>
+<div class="metric-grid">
+  <a class="stats-card" href="{{ url_for('admin.cyber_mascot') }}"><div class="value">{{ counts.tips }}</div><div class="label">{{ _('Tips') }}</div></a>
+  <a class="stats-card" href="{{ url_for('admin.cyber_mascot') }}#reactions"><div class="value">{{ counts.reactions }}</div><div class="label">{{ _('Reactions') }}</div></a>
+  <a class="stats-card" href="{{ url_for('admin.cyber_knowledge') }}"><div class="value">{{ counts.knowledge }}</div><div class="label">{{ _('Knowledge sections') }}</div></a>
+</div>
+<div class="two-col">
+  <div>
+    <div class="panel mb-4">
+      <div class="panel-title"><h2>{{ _('Texts') }}</h2></div>
+      <ul class="list-plain">
+        <li>{{ icon('message') }}<a href="{{ url_for('admin.cyber_mascot') }}">{{ _('Tips & reactions') }}</a><span class="when text-muted">{{ _('what IO says on each page and after each event') }}</span></li>
+        <li>{{ icon('book') }}<a href="{{ url_for('admin.cyber_knowledge') }}">{{ _('Knowledge base') }}</a><span class="when text-muted">{{ _('the only material the tutor answers from') }}</span></li>
+      </ul>
+    </div>
+  </div>
+  <form class="panel" method="post" action="{{ url_for('admin.flags') }}" novalidate>
+    {{ csrf() }}
+    <input type="hidden" name="next" value="{{ url_for('admin.io') }}">
+    <input type="hidden" name="flag-keys" value="{{ io_flags|map(attribute='key')|join(',') }}">
+    <h2 class="h6 mb-3">{{ _('Functions') }}</h2>
+    {% for f in io_flags %}
+    <div class="form-field"><div class="form-check"><input class="form-check-input" type="checkbox" id="flag-{{ f.key }}" name="flag-{{ f.key }}" {% if f.enabled %}checked{% endif %}><label class="form-check-label" for="flag-{{ f.key }}">{{ _('In-browser tutor (IO chat)') }}</label></div><div class="form-text">{{ _('Experimental. Runs entirely in the visitor’s browser and answers only from the knowledge base; nothing is sent to an external service.') }}</div></div>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">{{ _('Save') }}</button>
+  </form>
+</div>
+{% endblock %}

@@ -23,6 +23,16 @@
     {% endfor %}
   </div>
   {% endfor %}
+  {% if flags %}
+  <div class="panel mb-4" id="flags">
+    <h2 class="h6 mb-3 text-uppercase">{{ _('Feature flags') }}</h2>
+    <input type="hidden" name="flag-keys" value="{{ flags|map(attribute='key')|join(',') }}">
+    {% for f in flags %}
+    <div class="form-field"><div class="form-check"><input class="form-check-input" type="checkbox" id="flag-{{ f.key }}" name="flag-{{ f.key }}" {% if f.enabled %}checked{% endif %}><label class="form-check-label" for="flag-{{ f.key }}"><code>{{ f.key }}</code> — {{ f.description }}</label></div>{% if f.updated_by %}<div class="form-text">{{ _('Last changed by') }} {{ f.updated_by.name }} · {{ f.updated_at|humanize_dt }}</div>{% endif %}</div>
+    {% endfor %}
+    <p class="text-muted small mb-0">{{ _('CYBERHERO_IO_CHAT_ENABLED keeps the experimental in-browser tutor hidden until switched on; it never sends conversations to an external service.') }}</p>
+  </div>
+  {% endif %}
   <button class="btn btn-primary" type="submit">{{ _('Save settings') }}</button>
 </form>
 {% endblock %}

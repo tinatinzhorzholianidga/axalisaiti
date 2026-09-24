@@ -30,9 +30,8 @@ ADMIN_PAGES = [
     "/admin/quizzes/",
     "/admin/certificates/",
     "/admin/media/",
-    "/admin/analytics/",
+    "/admin/io/",
     "/admin/settings/",
-    "/admin/flags/",
     "/admin/audit/",
     "/admin/localization/",
     "/admin/cyberhero/",
@@ -179,8 +178,9 @@ def test_user_management(client, logged_in_admin, student):  # type: ignore[no-u
 
 def test_settings_and_flags(client, logged_in_admin):  # type: ignore[no-untyped-def]
     assert feature_flags.is_enabled("CYBERHERO_IO_CHAT_ENABLED") is False
-    page = client.get("/admin/flags/").get_data(as_text=True)
+    page = client.get("/admin/settings/").get_data(as_text=True)
     assert "flag-CYBERHERO_IO_CHAT_ENABLED" in page
+    assert client.get("/admin/flags/").status_code == 302
     response = post(
         client,
         "/admin/flags/",
@@ -491,7 +491,8 @@ def test_audit_log_lists_actor(client, logged_in_admin):  # type: ignore[no-unty
     html = client.get("/admin/audit/").get_data(as_text=True)
     assert "flag" in html and logged_in_admin.email in html
     assert client.get("/admin/audit/?action=flag").status_code == 200
-    assert client.get("/admin/analytics/").status_code == 200
+    assert client.get("/admin/analytics/").status_code == 302
+    assert "Course popularity" in client.get("/admin/?lang=en").get_data(as_text=True)
     assert client.get("/admin/localization/").status_code == 200
 
 

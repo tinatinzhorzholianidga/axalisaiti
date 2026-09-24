@@ -144,8 +144,10 @@ Instructor: `/instructor/`, `/instructor/courses/new`, `/instructor/courses/<id>
 Admin: `/admin/` (dashboard), `/admin/users/`, `/admin/courses/`, `/admin/categories/`,
 `/admin/case-studies/` (+ `categories/`, `section-titles/`), `/admin/resources/`,
 `/admin/cyberhero/{tracks,missions,tips,resources,certificates}/`,
-`/admin/quizzes/`, `/admin/certificates/`, `/admin/media/`, `/admin/analytics/`,
-`/admin/audit/`, `/admin/settings/`, `/admin/localization/`, `/admin/flags/`.
+`/admin/quizzes/`, `/admin/certificates/`, `/admin/media/`, `/admin/io/` (IO overview),
+`/admin/audit/`, `/admin/settings/` (site settings + feature flags), `/admin/localization/`.
+`/admin/analytics/` and `/admin/flags/` redirect to the dashboard's analytics section and to
+the settings page; the sidebar is grouped as Administration / Learning / IO / Platform.
 
 API v1 (`/api/v1/`): `auth/session`, `courses`, `courses/<slug>`, `search`,
 `progress/lessons/<id>` (POST),

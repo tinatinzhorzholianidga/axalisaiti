@@ -6,6 +6,7 @@ from sqlalchemy import func, select
 
 from app.blueprints.admin import bp
 from app.blueprints.admin.helpers import locale
+from app.blueprints.admin.routes_analytics import analytics_context
 from app.extensions import db
 from app.models import (
     AuditLog,
@@ -87,4 +88,5 @@ def dashboard():  # type: ignore[no-untyped-def]
         recent_activity=recent_activity,
         pending_courses=pending_courses,
         locale=locale(),
+        **analytics_context(),
     )

@@ -1,20 +1,21 @@
 {% from "components/icons.html" import icon %}
 {% set ep = request.endpoint or '' %}
 <div class="group">{{ _('Administration') }}</div>
-<a href="{{ url_for('admin.dashboard') }}" {% if ep == 'admin.dashboard' %}aria-current="page"{% endif %}>{{ icon('grid') }} {{ _('Dashboard') }}</a>
+<a href="{{ url_for('admin.dashboard') }}" {% if ep in ('admin.dashboard', 'admin.analytics') %}aria-current="page"{% endif %}>{{ icon('bar-chart') }} {{ _('Dashboard & analytics') }}</a>
 <a href="{{ url_for('admin.users') }}" {% if ep.startswith('admin.user') %}aria-current="page"{% endif %}>{{ icon('users') }} {{ _('Users') }}</a>
-<a href="{{ url_for('admin.courses') }}" {% if ep.startswith('admin.course') %}aria-current="page"{% endif %}>{{ icon('book') }} {{ _('Courses') }}</a>
+<a href="{{ url_for('admin.certificates') }}" {% if ep.startswith('admin.certificate') or ep.startswith('admin.cyber_certificate') %}aria-current="page"{% endif %}>{{ icon('award') }} {{ _('Certificates') }}</a>
+<div class="group">{{ _('Learning') }}</div>
+<a href="{{ url_for('admin.courses') }}" {% if ep.startswith('admin.course') or ep == 'admin.quizzes' %}aria-current="page"{% endif %}>{{ icon('book') }} {{ _('Courses') }}</a>
 <a href="{{ url_for('admin.categories') }}" {% if ep.startswith('admin.categor') %}aria-current="page"{% endif %}>{{ icon('layers') }} {{ _('Categories') }}</a>
 <a href="{{ url_for('admin.case_studies') }}" {% if ep.startswith('admin.case_') %}aria-current="page"{% endif %}>{{ icon('alert-triangle') }} {{ _('Case studies') }}</a>
+<a href="{{ url_for('admin.cyberhero') }}" {% if ep.startswith('admin.cyber') and not ep.startswith('admin.cyber_mascot') and not ep.startswith('admin.cyber_knowledge') and not ep.startswith('admin.cyber_tip') and not ep.startswith('admin.cyber_reaction') and not ep.startswith('admin.cyber_certificate') %}aria-current="page"{% endif %}>{{ icon('shield') }} <span class="cyberhero-brand">CyberHero</span></a>
 <a href="{{ url_for('admin.resources') }}" {% if ep.startswith('admin.resource') %}aria-current="page"{% endif %}>{{ icon('file-text') }} {{ _('Resources') }}</a>
-<a href="{{ url_for('admin.cyberhero') }}" {% if ep.startswith('admin.cyber') %}aria-current="page"{% endif %}>{{ icon('shield') }} CyberHero</a>
-<div class="group">{{ _('Learning') }}</div>
-<a href="{{ url_for('admin.quizzes') }}" {% if ep == 'admin.quizzes' %}aria-current="page"{% endif %}>{{ icon('help-circle') }} {{ _('Quizzes') }}</a>
-<a href="{{ url_for('admin.certificates') }}" {% if ep.startswith('admin.certificate') %}aria-current="page"{% endif %}>{{ icon('award') }} {{ _('Certificates') }}</a>
 <a href="{{ url_for('admin.media') }}" {% if ep.startswith('admin.media') %}aria-current="page"{% endif %}>{{ icon('image') }} {{ _('Media') }}</a>
+<div class="group">IO</div>
+<a href="{{ url_for('admin.io') }}" {% if ep == 'admin.io' %}aria-current="page"{% endif %}>{{ icon('grid') }} {{ _('Overview') }}</a>
+<a href="{{ url_for('admin.cyber_mascot') }}" {% if ep.startswith('admin.cyber_mascot') or ep.startswith('admin.cyber_tip') or ep.startswith('admin.cyber_reaction') %}aria-current="page"{% endif %}>{{ icon('message') }} {{ _('Tips & reactions') }}</a>
+<a href="{{ url_for('admin.cyber_knowledge') }}" {% if ep.startswith('admin.cyber_knowledge') %}aria-current="page"{% endif %}>{{ icon('book') }} {{ _('Knowledge base') }}</a>
 <div class="group">{{ _('Platform') }}</div>
-<a href="{{ url_for('admin.analytics') }}" {% if ep == 'admin.analytics' %}aria-current="page"{% endif %}>{{ icon('bar-chart') }} {{ _('Analytics') }}</a>
 <a href="{{ url_for('admin.audit') }}" {% if ep == 'admin.audit' %}aria-current="page"{% endif %}>{{ icon('list') }} {{ _('Audit log') }}</a>
-<a href="{{ url_for('admin.settings') }}" {% if ep == 'admin.settings' %}aria-current="page"{% endif %}>{{ icon('settings') }} {{ _('Site settings') }}</a>
+<a href="{{ url_for('admin.settings') }}" {% if ep in ('admin.settings', 'admin.flags') %}aria-current="page"{% endif %}>{{ icon('settings') }} {{ _('Site settings') }}</a>
 <a href="{{ url_for('admin.localization') }}" {% if ep == 'admin.localization' %}aria-current="page"{% endif %}>{{ icon('languages') }} {{ _('Localisation') }}</a>
-<a href="{{ url_for('admin.flags') }}" {% if ep == 'admin.flags' %}aria-current="page"{% endif %}>{{ icon('toggle') }} {{ _('Feature flags') }}</a>
