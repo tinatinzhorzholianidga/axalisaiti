@@ -53,6 +53,31 @@ page offers "Resend the verification email". Accounts created before the
 switch stay usable. "Forgot password" works whether or not verification is
 required.
 
+## 4. Custom wording, per language
+
+*Admin → Email texts.* The verification email and the password-reset email
+each have a subject and a message in Georgian and in English. Everyone gets
+the same text; which language a person receives follows the language they
+chose as their main one (picked at registration, changed later under
+*Profile → Language & theme*), not the language of the browser at that
+moment.
+
+Placeholders are filled in when the message is sent:
+
+| Placeholder | Becomes |
+| --- | --- |
+| `{name}` | the recipient's first name |
+| `{link}` | the verification or reset link (required; a text without it is not saved) |
+| `{site}` | the site title from Site settings |
+| `{email}` | the recipient's email address |
+
+A field left at the built-in wording is not stored, so it keeps following the
+translation catalogue; "Restore the built-in text" clears both languages of
+one email. "Save and send me a preview" saves the page and delivers that
+language's text to the signed-in administrator with an example link (needs
+outgoing email switched on, see above). Welcome and password-changed
+notifications are not editable but are sent in the recipient's language too.
+
 ## Links in the emails
 
 Links are built from the address the visitor used (`https://learn.example.org/…`).

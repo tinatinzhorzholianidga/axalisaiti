@@ -152,15 +152,22 @@ def get(key: str, default: Any = None) -> Any:
     return default
 
 
-def set_value(key: str, value: Any, *, value_type: str | None = None) -> SiteSetting:
+def set_value(
+    key: str,
+    value: Any,
+    *,
+    value_type: str | None = None,
+    group: str | None = None,
+    label: str | None = None,
+) -> SiteSetting:
     setting = db.session.query(SiteSetting).filter_by(key=key).one_or_none()
     if setting is None:
         meta = DEFAULT_SETTINGS.get(key)
         setting = SiteSetting(
             key=key,
             value_type=value_type or (meta[1] if meta else "string"),
-            group=meta[2] if meta else "general",
-            label=meta[3] if meta else key,
+            group=group or (meta[2] if meta else "general"),
+            label=label or (meta[3] if meta else key),
             description=meta[4] if meta else "",
             is_public=meta[5] if meta else False,
         )
@@ -175,6 +182,13 @@ def set_value(key: str, value: Any, *, value_type: str | None = None) -> SiteSet
         setting.value = "" if value is None else str(value)
     invalidate()
     return setting
+
+
+def delete_value(key: str) -> bool:
+    """Drop a stored value so ``get`` falls back to the default again."""
+    deleted = db.session.query(SiteSetting).filter_by(key=key).delete()
+    invalidate()
+    return bool(deleted)
 
 
 def seed_defaults() -> int:

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-28 07:19+0000\n"
+"POT-Creation-Date: 2026-09-28 07:28+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -171,7 +171,9 @@ msgstr "პარამეტრები შენახულია."
 msgid ""
 "Outgoing email is switched off: set MAIL_SUPPRESS_SEND=false in .env and "
 "restart."
-msgstr "გამავალი ელფოსტა გამორთულია: .env ფაილში მიუთითეთ MAIL_SUPPRESS_SEND=false და გადატვირთეთ."
+msgstr ""
+"გამავალი ელფოსტა გამორთულია: .env ფაილში მიუთითეთ "
+"MAIL_SUPPRESS_SEND=false და გადატვირთეთ."
 
 #, python-format
 msgid "Sending failed: %(error)s"
@@ -180,6 +182,23 @@ msgstr "გაგზავნა ვერ მოხერხდა: %(error)s"
 #, python-format
 msgid "Test email sent to %(email)s."
 msgstr "სატესტო წერილი გაიგზავნა მისამართზე %(email)s."
+
+#, python-format
+msgid "The built-in text is back for %(kind)s."
+msgstr "%(kind)s — ჩაშენებული ტექსტი აღდგენილია."
+
+#, python-brace-format, python-format
+msgid ""
+"Not saved: %(fields)s must contain the {link} placeholder, otherwise the "
+"email has no link to open."
+msgstr "არ შენახულა: %(fields)s უნდა შეიცავდეს {link} ჩანაცვლებას, სხვაგვარად წერილში გასახსნელი ბმული არ იქნება."
+
+msgid "Email texts saved."
+msgstr "ელფოსტის ტექსტები შენახულია."
+
+#, python-format
+msgid "Preview sent to %(email)s."
+msgstr "წინასწარი ნიმუში გაიგზავნა მისამართზე %(email)s."
 
 msgid "Feature flags saved."
 msgstr "ფუნქციების გადამრთველები შენახულია."
@@ -1298,6 +1317,9 @@ msgstr "შესვლამდე დაადასტურეთ ელფ�
 msgid "An account with this email already exists."
 msgstr "ამ ელფოსტით ანგარიში უკვე არსებობს."
 
+msgid "Welcome"
+msgstr "მოგესალმებით"
+
 msgid "This reset link is invalid or has expired."
 msgstr "აღდგენის ეს ბმული არასწორია ან ვადაგასულია."
 
@@ -1306,6 +1328,9 @@ msgstr "მიმდინარე პაროლი არასწორი�
 
 msgid "New password must differ from the current one."
 msgstr "ახალი პაროლი მიმდინარესგან უნდა განსხვავდებოდეს."
+
+msgid "Your password was changed"
+msgstr "თქვენი პაროლი შეიცვალა"
 
 msgid "Provide a link or a file."
 msgstr "მიუთითეთ ბმული ან ფაილი."
@@ -1324,6 +1349,26 @@ msgstr "ამ მიმართულებისთვის სერტი�
 
 msgid "Finish every mission of the track first."
 msgstr "ჯერ დაასრულეთ მიმართულების ყველა მისია."
+
+msgid "Verification email"
+msgstr "დადასტურების წერილი"
+
+msgid ""
+"Sent after registration when email verification is required, and from "
+"“Resend the verification email” on the login page."
+msgstr "იგზავნება რეგისტრაციის შემდეგ, როდესაც ელფოსტის დადასტურება სავალდებულოა, და შესვლის გვერდიდან „დადასტურების წერილის ხელახლა გაგზავნისას“."
+
+msgid "Verify your email"
+msgstr "დაადასტურეთ ელფოსტა"
+
+msgid "Password reset email"
+msgstr "პაროლის აღდგენის წერილი"
+
+msgid "Sent when someone asks for a password reset link."
+msgstr "იგზავნება, როდესაც მომხმარებელი პაროლის აღდგენის ბმულს ითხოვს."
+
+msgid "Reset your password"
+msgstr "პაროლის აღდგენა"
 
 msgid "This course is not open for enrolment."
 msgstr "ამ კურსზე რეგისტრაცია ღია არ არის."
@@ -1413,6 +1458,9 @@ msgstr "აუდიტის ჟურნალი"
 
 msgid "Site settings"
 msgstr "საიტის პარამეტრები"
+
+msgid "Email texts"
+msgstr "ელფოსტის ტექსტები"
 
 msgid "Localisation"
 msgstr "ლოკალიზაცია"
@@ -1655,6 +1703,51 @@ msgid "Anonymous CyberHero progress stays in the browser and is not tracked."
 msgstr "ანონიმური CyberHero-პროგრესი ბრაუზერში რჩება და არ აღირიცხება."
 
 msgid ""
+"Everyone receives the same text, in the language they chose as their main"
+" language (Profile → Language & theme). Edit the wording below; a field "
+"left at the built-in text keeps following the translations."
+msgstr "ყველა იღებს ერთსა და იმავე ტექსტს იმ ენაზე, რომელიც მთავარ ენად აირჩია (პროფილი → ენა და თემა). შეცვალეთ ტექსტი ქვემოთ; ჩაშენებულ ტექსტზე დატოვებული ველი კვლავ თარგმანებს მიჰყვება."
+
+msgid "Placeholders"
+msgstr "ჩანაცვლებები"
+
+msgid "the recipient’s first name"
+msgstr "მიმღების სახელი"
+
+msgid "the verification or reset link — required"
+msgstr "დადასტურების ან აღდგენის ბმული — სავალდებულო"
+
+msgid "the site title from Site settings"
+msgstr "საიტის სათაური საიტის პარამეტრებიდან"
+
+msgid "the recipient’s email address"
+msgstr "მიმღების ელფოსტის მისამართი"
+
+msgid "Restore the built-in text"
+msgstr "ჩაშენებული ტექსტის აღდგენა"
+
+msgid "custom text"
+msgstr "საკუთარი ტექსტი"
+
+msgid "built-in text"
+msgstr "ჩაშენებული ტექსტი"
+
+msgid "Subject"
+msgstr "თემა"
+
+msgid "Message"
+msgstr "წერილი"
+
+msgid "Outgoing email is switched off on this server."
+msgstr "ამ სერვერზე გამავალი ელფოსტა გამორთულია."
+
+msgid "Save and send me a preview"
+msgstr "შენახვა და ნიმუშის გამოგზავნა ჩემთვის"
+
+msgid "Save email texts"
+msgstr "ელფოსტის ტექსტების შენახვა"
+
+msgid ""
 "IO is the mascot and guide of CyberHero and the home page. Everything he "
 "says is data: the tips he offers on each page, the reactions to events, "
 "and the knowledge base the in-browser tutor answers from."
@@ -1839,7 +1932,10 @@ msgid ""
 "Verification links, password resets and welcome messages are sent with "
 "the SMTP account from the server’s .env file (see docs/EMAIL.md). Change "
 "it there and restart the containers."
-msgstr "დადასტურების ბმულები, პაროლის აღდგენის და მისასალმებელი წერილები იგზავნება სერვერის .env ფაილში მითითებული SMTP ანგარიშით (იხ. docs/EMAIL.md). შეცვალეთ იქ და გადატვირთეთ კონტეინერები."
+msgstr ""
+"დადასტურების ბმულები, პაროლის აღდგენის და მისასალმებელი წერილები "
+"იგზავნება სერვერის .env ფაილში მითითებული SMTP ანგარიშით (იხ. "
+"docs/EMAIL.md). შეცვალეთ იქ და გადატვირთეთ კონტეინერები."
 
 msgid "switched off (MAIL_SUPPRESS_SEND=true)"
 msgstr "გამორთულია (MAIL_SUPPRESS_SEND=true)"
@@ -1865,6 +1961,9 @@ msgstr "გამგზავნი"
 #, python-format
 msgid "Send a test email to %(email)s"
 msgstr "სატესტო წერილის გაგზავნა მისამართზე %(email)s"
+
+msgid "Edit the email texts"
+msgstr "ელფოსტის ტექსტების რედაქტირება"
 
 msgid "Registered"
 msgstr "რეგისტრირებულია"
@@ -2521,9 +2620,6 @@ msgstr "უკვე გაქვთ ანგარიში?"
 msgid "Resend verification"
 msgstr "დადასტურების ხელახლა გაგზავნა"
 
-msgid "Verify your email"
-msgstr "დაადასტურეთ ელფოსტა"
-
 msgid "Choose a new password"
 msgstr "აირჩიეთ ახალი პაროლი"
 
@@ -2874,6 +2970,56 @@ msgstr "eLearning-ზე დაბრუნება"
 
 msgid "CyberHero needs JavaScript to run."
 msgstr "CyberHero-ს სამუშაოდ JavaScript სჭირდება."
+
+#, python-format
+msgid "Hello %(name)s,"
+msgstr "გამარჯობა, %(name)s,"
+
+#, python-format
+msgid ""
+"The password for your %(site)s account was just changed and all other "
+"sessions were signed out."
+msgstr "თქვენი %(site)s ანგარიშის პაროლი ახლახან შეიცვალა და ყველა სხვა სესია დაიხურა."
+
+msgid "If this was not you, reset your password immediately and contact support."
+msgstr "თუ ეს თქვენ არ იყავით, დაუყოვნებლივ აღადგინეთ პაროლი და დაუკავშირდით მხარდაჭერას."
+
+#, python-format
+msgid ""
+"We received a request to reset the password for your %(site)s account. "
+"Open the link below to choose a new password (valid for 1 hour):"
+msgstr "მივიღეთ მოთხოვნა თქვენი %(site)s ანგარიშის პაროლის აღდგენაზე. ახალი პაროლის არჩევისთვის გახსენით ქვემოთ მოცემული ბმული (მოქმედებს 1 საათი):"
+
+msgid ""
+"If you did not request this, no action is needed; your password stays the"
+" same."
+msgstr "თუ ეს თქვენ არ მოითხოვეთ, არაფერი გააკეთოთ — თქვენი პაროლი უცვლელი რჩება."
+
+#, python-format
+msgid ""
+"This is a test message from %(site)s. If you can read it, outgoing email "
+"is configured correctly: verification links and password resets will "
+"reach your users."
+msgstr "ეს სატესტო წერილია %(site)s-დან. თუ ამას კითხულობთ, გამავალი ელფოსტა სწორად არის კონფიგურირებული: დადასტურების ბმულები და პაროლის აღდგენის წერილები მომხმარებლებამდე მიაღწევს."
+
+#, python-format
+msgid "Sent by %(email)s from the site settings page."
+msgstr "გამოგზავნა %(email)s საიტის პარამეტრების გვერდიდან."
+
+#, python-format
+msgid ""
+"Please confirm your email address for %(site)s by opening the link below "
+"(valid for 24 hours):"
+msgstr "გთხოვთ, დაადასტუროთ თქვენი ელფოსტის მისამართი %(site)s-ისთვის ქვემოთ მოცემული ბმულის გახსნით (მოქმედებს 24 საათი):"
+
+msgid "If you did not create this account, you can ignore this email."
+msgstr "თუ ეს ანგარიში თქვენ არ შექმენით, ამ წერილს უგულებელყოფა შეგიძლიათ."
+
+#, python-format
+msgid ""
+"Your account on %(site)s is ready. Sign in to browse courses and start "
+"learning."
+msgstr "თქვენი ანგარიში %(site)s-ზე მზად არის. შედით სისტემაში, გაეცანით კურსებს და დაიწყეთ სწავლა."
 
 msgid "Error"
 msgstr "შეცდომა"

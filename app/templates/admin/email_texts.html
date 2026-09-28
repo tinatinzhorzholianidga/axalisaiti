@@ -1,0 +1,49 @@
+{% extends "layouts/panel.html" %}
+{% from "components/macros.html" import csrf %}
+{% block title %}{{ _('Email texts') }} · {{ site_name }}{% endblock %}
+{% block sidebar %}{% include "admin/_sidebar.html" %}{% endblock %}
+{% block panel_title %}{{ _('Email texts') }}{% endblock %}
+{% block panel_content %}
+<p class="text-muted">{{ _('Everyone receives the same text, in the language they chose as their main language (Profile → Language & theme). Edit the wording below; a field left at the built-in text keeps following the translations.') }}</p>
+<div class="panel mb-4">
+  <h2 class="h6 mb-2 text-uppercase">{{ _('Placeholders') }}</h2>
+  <dl class="kv mb-0">
+    <dt><code>{name}</code></dt><dd>{{ _('the recipient’s first name') }}</dd>
+    <dt><code>{link}</code></dt><dd>{{ _('the verification or reset link — required') }}</dd>
+    <dt><code>{site}</code></dt><dd>{{ _('the site title from Site settings') }}</dd>
+    <dt><code>{email}</code></dt><dd>{{ _('the recipient’s email address') }}</dd>
+  </dl>
+</div>
+<form method="post" novalidate>
+  {{ csrf() }}
+  {% for kind, meta in kinds.items() %}
+  <section class="panel mb-4" id="{{ kind }}">
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+      <div>
+        <h2 class="h5 mb-1">{{ meta.label }}</h2>
+        <p class="small text-muted mb-0">{{ meta.help }}</p>
+      </div>
+      <button class="btn btn-outline btn-sm" type="submit" name="restore" value="{{ kind }}">{{ _('Restore the built-in text') }}</button>
+    </div>
+    <div class="form-grid-2">
+      {% for code, name in languages.items() %}
+      {% set t = texts[(kind, code)] %}
+      <div class="email-text" id="{{ kind }}-{{ code }}">
+        <h3 class="h6 d-flex align-items-center gap-2">{{ name }} {% if t.custom %}<span class="chip chip-success">{{ _('custom text') }}</span>{% else %}<span class="chip">{{ _('built-in text') }}</span>{% endif %}</h3>
+        <div class="form-field">
+          <label class="form-label" for="{{ kind }}-{{ code }}-subject">{{ _('Subject') }}</label>
+          <input class="form-control" id="{{ kind }}-{{ code }}-subject" name="{{ kind }}-{{ code }}-subject" value="{{ t.subject }}" maxlength="200">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="{{ kind }}-{{ code }}-body">{{ _('Message') }}</label>
+          <textarea class="form-control" id="{{ kind }}-{{ code }}-body" name="{{ kind }}-{{ code }}-body" rows="11" maxlength="5000">{{ t.body }}</textarea>
+        </div>
+        <button class="btn btn-outline btn-sm" type="submit" name="preview" value="{{ kind }}:{{ code }}" {% if mail.suppressed %}title="{{ _('Outgoing email is switched off on this server.') }}"{% endif %}>{{ _('Save and send me a preview') }}</button>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+  <button class="btn btn-primary" type="submit">{{ _('Save email texts') }}</button>
+</form>
+{% endblock %}

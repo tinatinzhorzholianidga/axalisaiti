@@ -18,4 +18,5 @@
 <div class="group">{{ _('Platform') }}</div>
 <a href="{{ url_for('admin.audit') }}" {% if ep == 'admin.audit' %}aria-current="page"{% endif %}>{{ icon('list') }} {{ _('Audit log') }}</a>
 <a href="{{ url_for('admin.settings') }}" {% if ep in ('admin.settings', 'admin.flags') %}aria-current="page"{% endif %}>{{ icon('settings') }} {{ _('Site settings') }}</a>
+<a href="{{ url_for('admin.settings_emails') }}" {% if ep == 'admin.settings_emails' %}aria-current="page"{% endif %}>{{ icon('mail') }} {{ _('Email texts') }}</a>
 <a href="{{ url_for('admin.localization') }}" {% if ep == 'admin.localization' %}aria-current="page"{% endif %}>{{ icon('languages') }} {{ _('Localisation') }}</a>

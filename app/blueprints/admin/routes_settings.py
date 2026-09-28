@@ -11,7 +11,13 @@ from app.blueprints.admin import bp
 from app.blueprints.admin.helpers import locale, page, per_page
 from app.extensions import db
 from app.models import AuditLog
-from app.services import audit_service, feature_flags, mail_service, settings_service
+from app.services import (
+    audit_service,
+    email_text_service,
+    feature_flags,
+    mail_service,
+    settings_service,
+)
 from app.services.rbac import require_permission
 
 
@@ -45,6 +51,8 @@ def settings():  # type: ignore[no-untyped-def]
     items = settings_service.all_settings()
     groups: dict[str, list] = {}
     for item in items:
+        if item.group == "mail":  # custom email texts have their own page
+            continue
         groups.setdefault(item.group, []).append(item)
     return render_template(
         "admin/settings.html",
@@ -80,6 +88,96 @@ def settings_test_email():  # type: ignore[no-untyped-def]
         audit_service.record("settings.test_email", actor=current_user)
         flash(_("Test email sent to %(email)s.", email=current_user.email), "success")
     return redirect(url_for("admin.settings") + "#mail")
+
+
+@bp.route("/settings/emails/", methods=["GET", "POST"])
+@require_permission("settings.manage")
+def settings_emails():  # type: ignore[no-untyped-def]
+    """Custom wording of the verification and password-reset emails, per language."""
+    languages = current_app.config["LANGUAGES"]
+    if request.method == "POST":
+        from flask_wtf.csrf import validate_csrf
+
+        validate_csrf(request.form.get("csrf_token"))
+        restore = request.form.get("restore")
+        if restore in email_text_service.KINDS:
+            for code in languages:
+                email_text_service.clear(restore, code)
+            db.session.commit()
+            audit_service.record(
+                "settings.email_texts", actor=current_user, meta={"restored": restore}, commit=True
+            )
+            label = str(email_text_service.KINDS[restore]["label"])
+            flash(_("The built-in text is back for %(kind)s.", kind=label), "success")
+            return redirect(url_for("admin.settings_emails") + f"#{restore}")
+        rejected: list[str] = []
+        for kind, meta in email_text_service.KINDS.items():
+            for code, name in languages.items():
+                body = request.form.get(f"{kind}-{code}-body")
+                subject = request.form.get(f"{kind}-{code}-subject")
+                if body is None or subject is None:
+                    continue
+                if email_text_service.missing_link(body):
+                    rejected.append(f"{meta['label']} ({name})")
+                    continue
+                email_text_service.save(kind, code, subject, body)
+        db.session.commit()
+        audit_service.record(
+            "settings.email_texts",
+            actor=current_user,
+            meta={"custom": email_text_service.custom_texts()},
+            commit=True,
+        )
+        if rejected:
+            flash(
+                _(
+                    "Not saved: %(fields)s must contain the {link} placeholder, "
+                    "otherwise the email has no link to open.",
+                    fields="; ".join(rejected),
+                ),
+                "error",
+            )
+        else:
+            flash(_("Email texts saved."), "success")
+        preview = request.form.get("preview") or ""
+        kind, _sep, code = preview.partition(":")
+        if kind in email_text_service.KINDS and code in languages:
+            _send_email_preview(kind, code)
+            return redirect(url_for("admin.settings_emails") + f"#{kind}")
+        return redirect(url_for("admin.settings_emails"))
+    texts = {
+        (kind, code): email_text_service.get(kind, code)
+        for kind in email_text_service.KINDS
+        for code in languages
+    }
+    return render_template(
+        "admin/email_texts.html",
+        kinds=email_text_service.KINDS,
+        languages=languages,
+        texts=texts,
+        mail=mail_service.status(),
+        locale=locale(),
+    )
+
+
+def _send_email_preview(kind: str, code: str) -> None:
+    """Deliver the saved text to the signed-in administrator, reporting SMTP errors."""
+    if mail_service.status()["suppressed"]:
+        flash(
+            _("Outgoing email is switched off: set MAIL_SUPPRESS_SEND=false in .env and restart."),
+            "warning",
+        )
+        return
+    try:
+        email_text_service.send_preview(kind, code, current_user)
+    except Exception as exc:
+        current_app.logger.warning("Email preview failed: %s", exc)
+        flash(
+            _("Sending failed: %(error)s", error=f"{exc.__class__.__name__}: {exc}"[:300]),
+            "error",
+        )
+    else:
+        flash(_("Preview sent to %(email)s.", email=current_user.email), "success")
 
 
 def _apply_flags(form) -> None:  # type: ignore[no-untyped-def]

@@ -11,13 +11,14 @@ from datetime import timedelta
 
 from flask import current_app, url_for
 from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _l
 from flask_login import login_user, logout_user
 from sqlalchemy import func
 
 from app.extensions import db
 from app.models.base import UserStatus, utcnow
 from app.models.user import AuthToken, User
-from app.services import audit_service, mail_service
+from app.services import audit_service, email_text_service, mail_service
 from app.services.rbac import assign_role
 
 
@@ -179,7 +180,7 @@ def register(
     if send_verification:
         send_verification_email(user)
     else:
-        mail_service.send_email(user.email, "Welcome", "welcome", user=user)
+        mail_service.send_email(user.email, _l("Welcome"), "welcome", user=user, locale=user.locale)
     return user
 
 
@@ -222,7 +223,7 @@ def consume_token(raw: str, purpose: str) -> User | None:
 def send_verification_email(user: User) -> None:
     raw = issue_token(user, "verify", max_age=86400)
     link = url_for("auth.verify_email", token=raw, _external=True)
-    mail_service.send_email(user.email, "Verify your email", "verify_email", user=user, link=link)
+    email_text_service.send("verify", user, link)
 
 
 def verify_email(raw: str) -> User | None:
@@ -243,9 +244,7 @@ def request_password_reset(email: str) -> None:
         return
     raw = issue_token(user, "reset")
     link = url_for("auth.reset_password", token=raw, _external=True)
-    mail_service.send_email(
-        user.email, "Reset your password", "reset_password", user=user, link=link
-    )
+    email_text_service.send("reset", user, link)
     audit_service.record("auth.password_reset_requested", target=user, actor=user, commit=True)
 
 
@@ -279,4 +278,10 @@ def change_password(user: User, current_password: str, new_password: str) -> Non
     db.session.commit()
     # Re-login the current session with the new security version.
     login_user(user)
-    mail_service.send_email(user.email, "Your password was changed", "password_changed", user=user)
+    mail_service.send_email(
+        user.email,
+        _l("Your password was changed"),
+        "password_changed",
+        user=user,
+        locale=user.locale,
+    )
