@@ -610,3 +610,40 @@ def test_admin_can_add_a_track_hint_reaction(client, logged_in_admin, seeded):  
     )
     assert response.status_code == 200
     assert "track.nope" not in str(client.get("/api/v1/cyberhero/mascot").get_json())
+
+
+def test_settings_page_shows_mail_status_and_sends_a_test_email(client, logged_in_admin):  # type: ignore[no-untyped-def]
+    from app.extensions import mail
+
+    page = client.get("/admin/settings/?lang=en").get_data(as_text=True)
+    assert "Outgoing email" in page and "Send a test email to" in page
+    # the testing config suppresses sending, which the button reports instead of failing
+    with mail.record_messages() as outbox:
+        response = post(client, "/admin/settings/test-email", follow_redirects=True)
+    assert response.status_code == 200 and outbox == []
+    assert "MAIL_SUPPRESS_SEND" in response.get_data(as_text=True)
+    client.application.config["MAIL_SUPPRESS_SEND"] = False
+    try:
+        with mail.record_messages() as outbox:
+            response = post(client, "/admin/settings/test-email", follow_redirects=True)
+        assert response.status_code == 200 and len(outbox) == 1
+        assert outbox[0].recipients == [logged_in_admin.email]
+        assert "Test email" in outbox[0].subject
+    finally:
+        client.application.config["MAIL_SUPPRESS_SEND"] = True
+
+
+def test_send_test_email_command(app):  # type: ignore[no-untyped-def]
+    from app.extensions import mail
+
+    runner = app.test_cli_runner()
+    result = runner.invoke(args=["send-test-email", "--to", "ops@example.org"])
+    assert result.exit_code == 1 and "MAIL_SUPPRESS_SEND" in result.output
+    app.config["MAIL_SUPPRESS_SEND"] = False
+    try:
+        with mail.record_messages() as outbox:
+            result = runner.invoke(args=["send-test-email", "--to", "ops@example.org"])
+        assert result.exit_code == 0, result.output
+        assert len(outbox) == 1 and outbox[0].recipients == ["ops@example.org"]
+    finally:
+        app.config["MAIL_SUPPRESS_SEND"] = True

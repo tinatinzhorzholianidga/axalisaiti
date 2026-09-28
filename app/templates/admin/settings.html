@@ -35,4 +35,18 @@
   {% endif %}
   <button class="btn btn-primary" type="submit">{{ _('Save settings') }}</button>
 </form>
+<section class="panel mt-4" id="mail">
+  <h2 class="h6 mb-2 text-uppercase">{{ _('Outgoing email') }}</h2>
+  <p class="small text-muted">{{ _('Verification links, password resets and welcome messages are sent with the SMTP account from the server’s .env file (see docs/EMAIL.md). Change it there and restart the containers.') }}</p>
+  <dl class="kv">
+    <dt>{{ _('Status') }}</dt><dd>{% if mail.suppressed %}<span class="chip chip-warning">{{ _('switched off (MAIL_SUPPRESS_SEND=true)') }}</span>{% elif not mail.configured %}<span class="chip chip-danger">{{ _('no SMTP server configured') }}</span>{% else %}<span class="chip chip-success">{{ _('sending enabled') }}</span>{% endif %}</dd>
+    <dt>{{ _('Server') }}</dt><dd>{{ mail.server or '—' }}:{{ mail.port }} · {% if mail.ssl %}SSL{% elif mail.tls %}TLS{% else %}{{ _('no encryption') }}{% endif %}</dd>
+    <dt>{{ _('Username') }}</dt><dd>{{ mail.username or '—' }}</dd>
+    <dt>{{ _('Sender') }}</dt><dd>{{ mail.sender or '—' }}</dd>
+  </dl>
+  <form method="post" action="{{ url_for('admin.settings_test_email') }}" novalidate>
+    {{ csrf() }}
+    <button class="btn btn-outline" type="submit">{{ _('Send a test email to %(email)s', email=current_user.email) }}</button>
+  </form>
+</section>
 {% endblock %}

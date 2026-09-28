@@ -105,6 +105,38 @@ def seed_cyberhero(if_empty: bool) -> None:
         click.echo(f"{key}: {value}")
 
 
+@click.command("send-test-email")
+@click.option(
+    "--to", "recipient", prompt=True, help="Address that should receive the test message."
+)
+@with_appcontext
+def send_test_email(recipient: str) -> None:
+    """Send one message through the configured SMTP account and report the result."""
+    from flask import current_app
+
+    from app.services import mail_service
+
+    status = mail_service.status()
+    if status["suppressed"]:
+        click.echo(
+            "MAIL_SUPPRESS_SEND is true: nothing is sent. Set it to false in .env.", err=True
+        )
+        sys.exit(1)
+    click.echo(f"Sending via {status['server']}:{status['port']} as {status['sender']} …")
+
+    class _Recipient:
+        first_name = "there"
+        email = recipient
+
+    try:
+        mail_service.send_now(recipient, "Test email", "test_email", user=_Recipient())
+    except Exception as exc:
+        current_app.logger.warning("Test email failed: %s", exc)
+        click.echo(f"FAILED: {exc.__class__.__name__}: {exc}", err=True)
+        sys.exit(1)
+    click.echo(f"Sent to {recipient}. Check the inbox (and the spam folder).")
+
+
 @click.command("check-production")
 def check_production() -> None:
     """Validate that the environment is safe for production."""
@@ -136,6 +168,7 @@ def validate_content(path: str) -> None:
 def register_cli(app: Flask) -> None:
     for command in (
         create_admin,
+        send_test_email,
         seed_roles,
         seed_demo,
         seed_cyberhero,

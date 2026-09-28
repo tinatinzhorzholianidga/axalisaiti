@@ -1,0 +1,5 @@
+{{ _('Hello %(name)s,', name=user.first_name) }}
+
+{{ _('This is a test message from %(site)s. If you can read it, outgoing email is configured correctly: verification links and password resets will reach your users.', site=site_name) }}
+
+{{ _('Sent by %(email)s from the site settings page.', email=user.email) }}

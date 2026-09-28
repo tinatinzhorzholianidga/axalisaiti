@@ -90,6 +90,10 @@ def create_app(config_name: str | None = None, overrides: dict | None = None) ->
         if endpoint == "static" and "v" not in values and not hashed_bundle:
             values["v"] = app.config["STATIC_VERSION"]
 
+    if app.config.get("BEHIND_PROXY"):
+        from werkzeug.middleware.proxy_fix import ProxyFix
+
+        app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)  # type: ignore[method-assign]
     _register_blueprints(app)
     _register_context(app)
     register_security_headers(app)

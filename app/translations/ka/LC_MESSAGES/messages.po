@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-24 11:14+0000\n"
+"POT-Creation-Date: 2026-09-28 07:19+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -167,6 +167,19 @@ msgstr "რესურსი წაიშალა."
 
 msgid "Settings saved."
 msgstr "პარამეტრები შენახულია."
+
+msgid ""
+"Outgoing email is switched off: set MAIL_SUPPRESS_SEND=false in .env and "
+"restart."
+msgstr "გამავალი ელფოსტა გამორთულია: .env ფაილში მიუთითეთ MAIL_SUPPRESS_SEND=false და გადატვირთეთ."
+
+#, python-format
+msgid "Sending failed: %(error)s"
+msgstr "გაგზავნა ვერ მოხერხდა: %(error)s"
+
+#, python-format
+msgid "Test email sent to %(email)s."
+msgstr "სატესტო წერილი გაიგზავნა მისამართზე %(email)s."
 
 msgid "Feature flags saved."
 msgstr "ფუნქციების გადამრთველები შენახულია."
@@ -1645,7 +1658,11 @@ msgid ""
 "IO is the mascot and guide of CyberHero and the home page. Everything he "
 "says is data: the tips he offers on each page, the reactions to events, "
 "and the knowledge base the in-browser tutor answers from."
-msgstr "იო კიბერგმირისა და მთავარი გვერდის თილისმა და გზამკვლევია. ყველაფერი, რასაც ის ამბობს, მონაცემებია: რჩევები, რომლებსაც თითოეულ გვერდზე სთავაზობს, რეაქციები მოვლენებზე და ცოდნის ბაზა, საიდანაც ბრაუზერში მომუშავე დამრიგებელი პასუხობს."
+msgstr ""
+"იო კიბერგმირისა და მთავარი გვერდის თილისმა და გზამკვლევია. ყველაფერი, "
+"რასაც ის ამბობს, მონაცემებია: რჩევები, რომლებსაც თითოეულ გვერდზე "
+"სთავაზობს, რეაქციები მოვლენებზე და ცოდნის ბაზა, საიდანაც ბრაუზერში "
+"მომუშავე დამრიგებელი პასუხობს."
 
 msgid "Tips"
 msgstr "რჩევები"
@@ -1674,7 +1691,9 @@ msgstr "ბრაუზერში მომუშავე დამრიგ�
 msgid ""
 "Experimental. Runs entirely in the visitor’s browser and answers only "
 "from the knowledge base; nothing is sent to an external service."
-msgstr "ექსპერიმენტული. მთლიანად ვიზიტორის ბრაუზერში მუშაობს და მხოლოდ ცოდნის ბაზიდან პასუხობს; გარე სერვისს არაფერი ეგზავნება."
+msgstr ""
+"ექსპერიმენტული. მთლიანად ვიზიტორის ბრაუზერში მუშაობს და მხოლოდ ცოდნის "
+"ბაზიდან პასუხობს; გარე სერვისს არაფერი ეგზავნება."
 
 msgid "UI strings translated (Georgian)"
 msgstr "თარგმნილი ინტერფეისის სტრიქონები (ქართული)"
@@ -1812,6 +1831,40 @@ msgstr ""
 
 msgid "Save settings"
 msgstr "პარამეტრების შენახვა"
+
+msgid "Outgoing email"
+msgstr "გამავალი ელფოსტა"
+
+msgid ""
+"Verification links, password resets and welcome messages are sent with "
+"the SMTP account from the server’s .env file (see docs/EMAIL.md). Change "
+"it there and restart the containers."
+msgstr "დადასტურების ბმულები, პაროლის აღდგენის და მისასალმებელი წერილები იგზავნება სერვერის .env ფაილში მითითებული SMTP ანგარიშით (იხ. docs/EMAIL.md). შეცვალეთ იქ და გადატვირთეთ კონტეინერები."
+
+msgid "switched off (MAIL_SUPPRESS_SEND=true)"
+msgstr "გამორთულია (MAIL_SUPPRESS_SEND=true)"
+
+msgid "no SMTP server configured"
+msgstr "SMTP სერვერი არ არის მითითებული"
+
+msgid "sending enabled"
+msgstr "გაგზავნა ჩართულია"
+
+msgid "Server"
+msgstr "სერვერი"
+
+msgid "no encryption"
+msgstr "დაშიფვრის გარეშე"
+
+msgid "Username"
+msgstr "მომხმარებლის სახელი"
+
+msgid "Sender"
+msgstr "გამგზავნი"
+
+#, python-format
+msgid "Send a test email to %(email)s"
+msgstr "სატესტო წერილის გაგზავნა მისამართზე %(email)s"
 
 msgid "Registered"
 msgstr "რეგისტრირებულია"
@@ -2445,6 +2498,9 @@ msgstr "განაგრძეთ სწავლა იქიდან, ს�
 
 msgid "Forgot password?"
 msgstr "დაგავიწყდათ პაროლი?"
+
+msgid "Resend the verification email"
+msgstr "დადასტურების წერილის ხელახლა გაგზავნა"
 
 msgid "New here?"
 msgstr "ახალი ხართ?"

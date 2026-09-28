@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-24 11:14+0000\n"
+"POT-Creation-Date: 2026-09-28 07:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -164,6 +164,19 @@ msgid "Resource deleted."
 msgstr ""
 
 msgid "Settings saved."
+msgstr ""
+
+msgid ""
+"Outgoing email is switched off: set MAIL_SUPPRESS_SEND=false in .env and "
+"restart."
+msgstr ""
+
+#, python-format
+msgid "Sending failed: %(error)s"
+msgstr ""
+
+#, python-format
+msgid "Test email sent to %(email)s."
 msgstr ""
 
 msgid "Feature flags saved."
@@ -1805,6 +1818,40 @@ msgstr ""
 msgid "Save settings"
 msgstr ""
 
+msgid "Outgoing email"
+msgstr ""
+
+msgid ""
+"Verification links, password resets and welcome messages are sent with "
+"the SMTP account from the server’s .env file (see docs/EMAIL.md). Change "
+"it there and restart the containers."
+msgstr ""
+
+msgid "switched off (MAIL_SUPPRESS_SEND=true)"
+msgstr ""
+
+msgid "no SMTP server configured"
+msgstr ""
+
+msgid "sending enabled"
+msgstr ""
+
+msgid "Server"
+msgstr ""
+
+msgid "no encryption"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Sender"
+msgstr ""
+
+#, python-format
+msgid "Send a test email to %(email)s"
+msgstr ""
+
 msgid "Registered"
 msgstr ""
 
@@ -2399,6 +2446,9 @@ msgid "Continue your learning where you left off."
 msgstr ""
 
 msgid "Forgot password?"
+msgstr ""
+
+msgid "Resend the verification email"
 msgstr ""
 
 msgid "New here?"

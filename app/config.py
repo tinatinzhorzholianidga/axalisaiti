@@ -115,6 +115,10 @@ class BaseConfig:
     BABEL_TRANSLATION_DIRECTORIES = str(BASE_DIR / "app" / "translations")
     LANGUAGES = {"ka": "ქართული", "en": "English"}
 
+    # nginx (or another reverse proxy) terminates TLS: trust one hop of
+    # X-Forwarded-For/Proto/Host so links in emails carry the public origin
+    BEHIND_PROXY = env_bool("BEHIND_PROXY", True)
+
     # --- mail ---------------------------------------------------------------
     MAIL_SERVER = os.environ.get("MAIL_SERVER", "localhost")
     MAIL_PORT = env_int("MAIL_PORT", 587)

@@ -211,3 +211,61 @@ def test_unverified_user_blocked_when_verification_required(app, client, student
     client.get(f"/auth/verify/{raw}")
     db.session.refresh(student)
     assert student.is_email_verified
+
+
+def test_verification_and_reset_emails_carry_public_links(app, client, student):  # type: ignore[no-untyped-def]
+    """Registration sends a verification link, forgot-password a reset link, both
+    with the public origin nginx forwards (X-Forwarded-Proto/Host)."""
+    import re
+
+    from app.extensions import mail
+    from app.services import settings_service
+
+    settings_service.set_value("auth.email_verification_required", True)
+    proxy = {"X-Forwarded-Proto": "https", "X-Forwarded-Host": "learn.example.org"}
+    with mail.record_messages() as outbox:
+        response = post(
+            client,
+            "/auth/register",
+            {
+                "first_name": "Nino",
+                "last_name": "Beridze",
+                "email": "verify-me@example.org",
+                "organization": "",
+                "locale": "en",
+                "password": "CorrectHorse!Battery9",
+                "confirm": "CorrectHorse!Battery9",
+                "accept_terms": "y",
+            },
+            headers=proxy,
+        )
+        assert response.status_code == 302, response.data[:400]
+    assert len(outbox) == 1 and outbox[0].recipients == ["verify-me@example.org"]
+    link = re.search(r"https://learn\.example\.org/auth/verify/(\S+)", outbox[0].body)
+    assert link, outbox[0].body
+    # the unverified account cannot sign in yet …
+    login_page = post(
+        client,
+        "/auth/login",
+        {"email": "verify-me@example.org", "password": "CorrectHorse!Battery9"},
+        follow_redirects=True,
+    ).get_data(as_text=True)
+    assert "/auth/verify" in login_page  # the resend link is offered
+    # … until the link from the email is opened
+    assert client.get(f"/auth/verify/{link.group(1)}").status_code == 302
+    user = db.session.query(User).filter_by(email="verify-me@example.org").one()
+    assert user.is_email_verified
+
+    with mail.record_messages() as outbox:
+        post(client, "/auth/reset", {"email": student.email}, headers=proxy)
+    assert len(outbox) == 1
+    reset = re.search(r"https://learn\.example\.org/auth/reset/(\S+)", outbox[0].body)
+    assert reset, outbox[0].body
+    response = post(
+        client,
+        f"/auth/reset/{reset.group(1)}",
+        {"password": "Another-Str0ng-Pass!", "confirm": "Another-Str0ng-Pass!"},
+    )
+    assert response.status_code == 302
+    db.session.refresh(student)
+    assert student.check_password("Another-Str0ng-Pass!")

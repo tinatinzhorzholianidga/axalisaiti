@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from flask import flash, redirect, render_template, request, url_for
+from flask import current_app, flash, redirect, render_template, request, url_for
 from flask_babel import gettext as _
 from flask_login import current_user
 from sqlalchemy import select
@@ -11,7 +11,7 @@ from app.blueprints.admin import bp
 from app.blueprints.admin.helpers import locale, page, per_page
 from app.extensions import db
 from app.models import AuditLog
-from app.services import audit_service, feature_flags, settings_service
+from app.services import audit_service, feature_flags, mail_service, settings_service
 from app.services.rbac import require_permission
 
 
@@ -50,8 +50,36 @@ def settings():  # type: ignore[no-untyped-def]
         "admin/settings.html",
         groups=groups,
         flags=feature_flags.all_flags(),
+        mail=mail_service.status(),
         locale=locale(),
     )
+
+
+@bp.route("/settings/test-email", methods=["POST"])
+@require_permission("settings.manage")
+def settings_test_email():  # type: ignore[no-untyped-def]
+    """Send one message to the signed-in administrator through the live SMTP settings."""
+    from flask_wtf.csrf import validate_csrf
+
+    validate_csrf(request.form.get("csrf_token"))
+    if mail_service.status()["suppressed"]:
+        flash(
+            _("Outgoing email is switched off: set MAIL_SUPPRESS_SEND=false in .env and restart."),
+            "warning",
+        )
+        return redirect(url_for("admin.settings") + "#mail")
+    try:
+        mail_service.send_now(current_user.email, "Test email", "test_email", user=current_user)
+    except Exception as exc:
+        current_app.logger.warning("Test email failed: %s", exc)
+        flash(
+            _("Sending failed: %(error)s", error=f"{exc.__class__.__name__}: {exc}"[:300]),
+            "error",
+        )
+    else:
+        audit_service.record("settings.test_email", actor=current_user)
+        flash(_("Test email sent to %(email)s.", email=current_user.email), "success")
+    return redirect(url_for("admin.settings") + "#mail")
 
 
 def _apply_flags(form) -> None:  # type: ignore[no-untyped-def]

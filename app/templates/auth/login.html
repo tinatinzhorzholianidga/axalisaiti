@@ -12,6 +12,7 @@
   <div class="auth-row">
     {{ field(form.remember) }}
     <a href="{{ url_for('auth.forgot_password') }}">{{ _('Forgot password?') }}</a>
+    <a class="small" href="{{ url_for('auth.resend_verification') }}">{{ _('Resend the verification email') }}</a>
   </div>
   {{ submit(_('Sign in'), class_="btn btn-primary btn-block") }}
 </form>
