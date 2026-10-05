@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-28 07:28+0000\n"
+"POT-Creation-Date: 2026-10-05 09:02+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -191,7 +191,9 @@ msgstr "%(kind)s — ჩაშენებული ტექსტი აღდ
 msgid ""
 "Not saved: %(fields)s must contain the {link} placeholder, otherwise the "
 "email has no link to open."
-msgstr "არ შენახულა: %(fields)s უნდა შეიცავდეს {link} ჩანაცვლებას, სხვაგვარად წერილში გასახსნელი ბმული არ იქნება."
+msgstr ""
+"არ შენახულა: %(fields)s უნდა შეიცავდეს {link} ჩანაცვლებას, სხვაგვარად "
+"წერილში გასახსნელი ბმული არ იქნება."
 
 msgid "Email texts saved."
 msgstr "ელფოსტის ტექსტები შენახულია."
@@ -266,6 +268,13 @@ msgstr "თქვენი ელფოსტის მისამართი 
 
 msgid "If that address needs verification, a new email is on its way."
 msgstr "თუ ამ მისამართს დადასტურება სჭირდება, ახალი წერილი უკვე გზაშია."
+
+msgid "Your email address is already verified."
+msgstr "თქვენი ელფოსტის მისამართი უკვე დადასტურებულია."
+
+#, python-format
+msgid "A new verification link has been sent to %(email)s."
+msgstr "ახალი დადასტურების ბმული გაიგზავნა მისამართზე %(email)s."
 
 msgid "If an account exists for that email, a reset link has been sent."
 msgstr "თუ ამ ელფოსტით ანგარიში არსებობს, აღდგენის ბმული გაგზავნილია."
@@ -752,6 +761,12 @@ msgstr "განყოფილება (ინგლისურად)"
 
 msgid "Text chunks (separate with a blank line)"
 msgstr "ტექსტის ფრაგმენტები (გამოყავით ცარიელი ხაზით)"
+
+msgid "Security code"
+msgstr "უსაფრთხოების კოდი"
+
+msgid "The security code is wrong or has expired. Type the new one."
+msgstr "უსაფრთხოების კოდი არასწორია ან ვადა გაუვიდა. შეიყვანეთ ახალი."
 
 msgid "Password"
 msgstr "პაროლი"
@@ -1311,6 +1326,10 @@ msgstr "ძალიან ბევრი წარუმატებელი 
 msgid "This account is suspended."
 msgstr "ეს ანგარიში შეჩერებულია."
 
+#, python-format
+msgid "Use the link we sent to %(email)s."
+msgstr "გამოიყენეთ ბმული, რომელიც გავაგზავნეთ მისამართზე %(email)s."
+
 msgid "Please verify your email address before signing in."
 msgstr "შესვლამდე დაადასტურეთ ელფოსტის მისამართი."
 
@@ -1356,7 +1375,9 @@ msgstr "დადასტურების წერილი"
 msgid ""
 "Sent after registration when email verification is required, and from "
 "“Resend the verification email” on the login page."
-msgstr "იგზავნება რეგისტრაციის შემდეგ, როდესაც ელფოსტის დადასტურება სავალდებულოა, და შესვლის გვერდიდან „დადასტურების წერილის ხელახლა გაგზავნისას“."
+msgstr ""
+"იგზავნება რეგისტრაციის შემდეგ, როდესაც ელფოსტის დადასტურება სავალდებულოა,"
+" და შესვლის გვერდიდან „დადასტურების წერილის ხელახლა გაგზავნისას“."
 
 msgid "Verify your email"
 msgstr "დაადასტურეთ ელფოსტა"
@@ -1706,7 +1727,10 @@ msgid ""
 "Everyone receives the same text, in the language they chose as their main"
 " language (Profile → Language & theme). Edit the wording below; a field "
 "left at the built-in text keeps following the translations."
-msgstr "ყველა იღებს ერთსა და იმავე ტექსტს იმ ენაზე, რომელიც მთავარ ენად აირჩია (პროფილი → ენა და თემა). შეცვალეთ ტექსტი ქვემოთ; ჩაშენებულ ტექსტზე დატოვებული ველი კვლავ თარგმანებს მიჰყვება."
+msgstr ""
+"ყველა იღებს ერთსა და იმავე ტექსტს იმ ენაზე, რომელიც მთავარ ენად აირჩია "
+"(პროფილი → ენა და თემა). შეცვალეთ ტექსტი ქვემოთ; ჩაშენებულ ტექსტზე "
+"დატოვებული ველი კვლავ თარგმანებს მიჰყვება."
 
 msgid "Placeholders"
 msgstr "ჩანაცვლებები"
@@ -2598,9 +2622,6 @@ msgstr "განაგრძეთ სწავლა იქიდან, ს�
 msgid "Forgot password?"
 msgstr "დაგავიწყდათ პაროლი?"
 
-msgid "Resend the verification email"
-msgstr "დადასტურების წერილის ხელახლა გაგზავნა"
-
 msgid "New here?"
 msgstr "ახალი ხართ?"
 
@@ -2788,6 +2809,15 @@ msgstr "უსაფრთხოების ტოკენი"
 
 msgid "Please fix the following:"
 msgstr "გთხოვთ, გაასწოროთ შემდეგი:"
+
+msgid "Picture with the security code"
+msgstr "სურათი უსაფრთხოების კოდით"
+
+msgid "New code"
+msgstr "ახალი კოდი"
+
+msgid "Type the characters from the picture. Capital or small letters both work."
+msgstr "შეიყვანეთ სურათზე ნაჩვენები სიმბოლოები. დიდი და პატარა ასოები თანაბრად მიიღება."
 
 msgid "Continue"
 msgstr "გაგრძელება"
@@ -2979,16 +3009,22 @@ msgstr "გამარჯობა, %(name)s,"
 msgid ""
 "The password for your %(site)s account was just changed and all other "
 "sessions were signed out."
-msgstr "თქვენი %(site)s ანგარიშის პაროლი ახლახან შეიცვალა და ყველა სხვა სესია დაიხურა."
+msgstr ""
+"თქვენი %(site)s ანგარიშის პაროლი ახლახან შეიცვალა და ყველა სხვა სესია "
+"დაიხურა."
 
 msgid "If this was not you, reset your password immediately and contact support."
-msgstr "თუ ეს თქვენ არ იყავით, დაუყოვნებლივ აღადგინეთ პაროლი და დაუკავშირდით მხარდაჭერას."
+msgstr ""
+"თუ ეს თქვენ არ იყავით, დაუყოვნებლივ აღადგინეთ პაროლი და დაუკავშირდით "
+"მხარდაჭერას."
 
 #, python-format
 msgid ""
 "We received a request to reset the password for your %(site)s account. "
 "Open the link below to choose a new password (valid for 1 hour):"
-msgstr "მივიღეთ მოთხოვნა თქვენი %(site)s ანგარიშის პაროლის აღდგენაზე. ახალი პაროლის არჩევისთვის გახსენით ქვემოთ მოცემული ბმული (მოქმედებს 1 საათი):"
+msgstr ""
+"მივიღეთ მოთხოვნა თქვენი %(site)s ანგარიშის პაროლის აღდგენაზე. ახალი "
+"პაროლის არჩევისთვის გახსენით ქვემოთ მოცემული ბმული (მოქმედებს 1 საათი):"
 
 msgid ""
 "If you did not request this, no action is needed; your password stays the"
@@ -3000,7 +3036,10 @@ msgid ""
 "This is a test message from %(site)s. If you can read it, outgoing email "
 "is configured correctly: verification links and password resets will "
 "reach your users."
-msgstr "ეს სატესტო წერილია %(site)s-დან. თუ ამას კითხულობთ, გამავალი ელფოსტა სწორად არის კონფიგურირებული: დადასტურების ბმულები და პაროლის აღდგენის წერილები მომხმარებლებამდე მიაღწევს."
+msgstr ""
+"ეს სატესტო წერილია %(site)s-დან. თუ ამას კითხულობთ, გამავალი ელფოსტა "
+"სწორად არის კონფიგურირებული: დადასტურების ბმულები და პაროლის აღდგენის "
+"წერილები მომხმარებლებამდე მიაღწევს."
 
 #, python-format
 msgid "Sent by %(email)s from the site settings page."
@@ -3010,7 +3049,9 @@ msgstr "გამოგზავნა %(email)s საიტის პარა
 msgid ""
 "Please confirm your email address for %(site)s by opening the link below "
 "(valid for 24 hours):"
-msgstr "გთხოვთ, დაადასტუროთ თქვენი ელფოსტის მისამართი %(site)s-ისთვის ქვემოთ მოცემული ბმულის გახსნით (მოქმედებს 24 საათი):"
+msgstr ""
+"გთხოვთ, დაადასტუროთ თქვენი ელფოსტის მისამართი %(site)s-ისთვის ქვემოთ "
+"მოცემული ბმულის გახსნით (მოქმედებს 24 საათი):"
 
 msgid "If you did not create this account, you can ignore this email."
 msgstr "თუ ეს ანგარიში თქვენ არ შექმენით, ამ წერილს უგულებელყოფა შეგიძლიათ."
@@ -3019,7 +3060,9 @@ msgstr "თუ ეს ანგარიში თქვენ არ შექ�
 msgid ""
 "Your account on %(site)s is ready. Sign in to browse courses and start "
 "learning."
-msgstr "თქვენი ანგარიში %(site)s-ზე მზად არის. შედით სისტემაში, გაეცანით კურსებს და დაიწყეთ სწავლა."
+msgstr ""
+"თქვენი ანგარიში %(site)s-ზე მზად არის. შედით სისტემაში, გაეცანით კურსებს "
+"და დაიწყეთ სწავლა."
 
 msgid "Error"
 msgstr "შეცდომა"
@@ -3372,6 +3415,21 @@ msgstr "სათაურის ზოლში თემის გადამ
 
 msgid "Last password change"
 msgstr "პაროლის ბოლო შეცვლა"
+
+msgid "Your email address is not verified yet."
+msgstr "თქვენი ელფოსტის მისამართი ჯერ არ არის დადასტურებული."
+
+#, python-format
+msgid ""
+"We sent a link to %(email)s. If it did not arrive, request a new one; it "
+"stays valid for 24 hours."
+msgstr "ბმული გავაგზავნეთ მისამართზე %(email)s. თუ არ მოვიდა, მოითხოვეთ ახალი — ის 24 საათის განმავლობაში მოქმედებს."
+
+msgid "Send the verification email again"
+msgstr "დადასტურების წერილის ხელახლა გაგზავნა"
+
+msgid "Email address verified"
+msgstr "ელფოსტის მისამართი დადასტურებულია"
 
 msgid "You have not enrolled in any course yet."
 msgstr "ჯერ არცერთ კურსზე არ დარეგისტრირებულხართ."

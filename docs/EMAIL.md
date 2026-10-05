@@ -48,10 +48,13 @@ blocked, sender rejected). The same test is available in the admin panel:
 ## 3. Switch verification on
 
 *Admin → Site settings → Require email verification.* From then on a new
-account must open the link from the email before it can sign in; the login
-page offers "Resend the verification email". Accounts created before the
-switch stay usable. "Forgot password" works whether or not verification is
-required.
+account must open the link from the email before it can sign in. Someone who
+signs in with the right password before verifying is refused, and a fresh
+link goes out with the refusal unless one was sent in the last five minutes.
+Accounts created before the switch stay usable; an unverified account that is
+already signed in sees a notice under *Profile → Password & security* with a
+"Send the verification email again" button. "Forgot password" works whether
+or not verification is required.
 
 ## 4. Custom wording, per language
 

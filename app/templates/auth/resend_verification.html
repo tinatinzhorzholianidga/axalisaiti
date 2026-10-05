@@ -1,5 +1,5 @@
 {% extends "layouts/auth.html" %}
-{% from "components/forms.html" import field, error_summary, submit %}
+{% from "components/forms.html" import field, error_summary, submit, captcha %}
 {% block title %}{{ _('Resend verification') }} · {{ site_name }}{% endblock %}
 {% block auth_title %}{{ _('Verify your email') }}{% endblock %}
 {% block auth_form %}
@@ -7,6 +7,7 @@
   {{ form.hidden_tag() }}
   {{ error_summary(form) }}
   {{ field(form.email, autocomplete="email", autofocus=True) }}
+  {{ captcha(form) }}
   {{ submit(_('Resend verification email'), class_="btn btn-primary btn-block") }}
 </form>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "layouts/auth.html" %}
-{% from "components/forms.html" import field, error_summary, submit %}
+{% from "components/forms.html" import field, error_summary, submit, captcha %}
 {% block title %}{{ _('Sign in') }} · {{ site_name }}{% endblock %}
 {% block auth_title %}{{ _('Sign in') }}{% endblock %}
 {% block auth_intro %}<p class="text-muted">{{ _('Continue your learning where you left off.') }}</p>{% endblock %}
@@ -12,8 +12,8 @@
   <div class="auth-row">
     {{ field(form.remember) }}
     <a href="{{ url_for('auth.forgot_password') }}">{{ _('Forgot password?') }}</a>
-    <a class="small" href="{{ url_for('auth.resend_verification') }}">{{ _('Resend the verification email') }}</a>
   </div>
+  {{ captcha(form) }}
   {{ submit(_('Sign in'), class_="btn btn-primary btn-block") }}
 </form>
 {% if registration_open %}

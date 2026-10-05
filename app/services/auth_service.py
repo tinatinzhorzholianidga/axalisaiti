@@ -116,7 +116,15 @@ def authenticate(email: str, password: str, remember: bool = False) -> LoginResu
         )
     )
     if verification_required and not user.is_email_verified:
-        return LoginResult(None, _("Please verify your email address before signing in."))
+        # Correct password, unverified address: hand out a fresh link unless
+        # one went out moments ago, so nobody is stuck without the email.
+        if _resend_verification_if_stale(user):
+            detail = _("A new verification link has been sent to %(email)s.", email=user.email)
+        else:
+            detail = _("Use the link we sent to %(email)s.", email=user.email)
+        return LoginResult(
+            None, _("Please verify your email address before signing in.") + " " + detail
+        )
 
     if user.needs_rehash():
         user.set_password(password)
@@ -218,6 +226,24 @@ def consume_token(raw: str, purpose: str) -> User | None:
         return None
     token.used_at = utcnow()
     return token.user
+
+
+RESEND_VERIFICATION_AFTER = timedelta(minutes=5)
+
+
+def _resend_verification_if_stale(user: User) -> bool:
+    """Send a new verification link unless the last one is only minutes old."""
+    latest = (
+        db.session.query(AuthToken)
+        .filter_by(user_id=user.id, purpose="verify", used_at=None)
+        .order_by(AuthToken.created_at.desc())
+        .first()
+    )
+    if latest is not None and latest.created_at > utcnow() - RESEND_VERIFICATION_AFTER:
+        return False
+    send_verification_email(user)
+    db.session.commit()
+    return True
 
 
 def send_verification_email(user: User) -> None:

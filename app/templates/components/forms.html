@@ -79,3 +79,18 @@
     {% if has_error %}<div class="invalid-feedback d-block">{% for e in f.errors %}<span>{{ e }}</span>{% endfor %}</div>{% endif %}
   </div>
 {% endmacro %}
+
+{# Self-hosted security code: picture + answer box + "new code" button. The hidden
+   token is written by form.hidden_tag(); the JS swaps it with the picture. #}
+{% macro captcha(form) %}
+  {% from "components/icons.html" import icon %}
+  {% if form.captcha_required() %}
+  <div class="captcha" data-captcha data-captcha-new="{{ url_for('auth.captcha_new') }}">
+    <div class="captcha-row">
+      <img class="captcha-image" data-captcha-image src="{{ url_for('auth.captcha_image', token=form.captcha_token.data) }}" width="190" height="64" alt="{{ _('Picture with the security code') }}">
+      <button class="btn btn-outline btn-sm" type="button" data-captcha-refresh>{{ icon('refresh') }} {{ _('New code') }}</button>
+    </div>
+    {{ field(form.captcha, autocomplete="off", help=_('Type the characters from the picture. Capital or small letters both work.'), attrs={'spellcheck': 'false', 'autocapitalize': 'characters'}) }}
+  </div>
+  {% endif %}
+{% endmacro %}

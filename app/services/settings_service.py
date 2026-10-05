@@ -62,6 +62,22 @@ DEFAULT_SETTINGS: dict[str, tuple[Any, str, str, str, str, bool]] = {
         "",
         False,
     ),
+    "auth.captcha_enabled": (
+        True,
+        "bool",
+        "auth",
+        "Security code (CAPTCHA) on registration and password forms",
+        "Pictures are generated on this server; nothing is sent to a third party",
+        False,
+    ),
+    "auth.captcha_login_after_failures": (
+        2,
+        "int",
+        "auth",
+        "Ask for the security code at sign-in after this many failed attempts",
+        "Counted per browser session; 0 asks on every sign-in",
+        False,
+    ),
     "courses.instructor_approval_required": (
         True,
         "bool",

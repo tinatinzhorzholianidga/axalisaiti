@@ -32,6 +32,18 @@
         <h2 class="h5 mb-2">{{ _('Password & security') }}</h2>
         <p class="text-muted small">{{ _('Last password change') }}: {{ current_user.password_changed_at|humanize_dt if current_user.password_changed_at else '—' }} · {{ _('Last sign-in') }}: {{ current_user.last_login_at|humanize_dt }}</p>
         <a class="btn btn-outline" href="{{ url_for('auth.change_password') }}">{{ icon('lock') }} {{ _('Change password') }}</a>
+        {% if not current_user.is_email_verified %}
+        <div class="alert alert-warning mt-3 mb-0" role="status">
+          <strong>{{ _('Your email address is not verified yet.') }}</strong>
+          <p class="mb-2">{{ _('We sent a link to %(email)s. If it did not arrive, request a new one; it stays valid for 24 hours.', email=current_user.email) }}</p>
+          <form method="post" action="{{ url_for('auth.resend_verification_me') }}" novalidate>
+            {{ csrf() }}
+            <button class="btn btn-primary btn-sm" type="submit">{{ _('Send the verification email again') }}</button>
+          </form>
+        </div>
+        {% else %}
+        <p class="text-muted small mt-3 mb-0">{{ _('Email address verified') }}{% if current_user.email_verified_at %} · {{ current_user.email_verified_at|humanize_dt }}{% endif %}</p>
+        {% endif %}
       </section>
 
       <section id="history" class="panel">

@@ -1,5 +1,5 @@
 {% extends "layouts/auth.html" %}
-{% from "components/forms.html" import field, error_summary, submit %}
+{% from "components/forms.html" import field, error_summary, submit, captcha %}
 {% block title %}{{ _('Create account') }} · {{ site_name }}{% endblock %}
 {% block auth_title %}{{ _('Create account') }}{% endblock %}
 {% block auth_intro %}<p class="text-muted">{{ _('Free access to structured cybersecurity courses and certificates.') }}</p>{% endblock %}
@@ -17,6 +17,7 @@
   {{ field(form.password, autocomplete="new-password", help=_('At least %(n)d characters. Use a passphrase you do not use elsewhere.', n=config.PASSWORD_MIN_LENGTH)) }}
   {{ field(form.confirm, autocomplete="new-password") }}
   {{ field(form.accept_terms) }}
+  {{ captcha(form) }}
   {{ submit(_('Create account'), class_="btn btn-primary btn-block") }}
 </form>
 <p class="auth-alt">{{ _('Already have an account?') }} <a href="{{ url_for('auth.login') }}">{{ _('Sign in') }}</a></p>

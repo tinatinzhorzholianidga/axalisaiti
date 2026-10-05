@@ -142,6 +142,9 @@ class BaseConfig:
     REGISTRATION_ENABLED = env_bool("REGISTRATION_ENABLED", True)
     EMAIL_VERIFICATION_REQUIRED = env_bool("EMAIL_VERIFICATION_REQUIRED", False)
     INSTRUCTOR_APPROVAL_REQUIRED = env_bool("INSTRUCTOR_APPROVAL_REQUIRED", True)
+    # Self-hosted image CAPTCHA on the public auth forms; the admin setting
+    # auth.captcha_enabled can switch it off at runtime, this cannot switch it on
+    CAPTCHA_ENABLED = env_bool("CAPTCHA_ENABLED", True)
 
     # --- features -----------------------------------------------------------
     # Build identifier (git SHA / tag) used to cache-bust static URLs; auto-derived if empty
@@ -202,6 +205,7 @@ class TestingConfig(BaseConfig):
     REGISTRATION_ENABLED = True
     EMAIL_VERIFICATION_REQUIRED = False
     INSTRUCTOR_APPROVAL_REQUIRED = True
+    CAPTCHA_ENABLED = False  # individual tests switch it on
     HSTS_ENABLED = False
     SERVER_NAME = None
 

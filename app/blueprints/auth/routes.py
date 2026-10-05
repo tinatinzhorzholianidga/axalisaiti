@@ -2,7 +2,17 @@
 
 from __future__ import annotations
 
-from flask import current_app, flash, redirect, render_template, request, url_for
+from flask import (
+    Response,
+    abort,
+    current_app,
+    flash,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
@@ -16,7 +26,7 @@ from app.forms.auth import (
     ResendVerificationForm,
     ResetPasswordForm,
 )
-from app.services import auth_service, feature_flags, settings_service
+from app.services import auth_service, captcha_service, feature_flags, settings_service
 from app.services.auth_service import AuthError
 from app.utils.http import safe_next
 
@@ -37,9 +47,14 @@ def login():  # type: ignore[no-untyped-def]
     if form.validate_on_submit():
         result = auth_service.authenticate(form.email.data, form.password.data, form.remember.data)
         if result.user:
+            captcha_service.clear_login_failures()
             flash(_("Welcome back, %(name)s.", name=result.user.first_name), "success")
             return redirect(safe_next())
+        captcha_service.note_login_failure()
         flash(result.error or _("Invalid email or password."), "error")
+    elif form.is_submitted():
+        captcha_service.note_login_failure()
+    form.refresh_captcha()
     return render_template("auth/login.html", form=form)
 
 
@@ -85,6 +100,7 @@ def register():  # type: ignore[no-untyped-def]
                 flash(_("Welcome to %(site)s!", site=settings_service.get("site.title")), "success")
                 return redirect(url_for("learning.dashboard"))
             return redirect(url_for("auth.login"))
+    form.refresh_captcha()
     return render_template("auth/register.html", form=form)
 
 
@@ -109,7 +125,27 @@ def resend_verification():  # type: ignore[no-untyped-def]
             auth_service.send_verification_email(user)
         flash(_("If that address needs verification, a new email is on its way."), "info")
         return redirect(url_for("auth.login"))
+    form.refresh_captcha()
     return render_template("auth/resend_verification.html", form=form)
+
+
+@bp.route("/verify/resend", methods=["POST"])
+@login_required
+@limiter.limit(lambda: current_app.config["RATELIMIT_RESET"])
+def resend_verification_me():  # type: ignore[no-untyped-def]
+    """The signed-in account asks for its own verification link (profile page)."""
+    from flask_wtf.csrf import validate_csrf
+
+    validate_csrf(request.form.get("csrf_token"))
+    if current_user.is_email_verified:
+        flash(_("Your email address is already verified."), "info")
+    else:
+        auth_service.send_verification_email(current_user)
+        flash(
+            _("A new verification link has been sent to %(email)s.", email=current_user.email),
+            "success",
+        )
+    return redirect(url_for("learning.profile") + "#security")
 
 
 @bp.route("/reset", methods=["GET", "POST"])
@@ -120,7 +156,30 @@ def forgot_password():  # type: ignore[no-untyped-def]
         auth_service.request_password_reset(form.email.data)
         flash(_("If an account exists for that email, a reset link has been sent."), "info")
         return redirect(url_for("auth.login"))
+    form.refresh_captcha()
     return render_template("auth/forgot_password.html", form=form)
+
+
+@bp.route("/captcha/<token>.png")
+@limiter.limit("60 per minute")
+def captcha_image(token: str):  # type: ignore[no-untyped-def]
+    """The picture for one pending security code; nothing is cached."""
+    png = captcha_service.image(token)
+    if png is None:
+        abort(404)
+    return Response(png, mimetype="image/png", headers={"Cache-Control": "no-store"})
+
+
+@bp.route("/captcha/new")
+@limiter.limit("30 per minute")
+def captcha_new():  # type: ignore[no-untyped-def]
+    """A fresh code for the "new code" button (JSON: token + image url)."""
+    if not captcha_service.enabled():
+        abort(404)
+    token = captcha_service.issue()
+    return jsonify(
+        {"token": token, "url": url_for("auth.captcha_image", token=token)},
+    ), {"Cache-Control": "no-store"}
 
 
 @bp.route("/reset/<token>", methods=["GET", "POST"])

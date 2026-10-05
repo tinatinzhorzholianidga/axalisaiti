@@ -207,6 +207,13 @@ hold `courses.manage_all`).
   `HttpOnly`, `SameSite=Lax`. Nothing sensitive is stored client-side.
 * CSRF via Flask-WTF on every form and on JSON API mutations (`X-CSRFToken`).
 * Rate limits via Flask-Limiter (Redis storage) with tighter limits on auth.
+* Security code (CAPTCHA) on registration, forgot-password and resend forms,
+  and at sign-in after two failed attempts in the same browser session
+  (`auth.captcha_login_after_failures`, 0 = always). It is self-hosted:
+  `captcha_service` draws the picture with Pillow, keeps the answer in the
+  cache for ten minutes under a random id and gives the browser only a
+  signed id; every code answers one submission. Switch off with the admin
+  setting `auth.captcha_enabled` or `CAPTCHA_ENABLED=false`.
 
 ## 6. Design systems
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-28 07:28+0000\n"
+"POT-Creation-Date: 2026-10-05 09:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -261,6 +261,13 @@ msgid "Your email address is verified. You can sign in now."
 msgstr ""
 
 msgid "If that address needs verification, a new email is on its way."
+msgstr ""
+
+msgid "Your email address is already verified."
+msgstr ""
+
+#, python-format
+msgid "A new verification link has been sent to %(email)s."
 msgstr ""
 
 msgid "If an account exists for that email, a reset link has been sent."
@@ -747,6 +754,12 @@ msgid "Section (English)"
 msgstr ""
 
 msgid "Text chunks (separate with a blank line)"
+msgstr ""
+
+msgid "Security code"
+msgstr ""
+
+msgid "The security code is wrong or has expired. Type the new one."
 msgstr ""
 
 msgid "Password"
@@ -1309,6 +1322,10 @@ msgid "Too many failed attempts. Try again later."
 msgstr ""
 
 msgid "This account is suspended."
+msgstr ""
+
+#, python-format
+msgid "Use the link we sent to %(email)s."
 msgstr ""
 
 msgid "Please verify your email address before signing in."
@@ -2542,9 +2559,6 @@ msgstr ""
 msgid "Forgot password?"
 msgstr ""
 
-msgid "Resend the verification email"
-msgstr ""
-
 msgid "New here?"
 msgstr ""
 
@@ -2728,6 +2742,15 @@ msgid "Security token"
 msgstr ""
 
 msgid "Please fix the following:"
+msgstr ""
+
+msgid "Picture with the security code"
+msgstr ""
+
+msgid "New code"
+msgstr ""
+
+msgid "Type the characters from the picture. Capital or small letters both work."
 msgstr ""
 
 msgid "Continue"
@@ -3301,6 +3324,21 @@ msgid "The theme switch in the header changes it instantly on this device."
 msgstr ""
 
 msgid "Last password change"
+msgstr ""
+
+msgid "Your email address is not verified yet."
+msgstr ""
+
+#, python-format
+msgid ""
+"We sent a link to %(email)s. If it did not arrive, request a new one; it "
+"stays valid for 24 hours."
+msgstr ""
+
+msgid "Send the verification email again"
+msgstr ""
+
+msgid "Email address verified"
 msgstr ""
 
 msgid "You have not enrolled in any course yet."

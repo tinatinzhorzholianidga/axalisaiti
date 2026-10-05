@@ -203,10 +203,15 @@ def test_unverified_user_blocked_when_verification_required(app, client, student
     db.session.commit()
     student.is_email_verified = False
     db.session.commit()
-    response = post(
-        client, "/auth/login", {"email": student.email, "password": "CorrectHorse!Battery9"}
-    )
+    from app.extensions import mail
+
+    with mail.record_messages() as outbox:
+        response = post(
+            client, "/auth/login", {"email": student.email, "password": "CorrectHorse!Battery9"}
+        )
     assert "დაადასტურეთ ელფოსტის მისამართი" in response.data.decode()
+    # no link had been sent before, so a fresh one goes out with the refusal
+    assert len(outbox) == 1 and outbox[0].recipients == [student.email]
     raw = auth_service.issue_token(student, "verify")
     client.get(f"/auth/verify/{raw}")
     db.session.refresh(student)
@@ -243,14 +248,17 @@ def test_verification_and_reset_emails_carry_public_links(app, client, student):
     assert len(outbox) == 1 and outbox[0].recipients == ["verify-me@example.org"]
     link = re.search(r"https://learn\.example\.org/auth/verify/(\S+)", outbox[0].body)
     assert link, outbox[0].body
-    # the unverified account cannot sign in yet …
-    login_page = post(
-        client,
-        "/auth/login",
-        {"email": "verify-me@example.org", "password": "CorrectHorse!Battery9"},
-        follow_redirects=True,
-    ).get_data(as_text=True)
-    assert "/auth/verify" in login_page  # the resend link is offered
+    # the unverified account cannot sign in yet; the link from registration is
+    # still fresh, so the message points at it instead of sending another one
+    with mail.record_messages() as resent:
+        login_page = post(
+            client,
+            "/auth/login?lang=en",
+            {"email": "verify-me@example.org", "password": "CorrectHorse!Battery9"},
+            follow_redirects=True,
+        ).get_data(as_text=True)
+    assert resent == [] and "Use the link we sent to verify-me@example.org" in login_page
+    assert "auth/verify" not in login_page  # no resend link on the sign-in page
     # … until the link from the email is opened
     assert client.get(f"/auth/verify/{link.group(1)}").status_code == 302
     user = db.session.query(User).filter_by(email="verify-me@example.org").one()
@@ -269,3 +277,26 @@ def test_verification_and_reset_emails_carry_public_links(app, client, student):
     assert response.status_code == 302
     db.session.refresh(student)
     assert student.check_password("Another-Str0ng-Pass!")
+
+
+def test_profile_offers_to_resend_verification_until_verified(client, logged_in_student):  # type: ignore[no-untyped-def]
+    from app.extensions import mail
+
+    page = client.get("/profile/?lang=en").get_data(as_text=True)
+    assert "Email address verified" in page and "not verified yet" not in page
+
+    logged_in_student.is_email_verified = False
+    db.session.commit()
+    page = client.get("/profile/?lang=en").get_data(as_text=True)
+    assert "not verified yet" in page and "/auth/verify/resend" in page
+    with mail.record_messages() as outbox:
+        response = post(client, "/auth/verify/resend", follow_redirects=True)
+    assert response.status_code == 200
+    assert len(outbox) == 1 and outbox[0].recipients == [logged_in_student.email]
+    assert "A new verification link has been sent to" in response.get_data(as_text=True)
+    # the link verifies the account and the notice disappears
+    import re
+
+    token = re.search(r"/auth/verify/(\S+)", outbox[0].body).group(1)
+    client.get(f"/auth/verify/{token}")
+    assert "not verified yet" not in client.get("/profile/?lang=en").get_data(as_text=True)
