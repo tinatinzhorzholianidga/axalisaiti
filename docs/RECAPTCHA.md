@@ -52,6 +52,11 @@ say so in the privacy notice.
 
 ## Troubleshooting
 
+* **"ERROR for site owner: Invalid key type"** (shown inside the widget): the
+  key was created as a different type. The site uses the classic **v2 →
+  "I'm not a robot" Checkbox**; a score-based (v3) key, a v2 *Invisible* key
+  or a reCAPTCHA Enterprise key from the Google Cloud console all fail this
+  way. Create a new key of the right type and replace both values in `.env`.
 * **"Invalid site key" / "Localhost is not in the list of supported domains"**:
   add the domain in the reCAPTCHA admin console.
 * **"The security check could not be verified right now."**: the server could
