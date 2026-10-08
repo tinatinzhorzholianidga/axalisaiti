@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-05 09:02+0000\n"
+"POT-Creation-Date: 2026-10-08 08:23+0000\n"
 "PO-Revision-Date: 2026-09-18 11:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ka\n"
@@ -762,11 +762,17 @@ msgstr "განყოფილება (ინგლისურად)"
 msgid "Text chunks (separate with a blank line)"
 msgstr "ტექსტის ფრაგმენტები (გამოყავით ცარიელი ხაზით)"
 
-msgid "Security code"
-msgstr "უსაფრთხოების კოდი"
+msgid "Security check"
+msgstr "უსაფრთხოების შემოწმება"
 
-msgid "The security code is wrong or has expired. Type the new one."
-msgstr "უსაფრთხოების კოდი არასწორია ან ვადა გაუვიდა. შეიყვანეთ ახალი."
+msgid "Please confirm that you are not a robot."
+msgstr "გთხოვთ, დაადასტუროთ, რომ რობოტი არ ხართ."
+
+msgid "The security check could not be verified right now. Please try again."
+msgstr "უსაფრთხოების შემოწმება ამჟამად ვერ დადასტურდა. გთხოვთ, სცადოთ ხელახლა."
+
+msgid "The security check failed. Please try again."
+msgstr "უსაფრთხოების შემოწმება ვერ გაიარა. გთხოვთ, სცადოთ ხელახლა."
 
 msgid "Password"
 msgstr "პაროლი"
@@ -1989,6 +1995,38 @@ msgstr "სატესტო წერილის გაგზავნა მ
 msgid "Edit the email texts"
 msgstr "ელფოსტის ტექსტების რედაქტირება"
 
+msgid "Security check (Google reCAPTCHA)"
+msgstr "უსაფრთხოების შემოწმება (Google reCAPTCHA)"
+
+msgid ""
+"The “I’m not a robot” checkbox on registration, forgot-password and "
+"resend forms, and at sign-in after repeated failures. The keys come from "
+"the server’s .env file (see docs/RECAPTCHA.md); the switch and the sign-"
+"in threshold are in the auth settings above."
+msgstr "„რობოტი არ ვარ“ მოსანიშნი ველი რეგისტრაციის, პაროლის აღდგენისა და ხელახლა გაგზავნის ფორმებზე, ასევე შესვლისას განმეორებითი წარუმატებელი მცდელობების შემდეგ. გასაღებები სერვერის .env ფაილიდან მოდის (იხ. docs/RECAPTCHA.md); ჩამრთველი და შესვლის ზღვარი ზემოთ, ავთენტიფიკაციის პარამეტრებშია."
+
+msgid "keys missing (RECAPTCHA_SITE_KEY, RECAPTCHA_SECRET_KEY)"
+msgstr "გასაღებები აკლია (RECAPTCHA_SITE_KEY, RECAPTCHA_SECRET_KEY)"
+
+msgid "switched off in the auth settings"
+msgstr "გამორთულია ავთენტიფიკაციის პარამეტრებში"
+
+msgid "active"
+msgstr "აქტიური"
+
+msgid "Site key"
+msgstr "საიტის გასაღები"
+
+msgid "At sign-in"
+msgstr "შესვლისას"
+
+msgid "always"
+msgstr "ყოველთვის"
+
+#, python-format
+msgid "after %(n)d failed attempts"
+msgstr "%(n)d წარუმატებელი მცდელობის შემდეგ"
+
 msgid "Registered"
 msgstr "რეგისტრირებულია"
 
@@ -2234,9 +2272,6 @@ msgstr "CyberHero-ს გახსნა"
 
 msgid "Age tracks"
 msgstr "ასაკობრივი მიმართულებები"
-
-msgid "active"
-msgstr "აქტიური"
 
 msgid "coming soon"
 msgstr "მალე დაემატება"
@@ -2809,15 +2844,6 @@ msgstr "უსაფრთხოების ტოკენი"
 
 msgid "Please fix the following:"
 msgstr "გთხოვთ, გაასწოროთ შემდეგი:"
-
-msgid "Picture with the security code"
-msgstr "სურათი უსაფრთხოების კოდით"
-
-msgid "New code"
-msgstr "ახალი კოდი"
-
-msgid "Type the characters from the picture. Capital or small letters both work."
-msgstr "შეიყვანეთ სურათზე ნაჩვენები სიმბოლოები. დიდი და პატარა ასოები თანაბრად მიიღება."
 
 msgid "Continue"
 msgstr "გაგრძელება"
@@ -3423,7 +3449,9 @@ msgstr "თქვენი ელფოსტის მისამართი 
 msgid ""
 "We sent a link to %(email)s. If it did not arrive, request a new one; it "
 "stays valid for 24 hours."
-msgstr "ბმული გავაგზავნეთ მისამართზე %(email)s. თუ არ მოვიდა, მოითხოვეთ ახალი — ის 24 საათის განმავლობაში მოქმედებს."
+msgstr ""
+"ბმული გავაგზავნეთ მისამართზე %(email)s. თუ არ მოვიდა, მოითხოვეთ ახალი — "
+"ის 24 საათის განმავლობაში მოქმედებს."
 
 msgid "Send the verification email again"
 msgstr "დადასტურების წერილის ხელახლა გაგზავნა"

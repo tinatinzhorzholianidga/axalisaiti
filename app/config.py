@@ -142,9 +142,10 @@ class BaseConfig:
     REGISTRATION_ENABLED = env_bool("REGISTRATION_ENABLED", True)
     EMAIL_VERIFICATION_REQUIRED = env_bool("EMAIL_VERIFICATION_REQUIRED", False)
     INSTRUCTOR_APPROVAL_REQUIRED = env_bool("INSTRUCTOR_APPROVAL_REQUIRED", True)
-    # Self-hosted image CAPTCHA on the public auth forms; the admin setting
-    # auth.captcha_enabled can switch it off at runtime, this cannot switch it on
-    CAPTCHA_ENABLED = env_bool("CAPTCHA_ENABLED", True)
+    # Google reCAPTCHA v2 on the public auth forms: no keys, no widget. The admin
+    # setting auth.captcha_enabled switches the check off at runtime.
+    RECAPTCHA_SITE_KEY = os.environ.get("RECAPTCHA_SITE_KEY", "")
+    RECAPTCHA_SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY", "")
 
     # --- features -----------------------------------------------------------
     # Build identifier (git SHA / tag) used to cache-bust static URLs; auto-derived if empty
@@ -205,7 +206,8 @@ class TestingConfig(BaseConfig):
     REGISTRATION_ENABLED = True
     EMAIL_VERIFICATION_REQUIRED = False
     INSTRUCTOR_APPROVAL_REQUIRED = True
-    CAPTCHA_ENABLED = False  # individual tests switch it on
+    RECAPTCHA_SITE_KEY = ""  # individual tests set keys and patch siteverify
+    RECAPTCHA_SECRET_KEY = ""
     HSTS_ENABLED = False
     SERVER_NAME = None
 

@@ -16,6 +16,7 @@ from app.services import (
     email_text_service,
     feature_flags,
     mail_service,
+    recaptcha_service,
     settings_service,
 )
 from app.services.rbac import require_permission
@@ -59,6 +60,7 @@ def settings():  # type: ignore[no-untyped-def]
         groups=groups,
         flags=feature_flags.all_flags(),
         mail=mail_service.status(),
+        recaptcha=recaptcha_service.status(),
         locale=locale(),
     )
 

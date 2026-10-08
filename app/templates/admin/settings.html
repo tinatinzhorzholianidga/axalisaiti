@@ -50,4 +50,13 @@
     <a class="btn btn-ghost" href="{{ url_for('admin.settings_emails') }}">{{ _('Edit the email texts') }}</a>
   </form>
 </section>
+<section class="panel mt-4" id="recaptcha">
+  <h2 class="h6 mb-2 text-uppercase">{{ _('Security check (Google reCAPTCHA)') }}</h2>
+  <p class="small text-muted">{{ _('The “I’m not a robot” checkbox on registration, forgot-password and resend forms, and at sign-in after repeated failures. The keys come from the server’s .env file (see docs/RECAPTCHA.md); the switch and the sign-in threshold are in the auth settings above.') }}</p>
+  <dl class="kv mb-0">
+    <dt>{{ _('Status') }}</dt><dd>{% if not recaptcha.configured %}<span class="chip chip-warning">{{ _('keys missing (RECAPTCHA_SITE_KEY, RECAPTCHA_SECRET_KEY)') }}</span>{% elif not recaptcha.enabled %}<span class="chip">{{ _('switched off in the auth settings') }}</span>{% else %}<span class="chip chip-success">{{ _('active') }}</span>{% endif %}</dd>
+    <dt>{{ _('Site key') }}</dt><dd>{{ recaptcha.site_key or '—' }}</dd>
+    <dt>{{ _('At sign-in') }}</dt><dd>{% if recaptcha.login_after_failures == 0 %}{{ _('always') }}{% else %}{{ _('after %(n)d failed attempts', n=recaptcha.login_after_failures) }}{% endif %}</dd>
+  </dl>
+</section>
 {% endblock %}

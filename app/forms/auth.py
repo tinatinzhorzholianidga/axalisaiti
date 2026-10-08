@@ -4,7 +4,7 @@ from flask import current_app
 from flask_babel import lazy_gettext as _l
 from wtforms import (
     BooleanField,
-    HiddenField,
+    Field,
     PasswordField,
     SelectField,
     StringField,
@@ -30,38 +30,65 @@ class PasswordPolicy:
             raise ValidationError(problem)
 
 
+class RecaptchaWidget:
+    """The Google widget: its script tag (an external file, allowed by the CSP
+    only when keys are configured) and the checkbox container."""
+
+    def __call__(self, field, **kwargs):  # type: ignore[no-untyped-def]
+        from flask_babel import get_locale
+        from markupsafe import Markup
+
+        from app.services import recaptcha_service
+
+        locale = str(get_locale() or current_app.config["BABEL_DEFAULT_LOCALE"])
+        return Markup(
+            '<script src="%s" async defer></script>\n'
+            '<div class="g-recaptcha" id="%s" data-sitekey="%s" data-theme="light"></div>'
+        ) % (recaptcha_service.script_url(locale), field.id, recaptcha_service.site_key())
+
+
+class RecaptchaField(Field):
+    """Carries the widget and the error messages; the token itself arrives as
+    ``g-recaptcha-response`` and is checked by ``CaptchaMixin.validate_recaptcha``."""
+
+    widget = RecaptchaWidget()
+
+    def process_formdata(self, valuelist) -> None:  # type: ignore[no-untyped-def]
+        self.data = None
+
+    def _value(self) -> str:
+        return ""
+
+
 class CaptchaMixin:
-    """Security code fields for the public forms.
+    """Google reCAPTCHA on a public form; ``captcha_required()`` says when."""
 
-    ``captcha_required()`` decides whether the picture is shown and checked;
-    ``refresh_captcha()`` issues a new code before the form is rendered.
-    """
-
-    captcha_token = HiddenField()
-    # no Optional(): an empty answer must still reach validate_captcha
-    captcha = StringField(_l("Security code"), validators=[Length(max=12)])
+    recaptcha = RecaptchaField(_l("Security check"))
 
     def captcha_required(self) -> bool:
-        from app.services import captcha_service
+        from app.services import recaptcha_service
 
-        return captcha_service.enabled()
+        return recaptcha_service.enabled()
 
-    def refresh_captcha(self) -> None:
-        from app.services import captcha_service
+    def validate_recaptcha(self, field) -> None:  # type: ignore[no-untyped-def]
+        from flask import request
 
-        if self.captcha_required():
-            self.captcha_token.data = captcha_service.issue()
-            self.captcha.data = ""
-
-    def validate_captcha(self, field) -> None:  # type: ignore[no-untyped-def]
-        from app.services import captcha_service
+        from app.services import recaptcha_service
 
         if not self.captcha_required():
             return
-        if not captcha_service.verify(self.captcha_token.data or "", field.data or ""):
+        outcome = recaptcha_service.verify(
+            request.form.get("g-recaptcha-response"), request.remote_addr
+        )
+        if outcome.ok:
+            return
+        if outcome.reason == "missing":
+            raise ValidationError(_l("Please confirm that you are not a robot."))
+        if outcome.reason == "unavailable":
             raise ValidationError(
-                _l("The security code is wrong or has expired. Type the new one.")
+                _l("The security check could not be verified right now. Please try again.")
             )
+        raise ValidationError(_l("The security check failed. Please try again."))
 
 
 class LoginForm(CaptchaMixin, BaseForm):
@@ -71,9 +98,9 @@ class LoginForm(CaptchaMixin, BaseForm):
     submit = SubmitField(_l("Sign in"))
 
     def captcha_required(self) -> bool:
-        from app.services import captcha_service
+        from app.services import recaptcha_service
 
-        return captcha_service.login_needs_captcha()
+        return recaptcha_service.login_needs_captcha()
 
 
 class RegisterForm(CaptchaMixin, BaseForm):

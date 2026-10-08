@@ -396,33 +396,6 @@ function initReplies() {
   });
 }
 
-/* ---- security code (CAPTCHA) "new code" button ----------------------------- */
-function initCaptcha() {
-  document.querySelectorAll("[data-captcha]").forEach((box) => {
-    const button = box.querySelector("[data-captcha-refresh]");
-    const image = box.querySelector("[data-captcha-image]");
-    const form = box.closest("form");
-    const token = form ? form.querySelector("input[name=captcha_token]") : null;
-    const answer = box.querySelector("input[name=captcha]");
-    if (!button || !image || !token) return;
-    button.addEventListener("click", async () => {
-      button.disabled = true;
-      try {
-        const res = await fetch(box.dataset.captchaNew, { credentials: "same-origin", headers: { Accept: "application/json" } });
-        if (!res.ok) throw new Error(String(res.status));
-        const data = await res.json();
-        token.value = data.token;
-        image.src = data.url;
-        if (answer) { answer.value = ""; answer.focus(); }
-      } catch (err) {
-        window.location.reload();
-      } finally {
-        button.disabled = false;
-      }
-    });
-  });
-}
-
 /* ---- flash auto-dismiss ------------------------------------------------- */
 function initFlash() {
   document.querySelectorAll(".flash-stack .alert-success, .flash-stack .alert-info").forEach((el) => {
@@ -444,4 +417,3 @@ initRoundEditor();
 initReplies();
 initFlash();
 initFancySelects();
-initCaptcha();

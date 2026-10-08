@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elearning VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-05 09:02+0000\n"
+"POT-Creation-Date: 2026-10-08 08:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -756,10 +756,16 @@ msgstr ""
 msgid "Text chunks (separate with a blank line)"
 msgstr ""
 
-msgid "Security code"
+msgid "Security check"
 msgstr ""
 
-msgid "The security code is wrong or has expired. Type the new one."
+msgid "Please confirm that you are not a robot."
+msgstr ""
+
+msgid "The security check could not be verified right now. Please try again."
+msgstr ""
+
+msgid "The security check failed. Please try again."
 msgstr ""
 
 msgid "Password"
@@ -1963,6 +1969,38 @@ msgstr ""
 msgid "Edit the email texts"
 msgstr ""
 
+msgid "Security check (Google reCAPTCHA)"
+msgstr ""
+
+msgid ""
+"The “I’m not a robot” checkbox on registration, forgot-password and "
+"resend forms, and at sign-in after repeated failures. The keys come from "
+"the server’s .env file (see docs/RECAPTCHA.md); the switch and the sign-"
+"in threshold are in the auth settings above."
+msgstr ""
+
+msgid "keys missing (RECAPTCHA_SITE_KEY, RECAPTCHA_SECRET_KEY)"
+msgstr ""
+
+msgid "switched off in the auth settings"
+msgstr ""
+
+msgid "active"
+msgstr ""
+
+msgid "Site key"
+msgstr ""
+
+msgid "At sign-in"
+msgstr ""
+
+msgid "always"
+msgstr ""
+
+#, python-format
+msgid "after %(n)d failed attempts"
+msgstr ""
+
 msgid "Registered"
 msgstr ""
 
@@ -2194,9 +2232,6 @@ msgid "Open CyberHero"
 msgstr ""
 
 msgid "Age tracks"
-msgstr ""
-
-msgid "active"
 msgstr ""
 
 msgid "coming soon"
@@ -2742,15 +2777,6 @@ msgid "Security token"
 msgstr ""
 
 msgid "Please fix the following:"
-msgstr ""
-
-msgid "Picture with the security code"
-msgstr ""
-
-msgid "New code"
-msgstr ""
-
-msgid "Type the characters from the picture. Capital or small letters both work."
 msgstr ""
 
 msgid "Continue"

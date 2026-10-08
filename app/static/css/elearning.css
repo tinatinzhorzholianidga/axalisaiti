@@ -499,8 +499,7 @@ textarea.form-control.code { font-family: var(--font-mono); font-size: var(--tex
 .auth-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); font-size: var(--text-sm); }
 .auth-row .form-field { margin: 0; }
 .auth-alt { margin-top: var(--space-6); font-size: var(--text-sm); color: var(--text-muted); }
-.captcha-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
-.captcha-image { display: block; width: 190px; height: 64px; border: 1px solid var(--border); border-radius: var(--radius-md); background: #f8f9fc; }
+.recaptcha .g-recaptcha { margin-bottom: var(--space-2); }
 .auth-aside { position: relative; background: var(--bg-secondary); border-left: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: var(--space-12); }
 .auth-aside-label { font-size: var(--text-xs); letter-spacing: 0.2em; color: var(--text-faint); margin: 0; position: relative; }
 .auth-aside-art { position: absolute; inset: 0; background: var(--gradient-hero); }
